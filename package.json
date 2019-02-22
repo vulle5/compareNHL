@@ -4,10 +4,12 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "lodash": "^4.17.11",
     "material-components-web": "^0.44.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-scripts": "2.1.5"
+    "react-scripts": "2.1.5",
+    "use-debounce": "0.0.9"
   },
   "scripts": {
     "start": "react-scripts start",

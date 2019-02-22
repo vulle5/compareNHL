@@ -1,15 +1,17 @@
 import React, { useState, Fragment } from 'react';
+import { useDebounce } from "use-debounce";
 
 import SearchResultsList from './SearchResultsList';
 
 const SearchPlayersBar = () => {
   const [term, setTerm] = useState('');
+  const debouncedText = useDebounce(term, 500);
 
   let content;
   if (term.length < 3) {
     content = null;
   } else {
-    content = <SearchResultsList term={term} />;
+    content = <SearchResultsList term={debouncedText} />;
   }
 
   return (
