@@ -5,7 +5,8 @@ import SearchResultsList from './SearchResultsList';
 
 const SearchPlayersBar = () => {
   const [term, setTerm] = useState('');
-  const debouncedText = useDebounce(term, 500);
+  // This delays sending of the search term to API request
+  const debouncedText = useDebounce(term, 300);
 
   let content;
   if (term.length < 3) {
