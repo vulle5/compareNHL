@@ -6,11 +6,13 @@ export const searchPlayers = searchTerm => {
 
   useEffect(() => {
     (async (searchTerm) => {
-      const response = await axios.get(
-        `https://suggest.svc.nhl.com/svc/suggest/v1/minplayers/${searchTerm}/99999`
-      );
-      // API returns a object with key of "suggestions" that is a an array
-      setPlayers(response.data.suggestions);
+      if (searchTerm !== "") {
+        const response = await axios.get(
+          `https://suggest.svc.nhl.com/svc/suggest/v1/minplayers/${searchTerm}/99999`
+        );
+        // API returns a object with key of "suggestions" that is a an array
+        setPlayers(response.data.suggestions);
+      }
     })(searchTerm);
   }, [searchTerm]);
 
