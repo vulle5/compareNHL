@@ -4,7 +4,6 @@ import axios from 'axios';
 // TODO: Implement getplayers
 export const getPlayerInfo = playerId => {
   const [players, setPlayers] = useState([]);
-  console.log(playerId, "PLAYER ID COMING TO FETCH");
 
   useEffect(() => {
     (async (ids) => {
