@@ -16,7 +16,7 @@ const SearchResultsList = ({ term }) => {
     */}
       <li className="mdc-list-item" tabIndex="0" key={player[0]}>
         <span className="mdc-list-item__text">
-          <span className="mdc-list-item__primary-text">{player[2] + ' ' + player[1]}</span>
+          <span className="mdc-list-item__primary-text">{`${player[2]} ${player[1]}`}</span>
           <span className="mdc-list-item__secondary-text">Second-line text</span>
         </span>
       </li>
