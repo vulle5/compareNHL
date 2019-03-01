@@ -11,9 +11,6 @@ const SearchResultsList = ({ term }) => {
 
   const renderPlayerList = parsedPlayerIds.map(player => (
     <div>
-      {/*
-      https://nhl.bamcontent.com/images/headshots/current/168x168/${playerID}.jpg
-    */}
       <li className="mdc-list-item" tabIndex="0" key={player[0]}>
         <span className="mdc-list-item__graphic material-icons">
           <img
