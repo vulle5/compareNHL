@@ -15,16 +15,34 @@ const SearchResultsList = ({ term }) => {
       https://nhl.bamcontent.com/images/headshots/current/168x168/${playerID}.jpg
     */}
       <li className="mdc-list-item" tabIndex="0" key={player[0]}>
+        <span className="mdc-list-item__graphic material-icons">
+          <img
+            src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${
+              player[0]
+            }.jpg`}
+            alt="player"
+            height="40"
+            width="40"
+          />
+        </span>
         <span className="mdc-list-item__text">
-          <span className="mdc-list-item__primary-text">{`${player[2]} ${player[1]}`}</span>
-          <span className="mdc-list-item__secondary-text">Second-line text</span>
+          <span className="mdc-list-item__primary-text">
+            {`${player[2]} ${player[1]}`}
+          </span>
+          <span className="mdc-list-item__secondary-text">
+            Second-line text
+          </span>
         </span>
       </li>
-      <hr className="mdc-list-divider"/>
+      <hr className="mdc-list-divider" />
     </div>
   ));
 
-  return <ul className="mdc-list mdc-list--two-line">{renderPlayerList}</ul>;
+  return (
+    <ul className="mdc-list mdc-list--two-line mdc-list--avatar-list">
+      {renderPlayerList}
+    </ul>
+  );
 };
 
 export default SearchResultsList;
