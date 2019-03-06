@@ -9,9 +9,13 @@ const SearchResultsList = ({ term }) => {
   const parsedPlayerIds = parseSearchResult(arrayOfPlayers);
   console.log(parsedPlayerIds);
 
+  const handleOnClick = player => {
+    console.log("you clicked", player[0]);
+  };
+
   const renderPlayerList = parsedPlayerIds.map(player => (
-    <div>
-      <li className="mdc-list-item" tabIndex="0" key={player[0]}>
+    <div key={player[0]} onClick={() => handleOnClick(player)}>
+      <li className="mdc-list-item" tabIndex="0">
         <span className="mdc-list-item__graphic material-icons">
           <img
             src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${
