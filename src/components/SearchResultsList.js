@@ -17,6 +17,11 @@ const SearchResultsList = ({ term }) => {
             src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${
               player[0]
             }.jpg`}
+            onError={e => {
+              e.target.onerror = null;
+              e.target.src =
+                "https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg";
+            }}
             alt="player"
             height="40"
             width="40"
