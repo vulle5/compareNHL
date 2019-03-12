@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import { searchPlayers } from "../functions/searchPlayer";
 import { parseSearchResult } from "../functions/parseSearchResult";
 
@@ -7,14 +9,9 @@ const SearchResultsList = ({ term }) => {
   const arrayOfPlayers = searchPlayers(term);
   // Returns array of player statistics
   const parsedPlayerIds = parseSearchResult(arrayOfPlayers);
-  console.log(parsedPlayerIds);
-
-  const handleOnClick = player => {
-    console.log("you clicked", player[0]);
-  };
 
   const renderPlayerList = parsedPlayerIds.map(player => (
-    <div key={player[0]} onClick={() => handleOnClick(player)}>
+    <Link key={player[0]} to={`/player/${player[0]}`}>
       <li className="mdc-list-item" tabIndex="0">
         <span className="mdc-list-item__graphic material-icons">
           <img
@@ -41,7 +38,7 @@ const SearchResultsList = ({ term }) => {
         </span>
       </li>
       <hr className="mdc-list-divider" />
-    </div>
+    </Link>
   ));
 
   return (

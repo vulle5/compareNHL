@@ -1,10 +1,10 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment } from "react";
 import { useDebounce } from "use-debounce";
 
-import SearchResultsList from './SearchResultsList';
+import SearchResultsList from "./SearchResultsList";
 
 const SearchPlayersBar = () => {
-  const [term, setTerm] = useState('');
+  const [term, setTerm] = useState("");
   // This delays sending of the search term to API request
   const debouncedText = useDebounce(term, 300);
 
@@ -17,7 +17,7 @@ const SearchPlayersBar = () => {
 
   return (
     <Fragment>
-      <div className="mdc-text-field mdc-text-field--fullwidth">
+      <div className="mdc-text-field">
         <input
           className="mdc-text-field__input"
           value={term}
