@@ -9,6 +9,7 @@ const SearchPlayersBar = () => {
   const debouncedText = useDebounce(term, 300);
 
   let content;
+
   if (term.length < 3) {
     content = null;
   } else {
@@ -21,6 +22,7 @@ const SearchPlayersBar = () => {
         <input
           className="mdc-text-field__input"
           value={term}
+          onFocus={(event) => event.target.select()}
           onChange={event => setTerm(event.target.value)}
           placeholder="Search Player"
           aria-label="Search Player"

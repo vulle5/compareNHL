@@ -6,12 +6,16 @@ import PlayerInfo from "./PlayerInfo";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={SearchPlayersBar} />
-        <Route path="/player/:id" component={PlayerInfo} />
-      </Switch>
-    </BrowserRouter>
+    <div>
+      <BrowserRouter>
+        <div>
+          <SearchPlayersBar />
+          <Switch>
+            <Route path="/player/:id" component={PlayerInfo} />
+          </Switch>
+        </div>
+      </BrowserRouter>
+    </div>
   );
 };
 
