@@ -9,6 +9,7 @@ const SearchResultsList = ({ term }) => {
   const arrayOfPlayers = searchPlayers(term);
   // Returns array of player statistics
   const parsedPlayerIds = parseSearchResult(arrayOfPlayers);
+  console.log(parsedPlayerIds);
 
   const renderPlayerList = parsedPlayerIds.map(player => (
     <Link key={player[0]} to={`/player/${player[0]}`}>
@@ -33,7 +34,7 @@ const SearchResultsList = ({ term }) => {
             {`${player[2]} ${player[1]}`}
           </span>
           <span className="mdc-list-item__secondary-text">
-            Second-line text
+            {player[10]}
           </span>
         </span>
       </li>
