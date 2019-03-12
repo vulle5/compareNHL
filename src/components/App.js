@@ -11,7 +11,7 @@ const App = () => {
         <div>
           <SearchPlayersBar />
           <Switch>
-            <Route path="/player/:id" component={PlayerInfo} />
+            <Route path="/player/:playerId" component={PlayerInfo} />
           </Switch>
         </div>
       </BrowserRouter>

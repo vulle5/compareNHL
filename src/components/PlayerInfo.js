@@ -1,7 +1,18 @@
 import React from "react";
 
-const PlayerInfo = ({ playerId }) => {
-  return <h1>PlayerInfo</h1>;
+import { getPlayerInfo } from '../functions/getPlayerInfo';
+
+const PlayerInfo = ( props ) => {
+  const { playerId } = props.match.params;
+  const playerResponse = getPlayerInfo(playerId);
+  console.log(playerResponse);
+  const playerStats = playerResponse.people;
+
+  return (
+    <div>
+      {`${playerStats}`}
+    </div>
+  );
 };
 
 export default PlayerInfo;
