@@ -9,7 +9,6 @@ const SearchPlayersBar = () => {
   const debouncedText = useDebounce(term, 300);
 
   let content;
-
   if (term.length < 3) {
     content = null;
   } else {

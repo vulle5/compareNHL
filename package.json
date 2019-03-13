@@ -10,6 +10,7 @@
     "react-dom": "^16.8.3",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
+    "typy": "^3.0.1",
     "use-debounce": "0.0.9"
   },
   "scripts": {
