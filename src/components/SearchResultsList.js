@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Avatar from "@material-ui/core/Avatar";
+import Divider from '@material-ui/core/Divider';
+import Typography from "@material-ui/core/Typography";
 
 import { searchPlayers } from "../functions/searchPlayer";
 import { parseSearchResult } from "../functions/parseSearchResult";
@@ -11,14 +18,23 @@ const SearchResultsList = ({ term }) => {
   const arrayOfPlayers = searchPlayers(term);
   // Returns array of player statistics
   const parsedPlayerIds = parseSearchResult(arrayOfPlayers);
-  
-  useEffect(() => {setListStatus(true)}, [])
+
+  useEffect(() => {
+    setListStatus(true);
+  }, []);
 
   const renderPlayerList = parsedPlayerIds.map(player => (
-    <Link key={player[0]} to={`/player/${player[0]}`} onClick={() => {setListStatus(false)}}>
-      <li className="mdc-list-item" tabIndex="0">
-        <span className="mdc-list-item__graphic material-icons">
-          <img
+    <Link
+      key={player[0]}
+      to={`/player/${player[0]}`}
+      onClick={() => {
+        setListStatus(false);
+      }}
+    >
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <Avatar
+            alt="Player"
             src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${
               player[0]
             }.jpg`}
@@ -27,27 +43,22 @@ const SearchResultsList = ({ term }) => {
               e.target.src =
                 "https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg";
             }}
-            alt="player"
-            height="40"
-            width="40"
           />
-        </span>
-        <span className="mdc-list-item__text">
-          <span className="mdc-list-item__primary-text">
-            {`${player[2]} ${player[1]}`}
-          </span>
-          <span className="mdc-list-item__secondary-text">{player[10]}</span>
-        </span>
-      </li>
-      <hr className="mdc-list-divider" />
+        </ListItemAvatar>
+        <ListItemText
+          primary={`${player[2]} ${player[1]}`}
+          secondary={
+            <Typography component="span" color="textSecondary">
+              {player[10]}
+            </Typography>
+          }
+        />
+      </ListItem>
+      <Divider />
     </Link>
   ));
 
-  return listStatus === true ? (
-    <ul className="mdc-list mdc-list--two-line mdc-list--avatar-list">
-      {renderPlayerList}
-    </ul>
-  ) : null;
+  return listStatus === true ? <List>{renderPlayerList}</List> : null;
 };
 
 export default SearchResultsList;

@@ -1,17 +1,3 @@
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.mdc-text-field {
-  width: 300px;
-}
-
-.mdc-list {
-  width: 300px;
-}
-
 a { 
   color: inherit; 
   text-decoration: none;

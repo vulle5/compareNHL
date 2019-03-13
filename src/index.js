@@ -1,4 +1,3 @@
-import 'material-components-web/dist/material-components-web.min.css';
 import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';

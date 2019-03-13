@@ -1,20 +1,20 @@
 import React from "react";
-import typy from "typy";
+import typy from 'typy';
 
-import { getPlayerInfo } from "../functions/getPlayerInfo";
+import { getPlayerInfo } from '../functions/getPlayerInfo';
 
-const PlayerInfo = props => {
+const PlayerInfo = ( props ) => {
   // Get Player id from the React Router props
   const { playerId } = props.match.params;
   // Fetch Player Info from the server
   const playerResponse = getPlayerInfo(playerId);
   console.log(playerResponse);
-  // In JavaScript Nested Objects are wierd. This line avoids errors with player response being 'undifined'
-  const playerStats = typy(playerResponse, "people[0]").safeObject;
+  // In JavaScript Nested Objects are wierd. This line avoids errors with player response being ''
+  const playerStats = typy(playerResponse, 'people[0]').safeObject;
 
   let content;
-  if (!playerStats) {
-    content = null;
+  if (!playerStats) {   
+    content = null;    
   } else {
     content = playerStats.fullName;
   }
