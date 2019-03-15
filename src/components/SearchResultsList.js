@@ -20,12 +20,13 @@ const SearchResultsList = ({ term }) => {
   const arrayOfPlayers = searchPlayers(term);
   // Returns array of player statistics
   const parsedPlayerIds = parseSearchResult(arrayOfPlayers);
+  console.log(parsedPlayerIds);
 
   useEffect(() => {
     setListStatus(true);
   }, []);
 
-  const renderPlayerList = parsedPlayerIds.map(player => (
+  const renderPlayerList = parsedPlayerIds.slice(0, 8).map(player => (
     <Link
       key={player[0]}
       to={`/player/${player[0]}`}
