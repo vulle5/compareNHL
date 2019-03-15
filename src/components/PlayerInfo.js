@@ -1,4 +1,5 @@
 import React from "react";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import typy from 'typy';
 
 import { getPlayerInfo } from '../functions/getPlayerInfo';
@@ -14,7 +15,7 @@ const PlayerInfo = ( props ) => {
 
   let content;
   if (!playerStats) {   
-    content = null;    
+    content = <CircularProgress />;    
   } else {
     content = playerStats.fullName;
   }

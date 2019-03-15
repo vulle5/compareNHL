@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
+import typy from "typy";
 import { Link } from "react-router-dom";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import Divider from '@material-ui/core/Divider';
+import Divider from "@material-ui/core/Divider";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
 
 import { searchPlayers } from "../functions/searchPlayer";
@@ -58,7 +60,15 @@ const SearchResultsList = ({ term }) => {
     </Link>
   ));
 
-  return listStatus === true ? <List>{renderPlayerList}</List> : null;
+  return listStatus === true ? (
+    <List>
+      {typy(parsedPlayerIds).isEmptyArray ? (
+        <CircularProgress />
+      ) : (
+        renderPlayerList
+      )}
+    </List>
+  ) : null;
 };
 
 export default SearchResultsList;

@@ -1,16 +1,16 @@
 import React, { useState, Fragment } from "react";
 import { useDebounce } from "use-debounce";
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import { withStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import InputBase from "@material-ui/core/InputBase";
+import { withStyles } from "@material-ui/core/styles";
+import MenuIcon from "@material-ui/icons/Menu";
+import SearchIcon from "@material-ui/icons/Search";
 
-import { styles } from '../styles/SearchPlayersBarStyles';
+import { styles } from "../styles/SearchPlayersBarStyles";
 import SearchResultsList from "./SearchResultsList";
 
 const SearchPlayersBar = props => {
@@ -31,10 +31,19 @@ const SearchPlayersBar = props => {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Open drawer"
+            >
               <MenuIcon />
             </IconButton>
-            <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+            <Typography
+              className={classes.title}
+              variant="h6"
+              color="inherit"
+              noWrap
+            >
               Material-UI
             </Typography>
             <div className={classes.grow} />
@@ -46,11 +55,11 @@ const SearchPlayersBar = props => {
                 autoFocus
                 placeholder="Search Players"
                 value={term}
-                onFocus={(event) => event.target.select()}
+                onFocus={event => event.target.select()}
                 onChange={event => setTerm(event.target.value)}
                 classes={{
                   root: classes.inputRoot,
-                  input: classes.inputInput,
+                  input: classes.inputInput
                 }}
               />
             </div>
