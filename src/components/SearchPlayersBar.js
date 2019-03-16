@@ -10,7 +10,7 @@ import { withStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 
-import { styles } from "../styles/SearchPlayersBarStyles";
+import { searchPlayerBarStyles } from "../styles/jss-styles";
 import SearchResultsList from "./SearchResultsList";
 
 const SearchPlayersBar = props => {
@@ -44,7 +44,7 @@ const SearchPlayersBar = props => {
               color="inherit"
               noWrap
             >
-              Material-UI
+              CompareNHL
             </Typography>
             <div className={classes.grow} />
             <div className={classes.search}>
@@ -71,4 +71,4 @@ const SearchPlayersBar = props => {
   );
 };
 
-export default withStyles(styles)(SearchPlayersBar);
+export default withStyles(searchPlayerBarStyles)(SearchPlayersBar);

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// TODO: Implement getplayers
 export const getPlayerInfo = playerId => {
   const [playerStats, setPlayerStats] = useState([]);
 

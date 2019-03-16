@@ -1,6 +1,6 @@
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
-export const styles = theme => ({
+export const searchPlayerBarStyles = theme => ({
   root: {
     width: '100%',
   },
@@ -57,5 +57,14 @@ export const styles = theme => ({
         width: 200,
       },
     },
+  },
+});
+
+export const playerInfoStyles = theme => ({
+  root: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit,
   },
 });
