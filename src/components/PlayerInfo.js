@@ -11,9 +11,8 @@ import { getPlayerImages } from "../functions/getPlayerimages";
 import Player from '../models/Player';
 
 const PlayerInfo = ( props ) => {
-  // Get Player id from the React Router props
-  const { playerId } = props.match.params;
-  const { classes } = props;
+  // Get Player id from the React Router props and styles
+  const { classes , match: {params: {playerId}} } = props; 
   // Fetch Player Info from the server
   const playerResponse = getPlayerInfo(playerId);
   // Fetch player images
