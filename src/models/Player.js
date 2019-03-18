@@ -47,12 +47,21 @@ class Player {
     this.primaryPosition = primaryPosition;
   }
 
+  get metricHight() {
+    return this.heightTometric();
+  }
+
   calcCurrentAge() {
     const date = moment();
     const birth = moment(this.birthDate, 'YYYY-MM-DD');
     const finalDate = moment.duration(date.diff(birth));
     return finalDate._data.years;
-  }  
+  }
+  
+  heightTometric() {
+    const parseEngArray = this.height.match(/\d/g);
+    return Math.round(parseEngArray[0] * 30.48 + parseEngArray[1] * 2.54);
+  }
 }
 
 export default Player;

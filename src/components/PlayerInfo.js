@@ -12,7 +12,7 @@ import Player from '../models/Player';
 
 const PlayerInfo = ( props ) => {
   // Get Player id from the React Router props and styles
-  const { classes , match: {params: {playerId}} } = props; 
+  const { classes , match: {params: {playerId}} } = props;
   // Fetch Player Info from the server
   const playerResponse = getPlayerInfo(playerId);
   // Fetch player images
@@ -22,15 +22,20 @@ const PlayerInfo = ( props ) => {
   
   const renderInfo = player => {
     return (
-      <div>
+      <div className={classes.wrapper}>
         <Paper className={classes.root} elevation={1}>
           <img className={classes.playerThumbnail} src={`data:image/jpg;base64, ${playerImageResponse}`} alt="Player" />
           <Typography variant="h5" component="h3">
-            {player.fullName}
+            {`${player.fullName} #${player.primaryNumber}`}
           </Typography>
           <Typography component="p">
             {player.currentTeam.name}
           </Typography>
+          <ul className={classes.mainStats}>
+            <li><Typography component="p">{`${player.height}, ${player.metricHight}`}</Typography></li>
+            <li><Typography component="p">{player.weight}</Typography></li>
+            <li><Typography component="p">{`Age: ${player.currentAge}`}</Typography></li>
+          </ul>
         </Paper>
       </div>
     );

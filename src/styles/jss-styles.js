@@ -66,6 +66,15 @@ export const playerInfoStyles = theme => ({
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
     margin: theme.spacing.unit,
+    maxWidth: '1000px',
+    textAlign: '-webkit-center',
+  },
+  wrapper: {
+    textAlign: '-webkit-center',
+  },
+  mainStats: {
+    paddingInlineStart: '0',
+    listStyleType: 'none',
   },
   playerThumbnail: {
     width: '100%',
