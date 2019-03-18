@@ -71,5 +71,6 @@ export const playerInfoStyles = theme => ({
     width: '100%',
     objectFit: 'contain',
     maxHeight: '398px',
+    borderRadius: '4px'
   },
 });
