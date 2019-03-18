@@ -67,4 +67,9 @@ export const playerInfoStyles = theme => ({
     paddingBottom: theme.spacing.unit * 2,
     margin: theme.spacing.unit,
   },
+  playerThumbnail: {
+    width: '100%',
+    objectFit: 'contain',
+    maxHeight: '398px',
+  },
 });
