@@ -33,7 +33,7 @@ const PlayerInfo = ( props ) => {
           </Typography>
           <ul className={classes.mainStats}>
             <li><Typography component="p">{`${player.height}, ${player.metricHight}`}</Typography></li>
-            <li><Typography component="p">{player.weight}</Typography></li>
+            <li><Typography component="p">{`${player.weight}, ${player.metricWeight}`}</Typography></li>
             <li><Typography component="p">{`Age: ${player.currentAge}`}</Typography></li>
           </ul>
         </Paper>

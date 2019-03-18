@@ -48,7 +48,11 @@ class Player {
   }
 
   get metricHight() {
-    return this.heightTometric();
+    return this.heightToMetric();
+  }
+
+  get metricWeight() {
+    return this.weightToMetric();
   }
 
   calcCurrentAge() {
@@ -58,9 +62,13 @@ class Player {
     return finalDate._data.years;
   }
   
-  heightTometric() {
+  heightToMetric() {
     const parseEngArray = this.height.match(/\d/g);
     return Math.round(parseEngArray[0] * 30.48 + parseEngArray[1] * 2.54);
+  }
+
+  weightToMetric() {
+    return Math.round(this.weight * 0.45359237);
   }
 }
 
