@@ -75,6 +75,11 @@ export const playerInfoStyles = theme => ({
   mainStats: {
     paddingInlineStart: '0',
     listStyleType: 'none',
+    display: 'table',
+  },
+  mainStatsLi: {
+    float: 'left',
+    padding: '0px 8px',
   },
   playerThumbnail: {
     width: '100%',

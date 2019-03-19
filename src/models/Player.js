@@ -22,7 +22,8 @@ class Player {
     shootsCatches,
     rosterStatus,
     currentTeam,
-    primaryPosition
+    primaryPosition,
+    stats
   ) {
     this.id = id;
     this.fullName = fullName;
@@ -45,6 +46,7 @@ class Player {
     this.rosterStatus = rosterStatus;
     this.currentTeam = currentTeam || {id: "N/A", link: "N/A", name: "N/A"};
     this.primaryPosition = primaryPosition;
+    this.stats = stats || {};
   }
 
   get metricHight() {

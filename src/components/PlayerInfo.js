@@ -9,6 +9,7 @@ import { playerInfoStyles } from "../styles/jss-styles";
 import { getPlayerInfo } from '../functions/getPlayerInfo';
 import { getPlayerImages } from "../functions/getPlayerimages";
 import Player from '../models/Player';
+import SeasonTable from "./SeasonTable";
 
 const PlayerInfo = ( props ) => {
   // Get Player id from the React Router props and styles
@@ -32,10 +33,11 @@ const PlayerInfo = ( props ) => {
             {player.currentTeam.name}
           </Typography>
           <ul className={classes.mainStats}>
-            <li><Typography component="p">{`${player.height}, ${player.metricHight}`}</Typography></li>
-            <li><Typography component="p">{`${player.weight}, ${player.metricWeight}`}</Typography></li>
-            <li><Typography component="p">{`Age: ${player.currentAge}`}</Typography></li>
+            <li className={classes.mainStatsLi}><Typography component="p">{`${player.height}, ${player.metricHight}`}</Typography></li>
+            <li className={classes.mainStatsLi}><Typography component="p">{`${player.weight}, ${player.metricWeight}`}</Typography></li>
+            <li className={classes.mainStatsLi}><Typography component="p">{`Age: ${player.currentAge}`}</Typography></li>
           </ul>
+          <SeasonTable id={player.id} />
         </Paper>
       </div>
     );
