@@ -3,8 +3,7 @@ import axios from 'axios';
 
 export const getPlayerInfo = (playerId, modifier) => {
   const [playerStats, setPlayerStats] = useState([]);
-  let modURL = modifier ? modifier : ''; 
-  console.log(modURL);
+  let modURL = modifier ? modifier : '';
   useEffect(() => {
     (async (ids) => {
       if (ids !== 0) {

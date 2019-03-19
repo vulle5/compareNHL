@@ -15,7 +15,7 @@ const PlayerInfo = ( props ) => {
   // Get Player id from the React Router props and styles
   const { classes , match: {params: {playerId}} } = props;
   // Fetch Player Info from the server
-  const playerResponse = getPlayerInfo(playerId);
+  const playerResponse = getPlayerInfo(playerId, '?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team');
   // Fetch player images
   const playerImageResponse = getPlayerImages(playerId);
   // In JavaScript Nested Objects are wierd. This line avoids errors with player response being ''
@@ -37,7 +37,7 @@ const PlayerInfo = ( props ) => {
             <li className={classes.mainStatsLi}><Typography component="p">{`${player.weight}, ${player.metricWeight}`}</Typography></li>
             <li className={classes.mainStatsLi}><Typography component="p">{`Age: ${player.currentAge}`}</Typography></li>
           </ul>
-          <SeasonTable id={player.id} />
+          <SeasonTable player={player} />
         </Paper>
       </div>
     );
@@ -69,7 +69,8 @@ const PlayerInfo = ( props ) => {
       playerStats.shootsCatches,
       playerStats.rosterStatus,
       playerStats.currentTeam,
-      playerStats.primaryPosition
+      playerStats.primaryPosition,
+      playerStats.stats
     );
     content = renderInfo(newPlayer);
   }
