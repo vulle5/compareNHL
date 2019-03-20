@@ -20,7 +20,6 @@ const SearchResultsList = ({ term }) => {
   const arrayOfPlayers = searchPlayers(term);
   // Returns array of player statistics
   const parsedPlayerIds = parseSearchResult(arrayOfPlayers);
-  console.log(parsedPlayerIds);
 
   useEffect(() => {
     setListStatus(true);

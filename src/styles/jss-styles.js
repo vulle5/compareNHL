@@ -88,3 +88,18 @@ export const playerInfoStyles = theme => ({
     borderRadius: '4px'
   },
 });
+
+export const seasonTableStyles = theme => ({
+  root: {
+    overflow: 'auto',
+  },
+  table: {
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+    width: '50%',
+    tableLayout: 'fixed',
+  },
+  rowItem: {
+  }
+});
