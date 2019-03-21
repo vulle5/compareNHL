@@ -4,7 +4,8 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableRow
+  TableRow,
+  Typography
 } from "@material-ui/core";
 import { withStyles } from '@material-ui/core/styles';
 import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
@@ -14,7 +15,7 @@ import { seasonTableStyles } from '../styles/jss-styles';
 const SeasonTable = props => {
   // Get player object from props
   const {
-    player, classes, width,
+    classes, width,
     player: {
       stats: {
         1: {
@@ -40,6 +41,9 @@ const SeasonTable = props => {
 
   return (
     <div className={classes.root}>
+      <Typography variant="h6" id="tableTitle">
+        NHL Career
+      </Typography>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
