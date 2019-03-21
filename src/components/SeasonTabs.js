@@ -17,7 +17,8 @@ const SeasonTabs = props => {
   const [value, setValue] = useState(0);
   const { classes, theme } = props;
 
-  const handleChange = (value) => {
+  // Do NOT remove the 'event' argument
+  const handleChange = (event, value) => {
     setValue(value);
   };
 

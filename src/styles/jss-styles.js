@@ -103,3 +103,11 @@ export const seasonTableStyles = theme => ({
   rowItem: {
   }
 });
+
+export const seasonTabsStyles = theme => ({
+  root: {
+    backgroundColor: theme.palette.background.paper,
+    width: 500,
+    display: 'inline',
+  },
+});
