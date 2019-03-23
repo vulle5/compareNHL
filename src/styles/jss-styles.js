@@ -1,5 +1,7 @@
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
+let isFirefox = typeof InstallTrigger !== 'undefined';
+
 export const searchPlayerBarStyles = theme => ({
   root: {
     width: '100%',
@@ -74,7 +76,7 @@ export const playerInfoStyles = theme => ({
     textAlign: '-webkit-center',
   },
   wrapper: {
-    textAlign: '-webkit-center',
+    textAlign: isFirefox ? '-moz-center' : '-webkit-center',
   },
   mainStats: {
     paddingInlineStart: '0',
