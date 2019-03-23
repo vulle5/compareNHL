@@ -16,7 +16,7 @@ import SeasonTabs from "./SeasonTabs";
 const SeasonTable = props => {
   // Get player object from props
   const {
-    classes, width,
+    classes, width, player,
     player: {
       stats: {
         1: {
@@ -27,16 +27,6 @@ const SeasonTable = props => {
       }
     }
   } = props;
-  console.log(props);
-  // let id = 0;
-  // const createData = (games, points, goals, assists) => {
-  //   id += 1;
-  //   return { id, games, points, goals, assists };
-  // }
-
-  // const rows = [
-    
-  // ];
 
   return (
     <Fragment>
@@ -63,7 +53,7 @@ const SeasonTable = props => {
           </TableBody>
         </Table>
       </div>
-      {isWidthUp('sm', width) ? <SeasonTabs /> : null }
+      {isWidthUp('sm', width) ? <SeasonTabs player={player}/> : null}
     </Fragment>
   );
 };

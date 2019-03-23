@@ -114,7 +114,7 @@ export const seasonTableStyles = theme => ({
     [theme.breakpoints.down('sm')]: {
       width: '100%',
     },
-    width: '50%',
+    width: '75%',
     tableLayout: 'fixed',
   },
   rowItem: {

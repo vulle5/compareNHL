@@ -5,6 +5,7 @@ import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import SwipeableViews from "react-swipeable-views";
 
 import { seasonTabsStyles } from "../styles/jss-styles";
+import CareerTable from "./CareerTable";
 
 const TabContainer = ({ children, dir, width }) => {
   return (
@@ -37,7 +38,7 @@ const SeasonTabs = props => {
           textColor="primary"
           variant="fullWidth"
         >
-          <Tab label="Item One" />
+          <Tab label="Career Stats" />
           <Tab label="Item Two" />
           <Tab label="Item Three" />
         </Tabs>
@@ -48,12 +49,12 @@ const SeasonTabs = props => {
         onChangeIndex={handleChangeIndex}
       >
         {isWidthUp("sm", width) ? (
-          <TabContainer dir={theme.direction} width={width}>Item One</TabContainer>
+          <TabContainer dir={theme.direction} width={width}><CareerTable player={player}/></TabContainer>
         ) : (
           <TabContainer dir={theme.direction}>{playerInfoJSX(player)}</TabContainer>
         )}
-        <TabContainer dir={theme.direction} width={width}>Item Two</TabContainer>
-        <TabContainer dir={theme.direction} width={width}>Item Three</TabContainer>
+        <TabContainer dir={theme.direction} width={width}><CareerTable player={player}/></TabContainer>
+        <TabContainer dir={theme.direction} width={width}>Item Three both</TabContainer>
       </SwipeableViews>
     </div>
   );
