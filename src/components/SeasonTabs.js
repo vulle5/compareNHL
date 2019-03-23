@@ -1,21 +1,22 @@
 import React, { useState } from "react";
-import { AppBar, Tab, Tabs, Typography } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
-import SwipeableViews from 'react-swipeable-views';
+import { AppBar, Tab, Tabs, Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
+import SwipeableViews from "react-swipeable-views";
 
-import { seasonTabsStyles } from '../styles/jss-styles';
+import { seasonTabsStyles } from "../styles/jss-styles";
 
-const TabContainer = ({ children, dir }) => {
+const TabContainer = ({ children, dir, width }) => {
   return (
-    <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+    <Typography component="div" dir={dir} style={isWidthUp('sm', width) ? { padding: 8 * 3 } : null}>
       {children}
     </Typography>
   );
-}
+};
 
 const SeasonTabs = props => {
   const [value, setValue] = useState(0);
-  const { classes, theme } = props;
+  const { classes, theme, width, playerInfoJSX, player } = props;
 
   // Do NOT remove the 'event' argument
   const handleChange = (event, value) => {
@@ -42,16 +43,23 @@ const SeasonTabs = props => {
         </Tabs>
       </AppBar>
       <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={value}
         onChangeIndex={handleChangeIndex}
       >
-        <TabContainer dir={theme.direction}>Item One</TabContainer>
-        <TabContainer dir={theme.direction}>Item Two</TabContainer>
-        <TabContainer dir={theme.direction}>Item Three</TabContainer>
+        {/* TODO: Add PlayerInfo to the TabContainer as child when on mobile */}
+        {isWidthUp("sm", width) ? (
+          <TabContainer dir={theme.direction} width={width}>Item One</TabContainer>
+        ) : (
+          <TabContainer dir={theme.direction}>{playerInfoJSX(player)}</TabContainer>
+        )}
+        <TabContainer dir={theme.direction} width={width}>Item Two</TabContainer>
+        <TabContainer dir={theme.direction} width={width}>Item Three</TabContainer>
       </SwipeableViews>
     </div>
   );
-}
+};
 
-export default withStyles(seasonTabsStyles, { withTheme: true })(SeasonTabs);
+export default withWidth()(
+  withStyles(seasonTabsStyles, { withTheme: true })(SeasonTabs)
+);

@@ -65,6 +65,10 @@ export const playerInfoStyles = theme => ({
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
+    [theme.breakpoints.down('xs')]: {
+      margin: '0px',
+      borderRadius: '0px',
+    },
     margin: theme.spacing.unit,
     maxWidth: '1000px',
     textAlign: '-webkit-center',
@@ -92,6 +96,7 @@ export const playerInfoStyles = theme => ({
 export const seasonTableStyles = theme => ({
   root: {
     overflow: 'auto',
+    marginBottom: '8px',
   },
   table: {
     [theme.breakpoints.down('sm')]: {

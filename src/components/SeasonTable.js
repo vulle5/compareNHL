@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { withStyles } from '@material-ui/core/styles';
-import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
+import withWidth, { isWidthDown, isWidthUp } from '@material-ui/core/withWidth';
 
 import { seasonTableStyles } from '../styles/jss-styles';
 import SeasonTabs from "./SeasonTabs";
@@ -27,7 +27,7 @@ const SeasonTable = props => {
       }
     }
   } = props;
-  
+  console.log(props);
   // let id = 0;
   // const createData = (games, points, goals, assists) => {
   //   id += 1;
@@ -37,8 +37,6 @@ const SeasonTable = props => {
   // const rows = [
     
   // ];
-
-  // width === 'sm' || 'xs' ? 'GP' : 'Games Played'
 
   return (
     <Fragment>
@@ -65,7 +63,7 @@ const SeasonTable = props => {
           </TableBody>
         </Table>
       </div>
-      <SeasonTabs />
+      {isWidthUp('sm', width) ? <SeasonTabs /> : null }
     </Fragment>
   );
 };
