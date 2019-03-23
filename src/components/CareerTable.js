@@ -45,7 +45,7 @@ const CareerTable = props => {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell align="center">N</TableCell>
+            <TableCell align="center">League</TableCell>
             <TableCell align="center">Season</TableCell>
             <TableCell align="center">GP</TableCell>
             <TableCell align="center">P</TableCell>

@@ -9,7 +9,11 @@ import CareerTable from "./CareerTable";
 
 const TabContainer = ({ children, dir, width }) => {
   return (
-    <Typography component="div" dir={dir} style={isWidthUp('sm', width) ? { padding: 8 * 3 } : null}>
+    <Typography
+      component="div"
+      dir={dir}
+      style={isWidthUp("sm", width) ? { padding: 8 * 3 } : null}
+    >
       {children}
     </Typography>
   );
@@ -31,17 +35,31 @@ const SeasonTabs = props => {
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
-        >
-          <Tab label="Career Stats" />
-          <Tab label="Item Two" />
-          <Tab label="Item Three" />
-        </Tabs>
+        {isWidthUp("sm", width) ? (
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="fullWidth"
+          >
+            <Tab label="Career Stats" />
+            <Tab label="Item Two" />
+            <Tab label="Item Three" />
+          </Tabs>
+        ) : (
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="fullWidth"
+          >
+            <Tab label="Player" />
+            <Tab label="Career Stats" />
+            <Tab label="Item Three" />
+          </Tabs>
+        )}
       </AppBar>
       <SwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
@@ -49,12 +67,34 @@ const SeasonTabs = props => {
         onChangeIndex={handleChangeIndex}
       >
         {isWidthUp("sm", width) ? (
-          <TabContainer dir={theme.direction} width={width}><CareerTable player={player}/></TabContainer>
+          /* Desktop */
+          <TabContainer dir={theme.direction} width={width}>
+            <CareerTable player={player} />
+          </TabContainer>
         ) : (
-          <TabContainer dir={theme.direction}>{playerInfoJSX(player)}</TabContainer>
+          /* Mobile */
+          <TabContainer dir={theme.direction}>
+            {playerInfoJSX(player)}
+          </TabContainer>
         )}
-        <TabContainer dir={theme.direction} width={width}><CareerTable player={player}/></TabContainer>
-        <TabContainer dir={theme.direction} width={width}>Item Three both</TabContainer>
+        {isWidthUp("sm", width) ? (
+          <TabContainer dir={theme.direction} width={width}>
+            Item
+          </TabContainer>
+        ) : (
+          <TabContainer dir={theme.direction} width={width}>
+            <CareerTable player={player} />
+          </TabContainer>
+        )}
+        {isWidthUp("sm", width) ? (
+          <TabContainer dir={theme.direction} width={width}>
+            Item Three both
+          </TabContainer>
+        ) : (
+          <TabContainer dir={theme.direction} width={width}>
+            Item
+          </TabContainer>
+        )}
       </SwipeableViews>
     </div>
   );
