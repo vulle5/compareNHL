@@ -47,7 +47,6 @@ const SeasonTabs = props => {
         index={value}
         onChangeIndex={handleChangeIndex}
       >
-        {/* TODO: Add PlayerInfo to the TabContainer as child when on mobile */}
         {isWidthUp("sm", width) ? (
           <TabContainer dir={theme.direction} width={width}>Item One</TabContainer>
         ) : (
