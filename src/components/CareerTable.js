@@ -8,12 +8,13 @@ import {
   TableCell
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+import withWidth, { isWidthDown } from "@material-ui/core/withWidth";
 
 import { seasonTableStyles } from "../styles/jss-styles";
 
 const CareerTable = props => {
   const {
-    classes,
+    classes, width,
     player: {
       stats: {
         0: {
@@ -33,9 +34,16 @@ const CareerTable = props => {
 
   splits.forEach(season => {
     let a = {};
-    a = createData(season.league.name, season.season, season.stat.games, season.stat.points, season.stat.goals, season.stat.assists);
+    let seasonWithDash = season.season.slice(0,4) + "-" + season.season.slice(4);
+    a = createData(season.league.name, seasonWithDash, season.stat.games, season.stat.points, season.stat.goals, season.stat.assists);
     rows.push(a);
   });
+
+  const replacer = season => {
+    let newSeason = season.replace(/^\d{2}|-\d{2}/g, '')
+    newSeason = newSeason.slice(0,2) + "-" + newSeason.slice(2);
+    return newSeason;
+  }
 
   return (
     <div className={classes.root}>
@@ -60,7 +68,7 @@ const CareerTable = props => {
                 {row.name}
               </TableCell>
               <TableCell align="center" className={classes.rowItem}>
-                {row.season}
+                {isWidthDown('sm', width) ? replacer(row.season) : row.season}
               </TableCell>
               <TableCell align="center" className={classes.rowItem}>
                 {row.games}
@@ -82,4 +90,4 @@ const CareerTable = props => {
   );
 };
 
-export default withStyles(seasonTableStyles)(CareerTable);
+export default withWidth()(withStyles(seasonTableStyles)(CareerTable));
