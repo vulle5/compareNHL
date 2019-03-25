@@ -21,7 +21,7 @@ const TabContainer = ({ children, dir, width }) => {
 
 const SeasonTabs = props => {
   const [value, setValue] = useState(0);
-  const { classes, theme, width, playerInfoJSX, player } = props;
+  const { classes, theme, width, player } = props;
 
   // Do NOT remove the 'event' argument
   const handleChange = (event, value) => {
@@ -34,8 +34,7 @@ const SeasonTabs = props => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
-        {isWidthUp("sm", width) ? (
+      <AppBar position={isWidthUp('sm', width) ? "static" : "sticky"} color="default">
           <Tabs
             value={value}
             onChange={handleChange}
@@ -47,54 +46,21 @@ const SeasonTabs = props => {
             <Tab label="Item Two" />
             <Tab label="Item Three" />
           </Tabs>
-        ) : (
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            variant="fullWidth"
-          >
-            <Tab label="Player" />
-            <Tab label="Career Stats" />
-            <Tab label="Item Three" />
-          </Tabs>
-        )}
       </AppBar>
       <SwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={value}
         onChangeIndex={handleChangeIndex}
       >
-        {isWidthUp("sm", width) ? (
-          /* Desktop */
-          <TabContainer dir={theme.direction} width={width}>
-            <CareerTable player={player} />
-          </TabContainer>
-        ) : (
-          /* Mobile */
-          <TabContainer dir={theme.direction}>
-            {playerInfoJSX(player)}
-          </TabContainer>
-        )}
-        {isWidthUp("sm", width) ? (
-          <TabContainer dir={theme.direction} width={width}>
-            Item
-          </TabContainer>
-        ) : (
-          <TabContainer dir={theme.direction} width={width}>
-            <CareerTable player={player} />
-          </TabContainer>
-        )}
-        {isWidthUp("sm", width) ? (
-          <TabContainer dir={theme.direction} width={width}>
-            Item Three both
-          </TabContainer>
-        ) : (
-          <TabContainer dir={theme.direction} width={width}>
-            Item
-          </TabContainer>
-        )}
+        <TabContainer dir={theme.direction} width={width}>
+          <CareerTable player={player} />
+        </TabContainer>
+        <TabContainer dir={theme.direction} width={width}>
+          Item
+        </TabContainer>     
+        <TabContainer dir={theme.direction} width={width}>
+          Item Three both
+        </TabContainer>   
       </SwipeableViews>
     </div>
   );

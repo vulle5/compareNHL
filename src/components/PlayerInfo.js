@@ -32,42 +32,37 @@ const PlayerInfo = props => {
   // In JavaScript Nested Objects are wierd. This line avoids errors with player response being ''
   const playerStats = typy(playerResponse, "people[0]").safeObject;
 
-  const playerInfoJSX = player => {
-    return (
-      <Paper className={classes.root} elevation={1}>
-        <img
-          className={classes.playerThumbnail}
-          src={`data:image/jpg;base64, ${playerImageResponse}`}
-          alt="Player"
-        />
-        <Typography variant="h5" component="h3">
-          {`${player.fullName} #${player.primaryNumber}`}
-        </Typography>
-        <Typography component="p">{player.currentTeam.name}</Typography>
-        <ul className={classes.mainStats}>
-          <li className={classes.mainStatsLi}>
-            <Typography component="p">{`${player.height}, ${
-              player.metricHight
-            }`}</Typography>
-          </li>
-          <li className={classes.mainStatsLi}>
-            <Typography component="p">{`${player.weight}, ${
-              player.metricWeight
-            }`}</Typography>
-          </li>
-          <li className={classes.mainStatsLi}>
-            <Typography component="p">{`Age: ${player.currentAge}`}</Typography>
-          </li>
-        </ul>
-        <SeasonTable player={player} />
-      </Paper>
-    );
-  };
-
   const renderInfo = player => {
     return (
       <div className={classes.wrapper}>
-        {isWidthUp("sm", width) ? playerInfoJSX(player) : <SeasonTabs playerInfoJSX={playerInfoJSX} player={player} />}
+        <Paper className={classes.root} elevation={1}>
+          <img
+            className={classes.playerThumbnail}
+            src={`data:image/jpg;base64, ${playerImageResponse}`}
+            alt="Player"
+          />
+          <Typography variant="h5" component="h3">
+            {`${player.fullName} #${player.primaryNumber}`}
+          </Typography>
+          <Typography component="p">{player.currentTeam.name}</Typography>
+          <ul className={classes.mainStats}>
+            <li className={classes.mainStatsLi}>
+              <Typography component="p">{`${player.height}, ${
+                player.metricHight
+              }`}</Typography>
+            </li>
+            <li className={classes.mainStatsLi}>
+              <Typography component="p">{`${player.weight}, ${
+                player.metricWeight
+              }`}</Typography>
+            </li>
+            <li className={classes.mainStatsLi}>
+              <Typography component="p">{`Age: ${player.currentAge}`}</Typography>
+            </li>
+          </ul>
+          <SeasonTable player={player} />
+        </Paper>
+        {isWidthUp('sm', width) ? null : <SeasonTabs player={player}/> }
       </div>
     );
   };

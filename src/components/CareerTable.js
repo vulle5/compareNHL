@@ -11,6 +11,7 @@ import { withStyles } from "@material-ui/core/styles";
 import withWidth, { isWidthDown } from "@material-ui/core/withWidth";
 
 import { seasonTableStyles } from "../styles/jss-styles";
+import CareerFilter from "./CareerFilter";
 
 const CareerTable = props => {
   const {
@@ -23,7 +24,7 @@ const CareerTable = props => {
       }
     }
   } = props;
-
+  console.log(splits);
   let id = 0;
   const createData = (name, season, games, points, goals, assists) => {
     id += 1;
@@ -50,6 +51,7 @@ const CareerTable = props => {
       <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
         Career
       </Typography>
+      <CareerFilter />
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
