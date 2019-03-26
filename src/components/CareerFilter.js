@@ -10,7 +10,7 @@ const CareerFilter = ({ dataFilter, filterNames }) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = filterName => {
+  const handleCloseAndFilter = filterName => {
     dataFilter(filterName);
     setAnchorEl(null);
   };
@@ -28,11 +28,11 @@ const CareerFilter = ({ dataFilter, filterNames }) => {
         id="simple-menu"
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
-        onClose={handleClose}
+        onClose={() => setAnchorEl(null)}
       >
-        <MenuItem onClick={() => handleClose('')}>Show All</MenuItem>
+        <MenuItem onClick={() => handleCloseAndFilter('')}>Show All</MenuItem>
         {filterNames.map(filter => (
-          <MenuItem key={filter} onClick={() => handleClose(filter)}>{filter}</MenuItem>
+          <MenuItem key={filter} onClick={() => handleCloseAndFilter(filter)}>{filter}</MenuItem>
         ))}
       </Menu>
     </div>
