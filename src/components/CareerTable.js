@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Typography,
   Table,
@@ -24,34 +24,46 @@ const CareerTable = props => {
       }
     }
   } = props;
-  console.log(splits);
+  const [filteredData , setFilteredData] = useState([]);
+  const [originalData , setOriginalData] = useState([]);
+
   let id = 0;
   const createData = (name, season, games, points, goals, assists) => {
     id += 1;
     return { id, name, season, games, points, goals, assists };
   };
 
-  let rows = [];
+  useEffect(() => {
+    let rows = [];
+    splits.forEach(season => {
+      let seasonWithDash = season.season.slice(0,4) + "-" + season.season.slice(4);
+      let a = createData(season.league.name, seasonWithDash, season.stat.games, season.stat.points, season.stat.goals, season.stat.assists);
+      rows.push(a);
+    });
+    setOriginalData(rows);
+    setFilteredData(rows);
+  }, []);
 
-  splits.forEach(season => {
-    let a = {};
-    let seasonWithDash = season.season.slice(0,4) + "-" + season.season.slice(4);
-    a = createData(season.league.name, seasonWithDash, season.stat.games, season.stat.points, season.stat.goals, season.stat.assists);
-    rows.push(a);
-  });
+  const dataFilter = filter => {
+    if (filter === '') {
+      setFilteredData(originalData);
+    } else {
+      setFilteredData(originalData.filter(row => row.name === filter));
+    }
+  };
 
   const replacer = season => {
-    let newSeason = season.replace(/^\d{2}|-\d{2}/g, '')
+    let newSeason = season.replace(/^\d{2}|-\d{2}/g, '');
     newSeason = newSeason.slice(0,2) + "-" + newSeason.slice(2);
     return newSeason;
-  }
+  };
 
   return (
     <div className={classes.root}>
       <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
         Career
       </Typography>
-      <CareerFilter />
+      <CareerFilter dataFilter={dataFilter}/>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
@@ -64,7 +76,7 @@ const CareerTable = props => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
+          {filteredData.map(row => (
             <TableRow key={row.id}>
               <TableCell align="center" className={classes.rowItem}>
                 {row.name}

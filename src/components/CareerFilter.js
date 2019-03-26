@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { Menu, MenuItem, IconButton } from '@material-ui/core';
 import { FilterList } from '@material-ui/icons';
 
-const CareerFilter = () => {
-  const [anchorEl, setAnchorEl] = useState(null)
+// TODO: Add ability to make the list of filters based on players career currently hard coded
+const CareerFilter = ({ dataFilter }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = filterName => {
+    dataFilter(filterName);
     setAnchorEl(null);
   };
 
@@ -28,12 +30,11 @@ const CareerFilter = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={() => handleClose('')}>Show All</MenuItem>
+        <MenuItem onClick={() => handleClose('National Hockey League')}>NHL</MenuItem>
       </Menu>
     </div>
   );
-}
+};
 
 export default CareerFilter;

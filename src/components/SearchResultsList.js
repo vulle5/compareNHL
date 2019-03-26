@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import typy from "typy";
 import { Link } from "react-router-dom";
 import List from "@material-ui/core/List";
@@ -20,10 +20,6 @@ const SearchResultsList = ({ term }) => {
   const arrayOfPlayers = searchPlayers(term);
   // Returns array of player statistics
   const parsedPlayerIds = parseSearchResult(arrayOfPlayers);
-
-  useEffect(() => {
-    setListStatus(true);
-  }, []);
 
   const renderPlayerList = parsedPlayerIds.slice(0, 8).map(player => (
     <Link
