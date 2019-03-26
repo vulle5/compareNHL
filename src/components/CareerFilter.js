@@ -3,7 +3,7 @@ import { Menu, MenuItem, IconButton } from '@material-ui/core';
 import { FilterList } from '@material-ui/icons';
 
 // TODO: Add ability to make the list of filters based on players career currently hard coded
-const CareerFilter = ({ dataFilter }) => {
+const CareerFilter = ({ dataFilter, filterNames }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = event => {
@@ -31,7 +31,9 @@ const CareerFilter = ({ dataFilter }) => {
         onClose={handleClose}
       >
         <MenuItem onClick={() => handleClose('')}>Show All</MenuItem>
-        <MenuItem onClick={() => handleClose('National Hockey League')}>NHL</MenuItem>
+        {filterNames.map(filter => (
+          <MenuItem key={filter} onClick={() => handleClose(filter)}>{filter}</MenuItem>
+        ))}
       </Menu>
     </div>
   );

@@ -26,11 +26,21 @@ const CareerTable = props => {
   } = props;
   const [filteredData , setFilteredData] = useState([]);
   const [originalData , setOriginalData] = useState([]);
+  const [filteredNames , setFilteredNames] = useState([]);
 
   let id = 0;
   const createData = (name, season, games, points, goals, assists) => {
     id += 1;
     return { id, name, season, games, points, goals, assists };
+  };
+
+  const removeDuplicates = data => {
+    let a = [];
+    data.forEach(object => {
+       const name = object.name;
+       a.push(name);
+    });
+    setFilteredNames([...new Set(a)]);
   };
 
   useEffect(() => {
@@ -42,6 +52,7 @@ const CareerTable = props => {
     });
     setOriginalData(rows);
     setFilteredData(rows);
+    removeDuplicates(rows);
   }, []);
 
   const dataFilter = filter => {
@@ -63,7 +74,7 @@ const CareerTable = props => {
       <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
         Career
       </Typography>
-      <CareerFilter dataFilter={dataFilter}/>
+      <CareerFilter dataFilter={dataFilter} filterNames={filteredNames}/>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
