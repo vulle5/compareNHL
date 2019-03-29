@@ -6,6 +6,7 @@ import SwipeableViews from "react-swipeable-views";
 
 import { seasonTabsStyles } from "../styles/jss-styles";
 import CareerTable from "./CareerTable";
+import GameLogs from "./GameLogs";
 
 const TabContainer = ({ children, dir, width }) => {
   return (
@@ -34,18 +35,21 @@ const SeasonTabs = props => {
 
   return (
     <div className={classes.root}>
-      <AppBar position={isWidthUp('sm', width) ? "static" : "sticky"} color="default">
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            variant="fullWidth"
-          >
-            <Tab label="Career Stats" />
-            <Tab label="Item Two" />
-            <Tab label="Item Three" />
-          </Tabs>
+      <AppBar
+        position={isWidthUp("sm", width) ? "static" : "sticky"}
+        color="default"
+      >
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          variant="fullWidth"
+        >
+          <Tab label="Career Stats" />
+          <Tab label="Game Logs" />
+          <Tab label="Item Three" />
+        </Tabs>
       </AppBar>
       <SwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
@@ -56,11 +60,11 @@ const SeasonTabs = props => {
           <CareerTable player={player} />
         </TabContainer>
         <TabContainer dir={theme.direction} width={width}>
-          Item
-        </TabContainer>     
+          <GameLogs />
+        </TabContainer>
         <TabContainer dir={theme.direction} width={width}>
           Item Three both
-        </TabContainer>   
+        </TabContainer>
       </SwipeableViews>
     </div>
   );
