@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Typography,
   Table,
   TableHead,
   TableBody,
@@ -10,34 +9,41 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import { seasonTableStyles } from "../styles/jss-styles";
 
-const StatTable = ({ classes, title, headCells, bodyCells }) => {
+const generateTableHead = headCells => {
+  return headCells.map(cell => (
+    <TableCell align="center">{cell}</TableCell>
+  ));
+};
 
-  const generateTableHead = headCells => {};
+// This does not work properly
+const generateTableBody = (bodyCells, tableCells, classes, key) => {
+  const newArray = tableCells.map(object => {
+    return Object.values(object);
+  });
+  console.log(newArray);
+  return bodyCells.map(cell => (
+    <TableRow key={key || cell.id}>
+      {newArray.map(cell => (
+        <TableCell align="center" className={classes.rowItem}>
+          {cell}
+        </TableCell>
+      ))}
+    </TableRow>
+  ));
+};
 
-  const generateTableBody = bodyCells => {};
-
+const StatTable = ({ classes, headCells, bodyCells, tableCells, key }) => {
+  console.log(bodyCells);
   return (
     <div>
-      <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
-        {title}
-      </Typography>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell align="center">League</TableCell>
-            <TableCell align="center">Season</TableCell>
-            <TableCell align="center">GP</TableCell>
-            <TableCell align="center">P</TableCell>
-            <TableCell align="center">G</TableCell>
-            <TableCell align="center">A</TableCell>
+            {generateTableHead(headCells)}
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow key={row.id}>
-            <TableCell align="center" className={classes.rowItem}>
-              {row.name}
-            </TableCell>
-          </TableRow>
+          {generateTableBody(bodyCells, tableCells, classes, key)}
         </TableBody>
       </Table>
     </div>

@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  Typography,
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell
-} from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth, { isWidthDown } from "@material-ui/core/withWidth";
 
 import { seasonTableStyles } from "../styles/jss-styles";
+import StatTable from "./StatTable";
 import CareerFilter from "./CareerFilter";
 
 const CareerTable = props => {
@@ -63,15 +57,15 @@ const CareerTable = props => {
     }
   };
 
-  const replacer = season => {
-    let newSeason = season.replace(/^\d{2}|-\d{2}/g, '');
-    newSeason = newSeason.slice(0,2) + "-" + newSeason.slice(2);
-    return newSeason;
-  };
+  // const replacer = season => {
+  //   let newSeason = season.replace(/^\d{2}|-\d{2}/g, '');
+  //   newSeason = newSeason.slice(0,2) + "-" + newSeason.slice(2);
+  //   return newSeason;
+  // };
 
   return (
     <div className={classes.root}>
-      <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
+      {/*<Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
         Career
       </Typography>
       <CareerFilter dataFilter={dataFilter} filterNames={filteredNames}/>
@@ -110,7 +104,16 @@ const CareerTable = props => {
             </TableRow>
           ))}
         </TableBody>
-      </Table>
+      </Table> */}
+      <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
+        Career
+      </Typography>
+      <CareerFilter dataFilter={dataFilter} filterNames={filteredNames}/>
+      <StatTable
+        headCells={["League", "Season", "GP", "P", "G", "A"]}
+        bodyCells={filteredData}
+        tableCells={filteredData}
+      />
     </div>
   );
 };
