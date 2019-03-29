@@ -65,46 +65,6 @@ const CareerTable = props => {
 
   return (
     <div className={classes.root}>
-      {/*<Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
-        Career
-      </Typography>
-      <CareerFilter dataFilter={dataFilter} filterNames={filteredNames}/>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">League</TableCell>
-            <TableCell align="center">Season</TableCell>
-            <TableCell align="center">GP</TableCell>
-            <TableCell align="center">P</TableCell>
-            <TableCell align="center">G</TableCell>
-            <TableCell align="center">A</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {filteredData.map(row => (
-            <TableRow key={row.id}>
-              <TableCell align="center" className={classes.rowItem}>
-                {row.name}
-              </TableCell>
-              <TableCell align="center" className={classes.rowItem}>
-                {isWidthDown('sm', width) ? replacer(row.season) : row.season}
-              </TableCell>
-              <TableCell align="center" className={classes.rowItem}>
-                {row.games}
-              </TableCell>
-              <TableCell align="center" className={classes.rowItem}>
-                {row.points}
-              </TableCell>
-              <TableCell align="center" className={classes.rowItem}>
-                {row.goals}
-              </TableCell>
-              <TableCell align="center" className={classes.rowItem}>
-                {row.assists}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table> */}
       <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
         Career
       </Typography>

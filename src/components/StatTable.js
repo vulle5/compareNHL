@@ -17,23 +17,25 @@ const generateTableHead = headCells => {
 
 // This does not work properly
 const generateTableBody = (bodyCells, tableCells, classes, key) => {
+  // TODO: Make unique key for each prop
+  let count = 0;
   const newArray = tableCells.map(object => {
     return Object.values(object);
   });
-  console.log(newArray);
   return bodyCells.map(cell => (
-    <TableRow key={key || cell.id}>
-      {newArray.map(cell => (
-        <TableCell align="center" className={classes.rowItem}>
-          {cell}
-        </TableCell>
+    <TableRow key={key || count}>
+      {newArray.splice(0, 1).map(cell => (
+        cell.splice(1).map(oneCell => (
+          <TableCell align="center" className={classes.rowItem}>
+            {oneCell}
+          </TableCell>
+        ))
       ))}
     </TableRow>
   ));
 };
 
 const StatTable = ({ classes, headCells, bodyCells, tableCells, key }) => {
-  console.log(bodyCells);
   return (
     <div>
       <Table className={classes.table}>
