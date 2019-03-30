@@ -15,18 +15,16 @@ const generateTableHead = headCells => {
   ));
 };
 
-// This does not work properly
 const generateTableBody = (bodyCells, tableCells, classes, key) => {
   // TODO: Make unique key for each prop
-  let count = 0;
   const newArray = tableCells.map(object => {
     return Object.values(object);
   });
-  return bodyCells.map(cell => (
-    <TableRow key={key || count}>
+  return bodyCells.map((cell) => (
+    <TableRow key={key || cell[0]}>
       {newArray.splice(0, 1).map(cell => (
-        cell.splice(1).map(oneCell => (
-          <TableCell align="center" className={classes.rowItem}>
+        cell.splice(1).map((oneCell, index) => (
+          <TableCell align="center" key={index} className={classes.rowItem}>
             {oneCell}
           </TableCell>
         ))

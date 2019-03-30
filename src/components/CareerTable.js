@@ -23,9 +23,9 @@ const CareerTable = props => {
   const [filteredNames , setFilteredNames] = useState([]);
 
   let id = 0;
-  const createData = (name, season, games, points, goals, assists) => {
+  const createData = (name, team, season, games, points, goals, assists) => {
     id += 1;
-    return { id, name, season, games, points, goals, assists };
+    return { id, name, team, season, games, points, goals, assists };
   };
 
   const removeDuplicates = data => {
@@ -41,11 +41,12 @@ const CareerTable = props => {
     let rows = [];
     splits.forEach(season => {
       let seasonWithDash = season.season.slice(0,4) + "-" + season.season.slice(4);
-      let a = createData(season.league.name, seasonWithDash, season.stat.games, season.stat.points, season.stat.goals, season.stat.assists);
+      let a = createData(season.league.name, season.team.name, seasonWithDash, season.stat.games, season.stat.points, season.stat.goals, season.stat.assists);
       rows.push(a);
     });
     setOriginalData(rows);
     setFilteredData(rows);
+    // Function below
     removeDuplicates(rows);
   }, []);
 
@@ -70,7 +71,7 @@ const CareerTable = props => {
       </Typography>
       <CareerFilter dataFilter={dataFilter} filterNames={filteredNames}/>
       <StatTable
-        headCells={["League", "Season", "GP", "P", "G", "A"]}
+        headCells={["League", "Team", "Season", "GP", "P", "G", "A"]}
         bodyCells={filteredData}
         tableCells={filteredData}
       />
