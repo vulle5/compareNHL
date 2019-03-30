@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import withWidth, { isWidthDown } from "@material-ui/core/withWidth";
 
 import { seasonTableStyles } from "../styles/jss-styles";
 import StatTable from "./StatTable";
@@ -9,7 +8,7 @@ import CareerFilter from "./CareerFilter";
 
 const CareerTable = props => {
   const {
-    classes, width,
+    classes,
     player: {
       stats: {
         0: {
@@ -79,4 +78,4 @@ const CareerTable = props => {
   );
 };
 
-export default withWidth()(withStyles(seasonTableStyles)(CareerTable));
+export default withStyles(seasonTableStyles)(CareerTable);
