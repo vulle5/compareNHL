@@ -8,7 +8,7 @@ import CareerFilter from "./CareerFilter";
 
 const CareerTable = props => {
   const {
-    classes,
+    classes, swipeReferences,
     player: {
       stats: {
         0: {
@@ -62,7 +62,7 @@ const CareerTable = props => {
       <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
         Career
       </Typography>
-      <CareerFilter dataFilter={dataFilter} filterNames={filteredNames}/>
+      <CareerFilter dataFilter={dataFilter} filterNames={filteredNames} swipeReferences={swipeReferences} />
       <StatTable
         headCells={["League", "Team", "Season", "GP", "P", "G", "A"]}
         bodyCells={filteredData}

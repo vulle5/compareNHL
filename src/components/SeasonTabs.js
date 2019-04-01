@@ -27,8 +27,7 @@ const SeasonTabs = props => {
   const swipeableRef = useRef(null);
 
   useEffect(() => {
-    const { current } = swipeableRef;
-    current.updateHeight();
+    swipeableRef.current.updateHeight();
   });
 
   // Do NOT remove the 'event' argument
@@ -66,7 +65,7 @@ const SeasonTabs = props => {
         ref={swipeableRef}
       >
         <TabContainer dir={theme.direction} width={width}>
-          <CareerTable player={player} />
+          <CareerTable player={player} swipeReferences={swipeableRef} />
         </TabContainer>
         <TabContainer dir={theme.direction} width={width}>
           <GameLogs />

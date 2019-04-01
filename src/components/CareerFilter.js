@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Menu, MenuItem, IconButton } from '@material-ui/core';
 import { FilterList } from '@material-ui/icons';
 
-// TODO: Add ability to make the list of filters based on players career currently hard coded
-const CareerFilter = ({ dataFilter, filterNames }) => {
+const CareerFilter = ({ dataFilter, filterNames, swipeReferences }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+
+  useEffect(() => {
+    swipeReferences.current.updateHeight();
+  });
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
