@@ -57,12 +57,6 @@ const CareerTable = props => {
     }
   };
 
-  // const replacer = season => {
-  //   let newSeason = season.replace(/^\d{2}|-\d{2}/g, '');
-  //   newSeason = newSeason.slice(0,2) + "-" + newSeason.slice(2);
-  //   return newSeason;
-  // };
-
   return (
     <div className={classes.root}>
       <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">

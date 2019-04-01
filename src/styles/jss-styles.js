@@ -1,11 +1,11 @@
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
-/* 
+/*
 
 var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
 var isFirefox = typeof InstallTrigger !== 'undefined';
 var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
-var isChrome = !!window.chrome && !isOpera; 
+var isChrome = !!window.chrome && !isOpera;
 var isIE = false || !!document.documentMode;
 
 */
@@ -117,8 +117,6 @@ export const seasonTableStyles = theme => ({
     width: '75%',
     tableLayout: 'fixed',
   },
-  rowItem: {
-  }
 });
 
 export const seasonTabsStyles = theme => ({

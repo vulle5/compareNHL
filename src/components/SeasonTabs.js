@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { AppBar, Tab, Tabs, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
@@ -22,7 +22,14 @@ const TabContainer = ({ children, dir, width }) => {
 
 const SeasonTabs = props => {
   const [value, setValue] = useState(0);
+  // const [height, setHeight] = useState(0);
   const { classes, theme, width, player } = props;
+  const swipeableRef = useRef(null);
+
+  useEffect(() => {
+    const { current } = swipeableRef;
+    current.updateHeight();
+  });
 
   // Do NOT remove the 'event' argument
   const handleChange = (event, value) => {
@@ -55,6 +62,8 @@ const SeasonTabs = props => {
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={value}
         onChangeIndex={handleChangeIndex}
+        animateHeight
+        ref={swipeableRef}
       >
         <TabContainer dir={theme.direction} width={width}>
           <CareerTable player={player} />
