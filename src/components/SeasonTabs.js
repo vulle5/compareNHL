@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { AppBar, Tab, Tabs, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
+import { ScrollTo } from "react-scroll-to";
 import SwipeableViews from "react-swipeable-views";
 
 import { seasonTabsStyles } from "../styles/jss-styles";
@@ -57,23 +58,26 @@ const SeasonTabs = props => {
           <Tab label="Item Three" />
         </Tabs>
       </AppBar>
-      <SwipeableViews
-        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-        animateHeight
-        ref={swipeableRef}
-      >
-        <TabContainer dir={theme.direction} width={width}>
-          <CareerTable player={player} swipeReferences={swipeableRef} />
-        </TabContainer>
-        <TabContainer dir={theme.direction} width={width}>
-          <GameLogs />
-        </TabContainer>
-        <TabContainer dir={theme.direction} width={width}>
-          Item Three both
-        </TabContainer>
-      </SwipeableViews>
+      <ScrollTo>
+        { ({ scrollTo }) => <SwipeableViews
+          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+          index={value}
+          onChangeIndex={handleChangeIndex}
+          onTransitionEnd={() => scrollTo({ x: 0, y: 500, smooth: "true"})}
+          animateHeight
+          ref={swipeableRef}
+        >
+          <TabContainer dir={theme.direction} width={width}>
+            <CareerTable player={player} swipeReferences={swipeableRef} />
+          </TabContainer>
+          <TabContainer dir={theme.direction} width={width}>
+            <GameLogs />
+          </TabContainer>
+          <TabContainer dir={theme.direction} width={width}>
+            Item Three both
+          </TabContainer>
+        </SwipeableViews>}
+      </ScrollTo>
     </div>
   );
 };
