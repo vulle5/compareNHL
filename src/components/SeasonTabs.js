@@ -23,8 +23,7 @@ const TabContainer = ({ children, dir, width }) => {
 
 const SeasonTabs = props => {
   const [value, setValue] = useState(0);
-  // const [height, setHeight] = useState(0);
-  const { classes, theme, width, player } = props;
+  const { classes, theme, width, player, player: { id } } = props;
   const swipeableRef = useRef(null);
 
   useEffect(() => {
@@ -71,7 +70,7 @@ const SeasonTabs = props => {
             <CareerTable player={player} swipeReferences={swipeableRef} />
           </TabContainer>
           <TabContainer dir={theme.direction} width={width}>
-            <GameLogs />
+            <GameLogs playerId={id} player={player} swipeReferences={swipeableRef}/>
           </TabContainer>
           <TabContainer dir={theme.direction} width={width}>
             Item Three both

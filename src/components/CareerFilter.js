@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Menu, MenuItem, IconButton } from '@material-ui/core';
 import { FilterList } from '@material-ui/icons';
 
-const CareerFilter = ({ dataFilter, filterNames, swipeReferences }) => {
+const CareerFilter = ({ dataFilter, filterNames, swipeReferences, showAll }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
@@ -33,7 +33,9 @@ const CareerFilter = ({ dataFilter, filterNames, swipeReferences }) => {
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
-        <MenuItem onClick={() => handleCloseAndFilter('')}>Show All</MenuItem>
+        {showAll ?
+          <MenuItem onClick={() => handleCloseAndFilter('')}>Show All</MenuItem>
+        : null}
         {filterNames.map(filter => (
           <MenuItem key={filter} onClick={() => handleCloseAndFilter(filter)}>{filter}</MenuItem>
         ))}

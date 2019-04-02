@@ -62,7 +62,7 @@ const CareerTable = props => {
       <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
         Career
       </Typography>
-      <CareerFilter dataFilter={dataFilter} filterNames={filteredNames} swipeReferences={swipeReferences} />
+      <CareerFilter dataFilter={dataFilter} filterNames={filteredNames} swipeReferences={swipeReferences} showAll />
       <StatTable
         headCells={["League", "Team", "Season", "GP", "P", "G", "A"]}
         bodyCells={filteredData}
