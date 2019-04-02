@@ -30,7 +30,7 @@ class Player {
     this.link = link;
     this.firstName = firstName;
     this.lastName = lastName;
-    this.primaryNumber = primaryNumber;
+    this.primaryNumber = primaryNumber || "N/A";
     this.birthDate = birthDate;
     this.currentAge = currentAge || this.calcCurrentAge();
     this.birthCity = birthCity;
@@ -63,9 +63,9 @@ class Player {
     const finalDate = moment.duration(date.diff(birth));
     return finalDate._data.years;
   }
-  
+
   heightToMetric() {
-    const parseEngArray = this.height.match(/\d/g);
+    const parseEngArray = this.height.match(/\d+/g);
     return Math.round(parseEngArray[0] * 30.48 + parseEngArray[1] * 2.54);
   }
 
