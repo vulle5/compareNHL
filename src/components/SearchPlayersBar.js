@@ -35,6 +35,7 @@ const SearchPlayersBar = props => {
               className={classes.menuButton}
               color="inherit"
               aria-label="Open drawer"
+              disabled
             >
               <MenuIcon />
             </IconButton>
