@@ -6,11 +6,11 @@ import StatTable from "./StatTable";
 import {getPlayerInfo} from "../functions/getPlayerInfo";
 import CareerFilter from "./CareerFilter";
 
-const GameLogs = ({ playerId, player: {stats: {0: { splits }}}, swipeReferences }) => {
+const GameLogs = ({ playerId, player: {stats: {0: { splits }}}, swipeReferences, lastSeason: { season } }) => {
   const [seasons, setSeasons]= useState([]);
   const [filteredSeasons , setFilteredSeasons] = useState([]);
   // Change so that initial state comes from last season the current player has played
-  const [currentSeason, setCurrentSeason] = useState("20182019");
+  const [currentSeason, setCurrentSeason] = useState(season);
 
   let response = getPlayerInfo(playerId, `stats?stats=gameLog&expand=stats.team&season=${currentSeason}`);
 
@@ -31,23 +31,18 @@ const GameLogs = ({ playerId, player: {stats: {0: { splits }}}, swipeReferences 
     return [...new Set(a)];
   };
 
-  const dataFilter = filter => {
-    let season = filter.replace("-", "");
-    setCurrentSeason(season);
+  const makeRows = splits => {
+    let rows = [];
+    splits.forEach(season => {
+      let isAwayOrHome = season.isHome ? season.opponent.abbreviation : season.opponent.abbreviation.replace(/^/,'@');
+      let a = createData(season.date, isAwayOrHome, season.stat.points, season.stat.goals, season.stat.assists, season.stat.timeOnIce);
+      rows.push(a);
+    });
+    setSeasons(rows);
+    setFilteredSeasons(createFilters());
   };
 
   useEffect(() => {
-    const makeRows = splits => {
-      let rows = [];
-      splits.forEach(season => {
-        let isAwayOrHome = season.isHome ? season.opponent.abbreviation : season.opponent.abbreviation.replace(/^/,'@');
-        let a = createData(season.date, isAwayOrHome, season.stat.points, season.stat.goals, season.stat.assists, season.stat.timeOnIce);
-        rows.push(a);
-      });
-      setSeasons(rows);
-      setFilteredSeasons(createFilters());
-    };
-
     if (typy(response, 'copyright').safeObject) {
       const { stats: {0: { splits }}} = response;
       makeRows(splits);
@@ -55,6 +50,11 @@ const GameLogs = ({ playerId, player: {stats: {0: { splits }}}, swipeReferences 
       console.log("Not There yet!")
     }
   }, [response]);
+
+  const dataFilter = filter => {
+    let season = filter.replace("-", "");
+    setCurrentSeason(season);
+  };
 
   return (
     <div>

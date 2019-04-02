@@ -3,6 +3,7 @@ import { AppBar, Tab, Tabs, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import { ScrollTo } from "react-scroll-to";
+import _ from 'lodash';
 import SwipeableViews from "react-swipeable-views";
 
 import { seasonTabsStyles } from "../styles/jss-styles";
@@ -25,6 +26,12 @@ const SeasonTabs = props => {
   const [value, setValue] = useState(0);
   const { classes, theme, width, player, player: { id } } = props;
   const swipeableRef = useRef(null);
+
+  const findLastNHLSeason = ({ stats: {0: {splits}} }) => {
+    return _.findLast(splits, element => {
+      return element.league.name === "National Hockey League";
+    });
+  };
 
   useEffect(() => {
     swipeableRef.current.updateHeight();
@@ -70,7 +77,7 @@ const SeasonTabs = props => {
             <CareerTable player={player} swipeReferences={swipeableRef} />
           </TabContainer>
           <TabContainer dir={theme.direction} width={width}>
-            <GameLogs playerId={id} player={player} swipeReferences={swipeableRef}/>
+            <GameLogs playerId={id} player={player} lastSeason={findLastNHLSeason(player)} swipeReferences={swipeableRef}/>
           </TabContainer>
           <TabContainer dir={theme.direction} width={width}>
             Item Three both

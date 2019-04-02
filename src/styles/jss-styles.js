@@ -100,7 +100,7 @@ export const playerInfoStyles = theme => ({
   playerThumbnail: {
     width: '100%',
     objectFit: 'contain',
-    maxHeight: '398px',
+    maxHeight: '317px',
     borderRadius: '4px'
   },
 });
