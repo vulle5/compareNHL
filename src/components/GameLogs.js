@@ -9,6 +9,7 @@ import CareerFilter from "./CareerFilter";
 const GameLogs = ({ playerId, player: {stats: {0: { splits }}}, swipeReferences }) => {
   const [seasons, setSeasons]= useState([]);
   const [filteredSeasons , setFilteredSeasons] = useState([]);
+  // Change so that initial state comes from last season the current player has played
   const [currentSeason, setCurrentSeason] = useState("20182019");
 
   let response = getPlayerInfo(playerId, `stats?stats=gameLog&expand=stats.team&season=${currentSeason}`);
