@@ -16,6 +16,9 @@ export const getPlayerImages = playerId => {
               responseType: "arraybuffer"
             }
           );
+          setPlayerImage(
+            new Buffer.from(response.data, "binary").toString("base64")
+          );
         } catch {
           try {
             response = await axios.get(
@@ -24,13 +27,13 @@ export const getPlayerImages = playerId => {
                 responseType: "arraybuffer"
               }
             );
+            setPlayerImage(
+              new Buffer.from(response.data, "binary").toString("base64")
+            );
           } catch (error) {
             console.log(error);
           }
         }
-        setPlayerImage(
-          new Buffer.from(response.data, "binary").toString("base64")
-        );
       }
     })(playerId);
   }, [playerId]);
