@@ -80,7 +80,7 @@ const SeasonTabs = props => {
             <GameLogs playerId={id} player={player} lastSeason={findLastNHLSeason(player)} swipeReferences={swipeableRef}/>
           </TabContainer>
           <TabContainer dir={theme.direction} width={width}>
-            Item Three both
+            Item Three
           </TabContainer>
         </SwipeableViews>}
       </ScrollTo>

@@ -47,7 +47,7 @@ const GameLogs = ({ playerId, player: {stats: {0: { splits }}}, swipeReferences,
       const { stats: {0: { splits }}} = response;
       makeRows(splits);
     } else {
-      console.log("Not There yet!")
+      console.log("Loading Logs...")
     }
   }, [response]);
 

@@ -9,9 +9,9 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import { seasonTableStyles } from "../styles/jss-styles";
 
-const generateTableHead = (headCells) => {
+const generateTableHead = (headCells, classes) => {
   return headCells.map((cell, index) => (
-    <TableCell align="center" key={index}>{cell}</TableCell>
+    <TableCell align="center" key={index} className={classes.headItem}>{cell}</TableCell>
   ));
 };
 
@@ -23,7 +23,7 @@ const generateTableBody = (bodyCells, tableCells, classes) => {
     <TableRow key={index}>
       {newArray.splice(0, 1).map(cell => (
         cell.splice(1).map((oneCell, index) => (
-          <TableCell align="center" key={index} className={classes.rowItem}>
+          <TableCell align="center" key={index}>
             {oneCell}
           </TableCell>
         ))
@@ -38,11 +38,11 @@ const StatTable = ({ classes, headCells, bodyCells, tableCells }) => {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            {generateTableHead(headCells)}
+            {generateTableHead(headCells, classes)}
           </TableRow>
         </TableHead>
         <TableBody>
-          {generateTableBody(bodyCells, tableCells, classes)}
+          {generateTableBody(bodyCells, tableCells)}
         </TableBody>
       </Table>
     </div>

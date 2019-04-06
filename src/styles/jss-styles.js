@@ -117,6 +117,12 @@ export const seasonTableStyles = theme => ({
     width: '75%',
     tableLayout: 'fixed',
   },
+  headItem: {
+    backgroundColor: "#fff",
+    position: "sticky",
+    top: 0,
+    zIndex: 10,
+  },
 });
 
 export const seasonTabsStyles = theme => ({
