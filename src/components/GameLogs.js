@@ -13,6 +13,7 @@ const GameLogs = ({ playerId, player: {stats: {0: { splits }}}, swipeReferences,
   const [currentSeason, setCurrentSeason] = useState(season);
 
   let response = getPlayerInfo(playerId, `stats?stats=gameLog&expand=stats.team&season=${currentSeason}`);
+  let playoffResponse = getPlayerInfo(playerId, `stats?stats=playoffGameLog&expand=stats.team&season=${currentSeason}`);
 
   let id = 0;
   const createData = (date, against, points, goals, assists, toi) => {
@@ -20,6 +21,9 @@ const GameLogs = ({ playerId, player: {stats: {0: { splits }}}, swipeReferences,
     return { id, date, against, points, goals, assists, toi };
   };
 
+  // TODO: Add playoff filter that only shows playoff games
+  // 1: Add new menu with regular season and playoffs
+  // 2: Remove items from the arry using hooks based on witch is selected
   const createFilters = () => {
     let a = [];
     splits.forEach(season => {
@@ -31,21 +35,27 @@ const GameLogs = ({ playerId, player: {stats: {0: { splits }}}, swipeReferences,
     return [...new Set(a)];
   };
 
-  const makeRows = splits => {
+  const makeRows = (splits, playoffSplits) => {
     let rows = [];
     splits.forEach(season => {
       let isAwayOrHome = season.isHome ? season.opponent.abbreviation : season.opponent.abbreviation.replace(/^/,'@');
       let a = createData(season.date, isAwayOrHome, season.stat.points, season.stat.goals, season.stat.assists, season.stat.timeOnIce);
       rows.push(a);
     });
+    playoffSplits.forEach(season => {
+      let isAwayOrHome = season.isHome ? season.opponent.abbreviation : season.opponent.abbreviation.replace(/^/,'@');
+      let a = createData(season.date, isAwayOrHome, season.stat.points, season.stat.goals, season.stat.assists, season.stat.timeOnIce);
+      rows.unshift(a);
+    });
     setSeasons(rows);
     setFilteredSeasons(createFilters());
   };
 
   useEffect(() => {
-    if (typy(response, 'copyright').safeObject) {
+    if (typy(response, 'copyright').safeObject && typy(playoffResponse, 'copyright').safeObject) {
       const { stats: {0: { splits }}} = response;
-      makeRows(splits);
+      const { stats: {0: { splits: playoffSplits }}} = playoffResponse;
+      makeRows(splits, playoffSplits);
     } else {
       console.log("Loading Logs...")
     }
