@@ -72,6 +72,34 @@ export const searchPlayerBarStyles = theme => ({
   },
 });
 
+export const searchResultsListStyles = theme => ({
+  wrapper: {
+    [theme.breakpoints.up('md')]: {
+      left: "75%",
+      position: "relative"
+    },
+    [theme.breakpoints.down('sm')]: {
+      position: "relative"
+    }
+  },
+  spinner: {
+    [theme.breakpoints.up('xs')]: {
+      display: "block",
+      marginRight: "auto",
+      marginLeft: "auto"
+    }
+  },
+  paper: {
+    [theme.breakpoints.up('sm')]: {
+      position: "absolute",
+      width: "24%"
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: "100%"
+    }
+  }
+});
+
 export const playerInfoStyles = theme => ({
   root: {
     ...theme.mixins.gutters(),

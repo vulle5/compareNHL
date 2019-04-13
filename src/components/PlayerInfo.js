@@ -1,8 +1,10 @@
 import React from "react";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import typy from "typy";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+import {
+  Paper,
+  Typography,
+  CircularProgress
+} from "@material-ui/core";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import { withStyles } from "@material-ui/core/styles";
 import { playerInfoStyles } from "../styles/jss-styles";

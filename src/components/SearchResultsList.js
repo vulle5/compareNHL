@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 import typy from "typy";
 import { Link } from "react-router-dom";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import Divider from "@material-ui/core/Divider";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Typography from "@material-ui/core/Typography";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  Avatar,
+  Divider,
+  CircularProgress,
+  Typography,
+  Paper
+} from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
 import { searchPlayers } from "../functions/searchPlayer";
 import { parseSearchResult } from "../functions/parseSearchResult";
+import { searchResultsListStyles } from "../styles/jss-styles";
 
-const SearchResultsList = ({ term }) => {
+const SearchResultsList = ({ term, classes }) => {
   // true means render the player list
   const [listStatus, setListStatus] = useState(true);
   // Needs to be parsed for better usability
@@ -57,14 +62,18 @@ const SearchResultsList = ({ term }) => {
   ));
 
   return listStatus === true ? (
-    <List>
-      {typy(parsedPlayerIds).isEmptyArray ? (
-        <CircularProgress />
-      ) : (
-        renderPlayerList
-      )}
-    </List>
+    <div className={classes.wrapper}>
+      <Paper elevation={2} className={classes.paper}>
+        <List>
+          {typy(parsedPlayerIds).isEmptyArray ? (
+            <CircularProgress className={classes.spinner}/>
+          ) : (
+            renderPlayerList
+          )}
+        </List>
+      </Paper>
+    </div>
   ) : null;
 };
 
-export default SearchResultsList;
+export default withStyles(searchResultsListStyles)(SearchResultsList);
