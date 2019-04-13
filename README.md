@@ -6,3 +6,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * Playoff stats as own seperate filter
 * Advanced Stats (Item Three)
 * Compare Two Players and their stats
+* Currently swippableViews is rendering all list's at once causing perf problems
