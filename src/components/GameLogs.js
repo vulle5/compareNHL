@@ -56,8 +56,6 @@ const GameLogs = ({ playerId, player: {stats: {0: { splits }}}, swipeReferences,
       const { stats: {0: { splits }}} = response;
       const { stats: {0: { splits: playoffSplits }}} = playoffResponse;
       makeRows(splits, playoffSplits);
-    } else {
-      console.log("Loading Logs...")
     }
   }, [response]);
 
@@ -74,7 +72,7 @@ const GameLogs = ({ playerId, player: {stats: {0: { splits }}}, swipeReferences,
       {setSeasons
         ?
           <CareerFilter dataFilter={dataFilter} swipeReferences={swipeReferences} filterNames={filteredSeasons}/>
-        : null}
+        : <Typography variant="subheading">No NHL Data</Typography>}
       {setSeasons
         ?
           <StatTable

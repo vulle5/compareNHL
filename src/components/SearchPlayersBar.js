@@ -17,14 +17,19 @@ import SearchResultsList from "./SearchResultsList";
 const SearchPlayersBar = props => {
   const { classes } = props;
   const [term, setTerm] = useState("");
+  const [listStatus, setListStatus] = useState(true);
   // This delays sending of the search term to API request
   const debouncedText = useDebounce(term, 300);
+
+  const handleListStatus = bool => {
+    setListStatus(bool)
+ }
 
   let content;
   if (term.length < 3) {
     content = null;
   } else {
-    content = <SearchResultsList term={debouncedText} />;
+    content = <SearchResultsList term={debouncedText} listStatus={listStatus} handleListStatus={handleListStatus}/>;
   }
 
   return (
@@ -57,7 +62,7 @@ const SearchPlayersBar = props => {
                 autoFocus
                 placeholder="Search Players"
                 value={term}
-                onFocus={event => event.target.select()}
+                onFocus={() => handleListStatus(true)}
                 onChange={event => setTerm(event.target.value)}
                 classes={{
                   root: classes.inputRoot,

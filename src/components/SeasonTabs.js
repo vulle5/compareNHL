@@ -24,10 +24,10 @@ const TabContainer = ({ children, dir, width }) => {
 
 const SeasonTabs = props => {
   const [value, setValue] = useState(0);
-  const { classes, theme, width, player, player: { id } } = props;
+  const { classes, theme, width, player, player: { id }, player: {stats: {0: {splits}}} } = props;
   const swipeableRef = useRef(null);
 
-  const findLastNHLSeason = ({ stats: {0: {splits}} }) => {
+  const findLastNHLSeason = (splits) => {
     return _.findLast(splits, element => {
       return element.league.name === "National Hockey League";
     });
@@ -77,7 +77,10 @@ const SeasonTabs = props => {
             <CareerTable player={player} swipeReferences={swipeableRef} />
           </TabContainer>
           <TabContainer dir={theme.direction} width={width}>
-            <GameLogs playerId={id} player={player} lastSeason={findLastNHLSeason(player)} swipeReferences={swipeableRef}/>
+            {typeof findLastNHLSeason(splits) === 'undefined'
+              ? <Typography variant="subheading" style={{padding: "8px"}}>No NHL Data</Typography>
+              : <GameLogs playerId={id} player={player} lastSeason={findLastNHLSeason(splits)} swipeReferences={swipeableRef}/>
+            }
           </TabContainer>
           <TabContainer dir={theme.direction} width={width}>
             Item Three

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import typy from "typy";
 import { Link } from "react-router-dom";
 import {
@@ -13,14 +13,15 @@ import {
   Paper
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+import OutsideClickHandler from 'react-outside-click-handler';
 
 import { searchPlayers } from "../functions/searchPlayer";
 import { parseSearchResult } from "../functions/parseSearchResult";
 import { searchResultsListStyles } from "../styles/jss-styles";
 
-const SearchResultsList = ({ term, classes }) => {
+const SearchResultsList = ({ term, classes, listStatus, handleListStatus }) => {
   // true means render the player list
-  const [listStatus, setListStatus] = useState(true);
+  // const [listStatus, setListStatus] = useState(true);
   // Needs to be parsed for better usability
   const arrayOfPlayers = searchPlayers(term);
   // Returns array of player statistics
@@ -31,7 +32,7 @@ const SearchResultsList = ({ term, classes }) => {
       key={player[0]}
       to={`/player/${player[0]}`}
       onClick={() => {
-        setListStatus(false);
+        handleListStatus(false);
       }}
     >
       <ListItem alignItems="flex-start">
@@ -62,17 +63,21 @@ const SearchResultsList = ({ term, classes }) => {
   ));
 
   return listStatus === true ? (
-    <div className={classes.wrapper}>
-      <Paper elevation={2} className={classes.paper}>
-        <List>
-          {typy(parsedPlayerIds).isEmptyArray ? (
-            <CircularProgress className={classes.spinner}/>
-          ) : (
-            renderPlayerList
-          )}
-        </List>
-      </Paper>
-    </div>
+    <OutsideClickHandler
+      onOutsideClick={() => handleListStatus(false)}
+    >
+      <div className={classes.wrapper}>
+        <Paper elevation={2} className={classes.paper}>
+          <List>
+            {typy(parsedPlayerIds).isEmptyArray ? (
+              <CircularProgress className={classes.spinner}/>
+            ) : (
+              renderPlayerList
+            )}
+          </List>
+        </Paper>
+      </div>
+    </OutsideClickHandler>
   ) : null;
 };
 
