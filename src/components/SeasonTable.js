@@ -16,7 +16,7 @@ import SeasonTabs from "./SeasonTabs";
 
 const SeasonTable = props => {
   // Get player object from props
-  const { classes, width, player }= props;
+  const { classes, width, player } = props;
 
   const renderContent = () => {
     if(typy(props, 'player.stats[1].splits[0].stat').safeObject) {
@@ -31,23 +31,24 @@ const SeasonTable = props => {
           }
         }
       } = props;
+      const {primaryPosition: {abbreviation: isGoalie}} = player;
 
       return (
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
               <TableCell align="center">{isWidthDown('sm', width) ? 'GP' : 'Games Played'}</TableCell>
-              <TableCell align="center">Points</TableCell>
-              <TableCell align="center">Goals</TableCell>
-              <TableCell align="center">Asssists</TableCell>
+              <TableCell align="center">{isGoalie === "G" ? "Wins" : "Points"}</TableCell>
+              <TableCell align="center">{isGoalie === "G" ? "Save%" : "Goals"}</TableCell>
+              <TableCell align="center">{isGoalie === "G" ? "GAA" : "Asssists"}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
               <TableCell align="center" className={classes.rowItem}>{allTime.games || "0"}</TableCell>
-              <TableCell align="center" className={classes.rowItem}>{allTime.points || "0"}</TableCell>
-              <TableCell align="center" className={classes.rowItem}>{allTime.goals || "0"}</TableCell>
-              <TableCell align="center" className={classes.rowItem}>{allTime.assists || "0"}</TableCell>
+              <TableCell align="center" className={classes.rowItem}>{isGoalie === "G" ? allTime.wins : allTime.points || "0"}</TableCell>
+              <TableCell align="center" className={classes.rowItem}>{isGoalie === "G" ? allTime.savePercentage.toFixed(3) : allTime.goals || "0"}</TableCell>
+              <TableCell align="center" className={classes.rowItem}>{isGoalie === "G" ? allTime.goalAgainstAverage.toFixed(2) : allTime.assists || "0"}</TableCell>
             </TableRow>
           </TableBody>
         </Table>

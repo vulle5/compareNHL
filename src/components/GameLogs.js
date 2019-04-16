@@ -152,7 +152,7 @@ const GameLogs = ({
       {setGames ? (
         <StatTable
           headCells={isGoalie
-            ? ["Date", "Team", "SA", "S", "SP", "TOI"]
+            ? ["Date", "Team", "SA", "S", "S%", "TOI"]
             : ["Date", "Team", "P", "G", "A", "TOI"]
           }
           bodyCells={games}
