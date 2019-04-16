@@ -8,7 +8,7 @@ import CareerFilter from "./CareerFilter";
 
 const CareerTable = props => {
   const {
-    classes, swipeReferences,
+    classes, swipeReferences, isGoalie,
     player: {
       stats: {
         0: {
@@ -22,9 +22,13 @@ const CareerTable = props => {
   const [filteredNames , setFilteredNames] = useState([]);
 
   let id = 0;
-  const createData = (name, team, season, games, points, goals, assists) => {
+  const createData = (name, team, season, games, pointsOrWins, goalsOrLosses, assistsOrGAA, isGoalie) => {
     id += 1;
-    return { id, name, team, season, games, points, goals, assists };
+    if (isGoalie) {
+      return { id, name, team, season, games, pointsOrWins, goalsOrLosses, assistsOrGAA };
+    } else {
+      return { id, name, team, season, games, pointsOrWins, goalsOrLosses, assistsOrGAA };
+    }
   };
 
   const removeDuplicates = data => {
@@ -38,10 +42,34 @@ const CareerTable = props => {
 
   useEffect(() => {
     let rows = [];
+    console.log(splits);
     splits.forEach(season => {
-      let seasonWithDash = season.season.slice(0,4) + "-" + season.season.slice(4);
-      let a = createData(season.league.name, season.team.name, seasonWithDash, season.stat.games, season.stat.points, season.stat.goals, season.stat.assists);
-      rows.push(a);
+      if (isGoalie) {
+        let seasonWithDash = season.season.slice(0,4) + "-" + season.season.slice(4);
+        let a = createData(
+          season.league.name,
+          season.team.name,
+          seasonWithDash,
+          season.stat.games,
+          season.stat.wins,
+          season.stat.losses,
+          season.stat.goalAgainstAverage.toFixed(2),
+          isGoalie
+        );
+        rows.push(a);
+      } else {
+        let seasonWithDash = season.season.slice(0,4) + "-" + season.season.slice(4);
+        let a = createData(season.league.name,
+          season.team.name,
+          seasonWithDash,
+          season.stat.games,
+          season.stat.points,
+          season.stat.goals,
+          season.stat.assists,
+          isGoalie
+        );
+        rows.push(a);
+      }
     });
     setOriginalData(rows);
     setFilteredData(rows);
@@ -64,7 +92,10 @@ const CareerTable = props => {
       </Typography>
       <CareerFilter dataFilter={dataFilter} filterNames={filteredNames} swipeReferences={swipeReferences} showAll />
       <StatTable
-        headCells={["League", "Team", "Season", "GP", "P", "G", "A"]}
+        headCells={isGoalie
+          ? ["League", "Team", "Season", "GP", "W", "L", "GAA"]
+          : ["League", "Team", "Season", "GP", "P", "G", "A"]
+        }
         bodyCells={filteredData}
         tableCells={filteredData}
       />

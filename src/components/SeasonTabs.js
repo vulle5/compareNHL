@@ -23,8 +23,16 @@ const TabContainer = ({ children, dir, width }) => {
 };
 
 const SeasonTabs = props => {
+  const {
+    classes,
+    theme,
+    width,
+    player,
+    player: { id },
+    player: { primaryPosition: { abbreviation: isGoalie } },
+    player: { stats: { 0: { splits } } } } = props;
+
   const [value, setValue] = useState(0);
-  const { classes, theme, width, player, player: { id }, player: {stats: {0: {splits}}} } = props;
   const swipeableRef = useRef(null);
 
   const findLastNHLSeason = (splits) => {
@@ -65,21 +73,21 @@ const SeasonTabs = props => {
         </Tabs>
       </AppBar>
       <ScrollTo>
-        { ({ scrollTo }) => <SwipeableViews
+        {({ scrollTo }) => <SwipeableViews
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
           index={value}
           onChangeIndex={handleChangeIndex}
-          onTransitionEnd={() => scrollTo({ x: 0, y: 500, smooth: "true"})}
+          onTransitionEnd={() => scrollTo({ x: 0, y: 500, smooth: "true" })}
           animateHeight
           ref={swipeableRef}
         >
           <TabContainer dir={theme.direction} width={width}>
-            <CareerTable player={player} swipeReferences={swipeableRef} />
+            <CareerTable player={player} swipeReferences={swipeableRef} isGoalie={isGoalie === "G" ? true : false} />
           </TabContainer>
           <TabContainer dir={theme.direction} width={width}>
             {typeof findLastNHLSeason(splits) === 'undefined'
-              ? <Typography variant="subheading" style={{padding: "8px"}}>No NHL Data</Typography>
-              : <GameLogs playerId={id} player={player} lastSeason={findLastNHLSeason(splits)} swipeReferences={swipeableRef}/>
+              ? <Typography variant="subheading" style={{ padding: "8px" }}>No NHL Data</Typography>
+              : <GameLogs playerId={id} player={player} lastSeason={findLastNHLSeason(splits)} swipeReferences={swipeableRef} />
             }
           </TabContainer>
           <TabContainer dir={theme.direction} width={width}>

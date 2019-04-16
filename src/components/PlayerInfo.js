@@ -49,6 +49,11 @@ const PlayerInfo = props => {
           <Typography component="p">{player.currentTeam.name}</Typography>
           <ul className={classes.mainStats}>
             <li className={classes.mainStatsLi}>
+              <Typography component="p">{`Pos: ${
+                player.primaryPosition.abbreviation
+              }`}</Typography>
+            </li>
+            <li className={classes.mainStatsLi}>
               <Typography component="p">{`${player.height}, ${
                 player.metricHight
               }`}</Typography>
