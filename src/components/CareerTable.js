@@ -22,13 +22,9 @@ const CareerTable = props => {
   const [filteredNames , setFilteredNames] = useState([]);
 
   let id = 0;
-  const createData = (name, team, season, games, pointsOrWins, goalsOrLosses, assistsOrGAA, isGoalie) => {
+  const createData = (name, team, season, games, pointsOrWins, goalsOrLosses, assistsOrGAA) => {
     id += 1;
-    if (isGoalie) {
-      return { id, name, team, season, games, pointsOrWins, goalsOrLosses, assistsOrGAA };
-    } else {
-      return { id, name, team, season, games, pointsOrWins, goalsOrLosses, assistsOrGAA };
-    }
+    return { id, name, team, season, games, pointsOrWins, goalsOrLosses, assistsOrGAA };
   };
 
   const removeDuplicates = data => {
@@ -42,7 +38,6 @@ const CareerTable = props => {
 
   useEffect(() => {
     let rows = [];
-    console.log(splits);
     splits.forEach(season => {
       if (isGoalie) {
         let seasonWithDash = season.season.slice(0,4) + "-" + season.season.slice(4);
@@ -53,8 +48,7 @@ const CareerTable = props => {
           season.stat.games,
           season.stat.wins,
           season.stat.losses,
-          season.stat.goalAgainstAverage.toFixed(2),
-          isGoalie
+          season.stat.goalAgainstAverage.toFixed(2)
         );
         rows.push(a);
       } else {
@@ -65,8 +59,7 @@ const CareerTable = props => {
           season.stat.games,
           season.stat.points,
           season.stat.goals,
-          season.stat.assists,
-          isGoalie
+          season.stat.assists
         );
         rows.push(a);
       }

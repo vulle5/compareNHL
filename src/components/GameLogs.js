@@ -14,6 +14,7 @@ const GameLogs = ({
     }
   },
   swipeReferences,
+  isGoalie,
   lastSeason: { season }
 }) => {
   const [games, setGames] = useState([]);
@@ -32,9 +33,9 @@ const GameLogs = ({
   );
 
   let id = 0;
-  const createData = (date, against, points, goals, assists, toi) => {
+  const createData = (date, against, pointsOrSA, goalsOrSaves, assistsOrSP, toi) => {
     id += 1;
-    return { id, date, against, points, goals, assists, toi };
+    return { id, date, against, pointsOrSA, goalsOrSaves, assistsOrSP, toi };
   };
 
   const createFilters = () => {
@@ -55,15 +56,27 @@ const GameLogs = ({
       const isAwayOrHome = season.isHome
         ? season.opponent.abbreviation
         : season.opponent.abbreviation.replace(/^/, "@");
-      const a = createData(
-        season.date,
-        isAwayOrHome,
-        season.stat.points,
-        season.stat.goals,
-        season.stat.assists,
-        season.stat.timeOnIce
-      );
-      rows.push(a);
+      if (isGoalie) {
+        const a = createData(
+          season.date,
+          isAwayOrHome,
+          season.stat.shotsAgainst,
+          season.stat.saves,
+          season.stat.savePercentage.toFixed(3),
+          season.stat.timeOnIce
+        );
+        rows.push(a);
+      } else {
+        const a = createData(
+          season.date,
+          isAwayOrHome,
+          season.stat.points,
+          season.stat.goals,
+          season.stat.assists,
+          season.stat.timeOnIce
+        );
+        rows.push(a);
+      }
     });
     setGames(rows);
     setFilteredSeasons(createFilters());
@@ -138,7 +151,10 @@ const GameLogs = ({
       )}
       {setGames ? (
         <StatTable
-          headCells={["Date", "Team", "P", "G", "A", "TOI"]}
+          headCells={isGoalie
+            ? ["Date", "Team", "SA", "S", "SP", "TOI"]
+            : ["Date", "Team", "P", "G", "A", "TOI"]
+          }
           bodyCells={games}
           tableCells={games}
         />
