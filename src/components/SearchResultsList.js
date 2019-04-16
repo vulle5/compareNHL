@@ -19,7 +19,7 @@ import { searchPlayers } from "../functions/searchPlayer";
 import { parseSearchResult } from "../functions/parseSearchResult";
 import { searchResultsListStyles } from "../styles/jss-styles";
 
-const SearchResultsList = ({ term, classes, listStatus, handleListStatus }) => {
+const SearchResultsList = ({ term, classes, listStatus, handleListStatus, isInputFocused }) => {
   // true means render the player list
   // const [listStatus, setListStatus] = useState(true);
   // Needs to be parsed for better usability
@@ -64,7 +64,7 @@ const SearchResultsList = ({ term, classes, listStatus, handleListStatus }) => {
 
   return listStatus === true ? (
     <OutsideClickHandler
-      onOutsideClick={() => handleListStatus(false)}
+      onOutsideClick={() => isInputFocused ? null : handleListStatus(false)}
     >
       <div className={classes.wrapper}>
         <Paper elevation={2} className={classes.paper}>
