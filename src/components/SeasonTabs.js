@@ -9,6 +9,7 @@ import SwipeableViews from "react-swipeable-views";
 import { seasonTabsStyles } from "../styles/jss-styles";
 import CareerTable from "./CareerTable";
 import GameLogs from "./GameLogs";
+import AdvacedStats from "./AdvacedStats";
 
 const TabContainer = ({ children, dir, width }) => {
   return (
@@ -41,6 +42,16 @@ const SeasonTabs = props => {
     });
   };
 
+  const findNHLSeasons = (splits) => {
+    let rows = [];
+    splits.forEach(season => {
+      if (season.league.name === "National Hockey League") {
+        rows.push(season);
+      }
+    });
+    return rows;
+  };
+
   useEffect(() => {
     swipeableRef.current.updateHeight();
   });
@@ -69,7 +80,7 @@ const SeasonTabs = props => {
         >
           <Tab label="Career Stats" />
           <Tab label="Game Logs" />
-          <Tab label="Item Three" />
+          <Tab label="Advanced" />
         </Tabs>
       </AppBar>
       <ScrollTo>
@@ -91,7 +102,7 @@ const SeasonTabs = props => {
             }
           </TabContainer>
           <TabContainer dir={theme.direction} width={width}>
-            Item Three
+            <AdvacedStats player={player} nhlSeasons={findNHLSeasons(splits)} lastSeason={findLastNHLSeason(splits)} swipeReferences={swipeableRef} isGoalie={isGoalie === "G" ? true : false}/>
           </TabContainer>
         </SwipeableViews>}
       </ScrollTo>

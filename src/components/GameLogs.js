@@ -127,7 +127,7 @@ const GameLogs = ({
       <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
         Game Logs
       </Typography>
-      {setGames ? (
+      {games ? (
         <Fragment>
           <CareerFilter
             dataFilter={dataFilter}
@@ -149,7 +149,7 @@ const GameLogs = ({
       ) : (
         <Typography variant="subheading">No NHL Data</Typography>
       )}
-      {setGames ? (
+      {games ? (
         <StatTable
           headCells={isGoalie
             ? ["Date", "Team", "SA", "S", "S%", "TOI"]
