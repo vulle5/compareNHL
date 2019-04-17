@@ -14,6 +14,7 @@ import { getPlayerImages } from "../functions/getPlayerimages";
 import Player from "../models/Player";
 import SeasonTable from "./SeasonTable";
 import SeasonTabs from "./SeasonTabs";
+import FloatingActionButton from "./FloatingActionButton";
 
 const PlayerInfo = props => {
   // Get Player id from the React Router props and styles
@@ -70,6 +71,7 @@ const PlayerInfo = props => {
           <SeasonTable player={player} />
         </Paper>
         {isWidthUp('sm', width) ? null : <SeasonTabs player={player}/> }
+        <FloatingActionButton />
       </div>
     );
   };

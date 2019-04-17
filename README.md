@@ -2,6 +2,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Upcoming
 
-* Advanced Stats (Item Three)
+* Advanced Stats styling
 * Compare Two Players and their stats
 * Currently swippableViews is rendering all list's at once causing perf problems
