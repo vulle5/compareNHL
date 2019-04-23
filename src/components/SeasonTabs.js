@@ -93,16 +93,16 @@ const SeasonTabs = props => {
           ref={swipeableRef}
         >
           <TabContainer dir={theme.direction} width={width}>
-            <CareerTable player={player} swipeReferences={swipeableRef} isGoalie={isGoalie === "G" ? true : false} />
+            <CareerTable player={player} swipeReferences={swipeableRef} isGoalie={isGoalie === "G"} />
           </TabContainer>
           <TabContainer dir={theme.direction} width={width}>
             {typeof findLastNHLSeason(splits) === 'undefined'
               ? <Typography variant="subheading" style={{ padding: "8px" }}>No NHL Data</Typography>
-              : <GameLogs playerId={id} player={player} lastSeason={findLastNHLSeason(splits)} swipeReferences={swipeableRef} isGoalie={isGoalie === "G" ? true : false} />
+              : <GameLogs playerId={id} player={player} lastSeason={findLastNHLSeason(splits)} swipeReferences={swipeableRef} isGoalie={isGoalie === "G"} />
             }
           </TabContainer>
           <TabContainer dir={theme.direction} width={width}>
-            <AdvacedStats player={player} nhlSeasons={findNHLSeasons(splits)} lastSeason={findLastNHLSeason(splits)} swipeReferences={swipeableRef} isGoalie={isGoalie === "G" ? true : false}/>
+            <AdvacedStats player={player} nhlSeasons={findNHLSeasons(splits)} lastSeason={findLastNHLSeason(splits)} swipeReferences={swipeableRef} isGoalie={isGoalie === "G"}/>
           </TabContainer>
         </SwipeableViews>}
       </ScrollTo>
