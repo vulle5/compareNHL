@@ -1,48 +1,43 @@
-import React from 'react';
-import { Grid, Paper } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import React from "react";
+import { Paper, Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+
+// import { getPlayerInfo } from "../functions/getPlayerInfo";
 
 const styles = theme => ({
-  root: {
-    overflow: 'auto',
-    whiteSpace: 'nowrap'
-  },
-  wrapper: {
-    flexGrow: 1,
-  },
-  paper: {
-    height: 750,
-    width: 400,
-  },
-  control: {
-    padding: theme.spacing.unit * 2,
-  },
+  list: {
+    listStyleType: "none",
+    paddingInlineStart: "0px"
+  }
 });
 
-const Compare = props => {
-  console.log(props);
-  const { classes } = props;
+const Compare = ({ match: { params }, classes }) => {
+  // const playerInfo = getPlayerInfo(params.playerId, "");
+
   return (
-    <div className={classes.root}>
-      <Grid
-      container
-      style={{padding: '8px'}}
-      direction="row"
-      justify="flex-start"
-      className={classes.wrapper}
-      >
-        <Grid item xs={12} >
-          <Grid container className={classes.demo} spacing={16}>
-            {[0, 1, 2].map(value => (
-              <Grid key={value} item>
-                <Paper className={classes.paper} />
-              </Grid>
-            ))}
-          </Grid>
-        </Grid>
-      </Grid>
+    <div style={{ textAlign: "center" }}>
+      <Paper style={{}}>
+        <div>
+          <Typography variant="h5">Sebastian Aho</Typography>
+          <Typography variant="body1" component="ul" className={classes.list}>
+            <li>Basic stats</li>
+            <li>Points</li>
+            <li>Goals</li>
+            <li>Assists</li>
+          </Typography>
+        </div>
+        <div>
+          <Typography variant="h5">Patrik Laine</Typography>
+          <Typography variant="body1" component="ul" className={classes.list}>
+            <li>Basic stats</li>
+            <li>Points</li>
+            <li>Goals</li>
+            <li>Assists</li>
+          </Typography>
+        </div>
+      </Paper>
     </div>
   );
-}
+};
 
 export default withStyles(styles)(Compare);
