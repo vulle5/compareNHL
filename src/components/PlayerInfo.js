@@ -11,7 +11,7 @@ import { playerInfoStyles } from "../styles/jss-styles";
 
 import { getPlayerInfo } from "../functions/getPlayerInfo";
 import { getPlayerImages } from "../functions/getPlayerimages";
-import Player from "../models/Player";
+import { genPlayer } from "../functions/genPlayer";
 import SeasonTable from "./SeasonTable";
 import SeasonTabs from "./SeasonTabs";
 import FloatingActionButton from "./FloatingActionButton";
@@ -81,30 +81,7 @@ const PlayerInfo = props => {
   if (idFromNetwork !== parseInt(playerId)) {
     content = <CircularProgress />;
   } else {
-    const newPlayer = new Player(
-      playerStats.id,
-      playerStats.fullName,
-      playerStats.link,
-      playerStats.firstName,
-      playerStats.lastName,
-      playerStats.primaryNumber,
-      playerStats.birthDate,
-      playerStats.currentAge,
-      playerStats.birthCity,
-      playerStats.birthCountry,
-      playerStats.nationality,
-      playerStats.height,
-      playerStats.weight,
-      playerStats.active,
-      playerStats.alternateCaptain,
-      playerStats.captain,
-      playerStats.rookie,
-      playerStats.shootsCatches,
-      playerStats.rosterStatus,
-      playerStats.currentTeam,
-      playerStats.primaryPosition,
-      playerStats.stats
-    );
+    const newPlayer = genPlayer(playerStats)
     content = renderInfo(newPlayer);
   }
 

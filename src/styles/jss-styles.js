@@ -177,3 +177,16 @@ export const floatingActionButtonStyles = theme => ({
     marginRight: theme.spacing.unit,
   },
 });
+
+export const compareStyles = theme => ({
+  root: {
+    textAlign: "center",
+    display: "inline-block",
+    margin: "8px"
+  },
+  paper: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly"
+  }
+});

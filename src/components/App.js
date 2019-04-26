@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 // CssBaseline removes browser spesific default styles
 // so your app starts with blank styling
@@ -10,7 +10,7 @@ import Compare from "./Compare";
 
 const App = () => {
   return (
-    <div>
+    <Fragment>
       <CssBaseline />
       <BrowserRouter>
         <div>
@@ -21,7 +21,7 @@ const App = () => {
           </Switch>
         </div>
       </BrowserRouter>
-    </div>
+    </Fragment>
   );
 };
 

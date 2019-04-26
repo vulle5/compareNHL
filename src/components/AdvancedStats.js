@@ -5,7 +5,7 @@ import { Typography } from "@material-ui/core";
 import CareerFilter from "./CareerFilter";
 import AdvancedList from "./AdvancedList";
 
-const AdvacedStats = ({ player, swipeReferences, nhlSeasons, lastSeason: { season: latestSeason } }) => {
+const AdvancedStats = ({ player, swipeReferences, nhlSeasons, lastSeason: { season: latestSeason } }) => {
 
 	const [filteredSeasons, setFilteredSeasons] = useState([]);
 	const [currentFilter, setCurrentFilter] = useState(latestSeason);
@@ -46,4 +46,4 @@ const AdvacedStats = ({ player, swipeReferences, nhlSeasons, lastSeason: { seaso
 	);
 }
 
-export default AdvacedStats
+export default AdvancedStats

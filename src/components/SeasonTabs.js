@@ -9,7 +9,7 @@ import SwipeableViews from "react-swipeable-views";
 import { seasonTabsStyles } from "../styles/jss-styles";
 import CareerTable from "./CareerTable";
 import GameLogs from "./GameLogs";
-import AdvacedStats from "./AdvacedStats";
+import AdvancedStats from "./AdvancedStats";
 
 const TabContainer = ({ children, dir, width }) => {
   return (
@@ -102,7 +102,7 @@ const SeasonTabs = props => {
             }
           </TabContainer>
           <TabContainer dir={theme.direction} width={width}>
-            <AdvacedStats player={player} nhlSeasons={findNHLSeasons(splits)} lastSeason={findLastNHLSeason(splits)} swipeReferences={swipeableRef} isGoalie={isGoalie === "G"}/>
+            <AdvancedStats player={player} nhlSeasons={findNHLSeasons(splits)} lastSeason={findLastNHLSeason(splits)} swipeReferences={swipeableRef} isGoalie={isGoalie === "G"}/>
           </TabContainer>
         </SwipeableViews>}
       </ScrollTo>
