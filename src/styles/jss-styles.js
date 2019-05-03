@@ -1,4 +1,4 @@
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import { fade } from "@material-ui/core/styles/colorManipulator";
 
 /*
 
@@ -10,91 +10,91 @@ var isIE = false || !!document.documentMode;
 
 */
 
-let isFirefox = typeof InstallTrigger !== 'undefined';
+let isFirefox = typeof InstallTrigger !== "undefined";
 
 export const searchPlayerBarStyles = theme => ({
   root: {
-    width: '100%',
+    width: "100%"
   },
   grow: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20,
+    marginRight: 20
   },
   title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "block"
+    }
   },
   search: {
-    position: 'relative',
+    position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.white, 0.25)
     },
     marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing.unit,
-      width: 'auto',
-    },
+      width: "auto"
+    }
   },
   searchIcon: {
     width: theme.spacing.unit * 9,
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   },
   inputRoot: {
-    color: 'inherit',
-    width: '100%',
+    color: "inherit",
+    width: "100%"
   },
   inputInput: {
     paddingTop: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
     paddingLeft: theme.spacing.unit * 10,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
       width: 120,
-      '&:focus': {
-        width: 200,
-      },
-    },
-  },
+      "&:focus": {
+        width: 200
+      }
+    }
+  }
 });
 
 export const searchResultsListStyles = theme => ({
   wrapper: {
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up("md")]: {
       left: "75%",
       position: "relative"
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down("sm")]: {
       position: "relative"
     }
   },
   spinner: {
-    [theme.breakpoints.up('xs')]: {
+    [theme.breakpoints.up("xs")]: {
       display: "block",
       marginRight: "auto",
       marginLeft: "auto"
     }
   },
   paper: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up("sm")]: {
       position: "absolute",
       width: "24%"
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down("sm")]: {
       width: "100%"
     }
   }
@@ -105,60 +105,60 @@ export const playerInfoStyles = theme => ({
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
-    [theme.breakpoints.down('xs')]: {
-      margin: '0px',
-      borderRadius: '0px',
+    [theme.breakpoints.down("xs")]: {
+      margin: "0px",
+      borderRadius: "0px"
     },
     margin: theme.spacing.unit,
-    maxWidth: '1000px',
-    textAlign: '-webkit-center',
+    maxWidth: "1000px",
+    textAlign: "-webkit-center"
   },
   wrapper: {
-    textAlign: isFirefox ? '-moz-center' : '-webkit-center',
+    textAlign: isFirefox ? "-moz-center" : "-webkit-center"
   },
   mainStats: {
-    paddingInlineStart: '0',
-    listStyleType: 'none',
-    display: 'table',
+    paddingInlineStart: "0",
+    listStyleType: "none",
+    display: "table"
   },
   mainStatsLi: {
-    float: 'left',
-    padding: '0px 8px',
+    float: "left",
+    padding: "0px 8px"
   },
   playerThumbnail: {
-    width: '100%',
-    objectFit: 'contain',
-    maxHeight: '317px',
-    borderRadius: '4px'
-  },
+    width: "100%",
+    objectFit: "contain",
+    maxHeight: "317px",
+    borderRadius: "4px"
+  }
 });
 
 export const seasonTableStyles = theme => ({
   root: {
-    overflow: 'auto',
-    marginBottom: '8px',
+    overflow: "auto",
+    marginBottom: "8px"
   },
   table: {
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
+    [theme.breakpoints.down("sm")]: {
+      width: "100%"
     },
-    width: '75%',
-    tableLayout: 'fixed',
+    width: "75%",
+    tableLayout: "fixed"
   },
   headItem: {
     backgroundColor: "#fff",
     position: "sticky",
     top: 0,
-    zIndex: 10,
-  },
+    zIndex: 10
+  }
 });
 
 export const seasonTabsStyles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     width: 500,
-    display: 'inline',
-  },
+    display: "inline"
+  }
 });
 
 export const floatingActionButtonStyles = theme => ({
@@ -166,16 +166,16 @@ export const floatingActionButtonStyles = theme => ({
     display: "inline-block"
   },
   fab: {
-    margin: '0',
-    top: 'auto',
-    right: '16px',
-    bottom: '16px',
-    left: 'auto',
-    position: 'fixed',
+    margin: "0",
+    top: "auto",
+    right: "16px",
+    bottom: "16px",
+    left: "auto",
+    position: "fixed"
   },
   extendedIcon: {
-    marginRight: theme.spacing.unit,
-  },
+    marginRight: theme.spacing.unit
+  }
 });
 
 export const compareStyles = theme => ({
@@ -188,5 +188,9 @@ export const compareStyles = theme => ({
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-evenly"
+  },
+  list: {
+    listStyleType: "none",
+    paddingInlineStart: "0px"
   }
 });

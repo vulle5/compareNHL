@@ -3,13 +3,14 @@ import typy from "typy";
 import { Paper, Typography, CircularProgress } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
-import { compareStyles } from "../styles/jss-styles"
-import { genPlayer } from "../functions/genPlayer"
+import { compareStyles } from "../styles/jss-styles";
+import { genPlayer } from "../functions/genPlayer";
 import { getPlayerInfo } from "../functions/getPlayerInfo";
 
 const Compare = ({ match: { params }, classes }) => {
   const playerInfo = getPlayerInfo(
-    params.playerId, "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
+    params.playerId,
+    "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
   );
 
   const renderContent = player => {
@@ -17,7 +18,11 @@ const Compare = ({ match: { params }, classes }) => {
       <Paper className={classes.paper}>
         <div style={{ margin: "16px" }}>
           <Typography variant="h5">{player.fullName}</Typography>
-          <Typography variant="subtitle1" component="ul">
+          <Typography
+            variant="subtitle1"
+            component="ul"
+            className={classes.list}
+          >
             <li>Games Played:</li>
             <li>Points:</li>
             <li>Goals:</li>
@@ -26,7 +31,11 @@ const Compare = ({ match: { params }, classes }) => {
         </div>
         <div style={{ margin: "16px" }}>
           <Typography variant="h5">Nolan Patrick</Typography>
-          <Typography variant="subtitle1" component="ul">
+          <Typography
+            variant="subtitle1"
+            component="ul"
+            className={classes.list}
+          >
             <li>Games Played</li>
             <li>82</li>
             <li>Points</li>
@@ -39,21 +48,17 @@ const Compare = ({ match: { params }, classes }) => {
         </div>
       </Paper>
     );
-  }
+  };
 
   let content;
   if (typy(playerInfo, "people[0]").safeObject) {
     const player = genPlayer(typy(playerInfo, "people[0]").safeObject);
-    content = renderContent(player)
+    content = renderContent(player);
   } else {
     content = <CircularProgress />;
   }
 
-  return (
-    <div className={classes.root}>
-      {content}
-    </div>
-  );
+  return <div className={classes.root}>{content}</div>;
 };
 
 export default withStyles(compareStyles)(Compare);
