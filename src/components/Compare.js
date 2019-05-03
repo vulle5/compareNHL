@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import typy from "typy";
-import { Paper, Typography, CircularProgress, Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
+import { Paper, CircularProgress, Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
 import { compareStyles } from "../styles/jss-styles";
@@ -37,7 +37,7 @@ const Compare = ({ match: { params }, classes }) => {
             </TableBody>
           </Table>
         </Paper>
-        <FloatingActionButton to="" title="Add Player" />
+        <FloatingActionButton title="Add Player" onClick={() => console.log("jee")} />
       </Fragment>
     );
   };
