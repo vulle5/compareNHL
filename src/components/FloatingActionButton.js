@@ -7,7 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 import { floatingActionButtonStyles } from '../styles/jss-styles';
 
-const FloatingActionButton = ({ classes, width, playerId }) => {
+const FloatingActionButton = ({ classes, width, to, title }) => {
   return (
     <div className={classes.root}>
       <Fab
@@ -16,10 +16,10 @@ const FloatingActionButton = ({ classes, width, playerId }) => {
         className={classes.fab}
         color="primary"
         component={Link}
-        to={`/compare/${playerId}`}
+        to={to}
       >
         <AddIcon className={isWidthUp('sm', width) ? classes.extendedIcon : null} />
-        {isWidthUp('sm', width) ? 'Compare' : null}
+        {isWidthUp('sm', width) ? title : null}
       </Fab>
     </div>
   );

@@ -1,11 +1,12 @@
-import React from "react";
+import React, { Fragment } from "react";
 import typy from "typy";
-import { Paper, Typography, CircularProgress } from "@material-ui/core";
+import { Paper, Typography, CircularProgress, Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
 import { compareStyles } from "../styles/jss-styles";
 import { genPlayer } from "../functions/genPlayer";
 import { getPlayerInfo } from "../functions/getPlayerInfo";
+import FloatingActionButton from "../components/FloatingActionButton";
 
 const Compare = ({ match: { params }, classes }) => {
   const playerInfo = getPlayerInfo(
@@ -15,44 +16,52 @@ const Compare = ({ match: { params }, classes }) => {
 
   const renderContent = player => {
     return (
-      <Paper className={classes.paper}>
-        <div style={{ margin: "16px" }}>
-          <Typography variant="h5">{player.fullName}</Typography>
-          <Typography
-            variant="subtitle1"
-            component="ul"
-            className={classes.list}
-          >
-            <li>Games Played:</li>
-            <li>Points:</li>
-            <li>Goals:</li>
-            <li>Assists:</li>
-          </Typography>
-        </div>
-        <div style={{ margin: "16px" }}>
-          <Typography variant="h5">Nolan Patrick</Typography>
-          <Typography
-            variant="subtitle1"
-            component="ul"
-            className={classes.list}
-          >
-            <li>Games Played</li>
-            <li>82</li>
-            <li>Points</li>
-            <li>50</li>
-            <li>Goals</li>
-            <li>25</li>
-            <li>Assists</li>
-            <li>25</li>
-          </Typography>
-        </div>
-      </Paper>
+      <Fragment>
+        <Paper className={classes.paper}>
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell align="center">{player.fullName}</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map(row => (
+                <TableRow key={row.id}>
+                  <TableCell component="th" scope="row">
+                    {row.name}
+                  </TableCell>
+                  <TableCell align="center">{row.data}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Paper>
+        <FloatingActionButton to="" title="Add Player" />
+      </Fragment>
     );
   };
 
+  let id = 0;
+  function createData(name, data) {
+    id += 1;
+    return { id, name, data };
+  }
+
+  let rows = [];
   let content;
+
   if (typy(playerInfo, "people[0]").safeObject) {
     const player = genPlayer(typy(playerInfo, "people[0]").safeObject);
+    console.log(player);
+    rows = [
+      createData('Age', player.calcCurrentAge()),
+      createData('Hight', player.metricHight),
+      createData('Weight', player.metricWeight),
+      createData('Nationality', player.nationality),
+      createData('Birth City', player.birthCity),
+      createData('Position', player.primaryPosition.name),
+    ];
     content = renderContent(player);
   } else {
     content = <CircularProgress />;

@@ -71,7 +71,7 @@ const PlayerInfo = props => {
           <SeasonTable player={player} />
         </Paper>
         {isWidthUp('sm', width) ? null : <SeasonTabs player={player}/> }
-        <FloatingActionButton playerId={playerId}/>
+        <FloatingActionButton to={`/compare/${playerId}`} title='Compare' />
       </div>
     );
   };
