@@ -183,8 +183,8 @@ export const compareStyles = theme => ({
     display: "inline-block",
   },
   root: {
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
+    display: 'flex',
+    marginTop: theme.spacing.unit * 3
   },
   table: {
     display: "inline-block",

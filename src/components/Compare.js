@@ -1,18 +1,38 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import typy from "typy";
-import { Paper, CircularProgress, Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
+import { Paper, CircularProgress, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
 import { compareStyles } from "../styles/jss-styles";
 import { genPlayer } from "../functions/genPlayer";
 import { getPlayerInfo } from "../functions/getPlayerInfo";
 import FloatingActionButton from "../components/FloatingActionButton";
+import SearchResultsList from "../components/SearchResultsList";
 
 const Compare = ({ match: { params }, classes }) => {
   const playerInfo = getPlayerInfo(
     params.playerId,
     "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
   );
+
+  const [listStatus, setListStatus] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const renderSearch = () => {
+    return(
+      <Fragment>
+        <TextField
+          id="outlined-name"
+          label="Name"
+          value={searchTerm}
+          onChange={event => setSearchTerm(event.target.value)}
+          margin="normal"
+          variant="outlined"
+        />
+        <SearchResultsList listStatus={listStatus} handleListStatus={bool => setListStatus(bool)} />
+      </Fragment>
+    );
+  }
 
   const renderContent = player => {
     return (
@@ -36,8 +56,9 @@ const Compare = ({ match: { params }, classes }) => {
               ))}
             </TableBody>
           </Table>
+          {renderSearch()}
         </Paper>
-        <FloatingActionButton title="Add Player" onClick={() => console.log("jee")} />
+        <FloatingActionButton title="Add Player" onClick={() => setListStatus(true)} />
       </Fragment>
     );
   };
