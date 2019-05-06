@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const getPlayerImages = playerId => {
+export const useGetPlayerImages = playerId => {
   const [playerImage, setPlayerImage] = useState([]);
 
   useEffect(() => {

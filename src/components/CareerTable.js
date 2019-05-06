@@ -21,12 +21,6 @@ const CareerTable = props => {
   const [originalData , setOriginalData] = useState([]);
   const [filteredNames , setFilteredNames] = useState([]);
 
-  let id = 0;
-  const createData = (name, team, season, games, pointsOrWins, goalsOrLosses, assistsOrGAA) => {
-    id += 1;
-    return { id, name, team, season, games, pointsOrWins, goalsOrLosses, assistsOrGAA };
-  };
-
   const removeDuplicates = data => {
     let a = [];
     data.forEach(object => {
@@ -37,6 +31,12 @@ const CareerTable = props => {
   };
 
   useEffect(() => {
+    let id = 0;
+    const createData = (name, team, season, games, pointsOrWins, goalsOrLosses, assistsOrGAA) => {
+      id += 1;
+      return { id, name, team, season, games, pointsOrWins, goalsOrLosses, assistsOrGAA };
+    };
+
     let rows = [];
     splits.forEach(season => {
       if (isGoalie) {
@@ -68,7 +68,7 @@ const CareerTable = props => {
     setFilteredData(rows);
     // Function below
     removeDuplicates(rows);
-  }, []);
+  }, [isGoalie, splits]);
 
   const dataFilter = filter => {
     if (filter === '') {

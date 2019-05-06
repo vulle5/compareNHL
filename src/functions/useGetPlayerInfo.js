@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export const getPlayerInfo = (playerId, modifier) => {
+export const useGetPlayerInfo = (playerId, modifier) => {
   const [playerStats, setPlayerStats] = useState([]);
   let modURL = modifier ? modifier : '';
   useEffect(() => {
@@ -13,7 +13,7 @@ export const getPlayerInfo = (playerId, modifier) => {
         setPlayerStats(data);
       }
     })(playerId);
-  }, [playerId, modifier]);
+  }, [playerId, modURL]);
 
   return playerStats;
 };

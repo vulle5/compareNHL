@@ -15,7 +15,7 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import OutsideClickHandler from 'react-outside-click-handler';
 
-import { searchPlayers } from "../functions/searchPlayer";
+import { useSearchPlayer } from "../functions/useSearchPlayer";
 import { parseSearchResult } from "../functions/parseSearchResult";
 import { searchResultsListStyles } from "../styles/jss-styles";
 
@@ -23,7 +23,7 @@ const SearchResultsList = ({ term, classes, listStatus, handleListStatus, isInpu
   // true means render the player list
   // const [listStatus, setListStatus] = useState(true);
   // Needs to be parsed for better usability
-  const arrayOfPlayers = searchPlayers(term);
+  const arrayOfPlayers = useSearchPlayer(term);
   // Returns array of player statistics
   const parsedPlayerIds = parseSearchResult(arrayOfPlayers);
 

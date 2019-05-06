@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export const searchPlayers = searchTerm => {
+export const useSearchPlayer = searchTerm => {
   const [players, setPlayers] = useState([]);
 
   useEffect(() => {

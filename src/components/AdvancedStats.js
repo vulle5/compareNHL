@@ -10,25 +10,25 @@ const AdvancedStats = ({ player, swipeReferences, nhlSeasons, lastSeason: { seas
 	const [filteredSeasons, setFilteredSeasons] = useState([]);
 	const [currentFilter, setCurrentFilter] = useState(latestSeason);
 
-	const createFilters = () => {
-    let a = [];
-    nhlSeasons.forEach(season => {
-      if (season.league.name === "National Hockey League") {
-        const seasonWithDash =
-          season.season.slice(0, 4) + "-" + season.season.slice(4);
-        a.push(seasonWithDash);
-      }
-    });
-    return [...new Set(a)];
-	};
-
 	const selectedSeason = seasons => {
 		return _.find(seasons, { season: currentFilter });
 	}
 
 	useEffect(() => {
+		const createFilters = () => {
+    let a = [];
+    nhlSeasons.forEach(season => {
+				if (season.league.name === "National Hockey League") {
+					const seasonWithDash =
+						season.season.slice(0, 4) + "-" + season.season.slice(4);
+					a.push(seasonWithDash);
+				}
+			});
+			return [...new Set(a)];
+		};
+
 		setFilteredSeasons(createFilters());
-	}, [currentFilter])
+	}, [nhlSeasons])
 
 	const dataFilter = filter => {
 		let season = filter.replace("-", "");

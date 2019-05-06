@@ -5,12 +5,12 @@ import { withStyles } from "@material-ui/core/styles";
 
 import { compareStyles } from "../styles/jss-styles";
 import { genPlayer } from "../functions/genPlayer";
-import { getPlayerInfo } from "../functions/getPlayerInfo";
+import { useGetPlayerInfo } from "../functions/useGetPlayerInfo";
 import FloatingActionButton from "../components/FloatingActionButton";
 import SearchResultsList from "../components/SearchResultsList";
 
 const Compare = ({ match: { params }, classes }) => {
-  const playerInfo = getPlayerInfo(
+  const playerInfo = useGetPlayerInfo(
     params.playerId,
     "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
   );

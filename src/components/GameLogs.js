@@ -3,7 +3,7 @@ import typy from "typy";
 import { Typography, Switch, FormControlLabel } from "@material-ui/core";
 
 import StatTable from "./StatTable";
-import { getPlayerInfo } from "../functions/getPlayerInfo";
+import { useGetPlayerInfo } from "../functions/useGetPlayerInfo";
 import CareerFilter from "./CareerFilter";
 
 const GameLogs = ({
@@ -23,66 +23,66 @@ const GameLogs = ({
   const [playoffSelected, setPlayoffSelected] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
 
-  let response = getPlayerInfo(
+  let response = useGetPlayerInfo(
     playerId,
     `stats?stats=gameLog&expand=stats.team&season=${currentSeason}`
   );
-  let playoffResponse = getPlayerInfo(
+  let playoffResponse = useGetPlayerInfo(
     playerId,
     `stats?stats=playoffGameLog&expand=stats.team&season=${currentSeason}`
   );
 
-  let id = 0;
-  const createData = (date, against, pointsOrSA, goalsOrSaves, assistsOrSP, toi) => {
-    id += 1;
-    return { id, date, against, pointsOrSA, goalsOrSaves, assistsOrSP, toi };
-  };
-
-  const createFilters = () => {
-    let a = [];
-    allSeasons.forEach(season => {
-      if (season.league.name === "National Hockey League") {
-        const seasonWithDash =
-          season.season.slice(0, 4) + "-" + season.season.slice(4);
-        a.push(seasonWithDash);
-      }
-    });
-    return [...new Set(a)];
-  };
-
-  const makeRows = splits => {
-    let rows = [];
-    splits.forEach(season => {
-      const isAwayOrHome = season.isHome
-        ? season.opponent.abbreviation
-        : season.opponent.abbreviation.replace(/^/, "@");
-      if (isGoalie) {
-        const a = createData(
-          season.date,
-          isAwayOrHome,
-          season.stat.shotsAgainst,
-          season.stat.saves,
-          season.stat.savePercentage.toFixed(3),
-          season.stat.timeOnIce
-        );
-        rows.push(a);
-      } else {
-        const a = createData(
-          season.date,
-          isAwayOrHome,
-          season.stat.points,
-          season.stat.goals,
-          season.stat.assists,
-          season.stat.timeOnIce
-        );
-        rows.push(a);
-      }
-    });
-    setGames(rows);
-    setFilteredSeasons(createFilters());
-  };
-
   useEffect(() => {
+    let id = 0;
+    const createData = (date, against, pointsOrSA, goalsOrSaves, assistsOrSP, toi) => {
+      id += 1;
+      return { id, date, against, pointsOrSA, goalsOrSaves, assistsOrSP, toi };
+    };
+
+    const createFilters = () => {
+      let a = [];
+      allSeasons.forEach(season => {
+        if (season.league.name === "National Hockey League") {
+          const seasonWithDash =
+            season.season.slice(0, 4) + "-" + season.season.slice(4);
+          a.push(seasonWithDash);
+        }
+      });
+      return [...new Set(a)];
+    };
+
+    const makeRows = splits => {
+      let rows = [];
+      splits.forEach(season => {
+        const isAwayOrHome = season.isHome
+          ? season.opponent.abbreviation
+          : season.opponent.abbreviation.replace(/^/, "@");
+        if (isGoalie) {
+          const a = createData(
+            season.date,
+            isAwayOrHome,
+            season.stat.shotsAgainst,
+            season.stat.saves,
+            season.stat.savePercentage.toFixed(3),
+            season.stat.timeOnIce
+          );
+          rows.push(a);
+        } else {
+          const a = createData(
+            season.date,
+            isAwayOrHome,
+            season.stat.points,
+            season.stat.goals,
+            season.stat.assists,
+            season.stat.timeOnIce
+          );
+          rows.push(a);
+        }
+      });
+      setGames(rows);
+      setFilteredSeasons(createFilters());
+    };
+
     if (
       typy(response, "copyright").safeObject &&
       typy(playoffResponse, "copyright").safeObject
@@ -110,7 +110,7 @@ const GameLogs = ({
         setIsDisabled(false);
       }
     }
-  }, [response, playoffResponse, playoffSelected]);
+  }, [response, playoffResponse, playoffSelected, allSeasons, isGoalie]);
 
   const dataFilter = filter => {
     let season = filter.replace("-", "");

@@ -9,8 +9,8 @@ import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import { withStyles } from "@material-ui/core/styles";
 import { playerInfoStyles } from "../styles/jss-styles";
 
-import { getPlayerInfo } from "../functions/getPlayerInfo";
-import { getPlayerImages } from "../functions/getPlayerimages";
+import { useGetPlayerInfo } from "../functions/useGetPlayerInfo";
+import { useGetPlayerImages } from "../functions/useGetPlayerImages";
 import { genPlayer } from "../functions/genPlayer";
 import SeasonTable from "./SeasonTable";
 import SeasonTabs from "./SeasonTabs";
@@ -26,12 +26,12 @@ const PlayerInfo = props => {
     width
   } = props;
   // Fetch Player Info from the server
-  const playerResponse = getPlayerInfo(
+  const playerResponse = useGetPlayerInfo(
     playerId,
     "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
   );
   // Fetch player images
-  const playerImageResponse = getPlayerImages(playerId);
+  const playerImageResponse = useGetPlayerImages(playerId);
   // In JavaScript Nested Objects are wierd. This line avoids errors with player response being ''
   const playerStats = typy(playerResponse, "people[0]").safeObject;
 

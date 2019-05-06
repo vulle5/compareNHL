@@ -7,7 +7,7 @@ const CareerFilter = ({ dataFilter, filterNames, swipeReferences, showAll }) => 
 
   useEffect(() => {
     swipeReferences.current.updateHeight();
-  }, [filterNames]);
+  }, [filterNames, swipeReferences]);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
