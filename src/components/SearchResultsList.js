@@ -13,15 +13,19 @@ import {
   Paper
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import OutsideClickHandler from 'react-outside-click-handler';
+import OutsideClickHandler from "react-outside-click-handler";
 
 import { useSearchPlayer } from "../functions/useSearchPlayer";
 import { parseSearchResult } from "../functions/parseSearchResult";
 import { searchResultsListStyles } from "../styles/jss-styles";
 
-const SearchResultsList = ({ term, classes, listStatus, handleListStatus, isInputFocused }) => {
-  // true means render the player list
-  // const [listStatus, setListStatus] = useState(true);
+const SearchResultsList = ({
+  term,
+  classes,
+  listStatus,
+  handleListStatus,
+  isInputFocused
+}) => {
   // Needs to be parsed for better usability
   const arrayOfPlayers = useSearchPlayer(term);
   // Returns array of player statistics
@@ -64,13 +68,13 @@ const SearchResultsList = ({ term, classes, listStatus, handleListStatus, isInpu
 
   return listStatus === true ? (
     <OutsideClickHandler
-      onOutsideClick={() => isInputFocused ? null : handleListStatus(false)}
+      onOutsideClick={() => (isInputFocused ? null : handleListStatus(false))}
     >
       <div className={classes.wrapper}>
         <Paper elevation={2} className={classes.paper}>
           <List>
             {typy(parsedPlayerIds).isEmptyArray ? (
-              <CircularProgress className={classes.spinner}/>
+              <CircularProgress className={classes.spinner} />
             ) : (
               renderPlayerList
             )}
