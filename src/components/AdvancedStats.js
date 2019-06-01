@@ -4,6 +4,7 @@ import { Typography } from "@material-ui/core";
 
 import CareerFilter from "./CareerFilter";
 import AdvancedList from "./AdvancedList";
+import DisplayFilter from "./DisplayFilter";
 
 const AdvancedStats = ({
   player,
@@ -13,6 +14,9 @@ const AdvancedStats = ({
 }) => {
   const [filteredSeasons, setFilteredSeasons] = useState([]);
   const [currentFilter, setCurrentFilter] = useState(latestSeason);
+  const [selectedFilter, setSelectedFilter] = useState(
+    latestSeason.slice(0, 4) + "-" + latestSeason.slice(4)
+  );
 
   const selectedSeason = seasons => {
     return _.find(seasons, { season: currentFilter });
@@ -30,8 +34,8 @@ const AdvancedStats = ({
   }, [nhlSeasons]);
 
   const dataFilter = filter => {
-    let season = filter.replace("-", "");
-    setCurrentFilter(season);
+    setSelectedFilter(filter);
+    setCurrentFilter(filter.replace("-", ""));
   };
 
   return (
@@ -44,6 +48,7 @@ const AdvancedStats = ({
         dataFilter={dataFilter}
         filterNames={filteredSeasons}
       />
+      <DisplayFilter selectedFilter={selectedFilter} />
       <AdvancedList seasons={selectedSeason(nhlSeasons)} />
     </div>
   );

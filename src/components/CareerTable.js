@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { seasonTableStyles } from "../styles/jss-styles";
 import StatTable from "./StatTable";
 import CareerFilter from "./CareerFilter";
+import DisplayFilter from "./DisplayFilter";
 
 const CareerTable = props => {
   const {
@@ -20,6 +21,7 @@ const CareerTable = props => {
   const [filteredData, setFilteredData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
   const [filteredNames, setFilteredNames] = useState([]);
+  const [selectedFilter, setSelectedFilter] = useState("Show all");
 
   // Function removes duplicate leagues from the list so we
   // can make filters out of them
@@ -70,10 +72,12 @@ const CareerTable = props => {
   }, [isGoalie, splits]);
 
   const dataFilter = filter => {
-    if (filter === "") {
+    if (filter.length === 0) {
       setFilteredData(originalData);
+      setSelectedFilter("Show all");
     } else {
       setFilteredData(originalData.filter(row => row.name === filter));
+      setSelectedFilter(filter);
     }
   };
 
@@ -88,6 +92,7 @@ const CareerTable = props => {
         swipeReferences={swipeReferences}
         showAll
       />
+      <DisplayFilter selectedFilter={selectedFilter} />
       <StatTable
         headCells={
           isGoalie
