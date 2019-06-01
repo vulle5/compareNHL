@@ -8,7 +8,7 @@ export const useGetPlayerInfo = (playerId, modifier) => {
     (async (ids) => {
       if (ids !== 0) {
         const { data } = await axios.get(
-          `https://statsapi.web.nhl.com/api/v1/people/${ids}/${modURL}`
+          `http://localhost:5000/api/players/${ids}/${modURL}`
         );
         setPlayerStats(data);
       }
