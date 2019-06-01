@@ -10,7 +10,6 @@ import { useGetPlayerImages } from "../functions/useGetPlayerImages";
 import { genPlayer } from "../functions/genPlayer";
 import SeasonTable from "./SeasonTable";
 import SeasonTabs from "./SeasonTabs";
-import FloatingActionButton from "./FloatingActionButton";
 
 const PlayerInfo = props => {
   // Get Player id from the React Router props and styles
@@ -69,11 +68,6 @@ const PlayerInfo = props => {
           <SeasonTable player={player} />
         </Paper>
         {isWidthUp("sm", width) ? null : <SeasonTabs player={player} />}
-        <FloatingActionButton
-          to={`/compare/${playerId}`}
-          title="Compare"
-          isLink
-        />
       </div>
     );
   };
