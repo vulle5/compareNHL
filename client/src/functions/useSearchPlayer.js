@@ -7,12 +7,16 @@ export const useSearchPlayer = searchTerm => {
   useEffect(() => {
     (async searchTerm => {
       if (searchTerm !== "") {
-        const {
-          data: { suggestions }
-        } = await axios.get(
-          `http://localhost:5000/api/players/search/${searchTerm}`
-        );
-        setPlayers(suggestions);
+        try {
+          const {
+            data: { suggestions }
+          } = await axios.get(
+            `http://localhost:5000/api/players/search/${searchTerm}`
+          );
+          setPlayers(suggestions);
+        } catch ({ response: { data } }) {
+          setPlayers(data);
+        }
       }
     })(searchTerm);
   }, [searchTerm]);

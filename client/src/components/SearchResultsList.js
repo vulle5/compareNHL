@@ -1,5 +1,4 @@
-import React from "react";
-import typy from "typy";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   List,
@@ -29,7 +28,15 @@ const SearchResultsList = ({
   // Needs to be parsed for better usability
   const arrayOfPlayers = useSearchPlayer(term);
   // Returns array of player statistics
-  const parsedPlayerIds = parseSearchResult(arrayOfPlayers);
+  const parsedPlayerIds =
+    typeof arrayOfPlayers !== "string" ? parseSearchResult(arrayOfPlayers) : [];
+  const [noPlayers, setNoPlayers] = useState(false);
+
+  useEffect(() => {
+    typeof arrayOfPlayers !== "string"
+      ? setNoPlayers(false)
+      : setNoPlayers(true);
+  }, [arrayOfPlayers]);
 
   const renderPlayerList = parsedPlayerIds.slice(0, 8).map(player => (
     <Link
@@ -73,7 +80,11 @@ const SearchResultsList = ({
       <div className={classes.wrapper}>
         <Paper elevation={2} className={classes.paper}>
           <List>
-            {typy(parsedPlayerIds).isEmptyArray ? (
+            {noPlayers ? (
+              <Typography className={classes.message} variant="subtitle1">
+                {arrayOfPlayers}
+              </Typography>
+            ) : parsedPlayerIds.length === 0 ? (
               <CircularProgress className={classes.spinner} />
             ) : (
               renderPlayerList

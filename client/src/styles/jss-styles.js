@@ -97,6 +97,9 @@ export const searchResultsListStyles = theme => ({
     [theme.breakpoints.down("sm")]: {
       width: "100%"
     }
+  },
+  message: {
+    textAlign: "center"
   }
 });
 
@@ -130,6 +133,10 @@ export const playerInfoStyles = theme => ({
     objectFit: "contain",
     maxHeight: "317px",
     borderRadius: "4px"
+  },
+  spinner: {
+    textAlign: "center",
+    marginTop: "20px"
   }
 });
 
@@ -180,13 +187,13 @@ export const floatingActionButtonStyles = theme => ({
 
 export const compareStyles = theme => ({
   paper: {
-    display: "inline-block",
+    display: "inline-block"
   },
   root: {
-    display: 'flex',
+    display: "flex",
     marginTop: theme.spacing.unit * 3
   },
   table: {
-    display: "inline-block",
-  },
+    display: "inline-block"
+  }
 });

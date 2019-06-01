@@ -1,10 +1,6 @@
 import React from "react";
 import typy from "typy";
-import {
-  Paper,
-  Typography,
-  CircularProgress
-} from "@material-ui/core";
+import { Paper, Typography, CircularProgress } from "@material-ui/core";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import { withStyles } from "@material-ui/core/styles";
 import { playerInfoStyles } from "../styles/jss-styles";
@@ -65,13 +61,19 @@ const PlayerInfo = props => {
               }`}</Typography>
             </li>
             <li className={classes.mainStatsLi}>
-              <Typography component="p">{`Age: ${player.currentAge}`}</Typography>
+              <Typography component="p">{`Age: ${
+                player.currentAge
+              }`}</Typography>
             </li>
           </ul>
           <SeasonTable player={player} />
         </Paper>
-        {isWidthUp('sm', width) ? null : <SeasonTabs player={player}/> }
-        <FloatingActionButton to={`/compare/${playerId}`} title='Compare' isLink />
+        {isWidthUp("sm", width) ? null : <SeasonTabs player={player} />}
+        <FloatingActionButton
+          to={`/compare/${playerId}`}
+          title="Compare"
+          isLink
+        />
       </div>
     );
   };
@@ -79,9 +81,13 @@ const PlayerInfo = props => {
   let content;
   const idFromNetwork = typy(playerStats, "id").safeObject;
   if (idFromNetwork !== parseInt(playerId)) {
-    content = <CircularProgress />;
+    content = (
+      <div className={classes.spinner}>
+        <CircularProgress />
+      </div>
+    );
   } else {
-    const newPlayer = genPlayer(playerStats)
+    const newPlayer = genPlayer(playerStats);
     content = renderInfo(newPlayer);
   }
 

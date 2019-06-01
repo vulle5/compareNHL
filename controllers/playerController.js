@@ -33,7 +33,11 @@ playerRoutes.get("/search/:term", async (req, res) => {
     const { data } = await axios.get(
       `https://suggest.svc.nhl.com/svc/suggest/v1/minplayers/${req.params.term}`
     );
-    res.status(200).json(data);
+    if (data.suggestions.length === 0) {
+      res.status(400).json("No players were found");
+    } else {
+      res.status(200).json(data);
+    }
   } catch (error) {
     res.status(400).json(error);
   }
