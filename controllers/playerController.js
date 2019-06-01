@@ -3,12 +3,16 @@ const querystring = require("querystring");
 const axios = require("axios");
 
 const getData = async (url, idOrPath, mod) => {
+  console.log(`${url}${idOrPath}${mod}`);
   try {
-    if (mod) {
+    if (mod && idOrPath) {
       const { data } = await axios.get(`${url}${idOrPath}${mod}`);
       return data;
-    } else {
+    } else if (mod) {
       const { data } = await axios.get(url + idOrPath);
+      return data;
+    } else {
+      const { data } = await axios.get(url);
       return data;
     }
   } catch (err) {
@@ -30,7 +34,7 @@ playerRoutes.get("/:id", async (req, res) => {
   }
 });
 
-playerRoutes.get("/:id/stats", async (req, res) => {
+playerRoutes.get("/:id/logs", async (req, res) => {
   try {
     const response = await getData(
       `https://statsapi.web.nhl.com/api/v1/people/${req.params.id}/`,
@@ -43,7 +47,22 @@ playerRoutes.get("/:id/stats", async (req, res) => {
   }
 });
 
-// TODO: add search
+playerRoutes.get("/search/:term", async (req, res) => {
+  try {
+    const response = await getData(
+      `https://suggest.svc.nhl.com/svc/suggest/v1/minplayers/${
+        req.params.term
+      }`,
+      "",
+      ""
+    );
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
 // TODO: add image
+// TODO: real error handling
 
 module.exports = playerRoutes;

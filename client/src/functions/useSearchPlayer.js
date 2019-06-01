@@ -1,14 +1,16 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export const useSearchPlayer = searchTerm => {
   const [players, setPlayers] = useState([]);
 
   useEffect(() => {
-    (async (searchTerm) => {
+    (async searchTerm => {
       if (searchTerm !== "") {
-        const { data: {suggestions} } = await axios.get(
-          `https://suggest.svc.nhl.com/svc/suggest/v1/minplayers/${searchTerm}/99999`
+        const {
+          data: { suggestions }
+        } = await axios.get(
+          `http://localhost:5000/api/players/search/${searchTerm}`
         );
         setPlayers(suggestions);
       }

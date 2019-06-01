@@ -35,11 +35,11 @@ const GameLogs = ({
 
   let response = useGetPlayerInfo(
     playerId,
-    `stats?stats=gameLog&expand=stats.team&season=${currentSeason}`
+    `logs?stats=gameLog&expand=stats.team&season=${currentSeason}`
   );
   let playoffResponse = useGetPlayerInfo(
     playerId,
-    `stats?stats=playoffGameLog&expand=stats.team&season=${currentSeason}`
+    `logs?stats=playoffGameLog&expand=stats.team&season=${currentSeason}`
   );
 
   useEffect(() => {
