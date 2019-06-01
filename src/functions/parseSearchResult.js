@@ -1,14 +1,11 @@
 export const parseSearchResult = arrayOfPlayers => {
-  let newArray = [];
-  let newItem;
+  // Matches the state the player is from
   const getState = /\b[A-Z]{2}\b/;
   const getInfo = /[^|"\\]+/g;
 
-  arrayOfPlayers.forEach(item => {
-    newItem = item.replace(getState, "");
-    newItem = newItem.match(getInfo);
-    newArray.push(newItem);
-  });
+  function replacer(player) {
+    return player.replace(getState, "").match(getInfo);
+  }
 
-  return newArray;
+  return arrayOfPlayers.map(player => replacer(player));
 };

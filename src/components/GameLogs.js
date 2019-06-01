@@ -34,51 +34,42 @@ const GameLogs = ({
 
   useEffect(() => {
     let id = 0;
-    const createData = (date, against, pointsOrSA, goalsOrSaves, assistsOrSP, toi) => {
+    const createData = (
+      date,
+      against,
+      pointsOrSA,
+      goalsOrSaves,
+      assistsOrSP,
+      toi
+    ) => {
       id += 1;
       return { id, date, against, pointsOrSA, goalsOrSaves, assistsOrSP, toi };
     };
 
     const createFilters = () => {
-      let a = [];
-      allSeasons.forEach(season => {
-        if (season.league.name === "National Hockey League") {
-          const seasonWithDash =
-            season.season.slice(0, 4) + "-" + season.season.slice(4);
-          a.push(seasonWithDash);
-        }
-      });
+      const a = allSeasons
+        .filter(season => season.league.name === "National Hockey League")
+        .map(
+          season => season.season.slice(0, 4) + "-" + season.season.slice(4)
+        );
       return [...new Set(a)];
     };
 
     const makeRows = splits => {
-      let rows = [];
-      splits.forEach(season => {
-        const isAwayOrHome = season.isHome
-          ? season.opponent.abbreviation
-          : season.opponent.abbreviation.replace(/^/, "@");
-        if (isGoalie) {
-          const a = createData(
-            season.date,
-            isAwayOrHome,
-            season.stat.shotsAgainst,
-            season.stat.saves,
-            season.stat.savePercentage.toFixed(3),
-            season.stat.timeOnIce
-          );
-          rows.push(a);
-        } else {
-          const a = createData(
-            season.date,
-            isAwayOrHome,
-            season.stat.points,
-            season.stat.goals,
-            season.stat.assists,
-            season.stat.timeOnIce
-          );
-          rows.push(a);
-        }
-      });
+      const rows = splits.map(season =>
+        createData(
+          season.date,
+          season.isHome
+            ? season.opponent.abbreviation
+            : season.opponent.abbreviation.replace(/^/, "@"),
+          isGoalie ? season.stat.shotsAgainst : season.stat.points,
+          isGoalie ? season.stat.saves : season.stat.goals,
+          isGoalie
+            ? season.stat.savePercentage.toFixed(3)
+            : season.stat.assists,
+          season.stat.timeOnIce
+        )
+      );
       setGames(rows);
       setFilteredSeasons(createFilters());
     };
@@ -97,11 +88,9 @@ const GameLogs = ({
           0: { splits: playoffSplits }
         }
       } = playoffResponse;
-      if (playoffSelected === true) {
-        makeRows(playoffSplits);
-      } else {
-        makeRows(splits);
-      }
+
+      playoffSelected === true ? makeRows(playoffSplits) : makeRows(splits);
+
       // Check if Player has playoff games for specific season
       if (playoffSplits.length === 0) {
         setIsDisabled(true);
@@ -151,9 +140,10 @@ const GameLogs = ({
       )}
       {games ? (
         <StatTable
-          headCells={isGoalie
-            ? ["Date", "Team", "SA", "S", "S%", "TOI"]
-            : ["Date", "Team", "P", "G", "A", "TOI"]
+          headCells={
+            isGoalie
+              ? ["Date", "Team", "SA", "S", "S%", "TOI"]
+              : ["Date", "Team", "P", "G", "A", "TOI"]
           }
           bodyCells={games}
           tableCells={games}
