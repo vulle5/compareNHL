@@ -1,4 +1,3 @@
-// https://nhl.bamcontent.com/images/actionshots/8471214.jpg
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -11,7 +10,7 @@ export const useGetPlayerImages = playerId => {
         let response;
         try {
           response = await axios.get(
-            `https://nhl.bamcontent.com/images/actionshots/${id}.jpg`,
+            `http://localhost:5000/api/players/image/${id}`,
             {
               responseType: "arraybuffer"
             }
