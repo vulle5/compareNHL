@@ -9,12 +9,9 @@ export const useGetPlayerImages = playerId => {
       if (id !== 0) {
         let response;
         try {
-          response = await axios.get(
-            `http://localhost:5000/api/players/image/${id}`,
-            {
-              responseType: "arraybuffer"
-            }
-          );
+          response = await axios.get(`/api/players/image/${id}`, {
+            responseType: "arraybuffer"
+          });
           setPlayerImage(
             new Buffer.from(response.data, "binary").toString("base64")
           );

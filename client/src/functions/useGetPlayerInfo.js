@@ -1,15 +1,13 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export const useGetPlayerInfo = (playerId, modifier) => {
   const [playerStats, setPlayerStats] = useState([]);
-  let modURL = modifier ? modifier : '';
+  let modURL = modifier ? modifier : "";
   useEffect(() => {
-    (async (ids) => {
+    (async ids => {
       if (ids !== 0) {
-        const { data } = await axios.get(
-          `http://localhost:5000/api/players/${ids}/${modURL}`
-        );
+        const { data } = await axios.get(`/api/players/${ids}/${modURL}`);
         setPlayerStats(data);
       }
     })(playerId);

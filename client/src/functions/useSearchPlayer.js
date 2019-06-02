@@ -10,9 +10,7 @@ export const useSearchPlayer = searchTerm => {
         try {
           const {
             data: { suggestions }
-          } = await axios.get(
-            `http://localhost:5000/api/players/search/${searchTerm}`
-          );
+          } = await axios.get(`/api/players/search/${searchTerm}`);
           setPlayers(suggestions);
         } catch ({ response: { data } }) {
           setPlayers(data);
