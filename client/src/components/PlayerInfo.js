@@ -52,12 +52,12 @@ const PlayerInfo = props => {
             <li className={classes.mainStatsLi}>
               <Typography component="p">{`${player.height}, ${
                 player.metricHight
-              }`}</Typography>
+              } cm`}</Typography>
             </li>
             <li className={classes.mainStatsLi}>
-              <Typography component="p">{`${player.weight}, ${
+              <Typography component="p">{`${player.weight} lbs, ${
                 player.metricWeight
-              }`}</Typography>
+              } kg`}</Typography>
             </li>
             <li className={classes.mainStatsLi}>
               <Typography component="p">{`Age: ${
