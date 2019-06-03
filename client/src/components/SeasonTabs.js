@@ -41,7 +41,8 @@ const SeasonTabs = props => {
   } = props;
 
   const [value, setValue] = useState(0);
-  const swipeableRef = useRef(null);
+  const appBarRef = useRef();
+  const swipeableRef = useRef();
 
   const findLastNHLSeason = splits => {
     return _.findLast(splits, element => {
@@ -66,7 +67,7 @@ const SeasonTabs = props => {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} ref={appBarRef}>
       <AppBar
         position={isWidthUp("sm", width) ? "static" : "sticky"}
         color="default"
@@ -89,7 +90,9 @@ const SeasonTabs = props => {
             axis={theme.direction === "rtl" ? "x-reverse" : "x"}
             index={value}
             onChangeIndex={handleChangeIndex}
-            onTransitionEnd={() => scrollTo({ x: 0, y: 500, smooth: "true" })}
+            onTransitionEnd={() =>
+              scrollTo({ y: appBarRef.current.offsetTop, smooth: "true" })
+            }
             animateHeight
             ref={swipeableRef}
           >
