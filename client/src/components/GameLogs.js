@@ -32,7 +32,6 @@ const GameLogs = ({
   const [playoffSelected, setPlayoffSelected] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState(_.last(createFilters()));
-  console.log(games);
 
   let response = useGetPlayerInfo(
     playerId,
