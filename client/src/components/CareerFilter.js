@@ -1,13 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import { Menu, MenuItem, IconButton } from '@material-ui/core';
-import { FilterList } from '@material-ui/icons';
+import React, { useEffect, useState } from "react";
+import { Menu, MenuItem, IconButton } from "@material-ui/core";
+import { FilterList } from "@material-ui/icons";
 
-const CareerFilter = ({ dataFilter, filterNames, swipeReferences, showAll }) => {
+const CareerFilter = ({
+  dataFilter,
+  filterNames,
+  swipeReferences,
+  showAll
+}) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
     swipeReferences.current.updateHeight();
-  }, [filterNames, swipeReferences]);
+  }, [swipeReferences, dataFilter]);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -18,10 +23,10 @@ const CareerFilter = ({ dataFilter, filterNames, swipeReferences, showAll }) => 
     setAnchorEl(null);
   };
 
-  return(
+  return (
     <div>
       <IconButton
-        aria-owns={anchorEl ? 'simple-menu' : undefined}
+        aria-owns={anchorEl ? "simple-menu" : undefined}
         aria-haspopup="true"
         onClick={handleClick}
       >
@@ -33,15 +38,24 @@ const CareerFilter = ({ dataFilter, filterNames, swipeReferences, showAll }) => 
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
-        {showAll ?
-          <MenuItem onClick={() => handleCloseAndFilter('')}>Show All</MenuItem>
-        : null}
+        {showAll ? (
+          <MenuItem onClick={() => handleCloseAndFilter("")}>Show All</MenuItem>
+        ) : null}
         {filterNames.map(filter => (
-          <MenuItem key={filter} onClick={() => handleCloseAndFilter(filter)}>{filter}</MenuItem>
+          <MenuItem key={filter} onClick={() => handleCloseAndFilter(filter)}>
+            {filter}
+          </MenuItem>
         ))}
       </Menu>
     </div>
   );
+};
+
+CareerFilter.defaultProps = {
+  dataFilter: () => {},
+  filterNames: [],
+  swipeReferences: { current: { updateHeight: () => {} } },
+  showAll: false
 };
 
 export default CareerFilter;
