@@ -31,7 +31,7 @@ const AdvancedStats = ({
     };
 
     setFilteredSeasons(createFilters());
-  }, [nhlSeasons]);
+  }, [latestSeason, nhlSeasons]);
 
   const dataFilter = filter => {
     setSelectedFilter(filter);

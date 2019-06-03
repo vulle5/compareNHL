@@ -45,7 +45,7 @@ const SeasonTabs = props => {
 
   const findLastNHLSeason = splits => {
     return _.findLast(splits, element => {
-      return element.league.name === "National Hockey League";
+      return element.league.name === "National Hockey League" || [];
     });
   };
 

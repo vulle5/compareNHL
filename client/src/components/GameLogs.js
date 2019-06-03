@@ -32,6 +32,7 @@ const GameLogs = ({
   const [playoffSelected, setPlayoffSelected] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState(_.last(createFilters()));
+  console.log(games);
 
   let response = useGetPlayerInfo(
     playerId,
@@ -150,7 +151,7 @@ const GameLogs = ({
         style={{ paddingTop: "16px" }}
         selectedFilter={selectedFilter}
       />
-      {games ? (
+      {games.length !== 0 ? (
         <StatTable
           headCells={
             isGoalie
@@ -160,7 +161,9 @@ const GameLogs = ({
           bodyCells={games}
           tableCells={games}
         />
-      ) : null}
+      ) : (
+        <Typography variant="subtitle1">No NHL Games</Typography>
+      )}
     </div>
   );
 };

@@ -1,19 +1,26 @@
 import React from "react";
+import { Typography } from "@material-ui/core";
 
-const AdvancedList = ({ seasons: { stat: stats } }) => {
-
+const AdvancedList = props => {
   const renderContent = () => {
-    const result = Object.entries(stats);
-    return result.map((item, index) => (
-      <li key={index}>{`${item[0]}: ${item[1]}`}</li>
-    ));
-	}
+    if (props.seasons) {
+      const {
+        seasons: { stat: stats }
+      } = props;
+      const result = Object.entries(stats);
+      return result.map((item, index) => (
+        <li key={index}>{`${item[0]}: ${item[1]}`}</li>
+      ));
+    } else {
+      return <Typography variant="subtitle1">No NHL Stats</Typography>;
+    }
+  };
 
   return (
-    <ul style={{listStyleType: "none", paddingInlineStart: "0px"}}>
+    <ul style={{ listStyleType: "none", paddingInlineStart: "0px" }}>
       {renderContent()}
     </ul>
   );
-}
+};
 
-export default AdvancedList
+export default AdvancedList;
