@@ -53,7 +53,6 @@ const CareerTable = props => {
         assistsOrGAA
       };
     };
-    console.log(splits[13]);
     const rows = splits.map(season =>
       createData(
         season.league.name,
