@@ -46,12 +46,12 @@ const SeasonTabs = props => {
 
   const findLastNHLSeason = splits => {
     return _.findLast(splits, element => {
-      return element.league.name === "National Hockey League" || [];
+      return element.league.name === "NHL" || [];
     });
   };
 
   const findNHLSeasons = splits =>
-    splits.filter(season => season.league.name === "National Hockey League");
+    splits.filter(season => season.league.name === "NHL");
 
   useEffect(() => {
     swipeableRef.current.updateHeight();

@@ -2,6 +2,15 @@ const playerRoutes = require("express").Router();
 const querystring = require("querystring");
 const axios = require("axios");
 
+function playerParser(data) {
+  data.people[0].stats[0].splits.forEach(season => {
+    season.league.name === "National Hockey League"
+      ? (season.league.name = "NHL")
+      : null;
+  });
+  return data;
+}
+
 playerRoutes.get("/:id", async (req, res) => {
   try {
     const { data } = await axios.get(
@@ -9,7 +18,8 @@ playerRoutes.get("/:id", async (req, res) => {
         req.params.id
       }/?${querystring.stringify(req.query)}`
     );
-    res.status(200).json(data);
+    const newData = playerParser(data);
+    res.status(200).json(newData);
   } catch (error) {
     res.status(400).json(error);
   }
