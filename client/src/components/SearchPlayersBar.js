@@ -5,8 +5,7 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  InputBase,
-  InputLabel
+  InputBase
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -65,25 +64,25 @@ const SearchPlayersBar = props => {
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
-              <InputLabel style={{ display: "none" }} htmlFor="player-search">
-                Search players
-              </InputLabel>
-              <InputBase
-                autoFocus
-                id="player-search"
-                placeholder="Search Players"
-                value={term}
-                onFocus={() => {
-                  handleListStatus(true);
-                  setInputIsFocused(true);
-                }}
-                onBlur={() => setInputIsFocused(false)}
-                onChange={event => setTerm(event.target.value)}
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
-                }}
-              />
+              <label>
+                <InputBase
+                  autoFocus
+                  autoComplete="off"
+                  id="player-search"
+                  placeholder="Search Players"
+                  value={term}
+                  onFocus={() => {
+                    handleListStatus(true);
+                    setInputIsFocused(true);
+                  }}
+                  onBlur={() => setInputIsFocused(false)}
+                  onChange={event => setTerm(event.target.value)}
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput
+                  }}
+                />
+              </label>
             </div>
           </Toolbar>
         </AppBar>
