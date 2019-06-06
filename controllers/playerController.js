@@ -41,7 +41,9 @@ playerRoutes.get("/:id/logs", async (req, res) => {
 playerRoutes.get("/search/:term", async (req, res) => {
   try {
     const { data } = await axios.get(
-      `https://suggest.svc.nhl.com/svc/suggest/v1/minplayers/${req.params.term}`
+      `https://suggest.svc.nhl.com/svc/suggest/v1/minplayers/${
+        req.params.term
+      }/99999`
     );
     if (data.suggestions.length === 0) {
       res.status(400).json("No players were found");

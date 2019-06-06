@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+import withWidth, { isWidthDown } from "@material-ui/core/withWidth";
 
 import { seasonTableStyles } from "../styles/jss-styles";
 import StatTable from "./StatTable";
@@ -12,6 +13,7 @@ const CareerTable = props => {
     classes,
     swipeReferences,
     isGoalie,
+    width,
     player: {
       stats: {
         0: { splits }
@@ -51,11 +53,13 @@ const CareerTable = props => {
         assistsOrGAA
       };
     };
-
+    console.log(splits[13]);
     const rows = splits.map(season =>
       createData(
         season.league.name,
-        season.team.name,
+        season.league.name === "NHL" && isWidthDown("sm", width)
+          ? season.team.abbreviation
+          : season.team.name,
         season.season.slice(0, 4) + "-" + season.season.slice(4),
         season.stat.games,
         isGoalie ? season.stat.wins : season.stat.points,
@@ -69,7 +73,7 @@ const CareerTable = props => {
     setFilteredData(rows);
     // Function below not a hook
     removeDuplicates(rows);
-  }, [isGoalie, splits]);
+  }, [isGoalie, splits, width]);
 
   const dataFilter = filter => {
     if (filter.length === 0) {
@@ -106,4 +110,4 @@ const CareerTable = props => {
   );
 };
 
-export default withStyles(seasonTableStyles)(CareerTable);
+export default withWidth()(withStyles(seasonTableStyles)(CareerTable));
