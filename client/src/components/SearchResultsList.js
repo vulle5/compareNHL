@@ -27,7 +27,6 @@ const SearchResultsList = ({
 }) => {
   const [noPlayers, setNoPlayers] = useState(false);
   // Needs to be parsed for better usability
-  console.log(term);
   const arrayOfPlayers = useSearchPlayer(term);
 
   useEffect(() => {
