@@ -39,12 +39,12 @@ export const searchPlayerBarStyles = theme => ({
     marginLeft: 0,
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing.unit,
+      marginLeft: theme.spacing(1),
       width: "auto"
     }
   },
   searchIcon: {
-    width: theme.spacing.unit * 9,
+    width: theme.spacing(9),
     height: "100%",
     position: "absolute",
     pointerEvents: "none",
@@ -57,10 +57,10 @@ export const searchPlayerBarStyles = theme => ({
     width: "100%"
   },
   inputInput: {
-    paddingTop: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 10,
+    paddingTop: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(10),
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
@@ -106,13 +106,13 @@ export const searchResultsListStyles = theme => ({
 export const playerInfoStyles = theme => ({
   root: {
     ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
     [theme.breakpoints.down("xs")]: {
       margin: "0px",
       borderRadius: "0px"
     },
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
     maxWidth: "1000px",
     textAlign: "-webkit-center"
   },
@@ -181,7 +181,7 @@ export const floatingActionButtonStyles = theme => ({
     position: "fixed"
   },
   extendedIcon: {
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing(1)
   }
 });
 
@@ -191,7 +191,7 @@ export const compareStyles = theme => ({
   },
   root: {
     display: "flex",
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing(3)
   },
   table: {
     display: "inline-block"

@@ -25,18 +25,21 @@ const SearchResultsList = ({
   handleListStatus,
   isInputFocused
 }) => {
-  // Needs to be parsed for better usability
-  const arrayOfPlayers = useSearchPlayer(term);
-  // Returns array of player statistics
-  const parsedPlayerIds =
-    typeof arrayOfPlayers !== "string" ? parseSearchResult(arrayOfPlayers) : [];
   const [noPlayers, setNoPlayers] = useState(false);
+  // Needs to be parsed for better usability
+  console.log(term);
+  const arrayOfPlayers = useSearchPlayer(term);
 
   useEffect(() => {
-    typeof arrayOfPlayers !== "string"
-      ? setNoPlayers(false)
-      : setNoPlayers(true);
+    if (arrayOfPlayers.message) {
+      setNoPlayers(true);
+    } else {
+      setNoPlayers(false);
+    }
   }, [arrayOfPlayers]);
+
+  // Returns array of player statistics
+  const parsedPlayerIds = parseSearchResult(arrayOfPlayers);
 
   const renderPlayerList = parsedPlayerIds.slice(0, 8).map(player => (
     <Link
@@ -62,11 +65,7 @@ const SearchResultsList = ({
         </ListItemAvatar>
         <ListItemText
           primary={`${player[2]} ${player[1]}`}
-          secondary={
-            <Typography component="span" color="textSecondary">
-              {player[10]}
-            </Typography>
-          }
+          secondary={player[10]}
         />
       </ListItem>
       <Divider />
@@ -82,7 +81,7 @@ const SearchResultsList = ({
           <List>
             {noPlayers ? (
               <Typography className={classes.message} variant="subtitle1">
-                {arrayOfPlayers}
+                {arrayOfPlayers.message}
               </Typography>
             ) : parsedPlayerIds.length === 0 ? (
               <CircularProgress className={classes.spinner} />

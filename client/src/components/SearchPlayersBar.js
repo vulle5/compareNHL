@@ -5,7 +5,8 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  InputBase
+  InputBase,
+  InputLabel
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -20,7 +21,7 @@ const SearchPlayersBar = props => {
   const [listStatus, setListStatus] = useState(true);
   const [inputIsFocused, setInputIsFocused] = useState(false);
   // This delays sending of the search term to API request
-  const debouncedText = useDebounce(term, 300);
+  const [debouncedText] = useDebounce(term, 300);
 
   const handleListStatus = bool => setListStatus(bool);
 
@@ -64,8 +65,12 @@ const SearchPlayersBar = props => {
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
+              <InputLabel style={{ display: "none" }} htmlFor="player-search">
+                Search players
+              </InputLabel>
               <InputBase
                 autoFocus
+                id="player-search"
                 placeholder="Search Players"
                 value={term}
                 onFocus={() => {
