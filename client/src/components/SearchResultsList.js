@@ -28,9 +28,11 @@ const SearchResultsList = ({
   const [noPlayers, setNoPlayers] = useState(false);
   // Needs to be parsed for better usability
   const arrayOfPlayers = useSearchPlayer(term);
+  console.log(arrayOfPlayers);
+  console.log(noPlayers);
 
   useEffect(() => {
-    if (arrayOfPlayers.message) {
+    if (typeof arrayOfPlayers === "string") {
       setNoPlayers(true);
     } else {
       setNoPlayers(false);
@@ -80,7 +82,7 @@ const SearchResultsList = ({
           <List>
             {noPlayers ? (
               <Typography className={classes.message} variant="subtitle1">
-                {arrayOfPlayers.message}
+                {arrayOfPlayers}
               </Typography>
             ) : parsedPlayerIds.length === 0 ? (
               <CircularProgress className={classes.spinner} />

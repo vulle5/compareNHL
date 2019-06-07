@@ -137,6 +137,13 @@ export const playerInfoStyles = theme => ({
   spinner: {
     textAlign: "center",
     marginTop: "20px"
+  },
+  flagWrapper: {
+    display: "flex",
+    justifyContent: "center"
+  },
+  playerName: {
+    margin: "8px 0px 8px 16px"
   }
 });
 
