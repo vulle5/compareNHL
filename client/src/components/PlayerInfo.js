@@ -10,6 +10,7 @@ import { useGetPlayerImages } from "../functions/useGetPlayerImages";
 import { genPlayer } from "../functions/genPlayer";
 import SeasonTable from "./SeasonTable";
 import SeasonTabs from "./SeasonTabs";
+import FloatingActionButton from "./FAB";
 
 const PlayerInfo = props => {
   // Get Player id from the React Router props and styles
@@ -27,7 +28,7 @@ const PlayerInfo = props => {
   );
   // Fetch player images
   const playerImageResponse = useGetPlayerImages(playerId);
-  // In JavaScript Nested Objects are wierd. This line avoids errors with player response being ''
+  // In JavaScript Nested Objects are weird. This line avoids errors with player response being ''
   const playerStats = typy(playerResponse, "people[0]").safeObject;
 
   const renderInfo = player => {
@@ -68,6 +69,11 @@ const PlayerInfo = props => {
           <SeasonTable player={player} />
         </Paper>
         {isWidthUp("sm", width) ? null : <SeasonTabs player={player} />}
+        <FloatingActionButton
+          to={`/compare/${playerId}`}
+          title="Compare"
+          isLink
+        />
       </div>
     );
   };

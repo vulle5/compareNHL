@@ -1,7 +1,6 @@
 import Player from "../models/Player";
 
-export const genPlayer = ( playerStats ) => {
-
+export const genPlayer = playerStats => {
   const player = new Player(
     playerStats.id,
     playerStats.fullName || "",
@@ -24,9 +23,8 @@ export const genPlayer = ( playerStats ) => {
     playerStats.rosterStatus,
     playerStats.currentTeam,
     playerStats.primaryPosition,
-    playerStats.stats || ""
+    playerStats.stats || []
   );
 
-  return player
-
-}
+  return player;
+};

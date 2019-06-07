@@ -6,6 +6,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 import SearchPlayersBar from "./SearchPlayersBar";
 import PlayerInfo from "./PlayerInfo";
+import Compare from "./Compare";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <SearchPlayersBar />
           <Switch>
             <Route path="/player/:playerId" component={PlayerInfo} />
+            <Route path="/compare/:playerId" component={Compare} />
           </Switch>
         </div>
       </BrowserRouter>
