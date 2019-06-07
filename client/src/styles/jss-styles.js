@@ -187,13 +187,8 @@ export const floatingActionButtonStyles = theme => ({
 
 export const compareStyles = theme => ({
   paper: {
-    display: "inline-block"
-  },
-  root: {
-    display: "flex",
-    marginTop: theme.spacing(3)
-  },
-  table: {
-    display: "inline-block"
+    display: "inline-block",
+    padding: theme.spacing(1),
+    margin: theme.spacing(2)
   }
 });

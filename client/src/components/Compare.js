@@ -1,13 +1,12 @@
 import React from "react";
 import _ from "lodash";
-import { withStyles } from "@material-ui/core/styles";
-import { CircularProgress, Typography } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 
-import { compareStyles } from "../styles/jss-styles";
 import { genPlayer } from "../functions/genPlayer";
 import { useGetPlayerInfo } from "../functions/useGetPlayerInfo";
+import CompareTile from "./CompareTile";
 
-const Compare = ({ match: { params }, classes }) => {
+const Compare = ({ match: { params } }) => {
   const playerInfo = useGetPlayerInfo(
     params.playerId,
     "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
@@ -15,11 +14,17 @@ const Compare = ({ match: { params }, classes }) => {
 
   if (_.get(playerInfo, "people[0]")) {
     const player = genPlayer(playerInfo.people[0]);
-    console.log(player);
-    return <Typography variant="h3">{player.currentTeam.name}</Typography>;
+    return (
+      <>
+        <CompareTile player={player} />
+        <CompareTile player={player} />
+        <CompareTile player={player} />
+        <CompareTile player={player} />
+      </>
+    );
   } else {
     return <CircularProgress />;
   }
 };
 
-export default withStyles(compareStyles)(Compare);
+export default Compare;
