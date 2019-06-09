@@ -4,7 +4,7 @@ import { Paper, Typography, CircularProgress } from "@material-ui/core";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import { withStyles } from "@material-ui/core/styles";
 import { playerInfoStyles } from "../styles/jss-styles";
-import getCountryISO2 from "country-iso-3-to-2";
+import getCountryISO2 from "../functions/iso3toIso2";
 
 import { useGetPlayerInfo } from "../functions/useGetPlayerInfo";
 import { useGetPlayerImages } from "../functions/useGetPlayerImages";
