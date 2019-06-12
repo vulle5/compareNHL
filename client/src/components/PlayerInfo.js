@@ -1,7 +1,7 @@
 import React from "react";
 import typy from "typy";
 import { Paper, Typography, CircularProgress } from "@material-ui/core";
-import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
+import withWidth, { isWidthDown } from "@material-ui/core/withWidth";
 import { withStyles } from "@material-ui/core/styles";
 import { playerInfoStyles } from "../styles/jss-styles";
 import getCountryISO2 from "../functions/iso3toIso2";
@@ -79,7 +79,7 @@ const PlayerInfo = props => {
           </ul>
           <SeasonTable player={player} />
         </Paper>
-        {isWidthUp("sm", width) ? null : <SeasonTabs player={player} />}
+        {isWidthDown("sm", width) && <SeasonTabs player={player} />}
       </div>
     );
   };
