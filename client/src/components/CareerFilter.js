@@ -26,7 +26,7 @@ const CareerFilter = ({
   return (
     <div>
       <IconButton
-        aria-owns={anchorEl ? "simple-menu" : undefined}
+        aria-owns={anchorEl && "simple-menu"}
         aria-haspopup="true"
         onClick={handleClick}
       >
@@ -38,9 +38,9 @@ const CareerFilter = ({
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
-        {showAll ? (
+        {showAll && (
           <MenuItem onClick={() => handleCloseAndFilter("")}>Show All</MenuItem>
-        ) : null}
+        )}
         {filterNames.map(filter => (
           <MenuItem key={filter} onClick={() => handleCloseAndFilter(filter)}>
             {filter}
