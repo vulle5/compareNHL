@@ -1,5 +1,5 @@
 import React from "react";
-import _ from "lodash";
+import { get } from "lodash";
 import { CircularProgress } from "@material-ui/core";
 
 import { genPlayer } from "../functions/genPlayer";
@@ -12,7 +12,7 @@ const Compare = ({ match: { params } }) => {
     "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
   );
 
-  if (_.get(playerInfo, "people[0]")) {
+  if (get(playerInfo, "people[0]")) {
     const player = genPlayer(playerInfo.people[0]);
     return (
       <>

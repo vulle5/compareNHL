@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import _ from "lodash";
+import { throttle } from "lodash";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
@@ -18,7 +18,7 @@ const FloatingActionButton = ({
 }) => {
   const [atBottom, setAtBottom] = useState(false);
 
-  const handleScroll = _.throttle(
+  const handleScroll = throttle(
     useCallback(() => {
       const winScroll =
         document.body.scrollTop || document.documentElement.scrollTop;

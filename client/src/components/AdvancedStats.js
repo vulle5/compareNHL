@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import _ from "lodash";
+import { find } from "lodash";
 import { Typography } from "@material-ui/core";
 
 import CareerFilter from "./CareerFilter";
@@ -19,7 +19,7 @@ const AdvancedStats = ({
   );
 
   const selectedSeason = seasons => {
-    return _.find(seasons, { season: currentFilter });
+    return find(seasons, { season: currentFilter });
   };
 
   useEffect(() => {

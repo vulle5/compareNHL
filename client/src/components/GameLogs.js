@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
 import typy from "typy";
-import _ from "lodash";
+import { last } from "lodash";
 import { Typography, Switch, FormControlLabel } from "@material-ui/core";
 
 import StatTable from "./StatTable";
@@ -31,7 +31,7 @@ const GameLogs = ({
   const [currentSeason, setCurrentSeason] = useState(season);
   const [playoffSelected, setPlayoffSelected] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState(_.last(createFilters()));
+  const [selectedFilter, setSelectedFilter] = useState(last(createFilters()));
 
   let response = useGetPlayerInfo(
     playerId,
