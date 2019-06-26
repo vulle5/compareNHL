@@ -1,17 +1,18 @@
-import React from "react";
-import typy from "typy";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { isEmpty } from "lodash";
 import { Paper, Typography, CircularProgress } from "@material-ui/core";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import { withStyles } from "@material-ui/core/styles";
 import { playerInfoStyles } from "../styles/jss-styles";
-import getCountryISO2 from "../functions/iso3toIso2";
 
-import { useGetPlayerInfo } from "../functions/useGetPlayerInfo";
+import { initializePlayer } from "../reducers/playerReducer";
+import getCountryISO2 from "../functions/iso3toIso2";
+// import SeasonTable from "./SeasonTable";
+// import SeasonTabs from "./SeasonTabs";
+// import FloatingActionButton from "./FAB";
+
 import { useGetPlayerImages } from "../functions/useGetPlayerImages";
-import { genPlayer } from "../functions/genPlayer";
-import SeasonTable from "./SeasonTable";
-import SeasonTabs from "./SeasonTabs";
-import FloatingActionButton from "./FAB";
 
 const PlayerInfo = props => {
   // Get Player id from the React Router props and styles
@@ -20,18 +21,25 @@ const PlayerInfo = props => {
     match: {
       params: { playerId }
     },
-    width
+    width,
+    initializePlayer,
+    player
   } = props;
-  // Fetch Player Info from the server
-  const playerResponse = useGetPlayerInfo(
-    playerId,
-    "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
-  );
+
   // Fetch player images
   const playerImageResponse = useGetPlayerImages(playerId);
-  const playerStats = typy(playerResponse, "people[0]").safeObject;
 
-  const renderInfo = player => {
+  useEffect(() => {
+    initializePlayer(playerId);
+  }, [initializePlayer, playerId]);
+
+  if (isEmpty(player)) {
+    return (
+      <div className={classes.spinner}>
+        <CircularProgress />
+      </div>
+    );
+  } else {
     return (
       <div className={classes.wrapper}>
         <Paper className={classes.root} elevation={1}>
@@ -78,32 +86,26 @@ const PlayerInfo = props => {
               }`}</Typography>
             </li>
           </ul>
-          <SeasonTable player={player} />
         </Paper>
-        {isWidthUp("sm", width) ? null : <SeasonTabs player={player} />}
-        <FloatingActionButton
-          to={`/compare/${playerId}`}
-          title="Compare"
-          isLink
-        />
       </div>
     );
-  };
-
-  let content;
-  const idFromNetwork = typy(playerStats, "id").safeObject;
-  if (idFromNetwork !== parseInt(playerId)) {
-    content = (
-      <div className={classes.spinner}>
-        <CircularProgress />
-      </div>
-    );
-  } else {
-    const newPlayer = genPlayer(playerStats);
-    content = renderInfo(newPlayer);
   }
-
-  return <div>{content}</div>;
 };
 
-export default withWidth()(withStyles(playerInfoStyles)(PlayerInfo));
+const mapDispatchToProps = dispatch => {
+  return {
+    initializePlayer: value => {
+      dispatch(initializePlayer(value));
+    }
+  };
+};
+const mapStateToProps = state => {
+  return {
+    player: state.player
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withWidth()(withStyles(playerInfoStyles)(PlayerInfo)));
