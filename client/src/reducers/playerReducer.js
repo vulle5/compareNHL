@@ -16,10 +16,25 @@ export const initializePlayer = playerId => {
   };
 };
 
+export const getPlayerImage = playerId => {
+  return async dispatch => {
+    const response = await playerServices.getImage(playerId, {
+      responseType: "arraybuffer"
+    });
+    const data = new Buffer.from(response, "binary").toString("base64");
+    dispatch({
+      type: "SET_IMAGE",
+      data
+    });
+  };
+};
+
 const playerReducer = (state = {}, action) => {
   switch (action.type) {
     case "SET_PLAYER":
       return action.data;
+    case "SET_IMAGE":
+      return { ...state, ...{ image: action.data } };
     default:
       return state;
   }

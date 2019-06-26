@@ -103,7 +103,13 @@ export const searchResultsListStyles = theme => ({
   }
 });
 
-export const playerInfoStyles = theme => ({
+export const playerInfoStyles = () => ({
+  wrapper: {
+    textAlign: isFirefox ? "-moz-center" : "-webkit-center"
+  }
+});
+
+export const playerInfoHeader = theme => ({
   root: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing(2),
@@ -116,8 +122,15 @@ export const playerInfoStyles = theme => ({
     maxWidth: "1000px",
     textAlign: "-webkit-center"
   },
-  wrapper: {
-    textAlign: isFirefox ? "-moz-center" : "-webkit-center"
+  flagWrapper: {
+    display: "flex",
+    justifyContent: "center"
+  },
+  playerThumbnail: {
+    width: "100%",
+    objectFit: "contain",
+    maxHeight: "317px",
+    borderRadius: "4px"
   },
   mainStats: {
     paddingInlineStart: "0",
@@ -128,22 +141,12 @@ export const playerInfoStyles = theme => ({
     float: "left",
     padding: "0px 8px"
   },
-  playerThumbnail: {
-    width: "100%",
-    objectFit: "contain",
-    maxHeight: "317px",
-    borderRadius: "4px"
+  playerName: {
+    margin: "8px 0px 8px 16px"
   },
   spinner: {
     textAlign: "center",
     marginTop: "20px"
-  },
-  flagWrapper: {
-    display: "flex",
-    justifyContent: "center"
-  },
-  playerName: {
-    margin: "8px 0px 8px 16px"
   }
 });
 
