@@ -7,10 +7,8 @@ import { isEmpty } from "lodash";
 import { playerInfoHeader } from "../styles/jss-styles";
 import getCountryISO2 from "../functions/iso3toIso2";
 
-const PlayerInfoHeader = ({ classes, player, image }) => {
-  console.log([player, image]);
-
-  if (isEmpty(player) || isEmpty(image)) {
+const PlayerInfoHeader = ({ classes, player, playerImage }) => {
+  if (isEmpty(player) || isEmpty(playerImage)) {
     return (
       <div className={classes.spinner}>
         <CircularProgress />
@@ -21,7 +19,7 @@ const PlayerInfoHeader = ({ classes, player, image }) => {
       <Paper className={classes.root} elevation={1}>
         <img
           className={classes.playerThumbnail}
-          src={`data:image/jpg;base64, ${image}`}
+          src={`data:image/jpg;base64, ${playerImage}`}
           alt="Player"
         />
         <div className={classes.flagWrapper}>
@@ -66,10 +64,9 @@ const PlayerInfoHeader = ({ classes, player, image }) => {
 };
 
 const mapStateToProps = state => {
-  console.log(state.player);
   return {
     player: state.player,
-    image: state.player.image
+    playerImage: state.playerImage
   };
 };
 

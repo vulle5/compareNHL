@@ -4,7 +4,8 @@ import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import { withStyles } from "@material-ui/core/styles";
 import { playerInfoStyles } from "../styles/jss-styles";
 
-import { initializePlayer, getPlayerImage } from "../reducers/playerReducer";
+import { initializePlayer } from "../reducers/playerReducer";
+import { initializePlayerImage } from "../reducers/playerImageReducer";
 import PlayerInfoHeader from "./PlayerInfoHeader";
 // import SeasonTable from "./SeasonTable";
 // import SeasonTabs from "./SeasonTabs";
@@ -19,17 +20,14 @@ const PlayerInfo = props => {
     },
     width,
     initializePlayer,
-    getPlayerImage,
-    player,
-    image
+    initializePlayerImage
   } = props;
 
   useEffect(() => {
     initializePlayer(playerId);
-    getPlayerImage(playerId);
-  }, [initializePlayer, getPlayerImage, playerId]);
+    initializePlayerImage(playerId);
+  }, [initializePlayer, initializePlayerImage, playerId]);
 
-  console.log("Trying to render header");
   return (
     <div className={classes.wrapper}>
       <PlayerInfoHeader />
@@ -42,8 +40,8 @@ const mapDispatchToProps = dispatch => {
     initializePlayer: value => {
       dispatch(initializePlayer(value));
     },
-    getPlayerImage: value => {
-      dispatch(getPlayerImage(value));
+    initializePlayerImage: value => {
+      dispatch(initializePlayerImage(value));
     }
   };
 };
