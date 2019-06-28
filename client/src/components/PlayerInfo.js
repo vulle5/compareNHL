@@ -29,6 +29,8 @@ const PlayerInfo = props => {
   }, [initializePlayer, initializePlayerImage, playerId]);
 
   return (
+    // TODO: Add missing components and refactor them
+    // to use redux
     <div className={classes.wrapper}>
       <PlayerInfoHeader />
     </div>
