@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { get } from "lodash";
-import typy from "typy";
 import {
   Table,
   TableBody,
@@ -21,6 +20,7 @@ const SeasonTable = props => {
   const { classes, width, player } = props;
 
   const renderContent = () => {
+    // Check if player has NHL stats at all
     if (get(player, "stats[1].splits[0].stat")) {
       const {
         player: {
@@ -100,7 +100,6 @@ const SeasonTable = props => {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     player: state.player
   };
