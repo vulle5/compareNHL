@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { connect } from "react-redux";
 import { AppBar, Tab, Tabs, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
@@ -10,18 +11,7 @@ import { seasonTabsStyles } from "../styles/jss-styles";
 import CareerTable from "./CareerTable";
 import GameLogs from "./GameLogs";
 import AdvancedStats from "./AdvancedStats";
-
-const TabContainer = ({ children, dir, width }) => {
-  return (
-    <Typography
-      component="div"
-      dir={dir}
-      style={isWidthUp("sm", width) ? { padding: 8 * 3 } : null}
-    >
-      {children}
-    </Typography>
-  );
-};
+import TabContainer from "./TabContainer";
 
 const SeasonTabs = props => {
   const {
@@ -134,6 +124,13 @@ const SeasonTabs = props => {
   );
 };
 
-export default withWidth()(
-  withStyles(seasonTabsStyles, { withTheme: true })(SeasonTabs)
-);
+const mapStateToProps = state => {
+  return {
+    player: state.player
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(withWidth()(withStyles(seasonTabsStyles, { withTheme: true })(SeasonTabs)));

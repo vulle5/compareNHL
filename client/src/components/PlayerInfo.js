@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
+import withWidth, { isWidthDown } from "@material-ui/core/withWidth";
 import { withStyles } from "@material-ui/core/styles";
 import { playerInfoStyles } from "../styles/jss-styles";
 
@@ -8,8 +8,8 @@ import { initializePlayer } from "../reducers/playerReducer";
 import { initializePlayerImage } from "../reducers/playerImageReducer";
 import PlayerInfoHeader from "./PlayerInfoHeader";
 import SeasonTable from "./SeasonTable";
-// import SeasonTabs from "./SeasonTabs";
-// import FloatingActionButton from "./FAB";
+import SeasonTabs from "./SeasonTabs";
+import FloatingActionButton from "./FAB";
 
 const PlayerInfo = props => {
   // Get Player id from the React Router props and styles
@@ -29,12 +29,16 @@ const PlayerInfo = props => {
   }, [initializePlayer, initializePlayerImage, playerId]);
 
   return (
-    // TODO: Add missing components and refactor them
-    // to use redux
     <div className={classes.wrapper}>
       <PlayerInfoHeader>
         <SeasonTable />
       </PlayerInfoHeader>
+      {isWidthDown("sm", width) && <SeasonTabs />}
+      <FloatingActionButton
+        to={`/compare/${playerId}`}
+        title="Compare"
+        isLink
+      />
     </div>
   );
 };
