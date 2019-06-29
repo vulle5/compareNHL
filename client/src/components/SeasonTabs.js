@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
+import { isEmpty } from "lodash";
 import { AppBar, Tab, Tabs, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
@@ -23,25 +24,14 @@ const SeasonTabs = props => {
     player: {
       primaryPosition: { abbreviation: isGoalie }
     },
-    player: {
-      stats: {
-        0: { splits }
-      }
-    }
+    nhlSeasons,
+    lastNhlSeason
   } = props;
 
   const [value, setValue] = useState(0);
   const appBarRef = useRef();
+  // TODO: Think about adding this to redux
   const swipeableRef = useRef();
-
-  const findLastNHLSeason = splits => {
-    return _.findLast(splits, element => {
-      return element.league.name === "NHL" || [];
-    });
-  };
-
-  const findNHLSeasons = splits =>
-    splits.filter(season => season.league.name === "NHL");
 
   useEffect(() => {
     swipeableRef.current.updateHeight();
@@ -94,7 +84,7 @@ const SeasonTabs = props => {
               />
             </TabContainer>
             <TabContainer dir={theme.direction} width={width}>
-              {typeof findLastNHLSeason(splits) === "undefined" ? (
+              {isEmpty(lastNhlSeason) ? (
                 <Typography variant="subheading" style={{ padding: "8px" }}>
                   No NHL Data
                 </Typography>
@@ -102,7 +92,7 @@ const SeasonTabs = props => {
                 <GameLogs
                   playerId={id}
                   player={player}
-                  lastSeason={findLastNHLSeason(splits)}
+                  lastSeason={lastNhlSeason}
                   swipeReferences={swipeableRef}
                   isGoalie={isGoalie === "G"}
                 />
@@ -111,8 +101,8 @@ const SeasonTabs = props => {
             <TabContainer dir={theme.direction} width={width}>
               <AdvancedStats
                 player={player}
-                nhlSeasons={findNHLSeasons(splits)}
-                lastSeason={findLastNHLSeason(splits)}
+                nhlSeasons={nhlSeasons}
+                lastSeason={lastNhlSeason}
                 swipeReferences={swipeableRef}
                 isGoalie={isGoalie === "G"}
               />
@@ -124,9 +114,27 @@ const SeasonTabs = props => {
   );
 };
 
+const findNHLSeasons = splits =>
+  splits.filter(season => season.league.name === "NHL");
+
+const findLastNHLSeason = splits => {
+  return _.findLast(splits, element => {
+    return element.league.name === "NHL" || [];
+  });
+};
+
 const mapStateToProps = state => {
+  const {
+    player: {
+      stats: {
+        0: { splits }
+      }
+    }
+  } = state;
   return {
-    player: state.player
+    player: state.player,
+    nhlSeasons: findNHLSeasons(splits),
+    lastNhlSeason: findLastNHLSeason(splits)
   };
 };
 
