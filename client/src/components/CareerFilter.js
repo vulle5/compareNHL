@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import { Menu, MenuItem, IconButton } from "@material-ui/core";
 import { FilterList } from "@material-ui/icons";
 
-const CareerFilter = ({
-  dataFilter,
-  filterNames,
-  swipeReferences,
-  showAll
-}) => {
+import { setFilter } from "../reducers/filterReducer";
+
+const CareerFilter = ({ filterNames, swipeReferences, showAll, setFilter }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
     swipeReferences.current.updateHeight();
-  }, [swipeReferences, dataFilter]);
+  }, [swipeReferences, filterNames]);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleCloseAndFilter = filterName => {
-    dataFilter(filterName);
+    setFilter(filterName);
     setAnchorEl(null);
   };
 
@@ -52,10 +50,12 @@ const CareerFilter = ({
 };
 
 CareerFilter.defaultProps = {
-  dataFilter: () => {},
   filterNames: [],
   swipeReferences: { current: { updateHeight: () => {} } },
   showAll: false
 };
 
-export default CareerFilter;
+export default connect(
+  null,
+  { setFilter }
+)(CareerFilter);
