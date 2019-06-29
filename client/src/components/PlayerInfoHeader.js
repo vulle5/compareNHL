@@ -7,8 +7,9 @@ import { isEmpty } from "lodash";
 import { playerInfoHeader } from "../styles/jss-styles";
 import getCountryISO2 from "../functions/iso3toIso2";
 
-const PlayerInfoHeader = ({ classes, player, playerImage }) => {
-  if (isEmpty(player) || isEmpty(playerImage)) {
+const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
+  if (isEmpty(player)) {
+    console.log("here");
     return (
       <div className={classes.spinner}>
         <CircularProgress />
@@ -58,12 +59,14 @@ const PlayerInfoHeader = ({ classes, player, playerImage }) => {
             <Typography component="p">{`Age: ${player.currentAge}`}</Typography>
           </li>
         </ul>
+        {children}
       </Paper>
     );
   }
 };
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
     player: state.player,
     playerImage: state.playerImage

@@ -1,4 +1,6 @@
 import React, { Fragment } from "react";
+import { connect } from "react-redux";
+import { get } from "lodash";
 import typy from "typy";
 import {
   Table,
@@ -19,7 +21,7 @@ const SeasonTable = props => {
   const { classes, width, player } = props;
 
   const renderContent = () => {
-    if (typy(props, "player.stats[1].splits[0].stat").safeObject) {
+    if (get(player, "stats[1].splits[0].stat")) {
       const {
         player: {
           stats: {
@@ -49,7 +51,7 @@ const SeasonTable = props => {
                 {isGoalie === "G" ? "Save%" : "Goals"}
               </TableCell>
               <TableCell align="center">
-                {isGoalie === "G" ? "GAA" : "Asssists"}
+                {isGoalie === "G" ? "GAA" : "Assists"}
               </TableCell>
             </TableRow>
           </TableHead>
@@ -92,9 +94,19 @@ const SeasonTable = props => {
         </Typography>
         {renderContent()}
       </div>
-      {isWidthUp("sm", width) && <SeasonTabs player={player} />}
+      {isWidthUp("sm", width) && null /*<SeasonTabs player={player} />*/}
     </Fragment>
   );
 };
 
-export default withWidth()(withStyles(seasonTableStyles)(SeasonTable));
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    player: state.player
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(withWidth()(withStyles(seasonTableStyles)(SeasonTable)));

@@ -7,7 +7,7 @@ import { playerInfoStyles } from "../styles/jss-styles";
 import { initializePlayer } from "../reducers/playerReducer";
 import { initializePlayerImage } from "../reducers/playerImageReducer";
 import PlayerInfoHeader from "./PlayerInfoHeader";
-// import SeasonTable from "./SeasonTable";
+import SeasonTable from "./SeasonTable";
 // import SeasonTabs from "./SeasonTabs";
 // import FloatingActionButton from "./FAB";
 
@@ -32,7 +32,9 @@ const PlayerInfo = props => {
     // TODO: Add missing components and refactor them
     // to use redux
     <div className={classes.wrapper}>
-      <PlayerInfoHeader />
+      <PlayerInfoHeader>
+        <SeasonTable />
+      </PlayerInfoHeader>
     </div>
   );
 };
