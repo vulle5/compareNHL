@@ -25,6 +25,7 @@ const CareerTable = props => {
       </Typography>
       <CareerFilter
         filterNames={playerLeagues}
+        filterKey={"careerTable"}
         swipeReferences={swipeReferences}
         showAll
       />
@@ -93,6 +94,7 @@ const filterSeasons = (player, filter) => {
 };
 
 const mapStateToProps = state => {
+  console.log(state);
   const {
     player: {
       stats: {
@@ -100,11 +102,12 @@ const mapStateToProps = state => {
       }
     }
   } = state;
+  const filter = state.filter.careerTable || "";
   return {
     splits,
     createData,
-    currentFilter: state.filter,
-    filteredStats: filterSeasons(state.player, state.filter),
+    currentFilter: filter,
+    filteredStats: filterSeasons(state.player, filter),
     playerLeagues: [
       ...new Set(filterSeasons(state.player, "").map(object => object.name))
     ]

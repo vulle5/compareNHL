@@ -83,7 +83,7 @@ const SeasonTabs = props => {
                 isGoalie={isGoalie === "G"}
               />
             </TabContainer>
-            {/* <TabContainer dir={theme.direction} width={width}>
+            <TabContainer dir={theme.direction} width={width}>
               {isEmpty(lastNhlSeason) ? (
                 <Typography variant="subheading" style={{ padding: "8px" }}>
                   No NHL Data
@@ -98,6 +98,7 @@ const SeasonTabs = props => {
                 />
               )}
             </TabContainer>
+            {/* 
             <TabContainer dir={theme.direction} width={width}>
               <AdvancedStats
                 player={player}

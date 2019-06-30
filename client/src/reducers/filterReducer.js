@@ -1,14 +1,15 @@
-export const setFilter = filter => {
+export const setFilter = (filter, key) => {
+  console.log(filter, key);
   return {
     type: "SET_FILTER",
-    data: filter
+    data: { [key]: filter }
   };
 };
 
-const filterReducer = (state = "", action) => {
+const filterReducer = (state = {}, action) => {
   switch (action.type) {
     case "SET_FILTER":
-      return action.data;
+      return { ...state, ...action.data };
     default:
       return state;
   }
