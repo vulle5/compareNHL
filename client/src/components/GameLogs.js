@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
+import { connect } from "react-redux";
 import typy from "typy";
 import _ from "lodash";
 import { Typography, Switch, FormControlLabel } from "@material-ui/core";
@@ -167,4 +168,42 @@ const GameLogs = ({
   );
 };
 
-export default GameLogs;
+const createData = (
+  date,
+  against,
+  pointsOrSA,
+  goalsOrSaves,
+  assistsOrSP,
+  toi
+) => {
+  let id = 0;
+  id += 1;
+  return { id, date, against, pointsOrSA, goalsOrSaves, assistsOrSP, toi };
+};
+
+const filterLogs = () => {
+  // const rows = splits.map(season =>
+  //   createData(
+  //     season.date,
+  //     season.isHome
+  //       ? season.opponent.abbreviation
+  //       : season.opponent.abbreviation.replace(/^/, "@"),
+  //     isGoalie ? season.stat.shotsAgainst : season.stat.points,
+  //     isGoalie ? season.stat.saves : season.stat.goals,
+  //     isGoalie
+  //       ? season.stat.savePercentage.toFixed(3)
+  //       : season.stat.assists,
+  //     season.stat.timeOnIce
+  //   )
+  // );
+  // console.log(rows)
+};
+
+const mapStateToProps = state => {
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(GameLogs);
