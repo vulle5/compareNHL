@@ -20,7 +20,6 @@ const SeasonTabs = props => {
     theme,
     width,
     player,
-    player: { id },
     player: {
       primaryPosition: { abbreviation: isGoalie }
     },
@@ -97,7 +96,6 @@ const SeasonTabs = props => {
                 />
               )}
             </TabContainer>
-            {/* 
             <TabContainer dir={theme.direction} width={width}>
               <AdvancedStats
                 player={player}
@@ -106,7 +104,7 @@ const SeasonTabs = props => {
                 swipeReferences={swipeableRef}
                 isGoalie={isGoalie === "G"}
               />
-            </TabContainer> */}
+            </TabContainer>
           </SwipeableViews>
         )}
       </ScrollTo>
