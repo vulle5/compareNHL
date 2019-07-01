@@ -53,7 +53,6 @@ const GameLogs = ({
         <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
           Game Logs
         </Typography>
-        regularGames
         <Fragment>
           <CareerFilter
             filterKey="gameLogs"

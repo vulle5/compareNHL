@@ -5,7 +5,7 @@ import { AppBar, Tab, Tabs, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import { ScrollTo } from "react-scroll-to";
-import _ from "lodash";
+import { findLast } from "lodash";
 import SwipeableViews from "react-swipeable-views";
 
 import { seasonTabsStyles } from "../styles/jss-styles";
@@ -115,12 +115,6 @@ const SeasonTabs = props => {
 const findNHLSeasons = splits =>
   splits.filter(season => season.league.name === "NHL");
 
-const findLastNHLSeason = splits => {
-  return _.findLast(splits, element => {
-    return element.league.name === "NHL" || [];
-  });
-};
-
 const mapStateToProps = state => {
   const {
     player: {
@@ -132,7 +126,7 @@ const mapStateToProps = state => {
   return {
     player: state.player,
     nhlSeasons: findNHLSeasons(splits),
-    lastNhlSeason: findLastNHLSeason(splits)
+    lastNhlSeason: findLast(findNHLSeasons(splits))
   };
 };
 

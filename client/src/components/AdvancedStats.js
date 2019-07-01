@@ -41,11 +41,10 @@ const createFilters = allSeasons => [
   )
 ];
 
-const getSelectedSeason = (allSeasons, selectedFilter) => {
-  return find(allSeasons.filter(season => season.league.name === "NHL"), {
+const getSelectedSeason = (allSeasons, selectedFilter) =>
+  find(allSeasons.filter(season => season.league.name === "NHL"), {
     season: selectedFilter
   });
-};
 
 const getLastSeason = allSeasons => last(allSeasons).season;
 

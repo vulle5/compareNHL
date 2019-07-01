@@ -16,7 +16,6 @@ import { seasonTableStyles } from "../styles/jss-styles";
 import SeasonTabs from "./SeasonTabs";
 
 const SeasonTable = props => {
-  // Get player object from props
   const { classes, width, player } = props;
 
   const renderContent = () => {
