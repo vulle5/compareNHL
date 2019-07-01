@@ -53,51 +53,44 @@ const GameLogs = ({
         <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
           Game Logs
         </Typography>
-        {regularGames ? (
-          <Fragment>
-            <CareerFilter
-              filterKey="gameLogs"
-              swipeReferences={swipeReferences}
-              filterNames={playerSeasons}
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={playoffSelected}
-                  onChange={handleChange}
-                  color="primary"
-                  disabled={isDisabled}
-                />
-              }
-              label="Playoff"
-            />
-          </Fragment>
-        ) : (
-          <Typography variant="subheading">No NHL Data</Typography>
-        )}
+        regularGames
+        <Fragment>
+          <CareerFilter
+            filterKey="gameLogs"
+            swipeReferences={swipeReferences}
+            filterNames={playerSeasons}
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={playoffSelected}
+                onChange={handleChange}
+                color="primary"
+                disabled={isDisabled}
+              />
+            }
+            label="Playoff"
+          />
+        </Fragment>
         <DisplayFilter
           style={{ paddingTop: "16px" }}
           selectedFilter={
             selectedFilter.slice(0, 4) + "-" + selectedFilter.slice(4)
           }
         />
-        {regularGames.length !== 0 ? (
-          <StatTable
-            headCells={
-              isGoalie
-                ? ["Date", "Team", "SA", "S", "S%", "TOI"]
-                : ["Date", "Team", "P", "G", "A", "TOI"]
-            }
-            bodyCells={playoffSelected ? playoffGames : regularGames}
-            tableCells={playoffSelected ? playoffGames : regularGames}
-          />
-        ) : (
-          <Typography variant="subtitle1">No NHL Games</Typography>
-        )}
+        <StatTable
+          headCells={
+            isGoalie
+              ? ["Date", "Team", "SA", "S", "S%", "TOI"]
+              : ["Date", "Team", "P", "G", "A", "TOI"]
+          }
+          bodyCells={playoffSelected ? playoffGames : regularGames}
+          tableCells={playoffSelected ? playoffGames : regularGames}
+        />
       </div>
     );
   } else {
-    return <div />;
+    return <div>No NHL Games</div>;
   }
 };
 
