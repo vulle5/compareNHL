@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
-import { last, isEmpty } from "lodash";
+import { last, isEmpty, has } from "lodash";
 import { Typography, Switch, FormControlLabel } from "@material-ui/core";
 
 import {
@@ -115,18 +115,29 @@ const createData = (
 };
 
 const filterLogs = (isGoalie, games) => {
-  if (!isEmpty(games)) {
+  if (!isEmpty(games) && isGoalie === "G" && has(games[0], "stat.saves")) {
     return games.map(season =>
       createData(
         season.date,
         season.isHome
           ? season.opponent.abbreviation
           : season.opponent.abbreviation.replace(/^/, "@"),
-        isGoalie === "G" ? season.stat.shotsAgainst : season.stat.points,
-        isGoalie === "G" ? season.stat.saves : season.stat.goals,
-        isGoalie === "G"
-          ? season.stat.savePercentage.toFixed(3)
-          : season.stat.assists,
+        season.stat.shotsAgainst,
+        season.stat.saves,
+        season.stat.savePercentage.toFixed(3),
+        season.stat.timeOnIce
+      )
+    );
+  } else if (!isEmpty(games)) {
+    return games.map(season =>
+      createData(
+        season.date,
+        season.isHome
+          ? season.opponent.abbreviation
+          : season.opponent.abbreviation.replace(/^/, "@"),
+        season.stat.points,
+        season.stat.goals,
+        season.stat.assists,
         season.stat.timeOnIce
       )
     );
