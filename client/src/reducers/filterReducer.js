@@ -1,5 +1,4 @@
 export const setFilter = (filter, key) => {
-  console.log(filter, key);
   return {
     type: "SET_FILTER",
     data: { [key]: filter }

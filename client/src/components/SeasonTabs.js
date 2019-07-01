@@ -90,7 +90,6 @@ const SeasonTabs = props => {
                 </Typography>
               ) : (
                 <GameLogs
-                  playerId={id}
                   player={player}
                   lastSeason={lastNhlSeason}
                   swipeReferences={swipeableRef}

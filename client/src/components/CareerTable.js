@@ -94,18 +94,8 @@ const filterSeasons = (player, filter) => {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
-  const {
-    player: {
-      stats: {
-        0: { splits }
-      }
-    }
-  } = state;
   const filter = state.filter.careerTable || "";
   return {
-    splits,
-    createData,
     currentFilter: filter,
     filteredStats: filterSeasons(state.player, filter),
     playerLeagues: [

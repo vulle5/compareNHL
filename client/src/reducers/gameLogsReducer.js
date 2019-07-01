@@ -2,26 +2,34 @@ import playerServices from "../services/player";
 
 export const setRegularSeasons = (playerId, currentSeason) => {
   return async dispatch => {
-    const { data } = await playerServices.getPlayer(
+    const {
+      stats: {
+        0: { splits }
+      }
+    } = await playerServices.getPlayer(
       playerId,
       `logs?stats=gameLog&expand=stats.team&season=${currentSeason}`
     );
     dispatch({
       type: "SET_REG_LOGS",
-      data: data
+      data: splits
     });
   };
 };
 
 export const setPlayoffSeasons = (playerId, currentSeason) => {
   return async dispatch => {
-    const { data } = await playerServices.getPlayer(
+    const {
+      stats: {
+        0: { splits }
+      }
+    } = await playerServices.getPlayer(
       playerId,
       `logs?stats=playoffGameLog&expand=stats.team&season=${currentSeason}`
     );
     dispatch({
       type: "SET_PLAYOFF_LOGS",
-      data: data
+      data: splits
     });
   };
 };
