@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import { Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
-import { seasonTableStyles } from "../styles/jss-styles";
+import { seasonTableStyles } from "../../styles/jss-styles";
 import StatTable from "./StatTable";
-import CareerFilter from "./CareerFilter";
-import DisplayFilter from "./DisplayFilter";
+import CareerFilter from "../CareerFilter";
+import DisplayFilter from "../DisplayFilter";
 
 const CareerTable = props => {
   const {

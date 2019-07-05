@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { find, last } from "lodash";
 import { Typography } from "@material-ui/core";
 
-import CareerFilter from "./CareerFilter";
+import CareerFilter from "../CareerFilter";
 import AdvancedList from "./AdvancedList";
-import DisplayFilter from "./DisplayFilter";
+import DisplayFilter from "../DisplayFilter";
 
 const AdvancedStats = ({
   swipeReferences,

@@ -12,7 +12,7 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 
-import { seasonTableStyles } from "../styles/jss-styles";
+import { seasonTableStyles } from "../../styles/jss-styles";
 import SeasonTabs from "./SeasonTabs";
 
 const SeasonTable = props => {

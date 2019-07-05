@@ -4,8 +4,8 @@ import { withStyles } from "@material-ui/core/styles";
 import { Paper, Typography, CircularProgress } from "@material-ui/core";
 import { isEmpty } from "lodash";
 
-import { playerInfoHeader } from "../styles/jss-styles";
-import getCountryISO2 from "../functions/iso3toIso2";
+import { playerInfoHeader } from "../../styles/jss-styles";
+import getCountryISO2 from "../../functions/iso3toIso2";
 
 const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
   if (isEmpty(player)) {

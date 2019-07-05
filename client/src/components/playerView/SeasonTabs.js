@@ -8,7 +8,7 @@ import { ScrollTo } from "react-scroll-to";
 import { findLast } from "lodash";
 import SwipeableViews from "react-swipeable-views";
 
-import { seasonTabsStyles } from "../styles/jss-styles";
+import { seasonTabsStyles } from "../../styles/jss-styles";
 import CareerTable from "./CareerTable";
 import GameLogs from "./GameLogs";
 import AdvancedStats from "./AdvancedStats";

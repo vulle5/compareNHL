@@ -6,10 +6,10 @@ import { Typography, Switch, FormControlLabel } from "@material-ui/core";
 import {
   setPlayoffSeasons,
   setRegularSeasons
-} from "../reducers/gameLogsReducer";
+} from "../../reducers/gameLogsReducer";
 import StatTable from "./StatTable";
-import CareerFilter from "./CareerFilter";
-import DisplayFilter from "./DisplayFilter";
+import CareerFilter from "../CareerFilter";
+import DisplayFilter from "../DisplayFilter";
 
 const GameLogs = ({
   playerId,

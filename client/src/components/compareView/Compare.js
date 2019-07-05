@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 
-import { compareStyles } from "../styles/jss-styles";
+import { compareStyles } from "../../styles/jss-styles";
 
 const Compare = ({ match: { params }, classes, player }) => {
   console.log(player);
