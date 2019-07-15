@@ -1,25 +1,17 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
-import { Typography, Paper, CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import { isEmpty } from "lodash";
 
 import { compareStyles } from "../../styles/jss-styles";
 import { initializePlayer } from "../../reducers/playerReducer";
-
-const CompareTile = () => {
-  return (
-    <Paper>
-      <h1>CompareTile</h1>
-    </Paper>
-  );
-};
+import CompareTile from "./CompareTile";
 
 const Compare = ({
   match: {
     params: { playerId }
   },
-  classes,
   player,
   initializePlayer
 }) => {
@@ -32,8 +24,8 @@ const Compare = ({
   }
 
   return (
-    <div>
-      <Typography variant="h2">{player.currentTeam.name}</Typography>
+    <div style={{ padding: "16px" }}>
+      <CompareTile />
     </div>
   );
 };
