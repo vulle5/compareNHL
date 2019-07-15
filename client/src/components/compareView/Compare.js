@@ -1,16 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
+import { Typography, Paper, CircularProgress } from "@material-ui/core";
+import { isEmpty } from "lodash";
 
 import { compareStyles } from "../../styles/jss-styles";
+import { initializePlayer } from "../../reducers/playerReducer";
 
-const Compare = ({ match: { params }, classes, player }) => {
-  console.log(player);
-  return <Typography variant="h3">{player.currentTeam.name}</Typography>;
+const CompareTile = () => {
+  return (
+    <Paper>
+      <h1>CompareTile</h1>
+    </Paper>
+  );
+};
+
+const Compare = ({
+  match: {
+    params: { playerId }
+  },
+  classes,
+  player,
+  initializePlayer
+}) => {
+  useEffect(() => {
+    initializePlayer(playerId);
+  }, [initializePlayer, playerId]);
+
+  if (isEmpty(player)) {
+    return <CircularProgress />;
+  }
+
+  return (
+    <div>
+      <Typography variant="h2">{player.currentTeam.name}</Typography>
+    </div>
+  );
 };
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
     player: state.player
   };
@@ -18,5 +47,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  null
+  { initializePlayer }
 )(withStyles(compareStyles)(Compare));
