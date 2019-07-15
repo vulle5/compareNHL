@@ -1,12 +1,10 @@
 import React, { Fragment } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-// CssBaseline removes browser spesific default styles
-// so your app starts with blank styling
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import SearchPlayersBar from "./SearchPlayersBar";
-import PlayerInfo from "./PlayerInfo";
-import Compare from "./Compare";
+import SearchPlayersBar from "./appBar/SearchPlayersBar";
+import PlayerInfo from "./playerView/PlayerInfo";
+import Compare from "./compareView/Compare";
 
 const App = () => {
   return (

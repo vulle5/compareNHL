@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
-import typy from "typy";
+import { connect } from "react-redux";
+import { get } from "lodash";
 import {
   Table,
   TableBody,
@@ -11,15 +12,15 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 
-import { seasonTableStyles } from "../styles/jss-styles";
+import { seasonTableStyles } from "../../styles/jss-styles";
 import SeasonTabs from "./SeasonTabs";
 
 const SeasonTable = props => {
-  // Get player object from props
   const { classes, width, player } = props;
 
   const renderContent = () => {
-    if (typy(props, "player.stats[1].splits[0].stat").safeObject) {
+    // Check if player has NHL stats at all
+    if (get(player, "stats[1].splits[0].stat")) {
       const {
         player: {
           stats: {
@@ -49,7 +50,7 @@ const SeasonTable = props => {
                 {isGoalie === "G" ? "Save%" : "Goals"}
               </TableCell>
               <TableCell align="center">
-                {isGoalie === "G" ? "GAA" : "Asssists"}
+                {isGoalie === "G" ? "GAA" : "Assists"}
               </TableCell>
             </TableRow>
           </TableHead>
@@ -92,9 +93,18 @@ const SeasonTable = props => {
         </Typography>
         {renderContent()}
       </div>
-      {isWidthUp("sm", width) && <SeasonTabs player={player} />}
+      {isWidthUp("sm", width) && <SeasonTabs />}
     </Fragment>
   );
 };
 
-export default withWidth()(withStyles(seasonTableStyles)(SeasonTable));
+const mapStateToProps = state => {
+  return {
+    player: state.player
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(withWidth()(withStyles(seasonTableStyles)(SeasonTable)));

@@ -11,7 +11,7 @@ import { withStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 
-import { searchPlayerBarStyles } from "../styles/jss-styles";
+import { searchPlayerBarStyles } from "../../styles/jss-styles";
 import SearchResultsList from "./SearchResultsList";
 
 const SearchPlayersBar = props => {

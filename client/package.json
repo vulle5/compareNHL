@@ -18,7 +18,6 @@
     "react-scripts": "3.0.1",
     "react-scroll-to": "^2.0.5",
     "react-swipeable-views": "^0.13.1",
-    "typy": "^3.0.1",
     "use-debounce": "2.1.0"
   },
   "scripts": {

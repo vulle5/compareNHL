@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import { Menu, MenuItem, IconButton } from "@material-ui/core";
 import { FilterList } from "@material-ui/icons";
 
+import { setFilter } from "../reducers/filterReducer";
+
 const CareerFilter = ({
-  dataFilter,
   filterNames,
+  filterKey,
   swipeReferences,
-  showAll
+  showAll,
+  setFilter
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
     swipeReferences.current.updateHeight();
-  }, [swipeReferences, dataFilter]);
+  }, [swipeReferences, filterNames, filterKey]);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleCloseAndFilter = filterName => {
-    dataFilter(filterName);
+  const handleCloseAndFilter = (filterName, key) => {
+    setFilter(filterName, key);
     setAnchorEl(null);
   };
 
@@ -39,10 +43,17 @@ const CareerFilter = ({
         onClose={() => setAnchorEl(null)}
       >
         {showAll && (
-          <MenuItem onClick={() => handleCloseAndFilter("")}>Show All</MenuItem>
+          <MenuItem onClick={() => handleCloseAndFilter("", filterKey)}>
+            Show All
+          </MenuItem>
         )}
         {filterNames.map(filter => (
-          <MenuItem key={filter} onClick={() => handleCloseAndFilter(filter)}>
+          <MenuItem
+            key={filter}
+            onClick={() => {
+              handleCloseAndFilter(filter, filterKey);
+            }}
+          >
             {filter}
           </MenuItem>
         ))}
@@ -52,10 +63,13 @@ const CareerFilter = ({
 };
 
 CareerFilter.defaultProps = {
-  dataFilter: () => {},
   filterNames: [],
   swipeReferences: { current: { updateHeight: () => {} } },
-  showAll: false
+  showAll: false,
+  filterKey: ""
 };
 
-export default CareerFilter;
+export default connect(
+  null,
+  { setFilter }
+)(CareerFilter);

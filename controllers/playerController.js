@@ -70,7 +70,22 @@ playerRoutes.get("/image/:id", async (req, res) => {
     });
     res.end(img);
   } catch (error) {
-    res.status(400).json(error);
+    try {
+      const { data } = await axios.get(
+        "https://is5-ssl.mzstatic.com/image/thumb/Purple62/v4/e3/45/ed/e345edf0-a8b0-6919-746e-cf8d67e3e323/source/1280x1280bb.jpg",
+        {
+          responseType: "arraybuffer"
+        }
+      );
+      const img = new Buffer.from(data, "base64")
+      res.writeHead(200, {
+        "Content-Type": "image/jpeg",
+        "Content-Length": img.length
+      });
+      res.end(img);
+    } catch (error) { 
+      res.status(400).json(error);
+    }
   }
 });
 

@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from "moment";
 
 class Player {
   constructor(
@@ -26,26 +26,26 @@ class Player {
     stats
   ) {
     this.id = id;
-    this.fullName = fullName;
-    this.link = link;
-    this.firstName = firstName;
-    this.lastName = lastName;
+    this.fullName = fullName || "N/A";
+    this.link = link || "N/A";
+    this.firstName = firstName || "N/A";
+    this.lastName = lastName || "N/A";
     this.primaryNumber = primaryNumber || "N/A";
-    this.birthDate = birthDate;
+    this.birthDate = birthDate || "N/A";
     this.currentAge = currentAge || this.calcCurrentAge();
-    this.birthCity = birthCity;
-    this.birthCountry = birthCountry;
-    this.nationality = nationality;
-    this.height = height;
-    this.weight = weight;
-    this.active = active;
+    this.birthCity = birthCity || "N/A";
+    this.birthCountry = birthCountry || "N/A";
+    this.nationality = nationality || "";
+    this.height = height || 0;
+    this.weight = weight || 0;
+    this.active = active || false;
     this.alternateCaptain = alternateCaptain || "N/A";
     this.captain = captain || "N/A";
-    this.rookie = rookie;
-    this.shootsCatches = shootsCatches;
-    this.rosterStatus = rosterStatus;
-    this.currentTeam = currentTeam || {id: "N/A", link: "N/A", name: "N/A"};
-    this.primaryPosition = primaryPosition;
+    this.rookie = rookie || false;
+    this.shootsCatches = shootsCatches || "N/A";
+    this.rosterStatus = rosterStatus || "N/A";
+    this.currentTeam = currentTeam || { id: "N/A", link: "N/A", name: "N/A" };
+    this.primaryPosition = primaryPosition || "N/A";
     this.stats = stats || {};
   }
 
@@ -59,7 +59,7 @@ class Player {
 
   calcCurrentAge() {
     const date = moment();
-    const birth = moment(this.birthDate, 'YYYY-MM-DD');
+    const birth = moment(this.birthDate, "YYYY-MM-DD");
     const finalDate = moment.duration(date.diff(birth));
     return finalDate._data.years;
   }

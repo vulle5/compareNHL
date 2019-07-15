@@ -14,9 +14,9 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import OutsideClickHandler from "react-outside-click-handler";
 
-import { useSearchPlayer } from "../functions/useSearchPlayer";
-import { parseSearchResult } from "../functions/parseSearchResult";
-import { searchResultsListStyles } from "../styles/jss-styles";
+import { useSearchPlayer } from "../../functions/useSearchPlayer";
+import { parseSearchResult } from "../../functions/parseSearchResult";
+import { searchResultsListStyles } from "../../styles/jss-styles";
 
 const SearchResultsList = ({
   term,
