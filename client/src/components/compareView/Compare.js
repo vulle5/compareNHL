@@ -7,6 +7,8 @@ import { isEmpty } from "lodash";
 import { compareStyles } from "../../styles/jss-styles";
 import { initializeCompare } from "../../reducers/compareReducer";
 import CompareTile from "./CompareTile";
+import FAB from "../FAB";
+import CompareDialog from "../CompareDialog";
 
 const Compare = ({
   match: {
@@ -15,6 +17,12 @@ const Compare = ({
   compare,
   initializeCompare
 }) => {
+  const [open, setOpen] = React.useState(false);
+  const [selectedValue, setSelectedValue] = React.useState([
+    "Hello",
+    "Not Hello"
+  ]);
+
   useEffect(() => {
     initializeCompare(playerId);
   }, [initializeCompare, playerId]);
@@ -23,11 +31,26 @@ const Compare = ({
     return <CircularProgress />;
   }
 
+  function handleClickOpen() {
+    setOpen(true);
+  }
+
+  const handleClose = value => {
+    setOpen(false);
+    setSelectedValue(value);
+  };
+
   return (
     <div style={{ padding: "16px" }}>
       {compare.map(player => (
         <CompareTile key={player.id} player={player} />
       ))}
+      <FAB title="Add Player" onClick={handleClickOpen} />
+      <CompareDialog
+        selectedValue={selectedValue}
+        open={open}
+        onClose={handleClose}
+      />
     </div>
   );
 };
