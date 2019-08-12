@@ -25,7 +25,6 @@ const compareReducer = (state = [], action) => {
   // TODO: Implement reducer
     switch (action.type) {
     case "SET_COMPARE":
-        console.log(action.data)
       return [{...action.data}]
     case "ADD_COMPARE":
       return [...state, {...action.data}]
