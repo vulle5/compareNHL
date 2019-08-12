@@ -46,7 +46,7 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
           </li>
           <li className={classes.mainStatsLi}>
             <Typography component="p">{`${player.height}, ${
-              player.metricHight
+              player.metricHeight
             } cm`}</Typography>
           </li>
           <li className={classes.mainStatsLi}>

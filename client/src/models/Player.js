@@ -37,7 +37,9 @@ class Player {
     this.birthCountry = birthCountry || "N/A";
     this.nationality = nationality || "";
     this.height = height || 0;
+    this.metricHeight = this.heightToMetric();
     this.weight = weight || 0;
+    this.metricWeight = this.weightToMetric();
     this.active = active || false;
     this.alternateCaptain = alternateCaptain || "N/A";
     this.captain = captain || "N/A";
@@ -47,14 +49,6 @@ class Player {
     this.currentTeam = currentTeam || { id: "N/A", link: "N/A", name: "N/A" };
     this.primaryPosition = primaryPosition || "N/A";
     this.stats = stats || {};
-  }
-
-  get metricHight() {
-    return this.heightToMetric();
-  }
-
-  get metricWeight() {
-    return this.weightToMetric();
   }
 
   calcCurrentAge() {

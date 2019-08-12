@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import { Paper, Typography, Avatar } from '@material-ui/core';
 
@@ -94,11 +93,5 @@ const CompareTile = ({ player }) => {
   );
 };
 
-const mapStateToProps = state => {
-  console.log(state);
-  return {
-    player: state.player
-  };
-};
 
-export default connect(mapStateToProps)(CompareTile);
+export default CompareTile;

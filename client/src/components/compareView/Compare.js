@@ -5,27 +5,29 @@ import { CircularProgress } from "@material-ui/core";
 import { isEmpty } from "lodash";
 
 import { compareStyles } from "../../styles/jss-styles";
-import { initializePlayer } from "../../reducers/playerReducer";
+import { initializeCompare } from "../../reducers/compareReducer";
 import CompareTile from "./CompareTile";
 
 const Compare = ({
   match: {
     params: { playerId }
   },
-  player,
-  initializePlayer
+  compare,
+  initializeCompare
 }) => {
   useEffect(() => {
-    initializePlayer(playerId);
-  }, [initializePlayer, playerId]);
+    initializeCompare(playerId);
+  }, [initializeCompare, playerId]);
 
-  if (isEmpty(player)) {
+  if (isEmpty(compare)) {
     return <CircularProgress />;
   }
 
   return (
     <div style={{ padding: "16px" }}>
-      <CompareTile />
+      {compare.map(player => (
+        <CompareTile key={player.id} player={player} />
+      ))}
     </div>
   );
 };
@@ -33,11 +35,11 @@ const Compare = ({
 const mapStateToProps = state => {
   console.log(state);
   return {
-    player: state.player
+    compare: state.compare
   };
 };
 
 export default connect(
   mapStateToProps,
-  { initializePlayer }
+  { initializeCompare }
 )(withStyles(compareStyles)(Compare));
