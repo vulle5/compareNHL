@@ -17,17 +17,27 @@ export const initializeCompare = playerId => {
 };
 
 export const addCompare = playerId => {
-    // TODO: Implement
-  return []
+  return async dispatch => {
+    const {
+      people: { 0: playerResponse }
+    } = await playerServices.getPlayer(
+      playerId,
+      "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
+    );
+    dispatch({
+      type: "ADD_COMPARE",
+      data: genPlayer(playerResponse)
+    });
+  };
 };
 
 const compareReducer = (state = [], action) => {
   // TODO: Implement reducer
-    switch (action.type) {
+  switch (action.type) {
     case "SET_COMPARE":
-      return [{...action.data}]
+      return [{ ...action.data }];
     case "ADD_COMPARE":
-      return [...state, {...action.data}]
+      return [...state, { ...action.data }];
     default:
       return state;
   }

@@ -1,27 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import { CircularProgress } from "@material-ui/core";
 import { isEmpty } from "lodash";
 
 import { compareStyles } from "../../styles/jss-styles";
-import { initializeCompare } from "../../reducers/compareReducer";
+import { initializeCompare, addCompare } from "../../reducers/compareReducer";
 import CompareTile from "./CompareTile";
 import FAB from "../FAB";
-import CompareDialog from "../CompareDialog";
+import CompareDialog from "./CompareDialog";
 
 const Compare = ({
   match: {
     params: { playerId }
   },
   compare,
-  initializeCompare
+  initializeCompare,
+  addCompare
 }) => {
-  const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState([
-    "Hello",
-    "Not Hello"
-  ]);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     initializeCompare(playerId);
@@ -35,9 +32,9 @@ const Compare = ({
     setOpen(true);
   }
 
-  const handleClose = value => {
+  const handleClose = playerId => {
     setOpen(false);
-    setSelectedValue(value);
+    addCompare(playerId);
   };
 
   return (
@@ -46,11 +43,7 @@ const Compare = ({
         <CompareTile key={player.id} player={player} />
       ))}
       <FAB title="Add Player" onClick={handleClickOpen} />
-      <CompareDialog
-        selectedValue={selectedValue}
-        open={open}
-        onClose={handleClose}
-      />
+      <CompareDialog open={open} onClose={handleClose} />
     </div>
   );
 };
@@ -64,5 +57,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { initializeCompare }
+  { initializeCompare, addCompare }
 )(withStyles(compareStyles)(Compare));
