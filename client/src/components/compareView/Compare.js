@@ -38,7 +38,7 @@ const Compare = ({
   };
 
   return (
-    <div style={{ padding: "16px" }}>
+    <div style={{ padding: "0px 16px 16px 16px" }}>
       {compare.map(player => (
         <CompareTile key={player.id} player={player} />
       ))}

@@ -11,7 +11,7 @@ const CompareTile = ({ player, removeCompare, compare }) => {
     <Paper
       style={{
         display: "inline-block",
-        margin: "0px 16px 0px 0px"
+        margin: "16px 16px 0px 0px"
       }}
     >
       {compare.length > 1 && (
