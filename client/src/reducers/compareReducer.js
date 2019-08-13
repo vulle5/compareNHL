@@ -31,6 +31,13 @@ export const addCompare = playerId => {
   };
 };
 
+export const removeCompare = playerId => {
+  return {
+    type: "DELETE_COMPARE",
+    data: playerId
+  };
+};
+
 const compareReducer = (state = [], action) => {
   // TODO: Implement reducer
   switch (action.type) {
@@ -38,6 +45,8 @@ const compareReducer = (state = [], action) => {
       return [{ ...action.data }];
     case "ADD_COMPARE":
       return [...state, { ...action.data }];
+    case "DELETE_COMPARE":
+      return state.filter(player => player.id !== action.data);
     default:
       return state;
   }
