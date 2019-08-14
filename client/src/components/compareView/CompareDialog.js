@@ -25,6 +25,8 @@ const CompareDialog = ({ onClose, open }) => {
             "aria-label": "description"
           }}
           value={term}
+          fullWidth
+          placeholder="Search players"
           onChange={event => setTerm(event.target.value)}
         />
       </div>
