@@ -15,6 +15,7 @@ const Compare = ({
     params: { playerId }
   },
   compare,
+  compareCareerRegular,
   initializeCompare,
   addCompare
 }) => {
@@ -39,8 +40,12 @@ const Compare = ({
 
   return (
     <div style={{ padding: "0px 16px 16px 16px" }}>
-      {compare.map(player => (
-        <CompareTile key={player.id} player={player} />
+      {compare.map((player, i) => (
+        <CompareTile
+          key={player.id}
+          player={player}
+          compareCareerRegular={compareCareerRegular[i]}
+        />
       ))}
       <FAB title="Add Player" onClick={handleClickOpen} />
       <CompareDialog open={open} onClose={handleClose} />
@@ -51,7 +56,11 @@ const Compare = ({
 const mapStateToProps = state => {
   console.log(state);
   return {
-    compare: state.compare
+    compare: state.compare,
+    compareCareerRegular: state.compare.reduce(
+      (acc, player) => [...acc, { ...player.stats[1].splits["0"].stat }],
+      []
+    )
   };
 };
 
