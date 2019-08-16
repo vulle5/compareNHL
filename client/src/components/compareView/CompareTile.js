@@ -42,16 +42,20 @@ const CompareTile = ({
             WebkitBoxShadow: "0px 10px 10px -8px rgba(0,0,0,1)",
             MozBoxShadow: "0px 10px 10px -8px rgba(0,0,0,1)",
             boxShadow: "0px 10px 10px -8px rgba(0,0,0,1)",
-            border: "lightgray",
-            borderStyle: "inset",
-            borderWidth: "1px"
+            border: "1px solid lightgray"
           }}
         />
         <Typography
           variant="h6"
           style={{ textAlign: "center", fontWeight: "bold" }}
         >
-          {player.fullName}
+          {`${player.fullName} #${player.primaryNumber}`}
+        </Typography>
+        <Typography
+          variant="subtitle2"
+          style={{ textAlign: "center", fontWeight: "bold" }}
+        >
+          {player.currentTeam.name}
         </Typography>
         <ul
           style={{
@@ -205,6 +209,33 @@ const CompareTile = ({
           }`}</li>
           <li style={{ margin: "0 8px 0 8px" }}>{`TOI/GP: ${
             compareCareerRegular.shortHandedTimeOnIcePerGame
+          }`}</li>
+        </ul>
+        <Typography
+          variant="body1"
+          style={{ textAlign: "center", fontWeight: "bold" }}
+        >
+          Other
+        </Typography>
+        <ul
+          style={{
+            listStyleType: "none",
+            paddingInlineStart: "0px",
+            display: "flex",
+            justifyContent: "space-evenly"
+          }}
+        >
+          <li style={{ margin: "0 8px 0 8px" }}>{`PIM: ${
+            compareCareerRegular.pim
+          }`}</li>
+          <li style={{ margin: "0 8px 0 8px" }}>{`Hits: ${
+            compareCareerRegular.hits
+          }`}</li>
+          <li style={{ margin: "0 8px 0 8px" }}>{`FW%: ${
+            compareCareerRegular.faceOffPct
+          }`}</li>
+          <li style={{ margin: "0 8px 0 8px" }}>{`+/-: ${
+            compareCareerRegular.plusMinus
           }`}</li>
         </ul>
       </div>
