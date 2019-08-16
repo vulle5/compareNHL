@@ -20,7 +20,7 @@ const CompareTileItem = ({ listTitles, listItems }) => {
             justifyContent: "space-evenly"
           }}
         >
-          <li style={{ margin: "0 8px 0 8px" }}>{`${item[0]}: ${item[1]}`}</li>
+          {/* {<li style={{ margin: "0 8px 0 8px" }}>{`${item[0]}: ${item[1]}`}</li>} */}
         </ul>
       </>
     ));

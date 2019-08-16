@@ -53,17 +53,16 @@ const Compare = ({
   );
 };
 
+const getPlayersRegularSeasonStats = compare => compare.map(
+  player => 
+    get(player, 'stats[1].splits["0"].stat', null)
+)
+
 const mapStateToProps = state => {
   console.log(state);
   return {
     compare: state.compare,
-    compareCareerRegular: state.compare.reduce(
-      (acc, player) => [
-        ...acc,
-        { ...get(player, 'stats[1].splits["0"].stat', null) }
-      ],
-      []
-    )
+    compareCareerRegular: getPlayersRegularSeasonStats(state.compare)
   };
 };
 

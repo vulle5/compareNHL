@@ -9,6 +9,7 @@ import { useCompareStyles } from "../../styles/useStyles";
 import CompareTileItem from "./CompareTileItem";
 
 // TODO: handle players without NHL games properly
+// TODO: change list tiles to array of objects [{ shooting: [["GP", compareCareerRegular.goals]...]... }] 
 
 const CompareTile = ({
   player,
