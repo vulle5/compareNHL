@@ -6,6 +6,8 @@ import ClearIcon from "@material-ui/icons/Clear";
 
 import { removeCompare } from "../../reducers/compareReducer";
 
+// TODO: handle players without NHL games properly
+
 const CompareTile = ({
   player,
   removeCompare,

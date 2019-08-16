@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import { CircularProgress } from "@material-ui/core";
-import { isEmpty } from "lodash";
+import { isEmpty, get } from "lodash";
 
 import { compareStyles } from "../../styles/jss-styles";
 import { initializeCompare, addCompare } from "../../reducers/compareReducer";
@@ -58,7 +58,10 @@ const mapStateToProps = state => {
   return {
     compare: state.compare,
     compareCareerRegular: state.compare.reduce(
-      (acc, player) => [...acc, { ...player.stats[1].splits["0"].stat }],
+      (acc, player) => [
+        ...acc,
+        { ...get(player, 'stats[1].splits["0"].stat', null) }
+      ],
       []
     )
   };
