@@ -5,6 +5,8 @@ import { Paper, Typography, Avatar, IconButton } from "@material-ui/core";
 import ClearIcon from "@material-ui/icons/Clear";
 
 import { removeCompare } from "../../reducers/compareReducer";
+import { useCompareStyles } from "../../styles/useStyles";
+import CompareTileItem from "./CompareTileItem";
 
 // TODO: handle players without NHL games properly
 
@@ -14,36 +16,45 @@ const CompareTile = ({
   compare,
   compareCareerRegular
 }) => {
+  const listTitles = [
+    "Shooting",
+    "Even Strength",
+    "Power Play",
+    "Short Handed",
+    "Other"
+  ];
+  const listItems = [
+    [
+      ["GP", compareCareerRegular.goals],
+      ["P", compareCareerRegular.points],
+      ["G", compareCareerRegular.goals],
+      ["A", compareCareerRegular.assists]
+    ],
+    [
+      ["Shots", compareCareerRegular.shots],
+      ["Shot%", compareCareerRegular.shotPct],
+      ["Blocks", compareCareerRegular.blocked]
+    ]
+  ];
+  const classes = useCompareStyles();
+
   return (
-    <Paper
-      style={{
-        display: "inline-block",
-        margin: "16px 16px 0px 0px"
-      }}
-    >
+    <Paper className={classes.tileRoot}>
       {compare.length > 1 && (
         <IconButton
-          style={{ float: "right" }}
+          className={classes.tileCloseButton}
           onClick={() => removeCompare(player.id)}
         >
           <ClearIcon />
         </IconButton>
       )}
-      <div style={{ padding: "16px" }}>
+      <div className={classes.tileWrapper}>
         <Avatar
           alt="Player"
           src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${
             player.id
           }.jpg`}
-          style={{
-            width: "100px",
-            height: "100px",
-            margin: "12px auto",
-            WebkitBoxShadow: "0px 10px 10px -8px rgba(0,0,0,1)",
-            MozBoxShadow: "0px 10px 10px -8px rgba(0,0,0,1)",
-            boxShadow: "0px 10px 10px -8px rgba(0,0,0,1)",
-            border: "1px solid lightgray"
-          }}
+          className={classes.tileAvatar}
         />
         <Typography
           variant="h6"
@@ -78,166 +89,7 @@ const CompareTile = ({
             player.currentAge
           }`}</li>
         </ul>
-        <Typography variant="h6" style={{ textAlign: "center" }}>
-          Career
-        </Typography>
-        <ul
-          style={{
-            listStyleType: "none",
-            paddingInlineStart: "0px",
-            display: "flex",
-            justifyContent: "space-evenly"
-          }}
-        >
-          <li style={{ margin: "0 8px 0 8px" }}>{`GP: ${
-            compareCareerRegular.games
-          }`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`P: ${
-            compareCareerRegular.points
-          }`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`G: ${
-            compareCareerRegular.goals
-          }`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`A: ${
-            compareCareerRegular.assists
-          }`}</li>
-        </ul>
-        <Typography
-          variant="body1"
-          style={{ textAlign: "center", fontWeight: "bold" }}
-        >
-          Shooting
-        </Typography>
-        <ul
-          style={{
-            listStyleType: "none",
-            paddingInlineStart: "0px",
-            display: "flex",
-            justifyContent: "space-evenly"
-          }}
-        >
-          <li style={{ margin: "0 8px 0 8px" }}>{`Shots: ${
-            compareCareerRegular.shots
-          }`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`Shot%: ${
-            compareCareerRegular.shotPct
-          }`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`Blocks: ${
-            compareCareerRegular.blocked
-          }`}</li>
-        </ul>
-        <Typography
-          variant="body1"
-          style={{ textAlign: "center", fontWeight: "bold" }}
-        >
-          Even Strength
-        </Typography>
-        <ul
-          style={{
-            listStyleType: "none",
-            paddingInlineStart: "0px",
-            display: "flex",
-            justifyContent: "space-evenly"
-          }}
-        >
-          <li
-            style={{ margin: "0 8px 0 8px" }}
-          >{`P: ${compareCareerRegular.points -
-            compareCareerRegular.powerPlayPoints -
-            compareCareerRegular.shortHandedPoints}`}</li>
-          <li
-            style={{ margin: "0 8px 0 8px" }}
-          >{`G: ${compareCareerRegular.goals -
-            compareCareerRegular.powerPlayGoals -
-            compareCareerRegular.shortHandedGoals}`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`TOI: ${
-            compareCareerRegular.evenTimeOnIce
-          }`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`TOI/GP: ${
-            compareCareerRegular.evenTimeOnIcePerGame
-          }`}</li>
-        </ul>
-        <Typography
-          variant="body1"
-          style={{ textAlign: "center", fontWeight: "bold" }}
-        >
-          Power Play
-        </Typography>
-        <ul
-          style={{
-            listStyleType: "none",
-            paddingInlineStart: "0px",
-            display: "flex",
-            justifyContent: "space-evenly"
-          }}
-        >
-          <li style={{ margin: "0 8px 0 8px" }}>{`P: ${
-            compareCareerRegular.powerPlayPoints
-          }`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`G: ${
-            compareCareerRegular.powerPlayGoals
-          }`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`TOI: ${
-            compareCareerRegular.powerPlayTimeOnIce
-          }`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`TOI/GP: ${
-            compareCareerRegular.powerPlayTimeOnIcePerGame
-          }`}</li>
-        </ul>
-        <Typography
-          variant="body1"
-          style={{ textAlign: "center", fontWeight: "bold" }}
-        >
-          Short Handed
-        </Typography>
-        <ul
-          style={{
-            listStyleType: "none",
-            paddingInlineStart: "0px",
-            display: "flex",
-            justifyContent: "space-evenly"
-          }}
-        >
-          <li style={{ margin: "0 8px 0 8px" }}>{`P: ${
-            compareCareerRegular.shortHandedPoints
-          }`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`G: ${
-            compareCareerRegular.shortHandedGoals
-          }`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`TOI: ${
-            compareCareerRegular.shortHandedTimeOnIce
-          }`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`TOI/GP: ${
-            compareCareerRegular.shortHandedTimeOnIcePerGame
-          }`}</li>
-        </ul>
-        <Typography
-          variant="body1"
-          style={{ textAlign: "center", fontWeight: "bold" }}
-        >
-          Other
-        </Typography>
-        <ul
-          style={{
-            listStyleType: "none",
-            paddingInlineStart: "0px",
-            display: "flex",
-            justifyContent: "space-evenly"
-          }}
-        >
-          <li style={{ margin: "0 8px 0 8px" }}>{`PIM: ${
-            compareCareerRegular.pim
-          }`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`Hits: ${
-            compareCareerRegular.hits
-          }`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`FW%: ${
-            compareCareerRegular.faceOffPct
-          }`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`+/-: ${
-            compareCareerRegular.plusMinus
-          }`}</li>
-        </ul>
+        <CompareTileItem listTitles={listTitles} listItems={listItems} />
       </div>
     </Paper>
   );

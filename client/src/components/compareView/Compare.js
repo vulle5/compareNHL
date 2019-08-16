@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { withStyles } from "@material-ui/core/styles";
 import { CircularProgress } from "@material-ui/core";
 import { isEmpty, get } from "lodash";
 
-import { compareStyles } from "../../styles/jss-styles";
+import { useCompareStyles } from "../../styles/useStyles";
 import { initializeCompare, addCompare } from "../../reducers/compareReducer";
 import CompareTile from "./CompareTile";
 import FAB from "../FAB";
@@ -19,6 +18,7 @@ const Compare = ({
   initializeCompare,
   addCompare
 }) => {
+  const classes = useCompareStyles();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const Compare = ({
   };
 
   return (
-    <div style={{ padding: "0px 16px 16px 16px" }}>
+    <div className={classes.divRoot}>
       {compare.map((player, i) => (
         <CompareTile
           key={player.id}
@@ -70,4 +70,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { initializeCompare, addCompare }
-)(withStyles(compareStyles)(Compare));
+)(Compare);

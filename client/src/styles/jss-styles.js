@@ -194,11 +194,3 @@ export const floatingActionButtonStyles = theme => ({
     marginRight: theme.spacing(1)
   }
 });
-
-export const compareStyles = theme => ({
-  paper: {
-    display: "inline-block",
-    padding: theme.spacing(1),
-    margin: theme.spacing(2)
-  }
-});
