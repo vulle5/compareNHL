@@ -93,7 +93,7 @@ const SeasonTable = props => {
         </Typography>
         {renderContent()}
       </div>
-      {isWidthUp("sm", width) && <SeasonTabs />}
+      <SeasonTabs />
     </Fragment>
   );
 };

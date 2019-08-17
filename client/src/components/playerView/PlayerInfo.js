@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import withWidth, { isWidthDown } from "@material-ui/core/withWidth";
 import { withStyles } from "@material-ui/core/styles";
 import { playerInfoStyles } from "../../styles/jss-styles";
 
@@ -8,7 +7,6 @@ import { initializePlayer } from "../../reducers/playerReducer";
 import { initializePlayerImage } from "../../reducers/playerImageReducer";
 import PlayerInfoHeader from "./PlayerInfoHeader";
 import SeasonTable from "./SeasonTable";
-import SeasonTabs from "./SeasonTabs";
 import FloatingActionButton from "../FAB";
 
 const PlayerInfo = props => {
@@ -18,7 +16,6 @@ const PlayerInfo = props => {
     match: {
       params: { playerId }
     },
-    width,
     initializePlayer,
     initializePlayerImage
   } = props;
@@ -33,7 +30,6 @@ const PlayerInfo = props => {
       <PlayerInfoHeader>
         <SeasonTable />
       </PlayerInfoHeader>
-      {isWidthDown("sm", width) && <SeasonTabs />}
       <FloatingActionButton
         to={`/compare/${playerId}`}
         title="Compare"
@@ -57,4 +53,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps
-)(withWidth()(withStyles(playerInfoStyles)(PlayerInfo)));
+)(withStyles(playerInfoStyles)(PlayerInfo));
