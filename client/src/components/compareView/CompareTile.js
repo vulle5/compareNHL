@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-
-import { Paper, Typography, Avatar, IconButton } from "@material-ui/core";
+import { Paper, IconButton } from "@material-ui/core";
 import ClearIcon from "@material-ui/icons/Clear";
 
 import { removeCompare } from "../../reducers/compareReducer";
 import { useCompareStyles } from "../../styles/useStyles";
 import CompareTileItem from "./CompareTileItem";
+import CompareTileHeader from "./CompareTileHeader";
 
 // TODO: handle players without NHL games properly
 
@@ -17,6 +17,12 @@ const CompareTile = ({
   compareCareerRegular
 }) => {
   const listItems = {
+    general: [
+      ["GP", compareCareerRegular.games],
+      ["P", compareCareerRegular.points],
+      ["G", compareCareerRegular.goals],
+      ["A", compareCareerRegular.assists]
+    ],
     shooting: [
       ["Shots", compareCareerRegular.shots],
       ["Shot%", compareCareerRegular.shotPct],
@@ -60,46 +66,7 @@ const CompareTile = ({
         </IconButton>
       )}
       <div className={classes.tileWrapper}>
-        <Avatar
-          alt="Player"
-          src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${
-            player.id
-          }.jpg`}
-          className={classes.tileAvatar}
-        />
-        <Typography
-          variant="h6"
-          style={{ textAlign: "center", fontWeight: "bold" }}
-        >
-          {`${player.fullName} #${player.primaryNumber}`}
-        </Typography>
-        <Typography
-          variant="subtitle2"
-          style={{ textAlign: "center", fontWeight: "bold" }}
-        >
-          {player.currentTeam.name}
-        </Typography>
-        <ul
-          style={{
-            listStyleType: "none",
-            paddingInlineStart: "0px",
-            display: "flex",
-            justifyContent: "space-evenly"
-          }}
-        >
-          <li style={{ margin: "0 8px 0 8px" }}>{`Pos: ${
-            player.primaryPosition.abbreviation
-          }`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`${player.height}, ${
-            player.metricHeight
-          } cm`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`${player.weight}lbs, ${
-            player.metricWeight
-          }kg`}</li>
-          <li style={{ margin: "0 8px 0 8px" }}>{`Age: ${
-            player.currentAge
-          }`}</li>
-        </ul>
+        <CompareTileHeader player={player} />
         <CompareTileItem listItems={listItems} />
       </div>
     </Paper>
