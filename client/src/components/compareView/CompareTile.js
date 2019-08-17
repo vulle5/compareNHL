@@ -5,6 +5,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 
 import { removeCompare } from "../../reducers/compareReducer";
 import { useCompareStyles } from "../../styles/useStyles";
+import { makeCompareData } from "../../functions/makeCompareData";
 import CompareTileItem from "./CompareTileItem";
 import CompareTileHeader from "./CompareTileHeader";
 
@@ -15,43 +16,7 @@ const CompareTile = ({
   compareCareerRegular
 }) => {
   const listItems = compareCareerRegular
-    ? {
-        general: [
-          ["GP", compareCareerRegular.games],
-          ["P", compareCareerRegular.points],
-          ["G", compareCareerRegular.goals],
-          ["A", compareCareerRegular.assists]
-        ],
-        shooting: [
-          ["Shots", compareCareerRegular.shots],
-          ["Shot%", compareCareerRegular.shotPct],
-          ["Blocks", compareCareerRegular.blocked]
-        ],
-        evenStrength: [
-          ["G", compareCareerRegular.goals],
-          ["P", compareCareerRegular.points],
-          ["TOI", compareCareerRegular.evenTimeOnIce],
-          ["TOI/GP", compareCareerRegular.evenTimeOnIcePerGame]
-        ],
-        powerPlay: [
-          ["G", compareCareerRegular.powerPlayGoals],
-          ["P", compareCareerRegular.powerPlayPoints],
-          ["TOI", compareCareerRegular.powerPlayTimeOnIce],
-          ["TOI/GP", compareCareerRegular.powerPlayTimeOnIcePerGame]
-        ],
-        shortHanded: [
-          ["G", compareCareerRegular.shortHandedGoals],
-          ["P", compareCareerRegular.shortHandedPoints],
-          ["TOI", compareCareerRegular.shortHandedTimeOnIce],
-          ["TOI/GP", compareCareerRegular.shortHandedTimeOnIcePerGame]
-        ],
-        other: [
-          ["PIM", compareCareerRegular.pim],
-          ["Hits", compareCareerRegular.hits],
-          ["+/-", compareCareerRegular.plusMinus],
-          ["FO%", compareCareerRegular.faceOffPct]
-        ]
-      }
+    ? makeCompareData(compareCareerRegular)
     : null;
   const classes = useCompareStyles();
 
