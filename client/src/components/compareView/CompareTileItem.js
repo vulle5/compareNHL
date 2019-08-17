@@ -1,28 +1,21 @@
 import React, { Fragment } from "react";
-
 import { startCase } from "lodash";
 import { Typography } from "@material-ui/core";
 
+import { useCompareStyles } from "../../styles/useStyles";
+
 const CompareTileItem = ({ listItems }) => {
+  const classes = useCompareStyles();
+
   const generateList = () =>
     Object.keys(listItems).map((key, i) => (
       <Fragment key={i}>
-        <Typography
-          variant="body1"
-          style={{ textAlign: "center", fontWeight: "bold" }}
-        >
+        <Typography variant="body1" className={classes.tileTitle}>
           {startCase(key)}
         </Typography>
-        <ul
-          style={{
-            listStyleType: "none",
-            paddingInlineStart: "0px",
-            display: "flex",
-            justifyContent: "space-evenly"
-          }}
-        >
+        <ul className={classes.tileList}>
           {listItems[key].map((item, i) => (
-            <li key={i} style={{ margin: "0 8px 0 8px" }}>{`${item[0]}: ${
+            <li key={i} className={classes.tileListItem}>{`${item[0]}: ${
               item[1]
             }`}</li>
           ))}

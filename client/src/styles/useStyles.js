@@ -22,5 +22,13 @@ export const useCompareStyles = makeStyles(theme => ({
     MozBoxShadow: "0px 10px 10px -8px rgba(0,0,0,1)",
     boxShadow: "0px 10px 10px -8px rgba(0,0,0,1)",
     border: "1px solid lightgray"
-  }
+  },
+  tileTitle: { textAlign: "center", fontWeight: "bold" },
+  tileList: {
+    listStyleType: "none",
+    paddingInlineStart: "0px",
+    display: "flex",
+    justifyContent: "space-evenly"
+  },
+  tileListItem: { margin: "0 8px 0 8px" }
 }));
