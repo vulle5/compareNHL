@@ -1,16 +1,17 @@
-import React from "react";
+import React, { Fragment } from "react";
 
+import { startCase } from "lodash";
 import { Typography } from "@material-ui/core";
 
-const CompareTileItem = ({ listTitles, listItems }) => {
+const CompareTileItem = ({ listItems }) => {
   const generateList = () =>
-    listTitles.map(title => (
-      <>
+    Object.keys(listItems).map((key, i) => (
+      <Fragment key={i}>
         <Typography
           variant="body1"
           style={{ textAlign: "center", fontWeight: "bold" }}
         >
-          {title}
+          {startCase(key)}
         </Typography>
         <ul
           style={{
@@ -20,9 +21,13 @@ const CompareTileItem = ({ listTitles, listItems }) => {
             justifyContent: "space-evenly"
           }}
         >
-          {/* {<li style={{ margin: "0 8px 0 8px" }}>{`${item[0]}: ${item[1]}`}</li>} */}
+          {listItems[key].map((item, i) => (
+            <li key={i} style={{ margin: "0 8px 0 8px" }}>{`${item[0]}: ${
+              item[1]
+            }`}</li>
+          ))}
         </ul>
-      </>
+      </Fragment>
     ));
 
   return <div>{generateList()}</div>;
