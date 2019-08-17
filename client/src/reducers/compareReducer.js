@@ -44,7 +44,9 @@ const compareReducer = (state = [], action) => {
     case "SET_COMPARE":
       return [{ ...action.data }];
     case "ADD_COMPARE":
-      return [...state, { ...action.data }];
+      return state.some(player => player.id === action.data.id)
+        ? state
+        : [...state, { ...action.data }];
     case "DELETE_COMPARE":
       return state.filter(player => player.id !== action.data);
     default:
