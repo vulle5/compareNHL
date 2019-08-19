@@ -7,13 +7,17 @@ import playerImageReducer from "./reducers/playerImageReducer";
 import filterReducer from "./reducers/filterReducer";
 import gameLogsReducer from "./reducers/gameLogsReducer";
 import compareReducer from "./reducers/compareReducer";
+import themeReducer from "./reducers/themeReducer";
+import drawerReducer from "./reducers/drawerReducer";
 
 const reducer = combineReducers({
   player: playerReducer,
   gameLogs: gameLogsReducer,
   playerImage: playerImageReducer,
   filter: filterReducer,
-  compare: compareReducer
+  compare: compareReducer,
+  theme: themeReducer,
+  drawer: drawerReducer
 });
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));

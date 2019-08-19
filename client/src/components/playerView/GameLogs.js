@@ -64,7 +64,6 @@ const GameLogs = ({
               <Switch
                 checked={playoffSelected}
                 onChange={handleChange}
-                color="primary"
                 disabled={isDisabled}
               />
             }

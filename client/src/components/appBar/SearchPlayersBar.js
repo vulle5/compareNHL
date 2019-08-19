@@ -1,4 +1,5 @@
 import React, { useState, Fragment } from "react";
+import { connect } from "react-redux";
 import { useDebounce } from "use-debounce";
 import {
   AppBar,
@@ -13,9 +14,10 @@ import SearchIcon from "@material-ui/icons/Search";
 
 import { searchPlayerBarStyles } from "../../styles/jss-styles";
 import SearchResultsList from "./SearchResultsList";
+import { toggleDrawer } from "../../reducers/drawerReducer";
 
 const SearchPlayersBar = props => {
-  const { classes } = props;
+  const { classes, theme, toggleDrawer } = props;
   const [term, setTerm] = useState("");
   const [listStatus, setListStatus] = useState(true);
   const [inputIsFocused, setInputIsFocused] = useState(false);
@@ -23,6 +25,17 @@ const SearchPlayersBar = props => {
   const [debouncedText] = useDebounce(term, 300);
 
   const handleListStatus = bool => setListStatus(bool);
+
+  const onDrawerClick = () => event => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    toggleDrawer();
+  };
 
   let content;
   if (term.length < 3) {
@@ -41,13 +54,16 @@ const SearchPlayersBar = props => {
   return (
     <Fragment>
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar
+          position="static"
+          color={theme === "dark" ? "default" : "primary"}
+        >
           <Toolbar>
             <IconButton
               className={classes.menuButton}
               color="inherit"
               aria-label="Open drawer"
-              disabled
+              onClick={onDrawerClick()}
             >
               <MenuIcon />
             </IconButton>
@@ -92,4 +108,13 @@ const SearchPlayersBar = props => {
   );
 };
 
-export default withStyles(searchPlayerBarStyles)(SearchPlayersBar);
+const mapStateToProps = state => {
+  return {
+    theme: state.theme.palette.type
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { toggleDrawer }
+)(withStyles(searchPlayerBarStyles)(SearchPlayersBar));
