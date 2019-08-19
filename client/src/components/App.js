@@ -12,7 +12,12 @@ import SideDrawer from "./SideDrawer";
 
 const App = ({ setTheme, theme }) => {
   useEffect(() => {
-    setTheme("light");
+    const theme = localStorage.getItem("theme");
+    if (theme) {
+      setTheme(theme);
+    } else {
+      setTheme("light");
+    }
   }, [setTheme]);
 
   return (

@@ -1,6 +1,7 @@
 import { lightTheme, darkTheme } from "../styles/themes";
 
 export const setTheme = theme => {
+  localStorage.setItem("theme", theme);
   return {
     type: "SET_THEME",
     data: theme === "dark" ? darkTheme : lightTheme
