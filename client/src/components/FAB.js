@@ -29,8 +29,6 @@ const FloatingActionButton = ({
 
       const scrolled = winScroll / height;
 
-      console.log(scrolled);
-
       if (scrolled >= 0.98) {
         setAtBottom(true);
       } else {
@@ -54,7 +52,7 @@ const FloatingActionButton = ({
           variant={isWidthUp("sm", width) ? "extended" : "round"}
           aria-label="Add to Compare"
           className={classes.fab}
-          color="primary"
+          color="secondary"
           component={isLink ? Link : "button"}
           to={to}
           onClick={onClick && isLink === undefined ? onClick : null}
