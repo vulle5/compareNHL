@@ -28,6 +28,13 @@ const App = ({ setTheme, theme }) => {
           <SearchPlayersBar />
           <SideDrawer />
           <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <div style={{ minHeight: " calc(100vh - 64px)" }} />
+              )}
+            />
             <Route path="/player/:playerId" component={PlayerInfo} />
             <Route path="/compare/:playerId" component={Compare} />
           </Switch>
