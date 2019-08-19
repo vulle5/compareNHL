@@ -25,20 +25,9 @@ const useStyles = makeStyles({
 const SideDrawer = ({ drawer, toggleDrawer, theme, setTheme }) => {
   const classes = useStyles();
 
-  const onDrawerClose = () => event => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    toggleDrawer();
-  };
-
   return (
     <div>
-      <Drawer open={drawer} onClose={onDrawerClose()}>
+      <Drawer open={drawer} onClose={event => toggleDrawer(event)}>
         <div className={classes.list}>
           <List>
             <ListItem>

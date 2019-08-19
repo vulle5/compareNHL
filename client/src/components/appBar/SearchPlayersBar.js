@@ -26,17 +26,6 @@ const SearchPlayersBar = props => {
 
   const handleListStatus = bool => setListStatus(bool);
 
-  const onDrawerClick = () => event => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    toggleDrawer();
-  };
-
   let content;
   if (term.length < 3) {
     content = null;
@@ -63,7 +52,7 @@ const SearchPlayersBar = props => {
               className={classes.menuButton}
               color="inherit"
               aria-label="Open drawer"
-              onClick={onDrawerClick()}
+              onClick={event => toggleDrawer(event)}
             >
               <MenuIcon />
             </IconButton>

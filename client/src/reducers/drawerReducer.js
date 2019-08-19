@@ -1,14 +1,20 @@
-export const toggleDrawer = () => {
+export const toggleDrawer = event => {
+  if (
+    event.type === "keydown" &&
+    (event.key === "Tab" || event.key === "Shift")
+  ) {
+    return false;
+  }
   return {
     type: "TOGGLE_DRAWER",
-    data: null
+    data: true
   };
 };
 
 const drawerReducer = (state = false, action) => {
   switch (action.type) {
     case "TOGGLE_DRAWER":
-      return !state;
+      return true ? !state : state;
     default:
       return state;
   }
