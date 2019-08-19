@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
-import { last, isEmpty, has } from "lodash";
+import { findLast, isEmpty, has } from "lodash";
 import { Typography, Switch, FormControlLabel } from "@material-ui/core";
 
 import {
@@ -143,7 +143,8 @@ const createFilters = allSeasons => [
   )
 ];
 
-const getLastSeason = allSeasons => last(allSeasons).season;
+const getLastSeason = allSeasons =>
+  findLast(allSeasons, season => season.league.name === "NHL").season;
 
 const mapStateToProps = state => {
   const {
