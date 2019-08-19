@@ -74,6 +74,7 @@ export const searchPlayerBarStyles = theme => ({
 
 export const searchResultsListStyles = theme => ({
   wrapper: {
+    zIndex: 1,
     [theme.breakpoints.up("md")]: {
       left: "75%",
       position: "relative"
