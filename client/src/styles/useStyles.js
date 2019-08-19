@@ -2,11 +2,17 @@ import { makeStyles } from "@material-ui/core";
 
 export const useCompareStyles = makeStyles(theme => ({
   divRoot: {
-    padding: "0px 16px 16px 16px"
+    padding: "0px 16px 16px 16px",
+    display: "flex",
+    flexWrap: "wrap"
   },
   tileRoot: {
     display: "inline-block",
-    margin: "16px 16px 0px 0px"
+    margin: "16px 16px 0px 0px",
+    minWidth: "375px",
+    [theme.breakpoints.down("xs")]: {
+      minWidth: "100%"
+    }
   },
   tileWrapper: {
     padding: theme.spacing(2)
