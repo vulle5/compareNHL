@@ -10,7 +10,7 @@ import compareReducer from "./reducers/compareReducer";
 import themeReducer from "./reducers/themeReducer";
 import drawerReducer from "./reducers/drawerReducer";
 
-const reducer = combineReducers({
+export const reducers = combineReducers({
   player: playerReducer,
   gameLogs: gameLogsReducer,
   playerImage: playerImageReducer,
@@ -20,6 +20,9 @@ const reducer = combineReducers({
   drawer: drawerReducer
 });
 
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
+const store = createStore(
+  reducers,
+  composeWithDevTools(applyMiddleware(thunk))
+);
 
 export default store;
