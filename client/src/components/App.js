@@ -24,7 +24,7 @@ const App = ({ setTheme, theme }) => {
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
-        <div style={{ overflowX: "hidden" }}>
+        <div style={{ overflowX: "hidden" }} data-testid="foundation">
           <SearchPlayersBar />
           <SideDrawer />
           <Switch>

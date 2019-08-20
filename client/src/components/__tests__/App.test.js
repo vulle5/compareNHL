@@ -25,7 +25,7 @@ function renderWithRedux(
 afterEach(cleanup);
 
 test("renders homepage", () => {
-  const { getByText } = renderWithRedux(<App />);
+  const { getByTestId } = renderWithRedux(<App />);
 
-  expect(getByText("CompareNHL")).toBeInTheDocument();
+  expect(getByTestId("foundation")).toBeInTheDocument();
 });
