@@ -17,15 +17,11 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
   } else {
     return (
       <Paper className={classes.root} elevation={1}>
-        {playerImage ? (
-          <img
-            className={classes.playerThumbnail}
-            src={`data:image/jpg;base64, ${playerImage}`}
-            alt="Player"
-          />
-        ) : (
-          <div className={classes.loadingThumbnail} />
-        )}
+        <img
+          className={classes.playerThumbnail}
+          src={`data:image/jpg;base64, ${playerImage}`}
+          alt="Player"
+        />
         <div className={classes.flagWrapper}>
           <img
             src={`https://www.countryflags.io/${getCountryISO2(

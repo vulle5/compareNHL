@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { find, findLast } from "lodash";
+import { find, findLast, get } from "lodash";
 import { Typography } from "@material-ui/core";
 
 import CareerFilter from "../CareerFilter";
@@ -47,7 +47,11 @@ const getSelectedSeason = (allSeasons, selectedFilter) =>
   });
 
 const getLastSeason = allSeasons =>
-  findLast(allSeasons, season => season.league.name === "NHL").season;
+  get(
+    findLast(allSeasons, season => season.league.name === "NHL"),
+    "season",
+    ""
+  );
 
 const mapStateToProps = state => {
   const {
