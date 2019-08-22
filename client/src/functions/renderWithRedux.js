@@ -1,7 +1,7 @@
 import React from "react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import { render, cleanup } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { reducers } from "../store";
 
 // this is a handy function that I normally make available for all my tests
