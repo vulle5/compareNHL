@@ -133,6 +133,13 @@ export const playerInfoHeader = theme => ({
     maxHeight: "317px",
     borderRadius: "4px"
   },
+  loadingThumbnail: {
+    width: "100%",
+    height: "-webkit-fill-available",
+    maxHeight: "317px",
+    borderRadius: "4px",
+    backgroundColor: "lightgrey"
+  },
   mainStats: {
     paddingInlineStart: "0",
     listStyleType: "none",
