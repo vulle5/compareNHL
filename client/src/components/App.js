@@ -9,6 +9,7 @@ import PlayerInfo from "./playerView/PlayerInfo";
 import Compare from "./compareView/Compare";
 import { setTheme } from "../reducers/themeReducer";
 import SideDrawer from "./SideDrawer";
+import Home from "./homeView/Home";
 
 const App = ({ setTheme, theme }) => {
   useEffect(() => {
@@ -28,13 +29,7 @@ const App = ({ setTheme, theme }) => {
           <SearchPlayersBar />
           <SideDrawer />
           <Switch>
-            <Route
-              exact
-              path="/"
-              render={() => (
-                <div style={{ minHeight: " calc(100vh - 64px)" }} />
-              )}
-            />
+            <Route exact path="/" component={Home} />
             <Route path="/player/:playerId" component={PlayerInfo} />
             <Route path="/compare/:playerId" component={Compare} />
           </Switch>
