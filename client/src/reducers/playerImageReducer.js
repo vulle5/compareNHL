@@ -2,6 +2,7 @@ import playerServices from "../services/player";
 
 export const initializePlayerImage = playerId => {
   return async dispatch => {
+    dispatch({ type: "LOADING" });
     const response = await playerServices.getImage(playerId, {
       responseType: "arraybuffer"
     });
@@ -13,8 +14,10 @@ export const initializePlayerImage = playerId => {
   };
 };
 
-const playerImageReducer = (state = "", action) => {
+const playerImageReducer = (state = null, action) => {
   switch (action.type) {
+    case "LOADING":
+      return null;
     case "SET_IMAGE":
       return action.data;
     default:
