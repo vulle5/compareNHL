@@ -1,4 +1,5 @@
 import React from "react";
+import { startCase } from "lodash";
 import { Typography } from "@material-ui/core";
 
 const AdvancedList = props => {
@@ -9,7 +10,7 @@ const AdvancedList = props => {
       } = props;
       const result = Object.entries(stats);
       return result.map((item, index) => (
-        <li key={index}>{`${item[0]}: ${item[1]}`}</li>
+        <li key={index}>{`${startCase(item[0])}: ${item[1]}`}</li>
       ));
     } else {
       return <Typography variant="subtitle1">No NHL Stats</Typography>;
