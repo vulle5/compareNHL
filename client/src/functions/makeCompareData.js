@@ -1,4 +1,26 @@
+import moment from "moment";
+import momentDurationFormatSetup from "moment-duration-format";
+
+export const calcTimeOnIcePerGame = (gamesPlayed, TOI) => {
+  if (gamesPlayed || TOI === typeof undefined) {
+    return "N/A";
+  }
+
+  momentDurationFormatSetup(moment);
+  const parseMinutesAndSecondsFromTOI = TOI.match(/\d+/g);
+  const TOI_GPasSeconds =
+    (parseInt(parseMinutesAndSecondsFromTOI[0]) * 60 +
+      parseInt(parseMinutesAndSecondsFromTOI[1])) /
+    gamesPlayed;
+  const duration = moment.duration({ seconds: TOI_GPasSeconds });
+  return duration.format("mm:ss");
+};
+
 export const makeCompareData = regularSeasonStats => {
+  if (!regularSeasonStats) {
+    return null;
+  }
+
   if (regularSeasonStats.saves) {
     return {
       general: [
@@ -31,7 +53,14 @@ export const makeCompareData = regularSeasonStats => {
         ["SO", regularSeasonStats.shutouts],
         ["OT", regularSeasonStats.ot],
         ["TOI", regularSeasonStats.timeOnIce],
-        ["TOI/GP", regularSeasonStats.timeOnIcePerGame]
+        [
+          "TOI/GP",
+          regularSeasonStats.timeOnIcePerGame ||
+            calcTimeOnIcePerGame(
+              regularSeasonStats.games,
+              regularSeasonStats.timeOnIce
+            )
+        ]
       ]
     };
   } else {
@@ -43,43 +72,64 @@ export const makeCompareData = regularSeasonStats => {
         ["A", regularSeasonStats.assists]
       ],
       shooting: [
-        ["Shots", regularSeasonStats.shots],
-        ["Shot%", regularSeasonStats.shotPct],
-        ["Blocks", regularSeasonStats.blocked]
+        ["Shots", regularSeasonStats.shots || "N/A"],
+        ["Shot%", regularSeasonStats.shotPct || "N/A"],
+        ["Blocks", regularSeasonStats.blocked || "N/A"]
       ],
       evenStrength: [
         [
           "G",
           regularSeasonStats.goals -
             regularSeasonStats.powerPlayGoals -
-            regularSeasonStats.shortHandedGoals
+            regularSeasonStats.shortHandedGoals || "N/A"
         ],
         [
           "P",
           regularSeasonStats.points -
             regularSeasonStats.powerPlayPoints -
-            regularSeasonStats.shortHandedPoints
+            regularSeasonStats.shortHandedPoints || "N/A"
         ],
-        ["TOI", regularSeasonStats.evenTimeOnIce],
-        ["TOI/GP", regularSeasonStats.evenTimeOnIcePerGame]
+        ["TOI", regularSeasonStats.evenTimeOnIce || "N/A"],
+        [
+          "TOI/GP",
+          regularSeasonStats.evenTimeOnIcePerGame ||
+            calcTimeOnIcePerGame(
+              regularSeasonStats.games,
+              regularSeasonStats.timeOnIce
+            )
+        ]
       ],
       powerPlay: [
-        ["G", regularSeasonStats.powerPlayGoals],
-        ["P", regularSeasonStats.powerPlayPoints],
-        ["TOI", regularSeasonStats.powerPlayTimeOnIce],
-        ["TOI/GP", regularSeasonStats.powerPlayTimeOnIcePerGame]
+        ["G", regularSeasonStats.powerPlayGoals || "N/A"],
+        ["P", regularSeasonStats.powerPlayPoints || "N/A"],
+        ["TOI", regularSeasonStats.powerPlayTimeOnIce || "N/A"],
+        [
+          "TOI/GP",
+          regularSeasonStats.powerPlayTimeOnIcePerGame ||
+            calcTimeOnIcePerGame(
+              regularSeasonStats.games,
+              regularSeasonStats.timeOnIce
+            )
+        ]
       ],
       shortHanded: [
-        ["G", regularSeasonStats.shortHandedGoals],
-        ["P", regularSeasonStats.shortHandedPoints],
-        ["TOI", regularSeasonStats.shortHandedTimeOnIce],
-        ["TOI/GP", regularSeasonStats.shortHandedTimeOnIcePerGame]
+        ["G", regularSeasonStats.shortHandedGoals || "N/A"],
+        ["P", regularSeasonStats.shortHandedPoints || "N/A"],
+        ["TOI", regularSeasonStats.shortHandedTimeOnIce || "N/A"],
+        [
+          "TOI/GP",
+          regularSeasonStats.shortHandedTimeOnIcePerGame ||
+            calcTimeOnIcePerGame(
+              regularSeasonStats.games,
+              regularSeasonStats.timeOnIce
+            )
+        ]
       ],
       other: [
         ["PIM", regularSeasonStats.pim],
-        ["Hits", regularSeasonStats.hits],
-        ["+/-", regularSeasonStats.plusMinus],
-        ["FO%", regularSeasonStats.faceOffPct]
+        ["Hits", regularSeasonStats.hits || "N/A"],
+        ["+/-", regularSeasonStats.plusMinus || "N/A"],
+        ["FO%", regularSeasonStats.faceOffPct || "N/A"]
       ]
     };
   }

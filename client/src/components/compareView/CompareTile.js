@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { find } from "lodash";
 import { Paper, IconButton } from "@material-ui/core";
 import ClearIcon from "@material-ui/icons/Clear";
 
@@ -17,12 +16,15 @@ const CompareTile = ({
   removeCompare,
   compare,
   compareCareerRegular,
-  playerSeasons
+  playerSeasons,
+  filteredSeasons,
+  selectedFilter
 }) => {
-  const listItems = compareCareerRegular
-    ? makeCompareData(compareCareerRegular)
-    : null;
+  const listItems = filteredSeasons
+    ? makeCompareData(filteredSeasons.stat)
+    : makeCompareData(compareCareerRegular);
   const classes = useCompareStyles();
+
   return (
     <Paper className={classes.tileRoot}>
       {compare.length > 1 && (
@@ -36,8 +38,11 @@ const CompareTile = ({
       <div className={classes.tileWrapper}>
         <CompareTileHeader player={player} />
         <div style={{ textAlign: "center" }}>
-          <CareerFilter filterKey="compareTile" filterNames={playerSeasons} />
-          <DisplayFilter />
+          <CareerFilter filterKey={player.id} filterNames={playerSeasons} />
+          <DisplayFilter
+            style={{ paddingBottom: "16px" }}
+            selectedFilter={selectedFilter}
+          />
         </div>
         {listItems ? (
           <CompareTileItem listItems={listItems} />
@@ -60,16 +65,32 @@ const createFilters = (compare, id) =>
     .flat();
 
 const getSelectedSeason = (allSeasons, selectedFilter) =>
-  find(allSeasons.filter(season => season.league.name === "NHL"), {
-    season: selectedFilter
-  });
+  allSeasons.find(
+    season => season.league.name === "NHL" && season.season === selectedFilter
+  );
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(state);
   const { compare } = state;
-  const { player } = ownProps;
+  const {
+    player: {
+      stats: {
+        0: { splits }
+      }
+    },
+    player
+  } = ownProps;
+  const selectedFilter =
+    state.filter[player.id] && state.filter[player.id].replace("-", "");
+
   return {
     compare,
-    // filteredSeasons: getSelectedSeason()
+    selectedFilter: selectedFilter
+      ? selectedFilter.slice(0, 4) + "-" + selectedFilter.slice(4)
+      : "Career",
+    filteredSeasons: selectedFilter
+      ? getSelectedSeason(splits, selectedFilter)
+      : null,
     playerSeasons: createFilters(compare, player.id)
   };
 };
