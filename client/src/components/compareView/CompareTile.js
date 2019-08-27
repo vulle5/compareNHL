@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Paper, IconButton } from "@material-ui/core";
+import { Paper, IconButton, Typography } from "@material-ui/core";
 import ClearIcon from "@material-ui/icons/Clear";
 
 import { removeCompare } from "../../reducers/compareReducer";
@@ -37,22 +37,26 @@ const CompareTile = ({
       )}
       <div className={classes.tileWrapper}>
         <CompareTileHeader player={player} />
-        <div style={{ textAlign: "center" }}>
-          <CareerFilter
-            filterKey={player.id}
-            filterNames={playerSeasons}
-            eraseFilter="Career"
-          />
-          <DisplayFilter
-            style={{ paddingBottom: "16px" }}
-            selectedFilter={selectedFilter}
-            variant="h6"
-          />
-        </div>
         {listItems ? (
-          <CompareTileItem listItems={listItems} />
+          <>
+            <div style={{ textAlign: "center" }}>
+              <CareerFilter
+                filterKey={player.id}
+                filterNames={playerSeasons}
+                eraseFilter="Career"
+              />
+              <DisplayFilter
+                style={{ paddingBottom: "16px" }}
+                selectedFilter={selectedFilter}
+                variant="h6"
+              />
+            </div>
+            <CompareTileItem listItems={listItems} />
+          </>
         ) : (
-          <div style={{ textAlign: "center" }}>No NHL games played</div>
+          <Typography variant="subtitle1" style={{ textAlign: "center" }}>
+            No NHL games played
+          </Typography>
         )}
       </div>
     </Paper>

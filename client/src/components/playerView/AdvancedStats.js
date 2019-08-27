@@ -13,6 +13,10 @@ const AdvancedStats = ({
   playerSeasons,
   filteredSeason
 }) => {
+  if (!filteredSeason) {
+    return <Typography variant="subtitle1">No NHL Stats</Typography>;
+  }
+
   return (
     <div>
       <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
