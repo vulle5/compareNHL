@@ -16,7 +16,8 @@ export const useCompareStyles = makeStyles(theme => ({
     }
   },
   tileWrapper: {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
+    minHeight: "780px"
   },
   tileCloseButton: {
     float: "right"
@@ -37,5 +38,9 @@ export const useCompareStyles = makeStyles(theme => ({
     display: "flex",
     justifyContent: "space-evenly"
   },
-  tileListItem: { margin: "0 8px 0 8px" }
+  tileListItem: { margin: "0 8px 0 8px" },
+  dialogList: {
+    textAlign: "center",
+    marginTop: "20px"
+  }
 }));

@@ -1,16 +1,34 @@
-import React, { useState } from "react";
-import { Dialog, DialogTitle, List, Input } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import {
+  Dialog,
+  DialogTitle,
+  List,
+  Input,
+  Typography,
+  CircularProgress
+} from "@material-ui/core";
 import { useDebounce } from "use-debounce";
+import { useCompareStyles } from "../../styles/useStyles";
 import { useSearchPlayer } from "../../functions/useSearchPlayer";
 import { parseSearchResult } from "../../functions/parseSearchResult";
 import CompareDialogItem from "./CompareDialogItem";
 
 const CompareDialog = ({ onClose, open, onOutsideClick }) => {
   const [term, setTerm] = useState("");
+  const [noPlayers, setNoPlayers] = useState(false);
 
   const [debouncedText] = useDebounce(term, 300);
+  const classes = useCompareStyles();
   const arrayOfPlayers = useSearchPlayer(debouncedText);
   const parsedPlayerIds = parseSearchResult(arrayOfPlayers);
+
+  useEffect(() => {
+    if (typeof arrayOfPlayers === "string") {
+      setNoPlayers(true);
+    } else {
+      setNoPlayers(false);
+    }
+  }, [arrayOfPlayers]);
 
   function handleListItemClick(value) {
     onClose(value);
@@ -31,14 +49,22 @@ const CompareDialog = ({ onClose, open, onOutsideClick }) => {
           onChange={event => setTerm(event.target.value)}
         />
       </div>
-      <List>
-        {parsedPlayerIds.slice(0, 8).map(player => (
-          <CompareDialogItem
-            key={player[0]}
-            player={player}
-            handleListItemClick={handleListItemClick}
-          />
-        ))}
+      <List className={classes.dialogList}>
+        {noPlayers ? (
+          <Typography variant="subtitle1">{arrayOfPlayers}</Typography>
+        ) : parsedPlayerIds.length === 0 && term.length !== 0 ? (
+          <CircularProgress />
+        ) : (
+          parsedPlayerIds
+            .slice(0, 8)
+            .map(player => (
+              <CompareDialogItem
+                key={player[0]}
+                player={player}
+                handleListItemClick={handleListItemClick}
+              />
+            ))
+        )}
       </List>
     </Dialog>
   );
