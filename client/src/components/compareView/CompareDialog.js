@@ -5,7 +5,7 @@ import { useSearchPlayer } from "../../functions/useSearchPlayer";
 import { parseSearchResult } from "../../functions/parseSearchResult";
 import CompareDialogItem from "./CompareDialogItem";
 
-const CompareDialog = ({ onClose, open }) => {
+const CompareDialog = ({ onClose, open, onOutsideClick }) => {
   const [term, setTerm] = useState("");
 
   const [debouncedText] = useDebounce(term, 300);
@@ -17,7 +17,7 @@ const CompareDialog = ({ onClose, open }) => {
   }
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onBackdropClick={onOutsideClick}>
       <DialogTitle id="compare-dialog-title">Add player to compare</DialogTitle>
       <div style={{ padding: "16px" }}>
         <Input
