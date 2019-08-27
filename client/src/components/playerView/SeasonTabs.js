@@ -84,7 +84,7 @@ const SeasonTabs = props => {
             </TabContainer>
             <TabContainer dir={theme.direction} width={width}>
               {isEmpty(lastNhlSeason) ? (
-                <Typography variant="subheading" style={{ padding: "8px" }}>
+                <Typography variant="subtitle1" style={{ padding: "8px" }}>
                   No NHL Data
                 </Typography>
               ) : (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
-import { last, isEmpty, has } from "lodash";
+import { findLast, isEmpty, has } from "lodash";
 import { Typography, Switch, FormControlLabel } from "@material-ui/core";
 
 import {
@@ -47,49 +47,49 @@ const GameLogs = ({
     setPlayoffSelected(event.target.checked);
   };
 
-  if (!isEmpty(regularGames)) {
-    return (
-      <div>
-        <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
-          Game Logs
-        </Typography>
-        <Fragment>
-          <CareerFilter
-            filterKey="gameLogs"
-            swipeReferences={swipeReferences}
-            filterNames={playerSeasons}
-          />
-          <FormControlLabel
-            control={
-              <Switch
-                checked={playoffSelected}
-                onChange={handleChange}
-                disabled={isDisabled}
-              />
-            }
-            label="Playoff"
-          />
-        </Fragment>
-        <DisplayFilter
-          style={{ paddingTop: "16px" }}
-          selectedFilter={
-            selectedFilter.slice(0, 4) + "-" + selectedFilter.slice(4)
-          }
-        />
-        <StatTable
-          headCells={
-            isGoalie
-              ? ["Date", "Team", "SA", "S", "S%", "TOI"]
-              : ["Date", "Team", "P", "G", "A", "TOI"]
-          }
-          bodyCells={playoffSelected ? playoffGames : regularGames}
-          tableCells={playoffSelected ? playoffGames : regularGames}
-        />
-      </div>
-    );
-  } else {
-    return <div>No NHL Games</div>;
+  if (isEmpty(regularGames)) {
+    return <Typography variant="subtitle1">No NHL Games</Typography>;
   }
+
+  return (
+    <div>
+      <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
+        Game Logs
+      </Typography>
+      <Fragment>
+        <CareerFilter
+          filterKey="gameLogs"
+          swipeReferences={swipeReferences}
+          filterNames={playerSeasons}
+        />
+        <FormControlLabel
+          control={
+            <Switch
+              checked={playoffSelected}
+              onChange={handleChange}
+              disabled={isDisabled}
+            />
+          }
+          label="Playoff"
+        />
+      </Fragment>
+      <DisplayFilter
+        style={{ paddingTop: "16px" }}
+        selectedFilter={
+          selectedFilter.slice(0, 4) + "-" + selectedFilter.slice(4)
+        }
+      />
+      <StatTable
+        headCells={
+          isGoalie
+            ? ["Date", "Team", "SA", "S", "S%", "TOI"]
+            : ["Date", "Team", "P", "G", "A", "TOI"]
+        }
+        bodyCells={playoffSelected ? playoffGames : regularGames}
+        tableCells={playoffSelected ? playoffGames : regularGames}
+      />
+    </div>
+  );
 };
 
 const createData = (
@@ -143,7 +143,8 @@ const createFilters = allSeasons => [
   )
 ];
 
-const getLastSeason = allSeasons => last(allSeasons).season;
+const getLastSeason = allSeasons =>
+  findLast(allSeasons, season => season.league.name === "NHL").season;
 
 const mapStateToProps = state => {
   const {
