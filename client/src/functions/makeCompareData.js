@@ -2,7 +2,7 @@ import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
 
 export const calcTimeOnIcePerGame = (gamesPlayed, TOI) => {
-  if (gamesPlayed || TOI === typeof undefined) {
+  if (TOI === typeof undefined) {
     return "N/A";
   }
 
