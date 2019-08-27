@@ -1,7 +1,7 @@
 import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
 
-export const calcTimeOnIcePerGame = (gamesPlayed, TOI) => {
+const calcTimeOnIcePerGame = (gamesPlayed, TOI) => {
   if (!TOI) {
     return "N/A";
   }
@@ -13,7 +13,9 @@ export const calcTimeOnIcePerGame = (gamesPlayed, TOI) => {
       parseInt(parseMinutesAndSecondsFromTOI[1])) /
     gamesPlayed;
   const duration = moment.duration({ seconds: TOI_GPasSeconds });
-  return duration.format("mm:ss");
+  return duration.format("mm:ss", {
+    trim: false
+  });
 };
 
 export const makeCompareData = regularSeasonStats => {
@@ -81,13 +83,13 @@ export const makeCompareData = regularSeasonStats => {
           "G",
           regularSeasonStats.goals -
             regularSeasonStats.powerPlayGoals -
-            regularSeasonStats.shortHandedGoals || "N/A"
+            regularSeasonStats.shortHandedGoals || "0"
         ],
         [
           "P",
           regularSeasonStats.points -
             regularSeasonStats.powerPlayPoints -
-            regularSeasonStats.shortHandedPoints || "N/A"
+            regularSeasonStats.shortHandedPoints || "0"
         ],
         ["TOI", regularSeasonStats.evenTimeOnIce || "N/A"],
         [
@@ -100,28 +102,28 @@ export const makeCompareData = regularSeasonStats => {
         ]
       ],
       powerPlay: [
-        ["G", regularSeasonStats.powerPlayGoals || "N/A"],
-        ["P", regularSeasonStats.powerPlayPoints || "N/A"],
+        ["G", regularSeasonStats.powerPlayGoals || "0"],
+        ["P", regularSeasonStats.powerPlayPoints || "0"],
         ["TOI", regularSeasonStats.powerPlayTimeOnIce || "N/A"],
         [
           "TOI/GP",
           regularSeasonStats.powerPlayTimeOnIcePerGame ||
             calcTimeOnIcePerGame(
               regularSeasonStats.games,
-              regularSeasonStats.timeOnIce
+              regularSeasonStats.powerPlayTimeOnIce
             )
         ]
       ],
       shortHanded: [
-        ["G", regularSeasonStats.shortHandedGoals || "N/A"],
-        ["P", regularSeasonStats.shortHandedPoints || "N/A"],
+        ["G", regularSeasonStats.shortHandedGoals || "0"],
+        ["P", regularSeasonStats.shortHandedPoints || "0"],
         ["TOI", regularSeasonStats.shortHandedTimeOnIce || "N/A"],
         [
           "TOI/GP",
           regularSeasonStats.shortHandedTimeOnIcePerGame ||
             calcTimeOnIcePerGame(
               regularSeasonStats.games,
-              regularSeasonStats.timeOnIce
+              regularSeasonStats.shortHandedTimeOnIce
             )
         ]
       ],
