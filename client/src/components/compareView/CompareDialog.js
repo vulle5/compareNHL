@@ -22,7 +22,7 @@ const CompareDialog = ({ onClose, open, onOutsideClick }) => {
       <div style={{ padding: "16px" }}>
         <Input
           inputProps={{
-            "aria-label": "description"
+            "aria-label": "Search players"
           }}
           value={term}
           type="search"
