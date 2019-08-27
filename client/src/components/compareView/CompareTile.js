@@ -8,16 +8,21 @@ import { useCompareStyles } from "../../styles/useStyles";
 import { makeCompareData } from "../../functions/makeCompareData";
 import CompareTileItem from "./CompareTileItem";
 import CompareTileHeader from "./CompareTileHeader";
+import DisplayFilter from "../DisplayFilter";
+import CareerFilter from "../CareerFilter";
 
 const CompareTile = ({
   player,
   removeCompare,
   compare,
-  compareCareerRegular
+  compareCareerRegular,
+  playerSeasons,
+  filteredSeasons,
+  selectedFilter
 }) => {
-  const listItems = compareCareerRegular
-    ? makeCompareData(compareCareerRegular)
-    : null;
+  const listItems = filteredSeasons
+    ? makeCompareData(filteredSeasons.stat)
+    : makeCompareData(compareCareerRegular);
   const classes = useCompareStyles();
 
   return (
@@ -32,6 +37,18 @@ const CompareTile = ({
       )}
       <div className={classes.tileWrapper}>
         <CompareTileHeader player={player} />
+        <div style={{ textAlign: "center" }}>
+          <CareerFilter
+            filterKey={player.id}
+            filterNames={playerSeasons}
+            eraseFilter="Career"
+          />
+          <DisplayFilter
+            style={{ paddingBottom: "16px" }}
+            selectedFilter={selectedFilter}
+            variant="h6"
+          />
+        </div>
         {listItems ? (
           <CompareTileItem listItems={listItems} />
         ) : (
@@ -42,9 +59,43 @@ const CompareTile = ({
   );
 };
 
-const mapStateToProps = state => {
+const createFilters = (compare, id) =>
+  compare
+    .filter(player => player.id === id)
+    .map(({ stats: { 0: { splits } } }) =>
+      splits
+        .filter(season => season.league.name === "NHL")
+        .map(season => season.season.slice(0, 4) + "-" + season.season.slice(4))
+    )
+    .flat();
+
+const getSelectedSeason = (allSeasons, selectedFilter) =>
+  allSeasons.find(
+    season => season.league.name === "NHL" && season.season === selectedFilter
+  );
+
+const mapStateToProps = (state, ownProps) => {
+  const { compare } = state;
+  const {
+    player: {
+      stats: {
+        0: { splits }
+      }
+    },
+    player
+  } = ownProps;
+  const selectedFilter =
+    state.filter[player.id] && state.filter[player.id].replace("-", "");
   return {
-    compare: state.compare
+    compare,
+    selectedFilter:
+      selectedFilter !== undefined && ""
+        ? selectedFilter.slice(0, 4) + "-" + selectedFilter.slice(4)
+        : "Career",
+    filteredSeasons: selectedFilter
+      ? getSelectedSeason(splits, selectedFilter)
+      : null,
+    playerSeasons: createFilters(compare, player.id)
   };
 };
 

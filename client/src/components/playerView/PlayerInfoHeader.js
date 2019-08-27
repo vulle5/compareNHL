@@ -44,19 +44,13 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
         <Typography component="p">{player.currentTeam.name}</Typography>
         <ul className={classes.mainStats}>
           <li className={classes.mainStatsLi}>
-            <Typography component="p">{`Pos: ${
-              player.primaryPosition.abbreviation
-            }`}</Typography>
+            <Typography component="p">{`Pos: ${player.primaryPosition.abbreviation}`}</Typography>
           </li>
           <li className={classes.mainStatsLi}>
-            <Typography component="p">{`${player.height}, ${
-              player.metricHeight
-            } cm`}</Typography>
+            <Typography component="p">{`${player.height}, ${player.metricHeight} cm`}</Typography>
           </li>
           <li className={classes.mainStatsLi}>
-            <Typography component="p">{`${player.weight} lbs, ${
-              player.metricWeight
-            } kg`}</Typography>
+            <Typography component="p">{`${player.weight} lbs, ${player.metricWeight} kg`}</Typography>
           </li>
           <li className={classes.mainStatsLi}>
             <Typography component="p">{`Age: ${player.currentAge}`}</Typography>
@@ -69,7 +63,6 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     player: state.player,
     playerImage: state.playerImage
