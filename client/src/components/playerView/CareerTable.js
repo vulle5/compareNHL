@@ -27,7 +27,7 @@ const CareerTable = props => {
         filterNames={playerLeagues}
         filterKey={"careerTable"}
         swipeReferences={swipeReferences}
-        showAll
+        eraseFilter="Show All"
       />
       <DisplayFilter selectedFilter={currentFilter} />
       <StatTable

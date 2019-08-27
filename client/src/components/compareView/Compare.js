@@ -33,6 +33,10 @@ const Compare = ({
     setOpen(true);
   }
 
+  function onOutsideClick() {
+    setOpen(false);
+  }
+
   const handleClose = playerId => {
     setOpen(false);
     addCompare(playerId);
@@ -48,7 +52,11 @@ const Compare = ({
         />
       ))}
       <FAB title="Add Player" onClick={handleClickOpen} />
-      <CompareDialog open={open} onClose={handleClose} />
+      <CompareDialog
+        open={open}
+        onClose={handleClose}
+        onOutsideClick={onOutsideClick}
+      />
     </div>
   );
 };

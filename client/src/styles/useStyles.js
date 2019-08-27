@@ -9,7 +9,8 @@ export const useCompareStyles = makeStyles(theme => ({
   tileRoot: {
     display: "inline-block",
     margin: "16px 16px 0px 0px",
-    minWidth: "375px",
+    width: "100%",
+    maxWidth: "425px",
     [theme.breakpoints.down("xs")]: {
       minWidth: "100%"
     }

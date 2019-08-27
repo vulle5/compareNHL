@@ -2,7 +2,7 @@ import playerServices from "../services/player";
 
 export const initializePlayerImage = playerId => {
   return async dispatch => {
-    dispatch({ type: "LOADING" });
+    dispatch({ type: "LOADING" })
     const response = await playerServices.getImage(playerId, {
       responseType: "arraybuffer"
     });

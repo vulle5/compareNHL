@@ -1,8 +1,10 @@
 import playerServices from "../services/player";
 import { genPlayer } from "../functions/genPlayer";
+import { reset } from "../reducers/filterReducer";
 
 export const initializePlayer = playerId => {
   return async dispatch => {
+    dispatch(reset());
     const {
       people: { 0: playerResponse }
     } = await playerServices.getPlayer(
