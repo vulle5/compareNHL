@@ -42,6 +42,7 @@ const CompareTile = ({
           <DisplayFilter
             style={{ paddingBottom: "16px" }}
             selectedFilter={selectedFilter}
+            variant="h6"
           />
         </div>
         {listItems ? (
@@ -70,7 +71,6 @@ const getSelectedSeason = (allSeasons, selectedFilter) =>
   );
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state);
   const { compare } = state;
   const {
     player: {
