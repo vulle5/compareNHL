@@ -9,7 +9,7 @@ const CareerFilter = ({
   filterNames,
   filterKey,
   swipeReferences,
-  showAll,
+  eraseFilter,
   setFilter
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -42,9 +42,9 @@ const CareerFilter = ({
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
-        {showAll && (
+        {eraseFilter && (
           <MenuItem onClick={() => handleCloseAndFilter("", filterKey)}>
-            Show All
+            {eraseFilter}
           </MenuItem>
         )}
         {filterNames.map(filter => (
@@ -65,7 +65,6 @@ const CareerFilter = ({
 CareerFilter.defaultProps = {
   filterNames: [],
   swipeReferences: { current: { updateHeight: () => {} } },
-  showAll: false,
   filterKey: ""
 };
 

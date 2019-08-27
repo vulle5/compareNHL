@@ -38,7 +38,11 @@ const CompareTile = ({
       <div className={classes.tileWrapper}>
         <CompareTileHeader player={player} />
         <div style={{ textAlign: "center" }}>
-          <CareerFilter filterKey={player.id} filterNames={playerSeasons} />
+          <CareerFilter
+            filterKey={player.id}
+            filterNames={playerSeasons}
+            eraseFilter="Career"
+          />
           <DisplayFilter
             style={{ paddingBottom: "16px" }}
             selectedFilter={selectedFilter}
@@ -82,12 +86,12 @@ const mapStateToProps = (state, ownProps) => {
   } = ownProps;
   const selectedFilter =
     state.filter[player.id] && state.filter[player.id].replace("-", "");
-
   return {
     compare,
-    selectedFilter: selectedFilter
-      ? selectedFilter.slice(0, 4) + "-" + selectedFilter.slice(4)
-      : "Career",
+    selectedFilter:
+      selectedFilter !== undefined && ""
+        ? selectedFilter.slice(0, 4) + "-" + selectedFilter.slice(4)
+        : "Career",
     filteredSeasons: selectedFilter
       ? getSelectedSeason(splits, selectedFilter)
       : null,
