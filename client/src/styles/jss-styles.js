@@ -129,7 +129,9 @@ export const playerInfoHeader = theme => ({
   },
   playerThumbnail: {
     width: "100%",
-    borderRadius: "4px"
+    borderRadius: "4px",
+    maxHeight: "317px",
+    objectFit: "contain"
   },
   loadingThumbnail: {
     width: "100%",
