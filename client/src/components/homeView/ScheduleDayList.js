@@ -3,10 +3,10 @@ import { Typography } from "@material-ui/core";
 
 import ScheduleDayItem from "./ScheduleDayItem";
 
-const ScheduleDayList = () => {
+const ScheduleDayList = ({ title }) => {
   return (
-    <div>
-      <Typography variant="h4">Today</Typography>
+    <div style={{ marginTop: "24px" }}>
+      <Typography variant="h4">{title}</Typography>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         <ScheduleDayItem home="CAR" away="FLA" scoreOrTime="0-0" />
         <ScheduleDayItem home="CHI" away="CAP" scoreOrTime="20:00" />
