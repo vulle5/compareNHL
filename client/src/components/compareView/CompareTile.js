@@ -24,7 +24,7 @@ const CompareTile = ({
     ? makeCompareData(filteredSeasons.stat)
     : makeCompareData(compareCareerRegular);
   const classes = useCompareStyles();
-  console.log(selectedFilter);
+
   return (
     <Paper className={classes.tileRoot}>
       {compare.length > 1 && (
@@ -89,13 +89,15 @@ const mapStateToProps = (state, ownProps) => {
     player
   } = ownProps;
   const selectedFilter =
-    state.filter[player.id] && state.filter[player.id].replace("-", "");
+    state.filter[player.id] && state.filter[player.id].length !== 0
+      ? state.filter[player.id].replace("-", "")
+      : "Career";
   return {
     compare,
     selectedFilter:
-      selectedFilter !== undefined
+      selectedFilter !== "Career"
         ? selectedFilter.slice(0, 4) + "-" + selectedFilter.slice(4)
-        : "Career",
+        : selectedFilter,
     filteredSeasons: selectedFilter
       ? getSelectedSeason(splits, selectedFilter)
       : null,

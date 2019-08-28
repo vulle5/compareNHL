@@ -1,6 +1,7 @@
 const playerRoutes = require("express").Router();
 const querystring = require("querystring");
 const axios = require("axios");
+const fs = require("fs");
 
 function playerParser(data) {
   data.people[0].stats[0].splits.forEach(season => {
@@ -41,9 +42,7 @@ playerRoutes.get("/:id/logs", async (req, res) => {
 playerRoutes.get("/search/:term", async (req, res) => {
   try {
     const { data } = await axios.get(
-      `https://suggest.svc.nhl.com/svc/suggest/v1/minplayers/${
-        req.params.term
-      }/99999`
+      `https://suggest.svc.nhl.com/svc/suggest/v1/minplayers/${req.params.term}/99999`
     );
     if (data.suggestions.length === 0) {
       res.status(400).json("No players were found");
@@ -63,27 +62,21 @@ playerRoutes.get("/image/:id", async (req, res) => {
         responseType: "arraybuffer"
       }
     );
-    const img = new Buffer.from(data, "base64");
     res.writeHead(200, {
       "Content-Type": "image/jpeg",
-      "Content-Length": img.length
+      "Content-Length": data.length
     });
-    res.end(img);
+    res.end(data);
   } catch (error) {
     try {
-      const { data } = await axios.get(
-        "https://is5-ssl.mzstatic.com/image/thumb/Purple62/v4/e3/45/ed/e345edf0-a8b0-6919-746e-cf8d67e3e323/source/1280x1280bb.jpg",
-        {
-          responseType: "arraybuffer"
-        }
-      );
-      const img = new Buffer.from(data, "base64")
-      res.writeHead(200, {
-        "Content-Type": "image/jpeg",
-        "Content-Length": img.length
+      fs.readFile("./assets/notFound.png", (err, data) => {
+        res.writeHead(200, {
+          "Content-Type": "image/jpeg",
+          "Content-Length": data.length
+        });
+        res.end(data);
       });
-      res.end(img);
-    } catch (error) { 
+    } catch (error) {
       res.status(400).json(error);
     }
   }
