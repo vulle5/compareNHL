@@ -28,12 +28,14 @@ const CompareTile = ({
   return (
     <Paper className={classes.tileRoot}>
       {compare.length > 1 && (
-        <IconButton
-          className={classes.tileCloseButton}
-          onClick={() => removeCompare(player.id)}
-        >
-          <ClearIcon />
-        </IconButton>
+        <div className={classes.tileCloseButtonWrapper}>
+          <IconButton
+            className={classes.tileCloseButton}
+            onClick={() => removeCompare(player.id)}
+          >
+            <ClearIcon />
+          </IconButton>
+        </div>
       )}
       <div className={classes.tileWrapper}>
         <CompareTileHeader player={player} />
@@ -91,11 +93,11 @@ const mapStateToProps = (state, ownProps) => {
   const selectedFilter =
     state.filter[player.id] && state.filter[player.id].length !== 0
       ? state.filter[player.id].replace("-", "")
-      : "Career";
+      : "NHL Career";
   return {
     compare,
     selectedFilter:
-      selectedFilter !== "Career"
+      selectedFilter !== "NHL Career"
         ? selectedFilter.slice(0, 4) + "-" + selectedFilter.slice(4)
         : selectedFilter,
     filteredSeasons: selectedFilter
