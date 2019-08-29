@@ -69,25 +69,27 @@ const SearchPlayersBar = props => {
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
-              <label>
-                <InputBase
-                  autoFocus
-                  autoComplete="off"
-                  id="player-search"
-                  placeholder="Search Players"
-                  value={term}
-                  onFocus={() => {
-                    handleListStatus(true);
-                    setInputIsFocused(true);
-                  }}
-                  onBlur={() => setInputIsFocused(false)}
-                  onChange={event => setTerm(event.target.value)}
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput
-                  }}
-                />
-              </label>
+
+              <InputBase
+                autoFocus
+                autoComplete="off"
+                id="player-search"
+                placeholder="Search Players"
+                value={term}
+                inputProps={{
+                  "aria-label": "Search players"
+                }}
+                onFocus={() => {
+                  handleListStatus(true);
+                  setInputIsFocused(true);
+                }}
+                onBlur={() => setInputIsFocused(false)}
+                onChange={event => setTerm(event.target.value)}
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput
+                }}
+              />
             </div>
           </Toolbar>
         </AppBar>
