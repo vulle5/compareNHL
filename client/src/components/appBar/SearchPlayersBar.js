@@ -69,7 +69,6 @@ const SearchPlayersBar = props => {
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
-
               <InputBase
                 autoFocus
                 autoComplete="off"
