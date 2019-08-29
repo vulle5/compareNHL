@@ -135,6 +135,7 @@ export const playerInfoHeader = theme => ({
   },
   loadingThumbnail: {
     width: "100%",
+    margin: "4px",
     borderRadius: "4px",
     paddingBottom: "33%",
     backgroundColor: "lightgrey"
