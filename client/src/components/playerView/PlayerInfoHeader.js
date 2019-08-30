@@ -75,7 +75,6 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     player: state.player,
     playerImage: state.playerImage
