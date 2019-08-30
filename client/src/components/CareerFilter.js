@@ -32,6 +32,7 @@ const CareerFilter = ({
       <IconButton
         aria-owns={anchorEl && "simple-menu"}
         aria-haspopup="true"
+        title="Filter"
         onClick={handleClick}
       >
         <FilterList />

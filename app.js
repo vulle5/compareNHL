@@ -1,9 +1,11 @@
 const express = require("express");
+const compression = require("compression");
 const app = express();
 const playerRoutes = require("./controllers/playerController");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+app.use(compression());
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/api/players", playerRoutes);

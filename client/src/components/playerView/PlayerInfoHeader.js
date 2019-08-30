@@ -41,7 +41,18 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
             {`${player.fullName} #${player.primaryNumber}`}
           </Typography>
         </div>
-        <Typography component="p">{player.currentTeam.name}</Typography>
+        <div className={classes.flagWrapper}>
+          {player.currentTeam.id !== "N/A" && (
+            <img
+              height="35"
+              src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-dark/${player.currentTeam.id}.svg`}
+              alt="team"
+            />
+          )}
+          <Typography style={{ alignSelf: "center" }} component="p">
+            {player.currentTeam.name}
+          </Typography>
+        </div>
         <ul className={classes.mainStats}>
           <li className={classes.mainStatsLi}>
             <Typography component="p">{`Pos: ${player.primaryPosition.abbreviation}`}</Typography>

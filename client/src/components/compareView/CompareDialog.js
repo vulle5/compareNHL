@@ -42,6 +42,7 @@ const CompareDialog = ({ onClose, open, onOutsideClick }) => {
           inputProps={{
             "aria-label": "Search players"
           }}
+          autoFocus
           value={term}
           type="search"
           fullWidth
