@@ -3,16 +3,23 @@ import { genPlayer } from "../functions/genPlayer";
 
 export const initializeCompare = playerId => {
   return async dispatch => {
-    const {
-      people: { 0: playerResponse }
-    } = await playerServices.getPlayer(
-      playerId,
-      "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
-    );
-    dispatch({
-      type: "SET_COMPARE",
-      data: genPlayer(playerResponse)
-    });
+    try {
+      const {
+        people: { 0: playerResponse }
+      } = await playerServices.getPlayer(
+        playerId,
+        "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
+      );
+      dispatch({
+        type: "SET_COMPARE",
+        data: genPlayer(playerResponse)
+      });
+    } catch (error) {
+      dispatch({
+        type: "ERROR",
+        data: error.message
+      });
+    }
   };
 };
 
@@ -49,6 +56,8 @@ const compareReducer = (state = [], action) => {
         : [...state, { ...action.data }];
     case "DELETE_COMPARE":
       return state.filter(player => player.id !== action.data);
+    case "ERROR":
+      return { ...state, errorMessage: action.data };
     default:
       return state;
   }

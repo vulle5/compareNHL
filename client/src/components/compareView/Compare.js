@@ -8,6 +8,7 @@ import { initializeCompare, addCompare } from "../../reducers/compareReducer";
 import CompareTile from "./CompareTile";
 import FAB from "../FAB";
 import CompareDialog from "./CompareDialog";
+import ErrorMessage from "../ErrorMessage";
 
 const Compare = ({
   match: {
@@ -27,6 +28,10 @@ const Compare = ({
 
   if (isEmpty(compare)) {
     return <CircularProgress />;
+  }
+
+  if (compare.errorMessage) {
+    return <ErrorMessage />;
   }
 
   function handleClickOpen() {
@@ -67,7 +72,8 @@ const getPlayersRegularSeasonStats = compare =>
 const mapStateToProps = state => {
   return {
     compare: state.compare,
-    compareCareerRegular: getPlayersRegularSeasonStats(state.compare)
+    compareCareerRegular:
+      !state.compare.errorMessage && getPlayersRegularSeasonStats(state.compare)
   };
 };
 
