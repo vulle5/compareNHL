@@ -4,4 +4,4 @@ Deployed to [Heroku](https://nhl-compare.herokuapp.com/)
 
 ## Upcoming
 
-- Currently swippableViews is rendering all list's at once causing perf problems
+- Currently swippableViews is rendering all list's at once causing perf problems on lower end machines
