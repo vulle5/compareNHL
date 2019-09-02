@@ -46,7 +46,11 @@ class Player {
     this.rookie = rookie || false;
     this.shootsCatches = shootsCatches || "N/A";
     this.rosterStatus = rosterStatus || "N/A";
-    this.currentTeam = currentTeam || { id: "N/A", link: "N/A", name: "N/A" };
+    this.currentTeam = currentTeam || {
+      id: "N/A",
+      link: "N/A",
+      name: "No Team"
+    };
     this.primaryPosition = primaryPosition || "N/A";
     this.stats = stats || {};
   }

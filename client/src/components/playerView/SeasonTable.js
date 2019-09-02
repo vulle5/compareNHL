@@ -16,8 +16,7 @@ import { seasonTableStyles } from "../../styles/jss-styles";
 import SeasonTabs from "./SeasonTabs";
 
 const SeasonTable = props => {
-  const { classes, width, player } = props;
-
+  const { classes, width, player, isGoalie } = props;
   const renderContent = () => {
     // Check if player has NHL stats at all
     if (get(player, "stats[1].splits[0].stat")) {
@@ -32,9 +31,6 @@ const SeasonTable = props => {
           }
         }
       } = props;
-      const {
-        primaryPosition: { abbreviation: isGoalie }
-      } = player;
 
       return (
         <Table className={classes.table}>
@@ -44,13 +40,13 @@ const SeasonTable = props => {
                 {isWidthUp("sm", width) ? "Games Played" : "GP"}
               </TableCell>
               <TableCell align="center">
-                {isGoalie === "G" ? "Wins" : "Points"}
+                {isGoalie ? "Wins" : "Points"}
               </TableCell>
               <TableCell align="center">
-                {isGoalie === "G" ? "Save%" : "Goals"}
+                {isGoalie ? "Save%" : "Goals"}
               </TableCell>
               <TableCell align="center">
-                {isGoalie === "G" ? "GAA" : "Assists"}
+                {isGoalie ? "GAA" : "Assists"}
               </TableCell>
             </TableRow>
           </TableHead>
@@ -60,16 +56,16 @@ const SeasonTable = props => {
                 {allTime.games || "0"}
               </TableCell>
               <TableCell align="center" className={classes.rowItem}>
-                {isGoalie === "G" ? allTime.wins : allTime.points || "0"}
+                {isGoalie ? allTime.wins : allTime.points || "0"}
               </TableCell>
               <TableCell align="center" className={classes.rowItem}>
-                {isGoalie === "G"
-                  ? allTime.savePercentage.toFixed(3)
+                {isGoalie
+                  ? get(allTime, "savePercentage", 0).toFixed(3)
                   : allTime.goals || "0"}
               </TableCell>
               <TableCell align="center" className={classes.rowItem}>
-                {isGoalie === "G"
-                  ? allTime.goalAgainstAverage.toFixed(2)
+                {isGoalie
+                  ? get(allTime, "goalAgainstAverage", 0).toFixed(2)
                   : allTime.assists || "0"}
               </TableCell>
             </TableRow>
@@ -99,8 +95,12 @@ const SeasonTable = props => {
 };
 
 const mapStateToProps = state => {
+  const {
+    primaryPosition: { abbreviation }
+  } = state.player;
   return {
-    player: state.player
+    player: state.player,
+    isGoalie: abbreviation === "G" && true
   };
 };
 
