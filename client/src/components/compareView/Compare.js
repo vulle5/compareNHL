@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { CircularProgress } from "@material-ui/core";
 import { isEmpty, get } from "lodash";
-import qs from "qs";
 
 import { useCompareStyles } from "../../styles/useStyles";
 import { initializeCompare, addCompare } from "../../reducers/compareReducer";
@@ -27,14 +26,6 @@ const Compare = ({
   useEffect(() => {
     initializeCompare(playerId);
   }, [initializeCompare, playerId]);
-
-  useEffect(() => {
-    const query = search.substring(1);
-    const { add } = qs.parse(query, { comma: true });
-    if (add) {
-      console.log(add);
-    }
-  }, [search]);
 
   if (isEmpty(compare)) {
     return <CircularProgress />;
@@ -80,6 +71,7 @@ const getPlayersRegularSeasonStats = compare =>
   compare.map(player => get(player, 'stats[1].splits["0"].stat', null));
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
     compare: state.compare,
     compareCareerRegular:
