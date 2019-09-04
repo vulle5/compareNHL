@@ -25,7 +25,7 @@ const Compare = ({
 
   useEffect(() => {
     initializeCompare(playerId);
-  }, [initializeCompare, playerId]);
+  }, [initializeCompare, playerId, search]);
 
   if (isEmpty(compare)) {
     return <CircularProgress />;
@@ -71,6 +71,7 @@ const getPlayersRegularSeasonStats = compare =>
   compare.map(player => get(player, 'stats[1].splits["0"].stat', null));
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
     compare: state.compare,
     compareCareerRegular:

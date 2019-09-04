@@ -63,14 +63,18 @@ export const addCompare = playerId => {
         "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
       );
       if (history.location.search.includes("?add=")) {
+        const search =
+          history.location.search === "?add="
+            ? `${history.location.search}${playerId}`
+            : `${history.location.search},${playerId}`;
         history.push({
           pathname: history.location.pathname,
-          search: `${history.location.search},${playerId}`
+          search
         });
       } else {
         history.push({
           pathname: history.location.pathname,
-          search: `add=${history.location.search},${playerId}`
+          search: `?add=${history.location.search}${playerId}`
         });
       }
 
