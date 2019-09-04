@@ -16,7 +16,10 @@ export const initializeCompare = playerId => {
       const {
         location: { search }
       } = history;
-      const { add } = qs.parse(search.substring(1), { comma: true });
+      const { add } = qs.parse(search.substring(1), {
+        comma: true,
+        parameterLimit: 5
+      });
       if (add) {
         const ids = makeIdsFromQuery(playerId, add);
         const result = await playerServices.getMultiplePlayers(
