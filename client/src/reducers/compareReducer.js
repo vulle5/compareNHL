@@ -7,7 +7,8 @@ function makeIdsFromQuery(firstId, query) {
   if (typeof query === "string") {
     return [firstId, query];
   }
-  return [firstId, ...query];
+  const noEmptyStrings = query.filter(id => id !== "");
+  return [firstId, ...noEmptyStrings];
 }
 
 export const initializeCompare = playerId => {
@@ -61,10 +62,18 @@ export const addCompare = playerId => {
         playerId,
         "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
       );
-      history.push({
-        pathname: history.location.pathname,
-        search: `${history.location.search},${playerId}`
-      });
+      if (history.location.search.includes("?add=")) {
+        history.push({
+          pathname: history.location.pathname,
+          search: `${history.location.search},${playerId}`
+        });
+      } else {
+        history.push({
+          pathname: history.location.pathname,
+          search: `add=${history.location.search},${playerId}`
+        });
+      }
+
       dispatch({
         type: "ADD_COMPARE",
         data: genPlayer(playerResponse)
@@ -80,6 +89,24 @@ export const addCompare = playerId => {
 };
 
 export const removeCompare = playerId => {
+  if (history.location.pathname.includes(playerId)) {
+    const newId = history.location.search.match(/=(,|)(\d{7})/);
+    history.push({
+      pathname: `/compare/${newId[2]}`,
+      search: history.location.search.replace(
+        new RegExp(`(,|)${newId[2]}(,|)`),
+        ""
+      )
+    });
+  } else {
+    history.push({
+      pathname: history.location.pathname,
+      search: history.location.search.replace(
+        new RegExp(`(,|)${playerId}(,|)`),
+        ""
+      )
+    });
+  }
   return {
     type: "DELETE_COMPARE",
     data: playerId
