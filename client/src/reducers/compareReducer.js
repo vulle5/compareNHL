@@ -4,6 +4,9 @@ import history from "../history";
 import qs from "qs";
 
 function makeIdsFromQuery(firstId, query) {
+  if (!query) {
+    return [firstId];
+  }
   if (typeof query === "string") {
     return [firstId, query];
   }
@@ -21,8 +24,8 @@ export const initializeCompare = playerId => {
         comma: true,
         parameterLimit: 1
       });
-      if (add) {
-        const ids = makeIdsFromQuery(playerId, add);
+      const ids = makeIdsFromQuery(playerId, add);
+      if (ids.length) {
         const result = await playerServices.getMultiplePlayers(
           ids,
           "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
@@ -31,17 +34,6 @@ export const initializeCompare = playerId => {
         dispatch({
           type: "SET_COMPARE",
           data: playerObjects
-        });
-      } else {
-        const {
-          people: { 0: playerResponse }
-        } = await playerServices.getPlayer(
-          playerId,
-          "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
-        );
-        dispatch({
-          type: "SET_COMPARE",
-          data: [genPlayer(playerResponse)]
         });
       }
     } catch (error) {
