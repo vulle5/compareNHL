@@ -17,14 +17,16 @@ const Compare = ({
   compare,
   compareCareerRegular,
   initializeCompare,
-  addCompare
+  addCompare,
+  location
 }) => {
   const classes = useCompareStyles();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    console.log(location);
     initializeCompare(playerId);
-  }, [initializeCompare, playerId]);
+  }, [initializeCompare, location, playerId]);
 
   if (isEmpty(compare)) {
     return <CircularProgress />;
