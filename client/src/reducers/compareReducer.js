@@ -18,7 +18,7 @@ export const initializeCompare = playerId => {
       } = history;
       const { add } = qs.parse(search.substring(1), {
         comma: true,
-        parameterLimit: 5
+        parameterLimit: 1
       });
       if (add) {
         const ids = makeIdsFromQuery(playerId, add);
@@ -54,20 +54,28 @@ export const initializeCompare = playerId => {
 
 export const addCompare = playerId => {
   return async dispatch => {
-    const {
-      people: { 0: playerResponse }
-    } = await playerServices.getPlayer(
-      playerId,
-      "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
-    );
-    history.push({
-      pathname: history.location.pathname,
-      search: `${history.location.search},${playerId}`
-    });
-    dispatch({
-      type: "ADD_COMPARE",
-      data: genPlayer(playerResponse)
-    });
+    try {
+      const {
+        people: { 0: playerResponse }
+      } = await playerServices.getPlayer(
+        playerId,
+        "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
+      );
+      history.push({
+        pathname: history.location.pathname,
+        search: `${history.location.search},${playerId}`
+      });
+      dispatch({
+        type: "ADD_COMPARE",
+        data: genPlayer(playerResponse)
+      });
+    } catch (error) {
+      // TODO: Handle adding errors
+      dispatch({
+        type: "NO_TYPE",
+        data: ""
+      });
+    }
   };
 };
 
