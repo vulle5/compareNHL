@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { CircularProgress } from "@material-ui/core";
 import { isEmpty, get } from "lodash";
+import qs from "qs";
 
 import { useCompareStyles } from "../../styles/useStyles";
 import { initializeCompare, addCompare } from "../../reducers/compareReducer";
@@ -18,15 +19,22 @@ const Compare = ({
   compareCareerRegular,
   initializeCompare,
   addCompare,
-  location
+  location: { search }
 }) => {
   const classes = useCompareStyles();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    console.log(location);
     initializeCompare(playerId);
-  }, [initializeCompare, location, playerId]);
+  }, [initializeCompare, playerId]);
+
+  useEffect(() => {
+    const query = search.substring(1);
+    const { add } = qs.parse(query, { comma: true });
+    if (add) {
+      console.log(add);
+    }
+  }, [search]);
 
   if (isEmpty(compare)) {
     return <CircularProgress />;
