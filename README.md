@@ -9,4 +9,12 @@ Käyttöohjeet FSO2019: https://docs.google.com/document/d/e/2PACX-1vSpear3ZB_oJ
 
 ## Upcoming
 
+- Favicon
+- Adding query strings to compare players for each player in the comparison so you can share the link with someone
+- Adding ability to click player from compare view to go back to single player view (Query strings need to be added first)
 - Currently swippableViews is rendering all list's at once causing perf problems on lower end machines
+
+## FIXES
+
+- Not being able to add players to compare from searchBar is confusing
+- Refactor some code mainly CompareTile and some older components like SearchBar and SearchList
