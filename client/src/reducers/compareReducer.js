@@ -57,6 +57,10 @@ export const addCompare = playerId => {
       playerId,
       "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
     );
+    history.push({
+      pathname: history.location.pathname,
+      search: `${history.location.search},${playerId}`
+    });
     dispatch({
       type: "ADD_COMPARE",
       data: genPlayer(playerResponse)
@@ -72,7 +76,6 @@ export const removeCompare = playerId => {
 };
 
 const compareReducer = (state = [], action) => {
-  // TODO: Implement reducer
   switch (action.type) {
     case "SET_COMPARE":
       return [...action.data];
