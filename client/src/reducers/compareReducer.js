@@ -1,7 +1,7 @@
 import playerServices from "../services/player";
 import { genPlayer } from "../functions/genPlayer";
 import history from "../history";
-import qs from "qs";
+// TODO: FIX PLAYER ORDER ON RELOAD WHEN THEY ARE IN LOCALSTORE
 
 function makeIdsFromQuery(firstId, query) {
   if (!query) {
