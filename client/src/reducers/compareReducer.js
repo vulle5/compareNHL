@@ -14,8 +14,67 @@ function makeIdsFromQuery(firstId, query) {
   return [firstId, ...noEmptyStrings];
 }
 
+async function checkCacheAndStore(getStore, queryIds) {
+  const storage = sessionStorage.getItem("compare");
+  const { compare: store } = getStore();
+  // Store has no length and Session is empty
+  if (!store.length && !storage) {
+    // Get all players from url
+    const result = await playerServices.getMultiplePlayers(
+      queryIds,
+      "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
+    );
+    const playerObjects = result.map(player => genPlayer(player.people[0]));
+    // Add those players to sessionStorage
+    sessionStorage.setItem("compare", JSON.stringify(playerObjects));
+    // Return them to add them all to redux store
+    return playerObjects;
+  }
+  // Store has no length but session is not empty
+  if (!store.length && storage) {
+    // Get all players from sessionStorage
+    const playersInSession = JSON.parse(storage);
+    // Check if url ids match players in sessionStorage
+    const sessionIds = playersInSession.map(player => player.id.toString());
+    const fetchIds = queryIds.filter(id => !sessionIds.includes(id));
+    // Fetch players that are NOT in sessionStorage
+    const result = await playerServices.getMultiplePlayers(
+      fetchIds,
+      "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
+    );
+    const playerObjects = result.map(player => genPlayer(player.people[0]));
+    // Add players to session from fetch
+    const finalPlayers = playersInSession.concat(playerObjects);
+    sessionStorage.setItem("compare", JSON.stringify(finalPlayers));
+    // Remove players that are not in url and return to add them to redux store
+    return finalPlayers.filter(player =>
+      queryIds.includes(player.id.toString())
+    );
+  }
+  // Stores has length and session is not empty
+  if (store.length && storage) {
+    const playersInSession = JSON.parse(storage);
+    // Check if url ids match players in session
+    const sessionIds = playersInSession.map(player => player.id.toString());
+    // Check if url ids match players in store
+    const storeIds = store.map(player => player.id.toString());
+    // Find which players are in redux store but not in sessionStorage
+    const idsToAdd = storeIds.filter(id => !sessionIds.includes(id));
+    const addToSession = store.filter(player =>
+      idsToAdd.includes(player.id.toString())
+    );
+    // Add missing players to sessionStorage
+    const finalPlayers = playersInSession.concat(addToSession);
+    sessionStorage.setItem("compare", JSON.stringify(finalPlayers));
+    // Remove players that are not in url and return to add them to redux store
+    return finalPlayers.filter(player =>
+      queryIds.includes(player.id.toString())
+    );
+  }
+}
+
 export const initializeCompare = playerId => {
-  return async dispatch => {
+  return async (dispatch, getStore) => {
     try {
       const {
         location: { search }
@@ -25,17 +84,11 @@ export const initializeCompare = playerId => {
         parameterLimit: 1
       });
       const ids = makeIdsFromQuery(playerId, add);
-      if (ids.length) {
-        const result = await playerServices.getMultiplePlayers(
-          ids,
-          "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
-        );
-        const playerObjects = result.map(player => genPlayer(player.people[0]));
-        dispatch({
-          type: "SET_COMPARE",
-          data: playerObjects
-        });
-      }
+      const playerObjects = await checkCacheAndStore(getStore, ids);
+      dispatch({
+        type: "SET_COMPARE",
+        data: playerObjects
+      });
     } catch (error) {
       dispatch({
         type: "ERROR",
@@ -59,12 +112,12 @@ export const addCompare = playerId => {
           history.location.search === "?add="
             ? `${history.location.search}${playerId}`
             : `${history.location.search},${playerId}`;
-        history.push({
+        history.replace({
           pathname: history.location.pathname,
           search
         });
       } else {
-        history.push({
+        history.replace({
           pathname: history.location.pathname,
           search: `?add=${history.location.search}${playerId}`
         });
@@ -87,7 +140,7 @@ export const addCompare = playerId => {
 export const removeCompare = playerId => {
   if (history.location.pathname.includes(playerId)) {
     const newId = history.location.search.match(/=(,|)(\d{7})/);
-    history.push({
+    history.replace({
       pathname: `/compare/${newId[2]}`,
       search: history.location.search.replace(
         new RegExp(`(,|)${newId[2]}(,|)`),
@@ -95,7 +148,7 @@ export const removeCompare = playerId => {
       )
     });
   } else {
-    history.push({
+    history.replace({
       pathname: history.location.pathname,
       search: history.location.search.replace(
         new RegExp(`(,|)${playerId}(,|)`),
