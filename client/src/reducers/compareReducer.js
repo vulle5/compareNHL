@@ -66,10 +66,8 @@ async function checkCacheAndStore(getStore, queryIds) {
     // Add missing players to sessionStorage
     const finalPlayers = playersInSession.concat(addToSession);
     sessionStorage.setItem("compare", JSON.stringify(finalPlayers));
-    // Remove players that are not in url and return to add them to redux store
-    return finalPlayers.filter(player =>
-      queryIds.includes(player.id.toString())
-    );
+    // Return store so players are sorted correctly
+    return store;
   }
 }
 
