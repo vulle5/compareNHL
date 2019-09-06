@@ -12,6 +12,7 @@
     "lodash": "^4.17.14",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",
+    "qs": "^6.8.0",
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-outside-click-handler": "^1.2.4",
