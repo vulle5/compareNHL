@@ -29,20 +29,50 @@ function mapOrder(array, order, key) {
   return array;
 }
 
+async function fetchPlayer(playerId) {
+  const {
+    people: { 0: playerResponse }
+  } = await playerServices.getPlayer(
+    playerId,
+    "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
+  );
+  return playerResponse;
+}
+
+async function fetchMultiplePlayers(ids) {
+  const result = await playerServices.getMultiplePlayers(
+    ids,
+    "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
+  );
+  return result;
+}
+
+function findFromCache(playerId) {
+  // Get players from session storage
+  const storage = sessionStorage.getItem("compare");
+  const playersInSession = JSON.parse(storage);
+  // Find if player is in storage
+  const isPlayerInSession = playersInSession.find(
+    player => player.id.toString() === playerId
+  );
+  if (isPlayerInSession) {
+    return isPlayerInSession;
+  }
+  return undefined;
+}
+
 async function checkCacheAndStore(getStore, queryIds) {
   const storage = sessionStorage.getItem("compare");
   const { compare: store } = getStore();
   // Store has no length and Session is empty
   if (!store.length && !storage) {
     // Get all players from url
-    const result = await playerServices.getMultiplePlayers(
-      queryIds,
-      "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
-    );
+    const result = await fetchMultiplePlayers(queryIds);
     const playerObjects = result.map(player => genPlayer(player.people[0]));
     // Add those players to sessionStorage
     sessionStorage.setItem("compare", JSON.stringify(playerObjects));
     // Return them to add them all to redux store
+    console.log(playerObjects, "WTF");
     return playerObjects;
   }
   // Store has no length but session is not empty
@@ -53,10 +83,7 @@ async function checkCacheAndStore(getStore, queryIds) {
     const sessionIds = playersInSession.map(player => player.id.toString());
     const fetchIds = queryIds.filter(id => !sessionIds.includes(id));
     // Fetch players that are NOT in sessionStorage
-    const result = await playerServices.getMultiplePlayers(
-      fetchIds,
-      "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
-    );
+    const result = await fetchMultiplePlayers(fetchIds);
     const playerObjects = result.map(player => genPlayer(player.people[0]));
     // Add players to session from fetch
     const playersToStorage = playersInSession.concat(playerObjects);
@@ -67,6 +94,13 @@ async function checkCacheAndStore(getStore, queryIds) {
     );
     // Sort players (mutates finalPlayers) based on url and return it
     mapOrder(finalPlayers, queryIds, "id");
+    return finalPlayers;
+  }
+  // Store has length but session is empty
+  if (store.length && !storage) {
+    const result = await fetchMultiplePlayers(queryIds);
+    const finalPlayers = result.map(player => genPlayer(player.people[0]));
+    sessionStorage.setItem("compare", JSON.stringify(finalPlayers));
     return finalPlayers;
   }
   // Stores has length and session is not empty
@@ -106,10 +140,12 @@ export const initializeCompare = playerId => {
       });
       const ids = makeIdsFromQuery(playerId, add);
       const playerObjects = await checkCacheAndStore(getStore, ids);
-      dispatch({
-        type: "SET_COMPARE",
-        data: playerObjects
-      });
+      if (playerObjects) {
+        dispatch({
+          type: "SET_COMPARE",
+          data: playerObjects
+        });
+      }
     } catch (error) {
       dispatch({
         type: "ERROR",
@@ -122,12 +158,11 @@ export const initializeCompare = playerId => {
 export const addCompare = playerId => {
   return async dispatch => {
     try {
-      const {
-        people: { 0: playerResponse }
-      } = await playerServices.getPlayer(
-        playerId,
-        "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
-      );
+      let playerToAdd = null;
+      playerToAdd = findFromCache(playerId);
+      if (!playerToAdd) {
+        playerToAdd = await fetchPlayer(playerId);
+      }
       if (history.location.search.includes("?add=")) {
         const search =
           history.location.search === "?add="
@@ -146,7 +181,7 @@ export const addCompare = playerId => {
 
       dispatch({
         type: "ADD_COMPARE",
-        data: genPlayer(playerResponse)
+        data: genPlayer(playerToAdd)
       });
     } catch (error) {
       // TODO: Handle adding errors

@@ -71,6 +71,7 @@ const getPlayersRegularSeasonStats = compare =>
   compare.map(player => get(player, 'stats[1].splits["0"].stat', null));
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
     compare: state.compare,
     compareCareerRegular:
