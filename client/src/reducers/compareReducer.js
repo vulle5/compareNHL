@@ -201,16 +201,15 @@ export const removeCompare = playerId => {
     const newId = history.location.search.match(/=(,|)(\d{7})/);
     history.replace({
       pathname: `/compare/${newId[2]}`,
-      search: history.location.search.replace(
-        new RegExp(`(,|)${newId[2]}(,|)`),
-        ""
-      )
+      search: history.location.search
+        .replace(new RegExp(`(,|)${playerId}(,|)`, "g"), "")
+        .replace(new RegExp(`(,|)${newId[2]}(,|)`, "g"), "")
     });
   } else {
     history.replace({
       pathname: history.location.pathname,
       search: history.location.search.replace(
-        new RegExp(`(,|)${playerId}(,|)`),
+        new RegExp(`(,|)${playerId}(,|)`, "g"),
         ""
       )
     });
