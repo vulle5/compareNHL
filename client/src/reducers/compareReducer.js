@@ -82,10 +82,15 @@ async function checkCacheAndStore(getStore, queryIds) {
       idsToAdd.includes(player.id.toString())
     );
     // Add missing players to sessionStorage
-    const finalPlayers = playersInSession.concat(addToSession);
-    sessionStorage.setItem("compare", JSON.stringify(finalPlayers));
+    const playersToStorage = playersInSession.concat(addToSession);
+    sessionStorage.setItem("compare", JSON.stringify(playersToStorage));
     // Return store so players are sorted correctly
-    return store;
+    const finalPlayers = playersToStorage.filter(player =>
+      queryIds.includes(player.id.toString())
+    );
+    // Sort players (mutates finalPlayers) based on url and return it
+    mapOrder(finalPlayers, queryIds, "id");
+    return finalPlayers;
   }
 }
 
