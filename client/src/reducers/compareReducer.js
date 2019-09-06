@@ -162,22 +162,26 @@ export const addCompare = playerId => {
       if (!playerToAdd) {
         playerToAdd = await fetchPlayer(playerId);
       }
-      if (history.location.search.includes("?add=")) {
-        const search =
-          history.location.search === "?add="
-            ? `${history.location.search}${playerId}`
-            : `${history.location.search},${playerId}`;
-        history.replace({
-          pathname: history.location.pathname,
-          search
-        });
-      } else {
-        history.replace({
-          pathname: history.location.pathname,
-          search: `?add=${history.location.search}${playerId}`
-        });
+      if (
+        !history.location.search.includes(playerId) &&
+        !history.location.pathname.includes(playerId)
+      ) {
+        if (history.location.search.includes("?add=")) {
+          const search =
+            history.location.search === "?add="
+              ? `${history.location.search}${playerId}`
+              : `${history.location.search},${playerId}`;
+          history.replace({
+            pathname: history.location.pathname,
+            search
+          });
+        } else {
+          history.replace({
+            pathname: history.location.pathname,
+            search: `?add=${history.location.search}${playerId}`
+          });
+        }
       }
-
       dispatch({
         type: "ADD_COMPARE",
         data: genPlayer(playerToAdd)
