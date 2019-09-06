@@ -1,8 +1,7 @@
 import playerServices from "../services/player";
 import { genPlayer } from "../functions/genPlayer";
 import history from "../history";
-import qs from 'qs'
-// TODO: FIX PLAYER ORDER ON RELOAD WHEN THEY ARE IN LOCALSTORE
+import qs from "qs";
 
 function makeIdsFromQuery(firstId, query) {
   if (!query) {
@@ -13,6 +12,21 @@ function makeIdsFromQuery(firstId, query) {
   }
   const noEmptyStrings = query.filter(id => id !== "");
   return [firstId, ...noEmptyStrings];
+}
+
+function mapOrder(array, order, key) {
+  array.sort(function(a, b) {
+    var A = a[key].toString(),
+      B = b[key].toString();
+
+    if (order.indexOf(A) > order.indexOf(B)) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+
+  return array;
 }
 
 async function checkCacheAndStore(getStore, queryIds) {
@@ -45,12 +59,15 @@ async function checkCacheAndStore(getStore, queryIds) {
     );
     const playerObjects = result.map(player => genPlayer(player.people[0]));
     // Add players to session from fetch
-    const finalPlayers = playersInSession.concat(playerObjects);
-    sessionStorage.setItem("compare", JSON.stringify(finalPlayers));
+    const playersToStorage = playersInSession.concat(playerObjects);
+    sessionStorage.setItem("compare", JSON.stringify(playersToStorage));
     // Remove players that are not in url and return to add them to redux store
-    return finalPlayers.filter(player =>
+    const finalPlayers = playersToStorage.filter(player =>
       queryIds.includes(player.id.toString())
     );
+    // Sort players (mutates finalPlayers) based on url and return it
+    mapOrder(finalPlayers, queryIds, "id");
+    return finalPlayers;
   }
   // Stores has length and session is not empty
   if (store.length && storage) {
