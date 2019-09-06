@@ -72,7 +72,6 @@ async function checkCacheAndStore(getStore, queryIds) {
     // Add those players to sessionStorage
     sessionStorage.setItem("compare", JSON.stringify(playerObjects));
     // Return them to add them all to redux store
-    console.log(playerObjects, "WTF");
     return playerObjects;
   }
   // Store has no length but session is not empty
