@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { CircularProgress } from "@material-ui/core";
 import { isEmpty, get } from "lodash";
 
 import { useCompareStyles } from "../../styles/useStyles";
 import { initializeCompare, addCompare } from "../../reducers/compareReducer";
+import { toggleProgress } from "../../reducers/globalProgressReducer";
 import CompareTile from "./CompareTile";
 import FAB from "../FAB";
 import CompareDialog from "./CompareDialog";
@@ -15,6 +15,7 @@ const Compare = ({
     params: { playerId }
   },
   compare,
+  toggleProgress,
   compareCareerRegular,
   initializeCompare,
   addCompare,
@@ -27,9 +28,8 @@ const Compare = ({
     initializeCompare(playerId);
   }, [initializeCompare, playerId, search]);
 
-  if (isEmpty(compare)) {
-    return <CircularProgress />;
-  }
+  if (isEmpty(compare)) toggleProgress(true);
+  if (!isEmpty(compare)) toggleProgress(false);
 
   if (compare.errorMessage) {
     return <ErrorMessage />;
@@ -80,5 +80,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { initializeCompare, addCompare }
+  { initializeCompare, addCompare, toggleProgress }
 )(Compare);
