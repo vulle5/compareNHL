@@ -9,6 +9,7 @@ import gameLogsReducer from "./reducers/gameLogsReducer";
 import compareReducer from "./reducers/compareReducer";
 import themeReducer from "./reducers/themeReducer";
 import drawerReducer from "./reducers/drawerReducer";
+import globalProgressReducer from "./reducers/globalProgressReducer";
 
 const reducer = combineReducers({
   player: playerReducer,
@@ -17,7 +18,8 @@ const reducer = combineReducers({
   filter: filterReducer,
   compare: compareReducer,
   theme: themeReducer,
-  drawer: drawerReducer
+  drawer: drawerReducer,
+  globalProgress: globalProgressReducer
 });
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
