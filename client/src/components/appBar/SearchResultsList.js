@@ -77,7 +77,7 @@ const SearchResultsList = ({
     >
       <div className={classes.wrapper}>
         <Paper elevation={2} className={classes.paper}>
-          <List>
+          <List className={classes.playerList}>
             {noPlayers ? (
               <Typography className={classes.message} variant="subtitle1">
                 {arrayOfPlayers}

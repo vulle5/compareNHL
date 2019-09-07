@@ -87,7 +87,9 @@ export const searchResultsListStyles = theme => ({
     [theme.breakpoints.up("xs")]: {
       display: "block",
       marginRight: "auto",
-      marginLeft: "auto"
+      marginLeft: "auto",
+      marginTop: "16px",
+      margin: "16px auto 16px auto"
     }
   },
   paper: {
@@ -99,14 +101,20 @@ export const searchResultsListStyles = theme => ({
       width: "100%"
     }
   },
+  playerList: {
+    paddingBottom: "0px",
+    paddingTop: "64px"
+  },
   message: {
-    textAlign: "center"
+    textAlign: "center",
+    margin: "8px auto 8px auto"
   }
 });
 
 export const playerInfoStyles = () => ({
   wrapper: {
-    textAlign: isFirefox ? "-moz-center" : "-webkit-center"
+    textAlign: isFirefox ? "-moz-center" : "-webkit-center",
+    paddingTop: "64px"
   }
 });
 

@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { isEmpty } from "lodash";
 import { AppBar, Tab, Tabs, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import { ScrollTo } from "react-scroll-to";
 import { findLast } from "lodash";
 import SwipeableViews from "react-swipeable-views";
@@ -47,10 +46,7 @@ const SeasonTabs = props => {
 
   return (
     <div className={classes.root} ref={appBarRef}>
-      <AppBar
-        position={isWidthUp("sm", width) ? "static" : "sticky"}
-        color="default"
-      >
+      <AppBar position="static" color="default">
         <Tabs
           value={value}
           onChange={handleChange}
@@ -133,4 +129,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   null
-)(withWidth()(withStyles(seasonTabsStyles, { withTheme: true })(SeasonTabs)));
+)(withStyles(seasonTabsStyles, { withTheme: true })(SeasonTabs));

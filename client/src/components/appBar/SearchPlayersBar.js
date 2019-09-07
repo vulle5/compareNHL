@@ -44,7 +44,7 @@ const SearchPlayersBar = props => {
     <Fragment>
       <div className={classes.root}>
         <AppBar
-          position="static"
+          position="fixed"
           color={theme === "dark" ? "default" : "primary"}
         >
           <Toolbar>
