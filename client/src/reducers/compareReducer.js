@@ -219,10 +219,12 @@ export const removeCompare = playerId => {
   } else {
     history.replace({
       pathname: history.location.pathname,
-      search: history.location.search.replace(
-        new RegExp(`(,|)${playerId}(,|)`, "g"),
-        ""
-      )
+      search: history.location.search.match(`,${playerId},`)
+        ? history.location.search.replace(
+            new RegExp(`(,|)${playerId}(,|)`),
+            ","
+          )
+        : history.location.search.replace(new RegExp(`(,|)${playerId}(,|)`), "")
     });
   }
   return {
