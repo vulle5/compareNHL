@@ -33,6 +33,11 @@ export const useCompareStyles = makeStyles(theme => ({
     WebkitBoxShadow: "0px 10px 10px -8px rgba(0,0,0,1)",
     MozBoxShadow: "0px 10px 10px -8px rgba(0,0,0,1)",
     boxShadow: "0px 10px 10px -8px rgba(0,0,0,1)",
+    "&:hover": {
+      WebkitBoxShadow: "0px 10px 15px -8px rgba(255,23,68,1)",
+      MozBoxShadow: "0px 10px 15px -8px rgba(255,23,68,1)",
+      boxShadow: "0px 10px 15px -8px rgba(255,23,68,1)"
+    },
     border: "1px solid lightgray"
   },
   tileTitle: { textAlign: "center", fontWeight: "bold" },

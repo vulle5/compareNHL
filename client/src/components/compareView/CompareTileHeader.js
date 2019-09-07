@@ -9,11 +9,13 @@ const CompareTileHeader = ({ player }) => {
 
   return (
     <div>
-      <Avatar
-        alt="Player"
-        src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${player.id}.jpg`}
-        className={classes.tileAvatar}
-      />
+      <Link to={`/player/${player.id}`}>
+        <Avatar
+          alt="Player"
+          src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${player.id}.jpg`}
+          className={classes.tileAvatar}
+        />
+      </Link>
       <div style={{ textAlign: "center" }}>
         <Link to={`/player/${player.id}`}>
           <Typography

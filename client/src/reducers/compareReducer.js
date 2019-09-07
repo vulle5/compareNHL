@@ -141,15 +141,10 @@ async function checkCacheAndStore(getStore, queryIds) {
   }
 }
 
-export const reset = () => {
-  return {
-    type: "RESET"
-  };
-};
-
 export const initializeCompare = playerId => {
   return async (dispatch, getStore) => {
     try {
+      dispatch({ type: "LOADING" });
       const {
         location: { search }
       } = history;
@@ -158,7 +153,6 @@ export const initializeCompare = playerId => {
         parameterLimit: 1
       });
       const ids = makeIdsFromQuery(playerId, add);
-      dispatch(reset());
       const playerObjects = await checkCacheAndStore(getStore, ids);
       if (playerObjects) {
         dispatch({
@@ -253,9 +247,6 @@ const compareReducer = (state = [], action) => {
         : [...state, { ...action.data }];
     case "DELETE_COMPARE":
       return state.filter(player => player.id !== action.data);
-    case "RESET": {
-      return [];
-    }
     case "ERROR":
       return { ...state, errorMessage: action.data };
     default:
