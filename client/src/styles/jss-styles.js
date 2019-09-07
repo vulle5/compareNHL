@@ -119,7 +119,7 @@ export const playerInfoHeader = theme => ({
       margin: "0px",
       borderRadius: "0px"
     },
-    margin: theme.spacing(1),
+    margin: "12px",
     maxWidth: "1000px",
     textAlign: "-webkit-center"
   },

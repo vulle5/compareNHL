@@ -5,6 +5,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 
 import SearchPlayersBar from "./appBar/SearchPlayersBar";
+import ProgressBarGlobal from "./ProgressBarGlobal";
 import PlayerInfo from "./playerView/PlayerInfo";
 import Compare from "./compareView/Compare";
 import { setTheme } from "../reducers/themeReducer";
@@ -27,6 +28,7 @@ const App = ({ setTheme, theme }) => {
       <Router history={history}>
         <div style={{ overflowX: "hidden" }}>
           <SearchPlayersBar />
+          <ProgressBarGlobal />
           <SideDrawer />
           <Switch>
             <Route

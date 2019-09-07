@@ -5,6 +5,7 @@ import { reset } from "../reducers/filterReducer";
 export const initializePlayer = playerId => {
   return async dispatch => {
     dispatch(reset());
+    dispatch({ type: "LOADING" });
     try {
       const {
         people: { 0: playerResponse }
@@ -29,6 +30,8 @@ const playerReducer = (state = {}, action) => {
   switch (action.type) {
     case "SET_PLAYER":
       return action.data;
+    case "LOADING":
+      return null;
     case "ERROR":
       return { ...state, errorMessage: action.data };
     default:
