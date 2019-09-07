@@ -28,8 +28,10 @@ const Compare = ({
     initializeCompare(playerId);
   }, [initializeCompare, playerId, search]);
 
-  if (isEmpty(compare)) toggleProgress(true);
-  if (!isEmpty(compare)) toggleProgress(false);
+  useEffect(() => {
+    if (isEmpty(compare)) toggleProgress(true);
+    if (!isEmpty(compare)) toggleProgress(false);
+  }, [compare, toggleProgress]);
 
   if (compare.errorMessage) {
     return <ErrorMessage />;

@@ -105,9 +105,9 @@ async function checkCacheAndStore(getStore, queryIds) {
   // Stores has length and session is not empty
   if (store.length && storage) {
     const playersInSession = JSON.parse(storage);
-    // Check if url ids match players in session
+    // players ids in session
     const sessionIds = playersInSession.map(player => player.id.toString());
-    // Check if url ids match players in store
+    // players ids in store
     const storeIds = store.map(player => player.id.toString());
     // Find which players are in redux store but not in sessionStorage
     const idsToAdd = storeIds.filter(id => !sessionIds.includes(id));
@@ -117,10 +117,21 @@ async function checkCacheAndStore(getStore, queryIds) {
     // Add missing players to sessionStorage
     const playersToStorage = playersInSession.concat(addToSession);
     sessionStorage.setItem("compare", JSON.stringify(playersToStorage));
-    // Return store so players are sorted correctly
+    // Let check if there are still players missing
     const finalPlayers = playersToStorage.filter(player =>
       queryIds.includes(player.id.toString())
     );
+    // Fetch missing players
+    if (!finalPlayers.length) {
+      const result = await fetchMultiplePlayers(queryIds);
+      const missingPlayers = result.map(player => genPlayer(player.people[0]));
+      sessionStorage.setItem(
+        "compare",
+        JSON.stringify(playersToStorage.concat(missingPlayers))
+      );
+      mapOrder(missingPlayers, queryIds, "id");
+      return missingPlayers;
+    }
     // Sort players (mutates finalPlayers) based on url and return it
     mapOrder(finalPlayers, queryIds, "id");
     return finalPlayers;
