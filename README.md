@@ -11,7 +11,7 @@ Käyttöohjeet FSO2019: https://docs.google.com/document/d/e/2PACX-1vSpear3ZB_oJ
 
 - Favicon
 - :heavy_check_mark: Adding query strings to compare players for each player in the comparison so you can share the link with someone
-- Adding ability to click player from compare view to go back to single player view (Query strings need to be added first)
+- :heavy_check_mark: Adding ability to click player from compare view to go back to single player view (Query strings need to be added first)
 - Currently swippableViews is rendering all list's at once causing perf problems on lower end machines
 
 ## FIXES
