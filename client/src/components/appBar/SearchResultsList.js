@@ -9,7 +9,9 @@ import {
   Divider,
   CircularProgress,
   Typography,
-  Paper
+  Paper,
+  ListItemSecondaryAction,
+  Button
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import OutsideClickHandler from "react-outside-click-handler";
@@ -66,6 +68,11 @@ const SearchResultsList = ({
           primary={`${player[2]} ${player[1]}`}
           secondary={player[10]}
         />
+        <ListItemSecondaryAction>
+          <Button variant="outlined" color="secondary">
+            compare
+          </Button>
+        </ListItemSecondaryAction>
       </ListItem>
       <Divider />
     </Link>
@@ -74,6 +81,7 @@ const SearchResultsList = ({
   return listStatus === true ? (
     <OutsideClickHandler
       onOutsideClick={() => (isInputFocused ? null : handleListStatus(false))}
+      className="outside-click-handler"
     >
       <div className={classes.wrapper}>
         <Paper elevation={2} className={classes.paper}>
