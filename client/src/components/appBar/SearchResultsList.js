@@ -11,10 +11,13 @@ import {
   Typography,
   Paper,
   ListSubheader,
-  LinearProgress
+  LinearProgress,
+  ListItemSecondaryAction,
+  Button
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import OutsideClickHandler from "react-outside-click-handler";
+import history from "../../history";
 
 import { useSearchPlayer } from "../../functions/useSearchPlayer";
 import { parseSearchResult } from "../../functions/parseSearchResult";
@@ -25,7 +28,8 @@ const SearchResultsList = ({
   classes,
   listStatus,
   handleListStatus,
-  isInputFocused
+  isInputFocused,
+  nonDebouncedTerm
 }) => {
   const [noPlayers, setNoPlayers] = useState(false);
   // Needs to be parsed for better usability
@@ -41,6 +45,11 @@ const SearchResultsList = ({
 
   // Returns array of player statistics
   const parsedPlayerIds = parseSearchResult(arrayOfPlayers);
+
+  const onCompareClick = (event, id) => {
+    event.preventDefault();
+    history.push({ pathname: `/compare/${id}` });
+  };
 
   const renderPlayerList = parsedPlayerIds.slice(0, 8).map(player => (
     <Link
@@ -68,16 +77,30 @@ const SearchResultsList = ({
           primary={`${player[2]} ${player[1]}`}
           secondary={player[10]}
         />
+        <ListItemSecondaryAction>
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={event => onCompareClick(event, player[0])}
+          >
+            compare
+          </Button>
+        </ListItemSecondaryAction>
       </ListItem>
       <Divider />
     </Link>
   ));
 
-  return listStatus === true ? (
+  return (
     <OutsideClickHandler
-      onOutsideClick={() => (isInputFocused ? null : handleListStatus(false))}
+      onOutsideClick={() => !isInputFocused && handleListStatus(false)}
     >
-      <div className={classes.wrapper}>
+      <div
+        className={classes.wrapper}
+        style={{
+          display: !listStatus || nonDebouncedTerm.length < 3 ? "none" : "block"
+        }}
+      >
         <Paper elevation={2} className={classes.paper}>
           <List
             subheader={
@@ -100,7 +123,7 @@ const SearchResultsList = ({
         </Paper>
       </div>
     </OutsideClickHandler>
-  ) : null;
+  );
 };
 
 export default withStyles(searchResultsListStyles)(SearchResultsList);

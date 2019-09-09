@@ -26,20 +26,6 @@ const SearchPlayersBar = props => {
 
   const handleListStatus = bool => setListStatus(bool);
 
-  let content;
-  if (term.length < 3) {
-    content = null;
-  } else {
-    content = (
-      <SearchResultsList
-        term={debouncedText}
-        listStatus={listStatus}
-        handleListStatus={handleListStatus}
-        isInputFocused={inputIsFocused}
-      />
-    );
-  }
-
   return (
     <Fragment>
       <div className={classes.root}>
@@ -91,7 +77,13 @@ const SearchPlayersBar = props => {
               />
             </div>
           </Toolbar>
-          {content}
+          <SearchResultsList
+            term={debouncedText}
+            nonDebouncedTerm={term}
+            listStatus={listStatus}
+            handleListStatus={handleListStatus}
+            isInputFocused={inputIsFocused}
+          />
         </AppBar>
       </div>
     </Fragment>

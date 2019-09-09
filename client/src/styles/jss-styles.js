@@ -75,11 +75,15 @@ export const searchPlayerBarStyles = theme => ({
 export const searchResultsListStyles = theme => ({
   wrapper: {
     zIndex: 1,
-    [theme.breakpoints.up("md")]: {
-      left: "75%",
+    [theme.breakpoints.down("sm")]: {
       position: "relative"
     },
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.up("md")]: {
+      left: "60%",
+      position: "relative"
+    },
+    [theme.breakpoints.up("lg")]: {
+      left: "70%",
       position: "relative"
     }
   },
@@ -93,12 +97,17 @@ export const searchResultsListStyles = theme => ({
     }
   },
   paper: {
-    [theme.breakpoints.up("sm")]: {
-      position: "absolute",
-      width: "24%"
-    },
     [theme.breakpoints.down("sm")]: {
+      position: "absolute",
       width: "100%"
+    },
+    [theme.breakpoints.up("md")]: {
+      position: "absolute",
+      width: "39%"
+    },
+    [theme.breakpoints.up("lg")]: {
+      position: "absolute",
+      width: "29%"
     }
   },
   playerList: {

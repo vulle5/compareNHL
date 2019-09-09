@@ -26,7 +26,7 @@ const App = ({ setTheme, theme }) => {
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <Router history={history}>
-        <div style={{ overflowX: "hidden" }}>
+        <div style={{ width: "100%" }}>
           <SearchPlayersBar />
           <ProgressBarGlobal />
           <SideDrawer />
