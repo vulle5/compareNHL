@@ -1,10 +1,16 @@
 import axios from "axios";
 
 const playerUrl = "/api/players/";
+const searchUrl = "/api/players/search/";
 const imageUrl = "/api/players/image/";
 
 const getPlayer = async (id, modURL) => {
   const response = await axios.get(`${playerUrl}${id}/${modURL}`);
+  return response.data;
+};
+
+const getSearch = async term => {
+  const response = await axios.get(`${searchUrl}${term}`);
   return response.data;
 };
 
@@ -21,4 +27,4 @@ const getImage = async (id, options) => {
   return response.data;
 };
 
-export default { getPlayer, getMultiplePlayers, getImage };
+export default { getPlayer, getSearch, getMultiplePlayers, getImage };

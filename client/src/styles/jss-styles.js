@@ -115,7 +115,8 @@ export const searchResultsListStyles = theme => ({
   },
   message: {
     textAlign: "center",
-    margin: "8px auto 8px auto"
+    margin: "auto auto 8px auto",
+    paddingTop: "8px"
   }
 });
 
