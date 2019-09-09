@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { useDebounce } from "use-debounce";
 import {
@@ -13,6 +13,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 
 import { searchPlayerBarStyles } from "../../styles/jss-styles";
+import playerService from "../../services/player";
 import SearchResultsList from "./SearchResultsList";
 import { toggleDrawer } from "../../reducers/drawerReducer";
 
@@ -23,8 +24,29 @@ const SearchPlayersBar = props => {
   const [inputIsFocused, setInputIsFocused] = useState(false);
   // This delays sending of the search term to API request
   const [debouncedText] = useDebounce(term, 300);
+  // List states
+  const [searchResults, setSearchResults] = useState([]);
+  const [noPlayers, setNoPlayers] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleListStatus = bool => setListStatus(bool);
+
+  useEffect(() => {
+    (async () => {
+      if (debouncedText !== "") {
+        setIsLoading(true);
+        const arrayOfPlayers = await playerService.getSearch(debouncedText);
+        if (typeof arrayOfPlayers === "string") {
+          setNoPlayers(true);
+          setIsLoading(false);
+        } else {
+          setNoPlayers(false);
+          setIsLoading(false);
+          setSearchResults(arrayOfPlayers);
+        }
+      }
+    })();
+  }, [debouncedText]);
 
   return (
     <Fragment>
@@ -78,11 +100,13 @@ const SearchPlayersBar = props => {
             </div>
           </Toolbar>
           <SearchResultsList
-            term={debouncedText}
             nonDebouncedTerm={term}
             listStatus={listStatus}
             handleListStatus={handleListStatus}
             isInputFocused={inputIsFocused}
+            searchResults={searchResults}
+            noPlayers={noPlayers}
+            isLoading={isLoading}
           />
         </AppBar>
       </div>

@@ -52,6 +52,11 @@ export const useCompareStyles = makeStyles(theme => ({
     textAlign: "center",
     marginTop: "20px"
   },
+  message: {
+    textAlign: "center",
+    margin: "auto auto 8px auto",
+    paddingTop: "8px"
+  },
   bannerWrapper: {
     display: "flex",
     justifyContent: "center"

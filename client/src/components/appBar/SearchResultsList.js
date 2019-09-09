@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import {
   List,
@@ -18,38 +18,18 @@ import { withStyles } from "@material-ui/core/styles";
 import OutsideClickHandler from "react-outside-click-handler";
 import history from "../../history";
 
-import playerService from "../../services/player";
 import { searchResultsListStyles } from "../../styles/jss-styles";
 
 const SearchResultsList = ({
-  term,
   classes,
   listStatus,
   handleListStatus,
   isInputFocused,
-  nonDebouncedTerm
+  nonDebouncedTerm,
+  searchResults,
+  noPlayers,
+  isLoading
 }) => {
-  const [searchResults, setSearchResults] = useState([]);
-  const [noPlayers, setNoPlayers] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      if (term !== "") {
-        setIsLoading(true);
-        const arrayOfPlayers = await playerService.getSearch(term);
-        if (typeof arrayOfPlayers === "string") {
-          setNoPlayers(true);
-          setIsLoading(false);
-        } else {
-          setNoPlayers(false);
-          setIsLoading(false);
-          setSearchResults(arrayOfPlayers);
-        }
-      }
-    })();
-  }, [term]);
-
   const onCompareClick = (event, id) => {
     event.preventDefault();
     history.push({ pathname: `/compare/${id}` });
