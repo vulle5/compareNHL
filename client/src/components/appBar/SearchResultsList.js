@@ -9,7 +9,9 @@ import {
   Divider,
   CircularProgress,
   Typography,
-  Paper
+  Paper,
+  ListSubheader,
+  LinearProgress
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import OutsideClickHandler from "react-outside-click-handler";
@@ -77,7 +79,14 @@ const SearchResultsList = ({
     >
       <div className={classes.wrapper}>
         <Paper elevation={2} className={classes.paper}>
-          <List className={classes.playerList}>
+          <List
+            subheader={
+              <ListSubheader style={{ padding: "0px" }}>
+                <LinearProgress color="secondary" />
+              </ListSubheader>
+            }
+            className={classes.playerList}
+          >
             {noPlayers ? (
               <Typography className={classes.message} variant="subtitle1">
                 {arrayOfPlayers}

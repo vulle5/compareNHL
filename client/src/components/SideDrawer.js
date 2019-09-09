@@ -7,7 +7,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Switch
+  Switch,
+  ListSubheader
 } from "@material-ui/core/";
 import InvertColors from "@material-ui/icons/InvertColors";
 import { toggleDrawer } from "../reducers/drawerReducer";
@@ -29,7 +30,7 @@ const SideDrawer = ({ drawer, toggleDrawer, theme, setTheme }) => {
     <div>
       <Drawer open={drawer} onClose={event => toggleDrawer(event)}>
         <div className={classes.list}>
-          <List>
+          <List subheader={<ListSubheader>Settings</ListSubheader>}>
             <ListItem>
               <ListItemIcon>
                 <InvertColors />
