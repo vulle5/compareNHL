@@ -102,8 +102,7 @@ export const searchResultsListStyles = theme => ({
     }
   },
   playerList: {
-    paddingBottom: "0px",
-    paddingTop: "64px"
+    paddingBottom: "0px"
   },
   message: {
     textAlign: "center",

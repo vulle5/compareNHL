@@ -91,9 +91,9 @@ const SearchPlayersBar = props => {
               />
             </div>
           </Toolbar>
+          {content}
         </AppBar>
       </div>
-      {content}
     </Fragment>
   );
 };
