@@ -90,9 +90,14 @@ const SearchResultsList = ({
 
   return listStatus === true ? (
     <OutsideClickHandler
-      onOutsideClick={() => (isInputFocused ? null : handleListStatus(false))}
+      onOutsideClick={() => !isInputFocused && handleListStatus(false)}
     >
-      <div className={classes.wrapper}>
+      <div
+        className={classes.wrapper}
+        style={{
+          display: term.length < 3 ? "none" : "block"
+        }}
+      >
         <Paper elevation={2} className={classes.paper}>
           <List className={classes.playerList}>
             {noPlayers ? (
