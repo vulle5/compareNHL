@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, Avatar } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 import { useCompareStyles } from "../../styles/useStyles";
 
@@ -8,17 +9,23 @@ const CompareTileHeader = ({ player }) => {
 
   return (
     <div>
-      <Avatar
-        alt="Player"
-        src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${player.id}.jpg`}
-        className={classes.tileAvatar}
-      />
-      <Typography
-        variant="h6"
-        style={{ textAlign: "center", fontWeight: "bold" }}
-      >
-        {`${player.fullName} #${player.primaryNumber}`}
-      </Typography>
+      <Link to={`/player/${player.id}`}>
+        <Avatar
+          alt="Player"
+          src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${player.id}.jpg`}
+          className={classes.tileAvatar}
+        />
+      </Link>
+      <div style={{ textAlign: "center" }}>
+        <Link to={`/player/${player.id}`}>
+          <Typography
+            variant="h6"
+            style={{ display: "inline-block", fontWeight: "bold" }}
+          >
+            {`${player.fullName} #${player.primaryNumber}`}
+          </Typography>
+        </Link>
+      </div>
       <div className={classes.bannerWrapper}>
         {player.currentTeam.id !== "N/A" && (
           <img
@@ -50,7 +57,7 @@ const CompareTileHeader = ({ player }) => {
         >{`${player.height}, ${player.metricHeight} cm`}</li>
         <li
           style={{ margin: "0 8px 0 8px" }}
-        >{`${player.weight}lbs, ${player.metricWeight}kg`}</li>
+        >{`${player.weight} lbs, ${player.metricWeight} kg`}</li>
         <li style={{ margin: "0 8px 0 8px" }}>{`Age: ${player.currentAge}`}</li>
       </ul>
     </div>

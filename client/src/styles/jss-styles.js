@@ -75,11 +75,15 @@ export const searchPlayerBarStyles = theme => ({
 export const searchResultsListStyles = theme => ({
   wrapper: {
     zIndex: 1,
-    [theme.breakpoints.up("md")]: {
-      left: "75%",
+    [theme.breakpoints.down("sm")]: {
       position: "relative"
     },
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.up("md")]: {
+      left: "60%",
+      position: "relative"
+    },
+    [theme.breakpoints.up("lg")]: {
+      left: "70%",
       position: "relative"
     }
   },
@@ -87,26 +91,39 @@ export const searchResultsListStyles = theme => ({
     [theme.breakpoints.up("xs")]: {
       display: "block",
       marginRight: "auto",
-      marginLeft: "auto"
+      marginLeft: "auto",
+      marginTop: "16px",
+      margin: "16px auto 16px auto"
     }
   },
   paper: {
-    [theme.breakpoints.up("sm")]: {
-      position: "absolute",
-      width: "24%"
-    },
     [theme.breakpoints.down("sm")]: {
+      position: "absolute",
       width: "100%"
+    },
+    [theme.breakpoints.up("md")]: {
+      position: "absolute",
+      width: "39%"
+    },
+    [theme.breakpoints.up("lg")]: {
+      position: "absolute",
+      width: "29%"
     }
   },
+  playerList: {
+    paddingBottom: "0px"
+  },
   message: {
-    textAlign: "center"
+    textAlign: "center",
+    margin: "auto auto 8px auto",
+    paddingTop: "8px"
   }
 });
 
 export const playerInfoStyles = () => ({
   wrapper: {
-    textAlign: isFirefox ? "-moz-center" : "-webkit-center"
+    textAlign: isFirefox ? "-moz-center" : "-webkit-center",
+    paddingTop: "64px"
   }
 });
 
@@ -119,7 +136,7 @@ export const playerInfoHeader = theme => ({
       margin: "0px",
       borderRadius: "0px"
     },
-    margin: theme.spacing(1),
+    margin: "12px",
     maxWidth: "1000px",
     textAlign: "-webkit-center"
   },

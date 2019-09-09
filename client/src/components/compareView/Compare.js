@@ -1,32 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { CircularProgress } from "@material-ui/core";
 import { isEmpty, get } from "lodash";
 
 import { useCompareStyles } from "../../styles/useStyles";
 import { initializeCompare, addCompare } from "../../reducers/compareReducer";
+import { toggleProgress } from "../../reducers/globalProgressReducer";
 import CompareTile from "./CompareTile";
 import FAB from "../FAB";
 import CompareDialog from "./CompareDialog";
+import ErrorMessage from "../ErrorMessage";
 
 const Compare = ({
   match: {
     params: { playerId }
   },
   compare,
+  toggleProgress,
   compareCareerRegular,
   initializeCompare,
-  addCompare
+  addCompare,
+  location: { search }
 }) => {
   const classes = useCompareStyles();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     initializeCompare(playerId);
-  }, [initializeCompare, playerId]);
+  }, [initializeCompare, playerId, search]);
 
-  if (isEmpty(compare)) {
-    return <CircularProgress />;
+  useEffect(() => {
+    if (isEmpty(compare)) toggleProgress(true);
+    if (!isEmpty(compare)) toggleProgress(false);
+  }, [compare, toggleProgress]);
+
+  if (compare.errorMessage) {
+    return <ErrorMessage />;
   }
 
   function handleClickOpen() {
@@ -67,11 +75,12 @@ const getPlayersRegularSeasonStats = compare =>
 const mapStateToProps = state => {
   return {
     compare: state.compare,
-    compareCareerRegular: getPlayersRegularSeasonStats(state.compare)
+    compareCareerRegular:
+      !state.compare.errorMessage && getPlayersRegularSeasonStats(state.compare)
   };
 };
 
 export default connect(
   mapStateToProps,
-  { initializeCompare, addCompare }
+  { initializeCompare, addCompare, toggleProgress }
 )(Compare);

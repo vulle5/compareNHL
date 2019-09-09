@@ -1,5 +1,6 @@
 import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
+import { get } from "lodash";
 
 const calcTimeOnIcePerGame = (gamesPlayed, TOI) => {
   if (!TOI) {
@@ -23,37 +24,46 @@ export const makeCompareData = regularSeasonStats => {
     return null;
   }
 
-  if (regularSeasonStats.saves) {
+  if (regularSeasonStats.goalsAgainst) {
     return {
       general: [
         ["GP", regularSeasonStats.games],
         ["W", regularSeasonStats.wins],
         ["L", regularSeasonStats.losses],
-        ["GAA", regularSeasonStats.goalAgainstAverage.toFixed(2)]
+        ["GAA", get(regularSeasonStats, "goalAgainstAverage", 0).toFixed(2)]
       ],
       saves: [
-        ["SA", regularSeasonStats.shotsAgainst],
-        ["Saves", regularSeasonStats.saves],
-        ["SV%", regularSeasonStats.savePercentage.toFixed(2)]
+        ["SA", regularSeasonStats.shotsAgainst || "N/A"],
+        ["Saves", regularSeasonStats.saves || "N/A"],
+        ["SV%", get(regularSeasonStats, "savePercentage", 0).toFixed(2)]
       ],
       evenStrength: [
-        ["Saves", regularSeasonStats.evenSaves],
-        ["Shots", regularSeasonStats.evenShots],
-        ["SV%", regularSeasonStats.evenStrengthSavePercentage.toFixed(2)]
+        ["Saves", regularSeasonStats.evenSaves || "N/A"],
+        ["Shots", regularSeasonStats.evenShots || "N/A"],
+        [
+          "SV%",
+          get(regularSeasonStats, "evenStrengthSavePercentage", 0).toFixed(2)
+        ]
       ],
       powerPlay: [
-        ["Saves", regularSeasonStats.powerPlaySaves],
-        ["Shots", regularSeasonStats.powerPlayShots],
-        ["SV%", regularSeasonStats.powerPlaySavePercentage.toFixed(2)]
+        ["Saves", regularSeasonStats.powerPlaySaves || "N/A"],
+        ["Shots", regularSeasonStats.powerPlayShots || "N/A"],
+        [
+          "SV%",
+          get(regularSeasonStats, "powerPlaySavePercentage", 0).toFixed(2)
+        ]
       ],
       shortHanded: [
-        ["Saves", regularSeasonStats.shortHandedSaves],
-        ["Shots", regularSeasonStats.shortHandedShots],
-        ["SV%", regularSeasonStats.shortHandedSavePercentage.toFixed(2)]
+        ["Saves", regularSeasonStats.shortHandedSaves || "N/A"],
+        ["Shots", regularSeasonStats.shortHandedShots || "N/A"],
+        [
+          "SV%",
+          get(regularSeasonStats, "shortHandedSavePercentage", 0).toFixed(2)
+        ]
       ],
       other: [
         ["SO", regularSeasonStats.shutouts],
-        ["OT", regularSeasonStats.ot],
+        ["OT", regularSeasonStats.ot || "N/A"],
         ["TOI", regularSeasonStats.timeOnIce],
         [
           "TOI/GP",

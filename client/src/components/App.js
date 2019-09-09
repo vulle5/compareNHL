@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 
 import SearchPlayersBar from "./appBar/SearchPlayersBar";
+import ProgressBarGlobal from "./ProgressBarGlobal";
 import PlayerInfo from "./playerView/PlayerInfo";
 import Compare from "./compareView/Compare";
 import { setTheme } from "../reducers/themeReducer";
 import SideDrawer from "./SideDrawer";
 import Home from "./homeView/Home";
+import history from "../history";
 
 const App = ({ setTheme, theme }) => {
   useEffect(() => {
@@ -24,9 +26,10 @@ const App = ({ setTheme, theme }) => {
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
-      <BrowserRouter>
-        <div style={{ overflowX: "hidden" }}>
+      <Router history={history}>
+        <div style={{ width: "100%" }}>
           <SearchPlayersBar />
+          <ProgressBarGlobal />
           <SideDrawer />
           <Switch>
             <Route exact path="/" component={Home} />
@@ -34,7 +37,7 @@ const App = ({ setTheme, theme }) => {
             <Route path="/compare/:playerId" component={Compare} />
           </Switch>
         </div>
-      </BrowserRouter>
+      </Router>
     </MuiThemeProvider>
   );
 };

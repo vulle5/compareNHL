@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core";
 
 export const useCompareStyles = makeStyles(theme => ({
   divRoot: {
-    padding: "0px 16px 16px 16px",
+    padding: "64px 16px 16px 16px",
     display: "flex",
     flexWrap: "wrap"
   },
@@ -33,6 +33,11 @@ export const useCompareStyles = makeStyles(theme => ({
     WebkitBoxShadow: "0px 10px 10px -8px rgba(0,0,0,1)",
     MozBoxShadow: "0px 10px 10px -8px rgba(0,0,0,1)",
     boxShadow: "0px 10px 10px -8px rgba(0,0,0,1)",
+    "&:hover": {
+      WebkitBoxShadow: "0px 10px 15px -8px rgba(255,23,68,1)",
+      MozBoxShadow: "0px 10px 15px -8px rgba(255,23,68,1)",
+      boxShadow: "0px 10px 15px -8px rgba(255,23,68,1)"
+    },
     border: "1px solid lightgray"
   },
   tileTitle: { textAlign: "center", fontWeight: "bold" },
@@ -46,6 +51,11 @@ export const useCompareStyles = makeStyles(theme => ({
   dialogList: {
     textAlign: "center",
     marginTop: "20px"
+  },
+  message: {
+    textAlign: "center",
+    margin: "auto auto 8px auto",
+    paddingTop: "8px"
   },
   bannerWrapper: {
     display: "flex",

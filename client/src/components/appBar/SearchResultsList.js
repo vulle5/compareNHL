@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import {
   List,
@@ -7,40 +7,35 @@ import {
   ListItemAvatar,
   Avatar,
   Divider,
-  CircularProgress,
   Typography,
-  Paper
+  Paper,
+  ListSubheader,
+  LinearProgress,
+  ListItemSecondaryAction,
+  Button
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import OutsideClickHandler from "react-outside-click-handler";
+import history from "../../history";
 
-import { useSearchPlayer } from "../../functions/useSearchPlayer";
-import { parseSearchResult } from "../../functions/parseSearchResult";
 import { searchResultsListStyles } from "../../styles/jss-styles";
 
 const SearchResultsList = ({
-  term,
   classes,
   listStatus,
   handleListStatus,
-  isInputFocused
+  isInputFocused,
+  nonDebouncedTerm,
+  searchResults,
+  noPlayers,
+  isLoading
 }) => {
-  const [noPlayers, setNoPlayers] = useState(false);
-  // Needs to be parsed for better usability
-  const arrayOfPlayers = useSearchPlayer(term);
+  const onCompareClick = (event, id) => {
+    event.preventDefault();
+    history.push({ pathname: `/compare/${id}` });
+  };
 
-  useEffect(() => {
-    if (typeof arrayOfPlayers === "string") {
-      setNoPlayers(true);
-    } else {
-      setNoPlayers(false);
-    }
-  }, [arrayOfPlayers]);
-
-  // Returns array of player statistics
-  const parsedPlayerIds = parseSearchResult(arrayOfPlayers);
-
-  const renderPlayerList = parsedPlayerIds.slice(0, 8).map(player => (
+  const renderPlayerList = searchResults.slice(0, 8).map(player => (
     <Link
       key={player[0]}
       to={`/player/${player[0]}`}
@@ -66,32 +61,64 @@ const SearchResultsList = ({
           primary={`${player[2]} ${player[1]}`}
           secondary={player[10]}
         />
+        <ListItemSecondaryAction>
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={event => onCompareClick(event, player[0])}
+          >
+            compare
+          </Button>
+        </ListItemSecondaryAction>
       </ListItem>
       <Divider />
     </Link>
   ));
 
-  return listStatus === true ? (
+  let content;
+  if (isLoading) content = false;
+  else content = true;
+
+  return (
     <OutsideClickHandler
-      onOutsideClick={() => (isInputFocused ? null : handleListStatus(false))}
+      onOutsideClick={() => !isInputFocused && handleListStatus(false)}
     >
-      <div className={classes.wrapper}>
+      <div
+        className={classes.wrapper}
+        style={{
+          display: !listStatus || nonDebouncedTerm.length < 3 ? "none" : "block"
+        }}
+      >
         <Paper elevation={2} className={classes.paper}>
-          <List>
-            {noPlayers ? (
-              <Typography className={classes.message} variant="subtitle1">
-                {arrayOfPlayers}
-              </Typography>
-            ) : parsedPlayerIds.length === 0 ? (
-              <CircularProgress className={classes.spinner} />
-            ) : (
+          <List
+            subheader={
+              <ListSubheader style={{ padding: "0px" }}>
+                <div style={{ position: "relative" }}>
+                  <LinearProgress
+                    color="secondary"
+                    style={{
+                      display: !content ? "block" : "none",
+                      position: "absolute",
+                      width: "100%"
+                    }}
+                  />
+                </div>
+              </ListSubheader>
+            }
+            className={classes.playerList}
+          >
+            {!noPlayers ? (
               renderPlayerList
+            ) : (
+              <Typography className={classes.message} variant="subtitle1">
+                No players were found
+              </Typography>
             )}
           </List>
         </Paper>
       </div>
     </OutsideClickHandler>
-  ) : null;
+  );
 };
 
 export default withStyles(searchResultsListStyles)(SearchResultsList);

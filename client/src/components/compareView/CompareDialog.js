@@ -3,36 +3,49 @@ import {
   Dialog,
   DialogTitle,
   List,
+  ListSubheader,
+  LinearProgress,
   Input,
-  Typography,
-  CircularProgress
+  Typography
 } from "@material-ui/core";
 import { useDebounce } from "use-debounce";
 import { useCompareStyles } from "../../styles/useStyles";
-import { useSearchPlayer } from "../../functions/useSearchPlayer";
-import { parseSearchResult } from "../../functions/parseSearchResult";
+import playerService from "../../services/player";
 import CompareDialogItem from "./CompareDialogItem";
 
 const CompareDialog = ({ onClose, open, onOutsideClick }) => {
   const [term, setTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [noPlayers, setNoPlayers] = useState(false);
 
   const [debouncedText] = useDebounce(term, 300);
   const classes = useCompareStyles();
-  const arrayOfPlayers = useSearchPlayer(debouncedText);
-  const parsedPlayerIds = parseSearchResult(arrayOfPlayers);
 
   useEffect(() => {
-    if (typeof arrayOfPlayers === "string") {
-      setNoPlayers(true);
-    } else {
-      setNoPlayers(false);
-    }
-  }, [arrayOfPlayers]);
+    (async () => {
+      if (debouncedText !== "") {
+        setIsLoading(true);
+        const arrayOfPlayers = await playerService.getSearch(debouncedText);
+        if (typeof arrayOfPlayers === "string") {
+          setNoPlayers(true);
+          setIsLoading(false);
+        } else {
+          setNoPlayers(false);
+          setIsLoading(false);
+          setSearchResults(arrayOfPlayers);
+        }
+      }
+    })();
+  }, [debouncedText]);
 
   function handleListItemClick(value) {
     onClose(value);
   }
+
+  let content;
+  if (isLoading) content = false;
+  else content = true;
 
   return (
     <Dialog open={open} onBackdropClick={onOutsideClick}>
@@ -50,13 +63,25 @@ const CompareDialog = ({ onClose, open, onOutsideClick }) => {
           onChange={event => setTerm(event.target.value)}
         />
       </div>
-      <List className={classes.dialogList}>
-        {noPlayers ? (
-          <Typography variant="subtitle1">{arrayOfPlayers}</Typography>
-        ) : parsedPlayerIds.length === 0 && term.length !== 0 ? (
-          <CircularProgress />
-        ) : (
-          parsedPlayerIds
+      <List
+        className={classes.dialogList}
+        subheader={
+          <ListSubheader style={{ padding: "0px" }}>
+            <div style={{ position: "relative" }}>
+              <LinearProgress
+                color="secondary"
+                style={{
+                  display: !content ? "block" : "none",
+                  position: "absolute",
+                  width: "100%"
+                }}
+              />
+            </div>
+          </ListSubheader>
+        }
+      >
+        {!noPlayers ? (
+          searchResults
             .slice(0, 8)
             .map(player => (
               <CompareDialogItem
@@ -65,6 +90,10 @@ const CompareDialog = ({ onClose, open, onOutsideClick }) => {
                 handleListItemClick={handleListItemClick}
               />
             ))
+        ) : (
+          <Typography className={classes.message} variant="subtitle1">
+            No players were found
+          </Typography>
         )}
       </List>
     </Dialog>

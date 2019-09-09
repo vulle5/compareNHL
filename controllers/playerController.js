@@ -12,6 +12,22 @@ function playerParser(data) {
   return data;
 }
 
+function searchParser(arrayOfPlayers) {
+  try {
+    // Matches the state the player is from
+    const getState = /\b[A-Z]{2}\b/;
+    const getInfo = /[^|"\\]+/g;
+
+    function replacer(player) {
+      return player.replace(getState, "").match(getInfo);
+    }
+
+    return arrayOfPlayers.map(player => replacer(player));
+  } catch (error) {
+    return [];
+  }
+}
+
 playerRoutes.get("/:id", async (req, res) => {
   try {
     const { data } = await axios.get(
@@ -45,9 +61,10 @@ playerRoutes.get("/search/:term", async (req, res) => {
       `https://suggest.svc.nhl.com/svc/suggest/v1/minplayers/${req.params.term}/99999`
     );
     if (data.suggestions.length === 0) {
-      res.status(400).json("No players were found");
+      res.status(200).json("No players were found");
     } else {
-      res.status(200).json(data);
+      const parsedData = searchParser(data.suggestions);
+      res.status(200).json(parsedData);
     }
   } catch (error) {
     res.status(400).json(error);
