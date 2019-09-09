@@ -4,7 +4,13 @@ import ScheduleDayList from "./ScheduleDayList";
 
 const Home = () => {
   return (
-    <div style={{ minHeight: " calc(100vh - 64px)", margin: "32px 16px" }}>
+    <div
+      style={{
+        minHeight: " calc(100vh - 64px)",
+        margin: "32px 16px",
+        paddingTop: "64px"
+      }}
+    >
       <ScheduleDayList title="Today" />
       <ScheduleDayList title="Tomorrow" />
     </div>
