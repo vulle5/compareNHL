@@ -79,6 +79,7 @@ const SearchPlayersBar = props => {
           </Toolbar>
           <SearchResultsList
             term={debouncedText}
+            nonDebouncedTerm={term}
             listStatus={listStatus}
             handleListStatus={handleListStatus}
             isInputFocused={inputIsFocused}

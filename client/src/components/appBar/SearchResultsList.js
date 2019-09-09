@@ -26,7 +26,8 @@ const SearchResultsList = ({
   classes,
   listStatus,
   handleListStatus,
-  isInputFocused
+  isInputFocused,
+  nonDebouncedTerm
 }) => {
   const [noPlayers, setNoPlayers] = useState(false);
   // Needs to be parsed for better usability
@@ -88,14 +89,14 @@ const SearchResultsList = ({
     </Link>
   ));
 
-  return listStatus === true ? (
+  return (
     <OutsideClickHandler
       onOutsideClick={() => !isInputFocused && handleListStatus(false)}
     >
       <div
         className={classes.wrapper}
         style={{
-          display: term.length < 3 ? "none" : "block"
+          display: !listStatus || nonDebouncedTerm.length < 3 ? "none" : "block"
         }}
       >
         <Paper elevation={2} className={classes.paper}>
@@ -113,7 +114,7 @@ const SearchResultsList = ({
         </Paper>
       </div>
     </OutsideClickHandler>
-  ) : null;
+  );
 };
 
 export default withStyles(searchResultsListStyles)(SearchResultsList);
