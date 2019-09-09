@@ -25,7 +25,11 @@ const generateTableBody = (bodyCells, tableCells, classes) => {
     <TableRow key={index}>
       {newArray.splice(0, 1).map(cell =>
         cell.splice(1).map((oneCell, index) => (
-          <TableCell align="center" style={{ overflow: "hidden" }} key={index}>
+          <TableCell
+            align="center"
+            style={{ overflow: "hidden", height: "60px" }}
+            key={index}
+          >
             {oneCell}
           </TableCell>
         ))
