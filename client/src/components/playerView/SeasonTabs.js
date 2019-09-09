@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { isEmpty } from "lodash";
 import { AppBar, Tab, Tabs, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import { ScrollTo } from "react-scroll-to";
 import { findLast } from "lodash";
 import SwipeableViews from "react-swipeable-views";
 
@@ -27,6 +26,7 @@ const SeasonTabs = props => {
   } = props;
 
   const [value, setValue] = useState(0);
+  const [prevPlayerId, setPrevPlayerId] = useState(player.id);
   const appBarRef = useRef();
   // TODO: Think about adding this to redux
   const swipeableRef = useRef();
@@ -35,6 +35,12 @@ const SeasonTabs = props => {
     swipeableRef.current.updateHeight();
   });
 
+  useEffect(() => {
+    if (player.id !== prevPlayerId) {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
+  }, [player, prevPlayerId]);
+
   // Do NOT remove the 'event' argument
   const handleChange = (event, value) => {
     setValue(value);
@@ -42,6 +48,17 @@ const SeasonTabs = props => {
 
   const handleChangeIndex = index => {
     setValue(index);
+  };
+
+  const handleTransitionChange = () => {
+    if (player.id === prevPlayerId) {
+      window.scrollTo({
+        top: appBarRef.current.offsetTop - 64,
+        left: 0,
+        behavior: "smooth"
+      });
+    }
+    setPrevPlayerId(player.id);
   };
 
   return (
@@ -59,51 +76,45 @@ const SeasonTabs = props => {
           <Tab label="Advanced" />
         </Tabs>
       </AppBar>
-      <ScrollTo>
-        {({ scrollTo }) => (
-          <SwipeableViews
-            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-            index={value}
-            onChangeIndex={handleChangeIndex}
-            onTransitionEnd={() =>
-              scrollTo({ y: appBarRef.current.offsetTop - 64, smooth: "true" })
-            }
-            animateHeight
-            ref={swipeableRef}
-          >
-            <TabContainer dir={theme.direction} width={width}>
-              <CareerTable
-                player={player}
-                swipeReferences={swipeableRef}
-                isGoalie={isGoalie === "G"}
-              />
-            </TabContainer>
-            <TabContainer dir={theme.direction} width={width}>
-              {isEmpty(lastNhlSeason) ? (
-                <Typography variant="subtitle1" style={{ padding: "8px" }}>
-                  No NHL Data
-                </Typography>
-              ) : (
-                <GameLogs
-                  player={player}
-                  lastSeason={lastNhlSeason}
-                  swipeReferences={swipeableRef}
-                  isGoalie={isGoalie === "G"}
-                />
-              )}
-            </TabContainer>
-            <TabContainer dir={theme.direction} width={width}>
-              <AdvancedStats
-                player={player}
-                nhlSeasons={nhlSeasons}
-                lastSeason={lastNhlSeason}
-                swipeReferences={swipeableRef}
-                isGoalie={isGoalie === "G"}
-              />
-            </TabContainer>
-          </SwipeableViews>
-        )}
-      </ScrollTo>
+      <SwipeableViews
+        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+        index={value}
+        onChangeIndex={handleChangeIndex}
+        onTransitionEnd={handleTransitionChange}
+        animateHeight
+        ref={swipeableRef}
+      >
+        <TabContainer dir={theme.direction} width={width}>
+          <CareerTable
+            player={player}
+            swipeReferences={swipeableRef}
+            isGoalie={isGoalie === "G"}
+          />
+        </TabContainer>
+        <TabContainer dir={theme.direction} width={width}>
+          {isEmpty(lastNhlSeason) ? (
+            <Typography variant="subtitle1" style={{ padding: "8px" }}>
+              No NHL Data
+            </Typography>
+          ) : (
+            <GameLogs
+              player={player}
+              lastSeason={lastNhlSeason}
+              swipeReferences={swipeableRef}
+              isGoalie={isGoalie === "G"}
+            />
+          )}
+        </TabContainer>
+        <TabContainer dir={theme.direction} width={width}>
+          <AdvancedStats
+            player={player}
+            nhlSeasons={nhlSeasons}
+            lastSeason={lastNhlSeason}
+            swipeReferences={swipeableRef}
+            isGoalie={isGoalie === "G"}
+          />
+        </TabContainer>
+      </SwipeableViews>
     </div>
   );
 };

@@ -8418,11 +8418,6 @@ react-scripts@3.0.1:
   optionalDependencies:
     fsevents "2.0.6"
 
-react-scroll-to@^2.0.5:
-  version "2.0.10"
-  resolved "https://registry.yarnpkg.com/react-scroll-to/-/react-scroll-to-2.0.10.tgz#79aaac2398ce15b562e7f22db5f034d163d58323"
-  integrity sha512-JYbkV7Jw/slLbJjYfOnoAP5xAGnhDOCnccN0W/7d5MsmC/j23eKn0WfNXfcj4VpKWB3mYzH88cc1nPzW7+TBaA==
-
 react-swipeable-views-core@^0.13.1:
   version "0.13.1"
   resolved "https://registry.yarnpkg.com/react-swipeable-views-core/-/react-swipeable-views-core-0.13.1.tgz#8829a922462a8bdd701709cd1b385393d38f1527"
