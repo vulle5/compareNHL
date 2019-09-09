@@ -15,6 +15,7 @@ import {
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import OutsideClickHandler from "react-outside-click-handler";
+import history from "../../history";
 
 import { useSearchPlayer } from "../../functions/useSearchPlayer";
 import { parseSearchResult } from "../../functions/parseSearchResult";
@@ -41,6 +42,11 @@ const SearchResultsList = ({
 
   // Returns array of player statistics
   const parsedPlayerIds = parseSearchResult(arrayOfPlayers);
+
+  const onCompareClick = (event, id) => {
+    event.preventDefault();
+    history.push({ pathname: `/compare/${id}` });
+  };
 
   const renderPlayerList = parsedPlayerIds.slice(0, 8).map(player => (
     <Link
@@ -69,7 +75,11 @@ const SearchResultsList = ({
           secondary={player[10]}
         />
         <ListItemSecondaryAction>
-          <Button variant="outlined" color="secondary">
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={event => onCompareClick(event, player[0])}
+          >
             compare
           </Button>
         </ListItemSecondaryAction>
@@ -81,7 +91,6 @@ const SearchResultsList = ({
   return listStatus === true ? (
     <OutsideClickHandler
       onOutsideClick={() => (isInputFocused ? null : handleListStatus(false))}
-      className="outside-click-handler"
     >
       <div className={classes.wrapper}>
         <Paper elevation={2} className={classes.paper}>
