@@ -66,7 +66,7 @@ const SeasonTabs = props => {
             index={value}
             onChangeIndex={handleChangeIndex}
             onTransitionEnd={() =>
-              scrollTo({ y: appBarRef.current.offsetTop, smooth: "true" })
+              scrollTo({ y: appBarRef.current.offsetTop - 64, smooth: "true" })
             }
             animateHeight
             ref={swipeableRef}
