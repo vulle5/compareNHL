@@ -1,5 +1,5 @@
 import playerServices from "../services/player";
-import { genPlayer } from "../functions/genPlayer";
+import {genPlayer} from "../functions/genPlayer";
 import history from "../history";
 import qs from "qs";
 
@@ -40,11 +40,10 @@ async function fetchPlayer(playerId) {
 }
 
 async function fetchMultiplePlayers(ids) {
-  const result = await playerServices.getMultiplePlayers(
-    ids,
-    "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
+  return await playerServices.getMultiplePlayers(
+      ids,
+      "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
   );
-  return result;
 }
 
 function findFromCache(playerId) {
@@ -59,6 +58,51 @@ function findFromCache(playerId) {
     return isPlayerInSession;
   }
   return undefined;
+}
+
+function addPlayerHistory(playerId) {
+  if (
+      !history.location.search.includes(playerId) &&
+      !history.location.pathname.includes(playerId)
+  ) {
+    if (history.location.search.includes("?add=")) {
+      const search =
+          history.location.search === "?add="
+              ? `${history.location.search}${playerId}`
+              : `${history.location.search},${playerId}`;
+      history.replace({
+        pathname: history.location.pathname,
+        search
+      });
+    } else {
+      history.replace({
+        pathname: history.location.pathname,
+        search: `?add=${history.location.search}${playerId}`
+      });
+    }
+  }
+}
+
+function removePlayerHistory(playerId) {
+  if (history.location.pathname.includes(playerId)) {
+    const newId = history.location.search.match(/=(,|)(\d{7})/);
+    history.replace({
+      pathname: `/compare/${newId[2]}`,
+      search: history.location.search
+          .replace(new RegExp(`(,|)${playerId}(,|)`, "g"), "")
+          .replace(new RegExp(`(,|)${newId[2]}(,|)`, "g"), "")
+    });
+  } else {
+    history.replace({
+      pathname: history.location.pathname,
+      search: history.location.search.match(`,${playerId},`)
+          ? history.location.search.replace(
+              new RegExp(`(,|)${playerId}(,|)`),
+              ","
+          )
+          : history.location.search.replace(new RegExp(`(,|)${playerId}(,|)`), "")
+    });
+  }
 }
 
 async function checkCacheAndStore(getStore, queryIds) {
@@ -172,31 +216,11 @@ export const initializeCompare = playerId => {
 export const addCompare = playerId => {
   return async dispatch => {
     try {
-      let playerToAdd = null;
-      playerToAdd = findFromCache(playerId);
+      let playerToAdd = findFromCache(playerId);
       if (!playerToAdd) {
         playerToAdd = await fetchPlayer(playerId);
       }
-      if (
-        !history.location.search.includes(playerId) &&
-        !history.location.pathname.includes(playerId)
-      ) {
-        if (history.location.search.includes("?add=")) {
-          const search =
-            history.location.search === "?add="
-              ? `${history.location.search}${playerId}`
-              : `${history.location.search},${playerId}`;
-          history.replace({
-            pathname: history.location.pathname,
-            search
-          });
-        } else {
-          history.replace({
-            pathname: history.location.pathname,
-            search: `?add=${history.location.search}${playerId}`
-          });
-        }
-      }
+      addPlayerHistory(playerId);
       dispatch({
         type: "ADD_COMPARE",
         data: genPlayer(playerToAdd)
@@ -212,25 +236,7 @@ export const addCompare = playerId => {
 };
 
 export const removeCompare = playerId => {
-  if (history.location.pathname.includes(playerId)) {
-    const newId = history.location.search.match(/=(,|)(\d{7})/);
-    history.replace({
-      pathname: `/compare/${newId[2]}`,
-      search: history.location.search
-        .replace(new RegExp(`(,|)${playerId}(,|)`, "g"), "")
-        .replace(new RegExp(`(,|)${newId[2]}(,|)`, "g"), "")
-    });
-  } else {
-    history.replace({
-      pathname: history.location.pathname,
-      search: history.location.search.match(`,${playerId},`)
-        ? history.location.search.replace(
-            new RegExp(`(,|)${playerId}(,|)`),
-            ","
-          )
-        : history.location.search.replace(new RegExp(`(,|)${playerId}(,|)`), "")
-    });
-  }
+  removePlayerHistory(playerId);
   return {
     type: "DELETE_COMPARE",
     data: playerId
