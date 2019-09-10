@@ -16,7 +16,7 @@ function makeIdsFromQuery(firstId, query) {
 
 function mapOrder(array, order, key) {
   array.sort(function(a, b) {
-    var A = a[key].toString(),
+    let A = a[key].toString(),
       B = b[key].toString();
 
     if (order.indexOf(A) > order.indexOf(B)) {
