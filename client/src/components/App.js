@@ -9,13 +9,13 @@ import LinearProgressBar from "./LinearProgressBar";
 import { setTheme } from "../reducers/themeReducer";
 import ProgressBarGlobal from "./ProgressBarGlobal";
 import SideDrawer from "./SideDrawer";
-import Home from "./homeView/Home";
 import history from "../history";
 
+const Home = lazy(() => import("./homeView/Home"));
 const PlayerInfo = lazy(() => import("./playerView/PlayerInfo"));
 const Compare = lazy(() => import("./compareView/Compare"));
 
-const App = ({ setTheme, toggleProgress, theme }) => {
+const App = ({ setTheme, theme }) => {
   useEffect(() => {
     const theme = localStorage.getItem("theme");
     if (theme) {
@@ -33,12 +33,12 @@ const App = ({ setTheme, toggleProgress, theme }) => {
           <SearchPlayersBar />
           <ProgressBarGlobal />
           <SideDrawer />
-          <Suspense fallback={<LinearProgressBar />} >
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/player/:playerId" component={PlayerInfo} />
-            <Route path="/compare/:playerId" component={Compare} />
-          </Switch>
+          <Suspense fallback={<LinearProgressBar />}>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/player/:playerId" component={PlayerInfo} />
+              <Route path="/compare/:playerId" component={Compare} />
+            </Switch>
           </Suspense>
         </div>
       </Router>
