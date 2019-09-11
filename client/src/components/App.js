@@ -1,19 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense, lazy } from "react";
 import { Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 
 import SearchPlayersBar from "./appBar/SearchPlayersBar";
-import ProgressBarGlobal from "./ProgressBarGlobal";
-import PlayerInfo from "./playerView/PlayerInfo";
-import Compare from "./compareView/Compare";
+import LinearProgressBar from "./LinearProgressBar";
 import { setTheme } from "../reducers/themeReducer";
+import ProgressBarGlobal from "./ProgressBarGlobal";
 import SideDrawer from "./SideDrawer";
 import Home from "./homeView/Home";
 import history from "../history";
 
-const App = ({ setTheme, theme }) => {
+const PlayerInfo = lazy(() => import("./playerView/PlayerInfo"));
+const Compare = lazy(() => import("./compareView/Compare"));
+
+const App = ({ setTheme, toggleProgress, theme }) => {
   useEffect(() => {
     const theme = localStorage.getItem("theme");
     if (theme) {
@@ -31,11 +33,13 @@ const App = ({ setTheme, theme }) => {
           <SearchPlayersBar />
           <ProgressBarGlobal />
           <SideDrawer />
+          <Suspense fallback={<LinearProgressBar />} >
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/player/:playerId" component={PlayerInfo} />
             <Route path="/compare/:playerId" component={Compare} />
           </Switch>
+          </Suspense>
         </div>
       </Router>
     </MuiThemeProvider>

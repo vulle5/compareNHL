@@ -1,9 +1,4 @@
 export const toggleProgress = trueOrFalse => {
-  if (!typeof trueOrFalse === "boolean") {
-    return {
-      type: "NO_TYPE"
-    };
-  }
   return {
     type: "SET_PROGRESS",
     data: trueOrFalse
