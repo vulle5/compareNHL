@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Menu, MenuItem, IconButton } from "@material-ui/core";
 import { FilterList } from "@material-ui/icons";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import { setFilter } from "../reducers/filterReducer";
 
@@ -13,6 +14,7 @@ const CareerFilter = ({
   setFilter
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const matches = useMediaQuery(theme => theme.breakpoints.up("md"));
 
   useEffect(() => {
     swipeReferences.current.updateHeight();
@@ -50,6 +52,7 @@ const CareerFilter = ({
         )}
         {filterNames.map(filter => (
           <MenuItem
+            dense={matches ? true : false}
             key={filter}
             onClick={() => {
               handleCloseAndFilter(filter, filterKey);
