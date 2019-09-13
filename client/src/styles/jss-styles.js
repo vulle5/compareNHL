@@ -160,11 +160,12 @@ export const playerInfoHeader = theme => ({
   mainStats: {
     paddingInlineStart: "0",
     listStyleType: "none",
-    display: "table"
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around"
   },
   mainStatsLi: {
-    float: "left",
-    padding: "0px 8px"
+    padding: "0px 4px"
   },
   playerName: {
     margin: "8px 0px 8px 16px"
