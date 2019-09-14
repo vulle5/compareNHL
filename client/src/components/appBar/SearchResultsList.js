@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   List,
   ListItem,
@@ -13,12 +13,12 @@ import {
   LinearProgress,
   ListItemSecondaryAction,
   Button
-} from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import OutsideClickHandler from "react-outside-click-handler";
-import history from "../../history";
+} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import OutsideClickHandler from 'react-outside-click-handler';
+import history from '../../history';
 
-import { searchResultsListStyles } from "../../styles/jss-styles";
+import { searchResultsListStyles } from '../../styles/jss-styles';
 
 const SearchResultsList = ({
   classes,
@@ -35,7 +35,8 @@ const SearchResultsList = ({
     history.push({ pathname: `/compare/${id}` });
   };
 
-  const renderPlayerList = searchResults.slice(0, 8).map(player => (
+  const firstEight = searchResults.slice(0, 8);
+  const renderPlayerList = firstEight.map((player, i) => (
     <Link
       key={player[0]}
       to={`/player/${player[0]}`}
@@ -53,7 +54,7 @@ const SearchResultsList = ({
             onError={e => {
               e.target.onerror = null;
               e.target.src =
-                "https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg";
+                'https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg';
             }}
           />
         </ListItemAvatar>
@@ -71,7 +72,7 @@ const SearchResultsList = ({
           </Button>
         </ListItemSecondaryAction>
       </ListItem>
-      <Divider />
+      {i !== firstEight.length - 1 && <Divider />}
     </Link>
   ));
 
@@ -86,20 +87,20 @@ const SearchResultsList = ({
       <div
         className={classes.wrapper}
         style={{
-          display: !listStatus || nonDebouncedTerm.length < 3 ? "none" : "block"
+          display: !listStatus || nonDebouncedTerm.length < 3 ? 'none' : 'block'
         }}
       >
         <Paper elevation={2} className={classes.paper}>
           <List
             subheader={
-              <ListSubheader style={{ padding: "0px" }}>
-                <div style={{ position: "relative" }}>
+              <ListSubheader style={{ padding: '0px' }}>
+                <div style={{ position: 'relative' }}>
                   <LinearProgress
                     color="secondary"
                     style={{
-                      display: !content ? "block" : "none",
-                      position: "absolute",
-                      width: "100%"
+                      display: !content ? 'block' : 'none',
+                      position: 'absolute',
+                      width: '100%'
                     }}
                   />
                 </div>
