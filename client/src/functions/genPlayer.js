@@ -1,9 +1,9 @@
-import Player from "../models/Player";
+import Player from '../models/Player';
 
 export const genPlayer = playerStats => {
   const player = new Player(
     playerStats.id,
-    playerStats.fullName || "",
+    playerStats.fullName || '',
     playerStats.link,
     playerStats.firstName,
     playerStats.lastName,

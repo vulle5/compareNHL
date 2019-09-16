@@ -1,15 +1,15 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { connect } from "react-redux";
-import { findLast, isEmpty, has } from "lodash";
-import { Typography, Switch, FormControlLabel } from "@material-ui/core";
+import React, { useState, useEffect, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { findLast, isEmpty, has } from 'lodash';
+import { Typography, Switch, FormControlLabel } from '@material-ui/core';
 
 import {
   setPlayoffSeasons,
   setRegularSeasons
-} from "../../reducers/gameLogsReducer";
-import StatTable from "./StatTable";
-import CareerFilter from "../CareerFilter";
-import DisplayFilter from "../DisplayFilter";
+} from '../../reducers/gameLogsReducer';
+import StatTable from './StatTable';
+import CareerFilter from '../CareerFilter';
+import DisplayFilter from '../DisplayFilter';
 
 const GameLogs = ({
   playerId,
@@ -53,7 +53,7 @@ const GameLogs = ({
 
   return (
     <div>
-      <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
+      <Typography style={{ paddingTop: '20px' }} variant="h6" id="tableTitle">
         Game Logs
       </Typography>
       <Fragment>
@@ -74,16 +74,16 @@ const GameLogs = ({
         />
       </Fragment>
       <DisplayFilter
-        style={{ paddingTop: "16px" }}
+        style={{ paddingTop: '16px' }}
         selectedFilter={
-          selectedFilter.slice(0, 4) + "-" + selectedFilter.slice(4)
+          selectedFilter.slice(0, 4) + '-' + selectedFilter.slice(4)
         }
       />
       <StatTable
         headCells={
           isGoalie
-            ? ["Date", "Team", "SA", "S", "S%", "TOI"]
-            : ["Date", "Team", "P", "G", "A", "TOI"]
+            ? ['Date', 'Team', 'SA', 'S', 'S%', 'TOI']
+            : ['Date', 'Team', 'P', 'G', 'A', 'TOI']
         }
         bodyCells={playoffSelected ? playoffGames : regularGames}
         tableCells={playoffSelected ? playoffGames : regularGames}
@@ -106,13 +106,13 @@ const createData = (
 };
 
 const filterLogs = (isGoalie, games) => {
-  if (!isEmpty(games) && isGoalie === "G" && has(games[0], "stat.saves")) {
+  if (!isEmpty(games) && isGoalie === 'G' && has(games[0], 'stat.saves')) {
     return games.map(season =>
       createData(
         season.date,
         season.isHome
           ? season.opponent.abbreviation
-          : season.opponent.abbreviation.replace(/^/, "@"),
+          : season.opponent.abbreviation.replace(/^/, '@'),
         season.stat.shotsAgainst,
         season.stat.saves,
         season.stat.savePercentage.toFixed(3),
@@ -125,7 +125,7 @@ const filterLogs = (isGoalie, games) => {
         season.date,
         season.isHome
           ? season.opponent.abbreviation
-          : season.opponent.abbreviation.replace(/^/, "@"),
+          : season.opponent.abbreviation.replace(/^/, '@'),
         season.stat.points,
         season.stat.goals,
         season.stat.assists,
@@ -138,13 +138,13 @@ const filterLogs = (isGoalie, games) => {
 const createFilters = allSeasons => [
   ...new Set(
     allSeasons
-      .filter(season => season.league.name === "NHL")
-      .map(season => season.season.slice(0, 4) + "-" + season.season.slice(4))
+      .filter(season => season.league.name === 'NHL')
+      .map(season => season.season.slice(0, 4) + '-' + season.season.slice(4))
   )
 ];
 
 const getLastSeason = allSeasons =>
-  findLast(allSeasons, season => season.league.name === "NHL").season;
+  findLast(allSeasons, season => season.league.name === 'NHL').season;
 
 const mapStateToProps = state => {
   const {
@@ -163,7 +163,7 @@ const mapStateToProps = state => {
     regularGames: filterLogs(isGoalie, state.gameLogs.regular) || [],
     playerSeasons: createFilters(splits),
     selectedFilter: state.filter.gameLogs
-      ? state.filter.gameLogs.replace("-", "")
+      ? state.filter.gameLogs.replace('-', '')
       : getLastSeason(splits)
   };
 };

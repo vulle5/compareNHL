@@ -1,6 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
+import React from 'react';
+import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   Drawer,
   List,
@@ -9,17 +9,17 @@ import {
   ListItemText,
   Switch,
   ListSubheader
-} from "@material-ui/core/";
-import InvertColors from "@material-ui/icons/InvertColors";
-import { toggleDrawer } from "../reducers/drawerReducer";
-import { setTheme } from "../reducers/themeReducer";
+} from '@material-ui/core/';
+import InvertColors from '@material-ui/icons/InvertColors';
+import { toggleDrawer } from '../reducers/drawerReducer';
+import { setTheme } from '../reducers/themeReducer';
 
 const useStyles = makeStyles({
   list: {
     width: 250
   },
   fullList: {
-    width: "auto"
+    width: 'auto'
   }
 });
 
@@ -35,11 +35,11 @@ const SideDrawer = ({ drawer, toggleDrawer, theme, setTheme }) => {
               <ListItemIcon>
                 <InvertColors />
               </ListItemIcon>
-              <ListItemText primary={"Dark mode"} />
+              <ListItemText primary={'Dark mode'} />
               <Switch
-                checked={theme === "dark"}
+                checked={theme === 'dark'}
                 onChange={() =>
-                  theme === "dark" ? setTheme("light") : setTheme("dark")
+                  theme === 'dark' ? setTheme('light') : setTheme('dark')
                 }
               />
             </ListItem>

@@ -1,8 +1,8 @@
-import React, { Fragment } from "react";
-import { startCase } from "lodash";
-import { Typography } from "@material-ui/core";
+import React, { Fragment } from 'react';
+import { startCase } from 'lodash';
+import { Typography } from '@material-ui/core';
 
-import { useCompareStyles } from "../../styles/useStyles";
+import { useCompareStyles } from '../../styles/useStyles';
 
 const CompareTileItem = ({ listItems }) => {
   const classes = useCompareStyles();

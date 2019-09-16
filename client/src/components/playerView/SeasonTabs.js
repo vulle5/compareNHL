@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
-import { connect } from "react-redux";
-import { isEmpty } from "lodash";
-import { AppBar, Tab, Tabs, Typography } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import { findLast } from "lodash";
-import SwipeableViews from "react-swipeable-views";
+import React, { useState, useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
+import { isEmpty } from 'lodash';
+import { AppBar, Tab, Tabs, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import { findLast } from 'lodash';
+import SwipeableViews from 'react-swipeable-views';
 
-import { seasonTabsStyles } from "../../styles/jss-styles";
-import CareerTable from "./CareerTable";
-import GameLogs from "./GameLogs";
-import AdvancedStats from "./AdvancedStats";
-import TabContainer from "./TabContainer";
+import { seasonTabsStyles } from '../../styles/jss-styles';
+import CareerTable from './CareerTable';
+import GameLogs from './GameLogs';
+import AdvancedStats from './AdvancedStats';
+import TabContainer from './TabContainer';
 
 const SeasonTabs = props => {
   const {
@@ -37,7 +37,7 @@ const SeasonTabs = props => {
 
   useEffect(() => {
     if (player.id !== prevPlayerId) {
-      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }
   }, [player, prevPlayerId]);
 
@@ -55,7 +55,7 @@ const SeasonTabs = props => {
       window.scrollTo({
         top: appBarRef.current.offsetTop - 64,
         left: 0,
-        behavior: "smooth"
+        behavior: 'smooth'
       });
     }
     setPrevPlayerId(player.id);
@@ -77,7 +77,7 @@ const SeasonTabs = props => {
         </Tabs>
       </AppBar>
       <SwipeableViews
-        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
         onChangeIndex={handleChangeIndex}
         onTransitionEnd={handleTransitionChange}
@@ -88,12 +88,12 @@ const SeasonTabs = props => {
           <CareerTable
             player={player}
             swipeReferences={swipeableRef}
-            isGoalie={isGoalie === "G"}
+            isGoalie={isGoalie === 'G'}
           />
         </TabContainer>
         <TabContainer dir={theme.direction} width={width}>
           {isEmpty(lastNhlSeason) ? (
-            <Typography variant="subtitle1" style={{ padding: "8px" }}>
+            <Typography variant="subtitle1" style={{ padding: '8px' }}>
               No NHL Data
             </Typography>
           ) : (
@@ -101,7 +101,7 @@ const SeasonTabs = props => {
               player={player}
               lastSeason={lastNhlSeason}
               swipeReferences={swipeableRef}
-              isGoalie={isGoalie === "G"}
+              isGoalie={isGoalie === 'G'}
             />
           )}
         </TabContainer>
@@ -111,7 +111,7 @@ const SeasonTabs = props => {
             nhlSeasons={nhlSeasons}
             lastSeason={lastNhlSeason}
             swipeReferences={swipeableRef}
-            isGoalie={isGoalie === "G"}
+            isGoalie={isGoalie === 'G'}
           />
         </TabContainer>
       </SwipeableViews>
@@ -120,7 +120,7 @@ const SeasonTabs = props => {
 };
 
 const findNHLSeasons = splits =>
-  splits.filter(season => season.league.name === "NHL");
+  splits.filter(season => season.league.name === 'NHL');
 
 const mapStateToProps = state => {
   const {

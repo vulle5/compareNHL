@@ -1,25 +1,25 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { connect } from "react-redux";
-import { useDebounce } from "use-debounce";
+import React, { useState, useEffect, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { useDebounce } from 'use-debounce';
 import {
   AppBar,
   Toolbar,
   IconButton,
   Typography,
   InputBase
-} from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
+} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
 
-import { searchPlayerBarStyles } from "../../styles/jss-styles";
-import playerService from "../../services/player";
-import SearchResultsList from "./SearchResultsList";
-import { toggleDrawer } from "../../reducers/drawerReducer";
+import { searchPlayerBarStyles } from '../../styles/jss-styles';
+import playerService from '../../services/player';
+import SearchResultsList from './SearchResultsList';
+import { toggleDrawer } from '../../reducers/drawerReducer';
 
 const SearchPlayersBar = props => {
   const { classes, theme, toggleDrawer } = props;
-  const [term, setTerm] = useState("");
+  const [term, setTerm] = useState('');
   const [listStatus, setListStatus] = useState(true);
   const [inputIsFocused, setInputIsFocused] = useState(false);
   // This delays sending of the search term to API request
@@ -33,10 +33,10 @@ const SearchPlayersBar = props => {
 
   useEffect(() => {
     (async () => {
-      if (debouncedText !== "") {
+      if (debouncedText !== '') {
         setIsLoading(true);
         const arrayOfPlayers = await playerService.getSearch(debouncedText);
-        if (typeof arrayOfPlayers === "string") {
+        if (typeof arrayOfPlayers === 'string') {
           setNoPlayers(true);
           setIsLoading(false);
         } else {
@@ -53,7 +53,7 @@ const SearchPlayersBar = props => {
       <div className={classes.root}>
         <AppBar
           position="fixed"
-          color={theme === "dark" ? "default" : "primary"}
+          color={theme === 'dark' ? 'default' : 'primary'}
         >
           <Toolbar>
             <IconButton
@@ -84,7 +84,7 @@ const SearchPlayersBar = props => {
                 placeholder="Search Players"
                 value={term}
                 inputProps={{
-                  "aria-label": "Search players"
+                  'aria-label': 'Search players'
                 }}
                 onFocus={() => {
                   handleListStatus(true);

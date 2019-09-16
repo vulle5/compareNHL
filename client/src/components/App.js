@@ -1,24 +1,24 @@
-import React, { useEffect } from "react";
-import { Router, Switch, Route } from "react-router-dom";
-import { connect } from "react-redux";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import React, { useEffect } from 'react';
+import { Router, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
-import SearchPlayersBar from "./appBar/SearchPlayersBar";
-import ProgressBarGlobal from "./ProgressBarGlobal";
-import PlayerInfo from "./playerView/PlayerInfo";
-import Compare from "./compareView/Compare";
-import { setTheme } from "../reducers/themeReducer";
-import SideDrawer from "./SideDrawer";
-import history from "../history";
+import SearchPlayersBar from './appBar/SearchPlayersBar';
+import ProgressBarGlobal from './ProgressBarGlobal';
+import PlayerInfo from './playerView/PlayerInfo';
+import Compare from './compareView/Compare';
+import { setTheme } from '../reducers/themeReducer';
+import SideDrawer from './SideDrawer';
+import history from '../history';
 
 const App = ({ setTheme, theme }) => {
   useEffect(() => {
-    const theme = localStorage.getItem("theme");
+    const theme = localStorage.getItem('theme');
     if (theme) {
       setTheme(theme);
     } else {
-      setTheme("light");
+      setTheme('light');
     }
   }, [setTheme]);
 
@@ -26,7 +26,7 @@ const App = ({ setTheme, theme }) => {
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <Router history={history}>
-        <div style={{ width: "100%" }}>
+        <div style={{ width: '100%' }}>
           <SearchPlayersBar />
           <ProgressBarGlobal />
           <SideDrawer />
@@ -35,7 +35,7 @@ const App = ({ setTheme, theme }) => {
               exact
               path="/"
               render={() => (
-                <div style={{ minHeight: " calc(100vh - 64px)" }} />
+                <div style={{ minHeight: ' calc(100vh - 64px)' }} />
               )}
             />
             <Route path="/player/:playerId" component={PlayerInfo} />

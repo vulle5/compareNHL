@@ -1,12 +1,12 @@
-import React from "react";
-import { connect } from "react-redux";
-import { withStyles } from "@material-ui/core/styles";
-import { Paper, Typography, CircularProgress } from "@material-ui/core";
-import { isEmpty } from "lodash";
+import React from 'react';
+import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+import { Paper, Typography, CircularProgress } from '@material-ui/core';
+import { isEmpty } from 'lodash';
 
-import { playerInfoHeader } from "../../styles/jss-styles";
-import getCountryISO2 from "../../functions/iso3toIso2";
-import ErrorMessage from "../ErrorMessage";
+import { playerInfoHeader } from '../../styles/jss-styles';
+import getCountryISO2 from '../../functions/iso3toIso2';
+import ErrorMessage from '../ErrorMessage';
 
 const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
   if (isEmpty(player)) {
@@ -44,14 +44,14 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
         </Typography>
       </div>
       <div className={classes.flagWrapper}>
-        {player.currentTeam.id !== "N/A" && (
+        {player.currentTeam.id !== 'N/A' && (
           <img
             height="35"
             src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-dark/${player.currentTeam.id}.svg`}
             alt="team"
           />
         )}
-        <Typography style={{ alignSelf: "center" }} component="p">
+        <Typography style={{ alignSelf: 'center' }} component="p">
           {player.currentTeam.name}
         </Typography>
       </div>

@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 import {
   Table,
   TableHead,
   TableBody,
   TableRow,
   TableCell
-} from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import { seasonTableStyles } from "../../styles/jss-styles";
+} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import { seasonTableStyles } from '../../styles/jss-styles';
 
 const generateTableHead = (headCells, classes) => {
   return headCells.map((cell, index) => (
@@ -27,7 +27,7 @@ const generateTableBody = (bodyCells, tableCells, classes) => {
         cell.splice(1).map((oneCell, index) => (
           <TableCell
             align="center"
-            style={{ overflow: "hidden", height: "60px" }}
+            style={{ overflow: 'hidden', height: '60px' }}
             key={index}
           >
             {oneCell}

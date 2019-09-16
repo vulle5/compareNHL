@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -7,14 +7,14 @@ import {
   LinearProgress,
   Input,
   Typography
-} from "@material-ui/core";
-import { useDebounce } from "use-debounce";
-import { useCompareStyles } from "../../styles/useStyles";
-import playerService from "../../services/player";
-import CompareDialogItem from "./CompareDialogItem";
+} from '@material-ui/core';
+import { useDebounce } from 'use-debounce';
+import { useCompareStyles } from '../../styles/useStyles';
+import playerService from '../../services/player';
+import CompareDialogItem from './CompareDialogItem';
 
 const CompareDialog = ({ onClose, open, onOutsideClick }) => {
-  const [term, setTerm] = useState("");
+  const [term, setTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [noPlayers, setNoPlayers] = useState(false);
@@ -24,10 +24,10 @@ const CompareDialog = ({ onClose, open, onOutsideClick }) => {
 
   useEffect(() => {
     (async () => {
-      if (debouncedText !== "") {
+      if (debouncedText !== '') {
         setIsLoading(true);
         const arrayOfPlayers = await playerService.getSearch(debouncedText);
-        if (typeof arrayOfPlayers === "string") {
+        if (typeof arrayOfPlayers === 'string') {
           setNoPlayers(true);
           setIsLoading(false);
         } else {
@@ -50,10 +50,10 @@ const CompareDialog = ({ onClose, open, onOutsideClick }) => {
   return (
     <Dialog open={open} onBackdropClick={onOutsideClick}>
       <DialogTitle id="compare-dialog-title">Add player to compare</DialogTitle>
-      <div style={{ padding: "16px" }}>
+      <div style={{ padding: '16px' }}>
         <Input
           inputProps={{
-            "aria-label": "Search players"
+            'aria-label': 'Search players'
           }}
           autoFocus
           value={term}
@@ -66,14 +66,14 @@ const CompareDialog = ({ onClose, open, onOutsideClick }) => {
       <List
         className={classes.dialogList}
         subheader={
-          <ListSubheader style={{ padding: "0px" }}>
-            <div style={{ position: "relative" }}>
+          <ListSubheader style={{ padding: '0px' }}>
+            <div style={{ position: 'relative' }}>
               <LinearProgress
                 color="secondary"
                 style={{
-                  display: !content ? "block" : "none",
-                  position: "absolute",
-                  width: "100%"
+                  display: !content ? 'block' : 'none',
+                  position: 'absolute',
+                  width: '100%'
                 }}
               />
             </div>

@@ -1,5 +1,5 @@
-import React from "react";
-import { startCase } from "lodash";
+import React from 'react';
+import { startCase } from 'lodash';
 
 const AdvancedList = props => {
   const renderContent = () => {
@@ -13,7 +13,7 @@ const AdvancedList = props => {
   };
 
   return (
-    <ul style={{ listStyleType: "none", paddingInlineStart: "0px" }}>
+    <ul style={{ listStyleType: 'none', paddingInlineStart: '0px' }}>
       {renderContent()}
     </ul>
   );

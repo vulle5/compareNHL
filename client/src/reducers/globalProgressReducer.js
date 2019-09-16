@@ -1,21 +1,21 @@
 export const toggleProgress = trueOrFalse => {
-  if (!typeof trueOrFalse === "boolean") {
+  if (!typeof trueOrFalse === 'boolean') {
     return {
-      type: "NO_TYPE"
+      type: 'NO_TYPE'
     };
   }
   return {
-    type: "SET_PROGRESS",
+    type: 'SET_PROGRESS',
     data: trueOrFalse
   };
 };
 
 const globalProgressReducer = (state = false, action) => {
   switch (action.type) {
-    case "SET_PROGRESS":
-      return action.data;
-    default:
-      return state;
+  case 'SET_PROGRESS':
+    return action.data;
+  default:
+    return state;
   }
 };
 

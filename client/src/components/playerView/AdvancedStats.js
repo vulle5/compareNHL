@@ -1,11 +1,11 @@
-import React from "react";
-import { connect } from "react-redux";
-import { find, findLast, get } from "lodash";
-import { Typography } from "@material-ui/core";
+import React from 'react';
+import { connect } from 'react-redux';
+import { find, findLast, get } from 'lodash';
+import { Typography } from '@material-ui/core';
 
-import CareerFilter from "../CareerFilter";
-import AdvancedList from "./AdvancedList";
-import DisplayFilter from "../DisplayFilter";
+import CareerFilter from '../CareerFilter';
+import AdvancedList from './AdvancedList';
+import DisplayFilter from '../DisplayFilter';
 
 const AdvancedStats = ({
   swipeReferences,
@@ -19,7 +19,7 @@ const AdvancedStats = ({
 
   return (
     <div>
-      <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
+      <Typography style={{ paddingTop: '20px' }} variant="h6" id="tableTitle">
         Advanced Stats
       </Typography>
       <CareerFilter
@@ -29,7 +29,7 @@ const AdvancedStats = ({
       />
       <DisplayFilter
         selectedFilter={
-          selectedFilter.slice(0, 4) + "-" + selectedFilter.slice(4)
+          selectedFilter.slice(0, 4) + '-' + selectedFilter.slice(4)
         }
       />
       <AdvancedList seasons={filteredSeason} />
@@ -40,21 +40,21 @@ const AdvancedStats = ({
 const createFilters = allSeasons => [
   ...new Set(
     allSeasons
-      .filter(season => season.league.name === "NHL")
-      .map(season => season.season.slice(0, 4) + "-" + season.season.slice(4))
+      .filter(season => season.league.name === 'NHL')
+      .map(season => season.season.slice(0, 4) + '-' + season.season.slice(4))
   )
 ];
 
 const getSelectedSeason = (allSeasons, selectedFilter) =>
-  find(allSeasons.filter(season => season.league.name === "NHL"), {
+  find(allSeasons.filter(season => season.league.name === 'NHL'), {
     season: selectedFilter
   });
 
 const getLastSeason = allSeasons =>
   get(
-    findLast(allSeasons, season => season.league.name === "NHL"),
-    "season",
-    ""
+    findLast(allSeasons, season => season.league.name === 'NHL'),
+    'season',
+    ''
   );
 
 const mapStateToProps = state => {
@@ -66,7 +66,7 @@ const mapStateToProps = state => {
     }
   } = state;
   const selectedFilter = state.filter.advancedStats
-    ? state.filter.advancedStats.replace("-", "")
+    ? state.filter.advancedStats.replace('-', '')
     : getLastSeason(splits);
 
   return {

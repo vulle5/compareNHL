@@ -1,16 +1,16 @@
-import playerServices from "../services/player";
-import {genPlayer} from "../functions/genPlayer";
-import history from "../history";
-import qs from "qs";
+import playerServices from '../services/player';
+import {genPlayer} from '../functions/genPlayer';
+import history from '../history';
+import qs from 'qs';
 
 function makeIdsFromQuery(firstId, query) {
   if (!query) {
     return [firstId];
   }
-  if (typeof query === "string") {
+  if (typeof query === 'string') {
     return [firstId, query];
   }
-  const noEmptyStrings = query.filter(id => id !== "");
+  const noEmptyStrings = query.filter(id => id !== '');
   return [firstId, ...noEmptyStrings];
 }
 
@@ -34,21 +34,21 @@ async function fetchPlayer(playerId) {
     people: { 0: playerResponse }
   } = await playerServices.getPlayer(
     playerId,
-    "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
+    '?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team'
   );
   return playerResponse;
 }
 
 async function fetchMultiplePlayers(ids) {
   return await playerServices.getMultiplePlayers(
-      ids,
-      "?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team"
+    ids,
+    '?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team'
   );
 }
 
 function findFromCache(playerId) {
   // Get players from session storage
-  const storage = sessionStorage.getItem("compare");
+  const storage = sessionStorage.getItem('compare');
   const playersInSession = JSON.parse(storage);
   // Find if player is in storage
   const isPlayerInSession = playersInSession.find(
@@ -62,14 +62,14 @@ function findFromCache(playerId) {
 
 function addPlayerHistory(playerId) {
   if (
-      !history.location.search.includes(playerId) &&
+    !history.location.search.includes(playerId) &&
       !history.location.pathname.includes(playerId)
   ) {
-    if (history.location.search.includes("?add=")) {
+    if (history.location.search.includes('?add=')) {
       const search =
-          history.location.search === "?add="
-              ? `${history.location.search}${playerId}`
-              : `${history.location.search},${playerId}`;
+          history.location.search === '?add='
+            ? `${history.location.search}${playerId}`
+            : `${history.location.search},${playerId}`;
       history.replace({
         pathname: history.location.pathname,
         search
@@ -89,24 +89,24 @@ function removePlayerHistory(playerId) {
     history.replace({
       pathname: `/compare/${newId[2]}`,
       search: history.location.search
-          .replace(new RegExp(`(,|)${playerId}(,|)`, "g"), "")
-          .replace(new RegExp(`(,|)${newId[2]}(,|)`, "g"), "")
+        .replace(new RegExp(`(,|)${playerId}(,|)`, 'g'), '')
+        .replace(new RegExp(`(,|)${newId[2]}(,|)`, 'g'), '')
     });
   } else {
     history.replace({
       pathname: history.location.pathname,
       search: history.location.search.match(`,${playerId},`)
-          ? history.location.search.replace(
-              new RegExp(`(,|)${playerId}(,|)`),
-              ","
-          )
-          : history.location.search.replace(new RegExp(`(,|)${playerId}(,|)`), "")
+        ? history.location.search.replace(
+          new RegExp(`(,|)${playerId}(,|)`),
+          ','
+        )
+        : history.location.search.replace(new RegExp(`(,|)${playerId}(,|)`), '')
     });
   }
 }
 
 async function checkCacheAndStore(getStore, queryIds) {
-  const storage = sessionStorage.getItem("compare");
+  const storage = sessionStorage.getItem('compare');
   const { compare: store } = getStore();
   // Store has no length and Session is empty
   if (!store.length && !storage) {
@@ -114,7 +114,7 @@ async function checkCacheAndStore(getStore, queryIds) {
     const result = await fetchMultiplePlayers(queryIds);
     const playerObjects = result.map(player => genPlayer(player.people[0]));
     // Add those players to sessionStorage
-    sessionStorage.setItem("compare", JSON.stringify(playerObjects));
+    sessionStorage.setItem('compare', JSON.stringify(playerObjects));
     // Return them to add them all to redux store
     return playerObjects;
   }
@@ -130,13 +130,13 @@ async function checkCacheAndStore(getStore, queryIds) {
     const playerObjects = result.map(player => genPlayer(player.people[0]));
     // Add players to session from fetch
     const playersToStorage = playersInSession.concat(playerObjects);
-    sessionStorage.setItem("compare", JSON.stringify(playersToStorage));
+    sessionStorage.setItem('compare', JSON.stringify(playersToStorage));
     // Remove players that are not in url and return to add them to redux store
     const finalPlayers = playersToStorage.filter(player =>
       queryIds.includes(player.id.toString())
     );
     // Sort players (mutates finalPlayers) based on url and return it
-    mapOrder(finalPlayers, queryIds, "id");
+    mapOrder(finalPlayers, queryIds, 'id');
     return finalPlayers;
   }
   /* 
@@ -146,7 +146,7 @@ async function checkCacheAndStore(getStore, queryIds) {
   if (store.length && !storage) {
     const result = await fetchMultiplePlayers(queryIds);
     const finalPlayers = result.map(player => genPlayer(player.people[0]));
-    sessionStorage.setItem("compare", JSON.stringify(finalPlayers));
+    sessionStorage.setItem('compare', JSON.stringify(finalPlayers));
     return finalPlayers;
   }
   // Stores has length and session is not empty
@@ -163,7 +163,7 @@ async function checkCacheAndStore(getStore, queryIds) {
     );
     // Add missing players to sessionStorage
     const playersToStorage = playersInSession.concat(addToSession);
-    sessionStorage.setItem("compare", JSON.stringify(playersToStorage));
+    sessionStorage.setItem('compare', JSON.stringify(playersToStorage));
     // Let check if there are still players missing
     const finalPlayers = playersToStorage.filter(player =>
       queryIds.includes(player.id.toString())
@@ -173,14 +173,14 @@ async function checkCacheAndStore(getStore, queryIds) {
       const result = await fetchMultiplePlayers(queryIds);
       const missingPlayers = result.map(player => genPlayer(player.people[0]));
       sessionStorage.setItem(
-        "compare",
+        'compare',
         JSON.stringify(playersToStorage.concat(missingPlayers))
       );
-      mapOrder(missingPlayers, queryIds, "id");
+      mapOrder(missingPlayers, queryIds, 'id');
       return missingPlayers;
     }
     // Sort players (mutates finalPlayers) based on url and return it
-    mapOrder(finalPlayers, queryIds, "id");
+    mapOrder(finalPlayers, queryIds, 'id');
     return finalPlayers;
   }
 }
@@ -188,7 +188,7 @@ async function checkCacheAndStore(getStore, queryIds) {
 export const initializeCompare = playerId => {
   return async (dispatch, getStore) => {
     try {
-      dispatch({ type: "LOADING" });
+      dispatch({ type: 'LOADING' });
       const {
         location: { search }
       } = history;
@@ -200,13 +200,13 @@ export const initializeCompare = playerId => {
       const playerObjects = await checkCacheAndStore(getStore, ids);
       if (playerObjects) {
         dispatch({
-          type: "SET_COMPARE",
+          type: 'SET_COMPARE',
           data: playerObjects
         });
       }
     } catch (error) {
       dispatch({
-        type: "ERROR",
+        type: 'ERROR',
         data: error.message
       });
     }
@@ -222,14 +222,14 @@ export const addCompare = playerId => {
       }
       addPlayerHistory(playerId);
       dispatch({
-        type: "ADD_COMPARE",
+        type: 'ADD_COMPARE',
         data: genPlayer(playerToAdd)
       });
     } catch (error) {
       // TODO: Handle adding errors
       dispatch({
-        type: "NO_TYPE",
-        data: ""
+        type: 'NO_TYPE',
+        data: ''
       });
     }
   };
@@ -238,25 +238,25 @@ export const addCompare = playerId => {
 export const removeCompare = playerId => {
   removePlayerHistory(playerId);
   return {
-    type: "DELETE_COMPARE",
+    type: 'DELETE_COMPARE',
     data: playerId
   };
 };
 
 const compareReducer = (state = [], action) => {
   switch (action.type) {
-    case "SET_COMPARE":
-      return [...action.data];
-    case "ADD_COMPARE":
-      return state.some(player => player.id === action.data.id)
-        ? state
-        : [...state, { ...action.data }];
-    case "DELETE_COMPARE":
-      return state.filter(player => player.id !== action.data);
-    case "ERROR":
-      return { ...state, errorMessage: action.data };
-    default:
-      return state;
+  case 'SET_COMPARE':
+    return [...action.data];
+  case 'ADD_COMPARE':
+    return state.some(player => player.id === action.data.id)
+      ? state
+      : [...state, { ...action.data }];
+  case 'DELETE_COMPARE':
+    return state.filter(player => player.id !== action.data);
+  case 'ERROR':
+    return { ...state, errorMessage: action.data };
+  default:
+    return state;
   }
 };
 

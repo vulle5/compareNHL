@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { isEmpty, get } from "lodash";
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { isEmpty, get } from 'lodash';
 
-import { useCompareStyles } from "../../styles/useStyles";
-import { initializeCompare, addCompare } from "../../reducers/compareReducer";
-import { toggleProgress } from "../../reducers/globalProgressReducer";
-import CompareTile from "./CompareTile";
-import FAB from "../FAB";
-import CompareDialog from "./CompareDialog";
-import ErrorMessage from "../ErrorMessage";
+import { useCompareStyles } from '../../styles/useStyles';
+import { initializeCompare, addCompare } from '../../reducers/compareReducer';
+import { toggleProgress } from '../../reducers/globalProgressReducer';
+import CompareTile from './CompareTile';
+import FAB from '../FAB';
+import CompareDialog from './CompareDialog';
+import ErrorMessage from '../ErrorMessage';
 
 const Compare = ({
   match: {
