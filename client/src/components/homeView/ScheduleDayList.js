@@ -1,13 +1,13 @@
-import React from "react";
-import { Typography } from "@material-ui/core";
+import React from 'react';
+import { Typography } from '@material-ui/core';
 
-import ScheduleDayItem from "./ScheduleDayItem";
+import ScheduleDayItem from './ScheduleDayItem';
 
 const ScheduleDayList = ({ title }) => {
   return (
-    <div style={{ marginTop: "24px" }}>
+    <div style={{ marginTop: '24px' }}>
       <Typography variant="h4">{title}</Typography>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <ScheduleDayItem home="CAR" away="FLA" scoreOrTime="0-0" />
         <ScheduleDayItem home="CHI" away="CAP" scoreOrTime="20:00" />
       </div>

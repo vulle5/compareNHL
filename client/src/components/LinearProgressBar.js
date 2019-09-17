@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import { LinearProgress } from "@material-ui/core";
+import { LinearProgress } from '@material-ui/core';
 
 const LinearProgressBar = () => {
   return (
-    <div style={{ position: "absolute", width: "100%", paddingTop: "64px" }}>
+    <div style={{ position: 'absolute', width: '100%', paddingTop: '64px' }}>
       <LinearProgress
         color="secondary"
-        style={{ height: "2px" }}
+        style={{ height: '2px' }}
       />
     </div>
   );
