@@ -1,27 +1,27 @@
-import React, { useEffect, Suspense, lazy } from "react";
-import { Router, Switch, Route } from "react-router-dom";
-import { connect } from "react-redux";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import React, { useEffect, Suspense, lazy } from 'react';
+import { Router, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
-import SearchPlayersBar from "./appBar/SearchPlayersBar";
-import LinearProgressBar from "./LinearProgressBar";
-import { setTheme } from "../reducers/themeReducer";
-import ProgressBarGlobal from "./ProgressBarGlobal";
-import SideDrawer from "./SideDrawer";
-import history from "../history";
+import SearchPlayersBar from './appBar/SearchPlayersBar';
+import ProgressBarGlobal from './ProgressBarGlobal';
+import LinearProgressBar from './LinearProgressBar';
+import { setTheme } from '../reducers/themeReducer';
+import SideDrawer from './SideDrawer';
+import history from '../history';
 
-const Home = lazy(() => import("./homeView/Home"));
-const PlayerInfo = lazy(() => import("./playerView/PlayerInfo"));
-const Compare = lazy(() => import("./compareView/Compare"));
+const Home = lazy(() => import('./homeView/Home'));
+const PlayerInfo = lazy(() => import('./playerView/PlayerInfo'));
+const Compare = lazy(() => import('./compareView/Compare'));
 
 const App = ({ setTheme, theme }) => {
   useEffect(() => {
-    const theme = localStorage.getItem("theme");
+    const theme = localStorage.getItem('theme');
     if (theme) {
       setTheme(theme);
     } else {
-      setTheme("light");
+      setTheme('light');
     }
   }, [setTheme]);
 
@@ -29,7 +29,7 @@ const App = ({ setTheme, theme }) => {
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <Router history={history}>
-        <div style={{ width: "100%" }}>
+        <div style={{ width: '100%' }}>
           <SearchPlayersBar />
           <ProgressBarGlobal />
           <SideDrawer />

@@ -1,4 +1,4 @@
-import playerServices from "../services/player";
+import playerServices from '../services/player';
 
 export const setRegularSeasons = (playerId, currentSeason) => {
   return async dispatch => {
@@ -11,7 +11,7 @@ export const setRegularSeasons = (playerId, currentSeason) => {
       `logs?stats=gameLog&expand=stats.team&season=${currentSeason}`
     );
     dispatch({
-      type: "SET_REG_LOGS",
+      type: 'SET_REG_LOGS',
       data: splits
     });
   };
@@ -28,7 +28,7 @@ export const setPlayoffSeasons = (playerId, currentSeason) => {
       `logs?stats=playoffGameLog&expand=stats.team&season=${currentSeason}`
     );
     dispatch({
-      type: "SET_PLAYOFF_LOGS",
+      type: 'SET_PLAYOFF_LOGS',
       data: splits
     });
   };
@@ -36,12 +36,12 @@ export const setPlayoffSeasons = (playerId, currentSeason) => {
 
 const gameLogsReducer = (state = {}, action) => {
   switch (action.type) {
-    case "SET_REG_LOGS":
-      return { ...state, regular: action.data };
-    case "SET_PLAYOFF_LOGS":
-      return { ...state, playoff: action.data };
-    default:
-      return state;
+  case 'SET_REG_LOGS':
+    return { ...state, regular: action.data };
+  case 'SET_PLAYOFF_LOGS':
+    return { ...state, playoff: action.data };
+  default:
+    return state;
   }
 };
 

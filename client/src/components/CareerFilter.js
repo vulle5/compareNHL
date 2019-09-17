@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { Menu, MenuItem, IconButton } from "@material-ui/core";
-import { FilterList } from "@material-ui/icons";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { Menu, MenuItem, IconButton } from '@material-ui/core';
+import { FilterList } from '@material-ui/icons';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import { setFilter } from "../reducers/filterReducer";
+import { setFilter } from '../reducers/filterReducer';
 
 const CareerFilter = ({
   filterNames,
@@ -14,7 +14,7 @@ const CareerFilter = ({
   setFilter
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const matches = useMediaQuery(theme => theme.breakpoints.up("md"));
+  const matches = useMediaQuery(theme => theme.breakpoints.up('md'));
 
   useEffect(() => {
     swipeReferences.current.updateHeight();
@@ -32,7 +32,7 @@ const CareerFilter = ({
   return (
     <div>
       <IconButton
-        aria-owns={anchorEl && "simple-menu"}
+        aria-owns={anchorEl && 'simple-menu'}
         aria-haspopup="true"
         title="Filter"
         onClick={handleClick}
@@ -46,7 +46,7 @@ const CareerFilter = ({
         onClose={() => setAnchorEl(null)}
       >
         {eraseFilter && (
-          <MenuItem onClick={() => handleCloseAndFilter("", filterKey)}>
+          <MenuItem onClick={() => handleCloseAndFilter('', filterKey)}>
             {eraseFilter}
           </MenuItem>
         )}
@@ -69,7 +69,7 @@ const CareerFilter = ({
 CareerFilter.defaultProps = {
   filterNames: [],
   swipeReferences: { current: { updateHeight: () => {} } },
-  filterKey: ""
+  filterKey: ''
 };
 
 export default connect(

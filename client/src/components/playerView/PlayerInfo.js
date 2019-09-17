@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { withStyles } from "@material-ui/core/styles";
-import { playerInfoStyles } from "../../styles/jss-styles";
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+import { playerInfoStyles } from '../../styles/jss-styles';
 
-import { initializePlayer } from "../../reducers/playerReducer";
-import { initializePlayerImage } from "../../reducers/playerImageReducer";
-import PlayerInfoHeader from "./PlayerInfoHeader";
-import SeasonTable from "./SeasonTable";
-import FloatingActionButton from "../FAB";
+import { initializePlayer } from '../../reducers/playerReducer';
+import { initializePlayerImage } from '../../reducers/playerImageReducer';
+import PlayerInfoHeader from './PlayerInfoHeader';
+import SeasonTable from './SeasonTable';
+import FloatingActionButton from '../FAB';
 
 const PlayerInfo = props => {
   // Get Player id from the React Router props and styles

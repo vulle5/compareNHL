@@ -1,15 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Paper, IconButton, Typography } from "@material-ui/core";
-import ClearIcon from "@material-ui/icons/Clear";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Paper, IconButton, Typography } from '@material-ui/core';
+import ClearIcon from '@material-ui/icons/Clear';
 
-import { removeCompare } from "../../reducers/compareReducer";
-import { useCompareStyles } from "../../styles/useStyles";
-import { makeCompareData } from "../../functions/makeCompareData";
-import CompareTileItem from "./CompareTileItem";
-import CompareTileHeader from "./CompareTileHeader";
-import DisplayFilter from "../DisplayFilter";
-import CareerFilter from "../CareerFilter";
+import { removeCompare } from '../../reducers/compareReducer';
+import { useCompareStyles } from '../../styles/useStyles';
+import { makeCompareData } from '../../functions/makeCompareData';
+import CompareTileItem from './CompareTileItem';
+import CompareTileHeader from './CompareTileHeader';
+import DisplayFilter from '../DisplayFilter';
+import CareerFilter from '../CareerFilter';
 
 const CompareTile = ({
   player,
@@ -41,14 +41,14 @@ const CompareTile = ({
         <CompareTileHeader player={player} />
         {listItems ? (
           <>
-            <div style={{ textAlign: "center" }}>
+            <div style={{ textAlign: 'center' }}>
               <CareerFilter
                 filterKey={player.id}
                 filterNames={playerSeasons}
                 eraseFilter="Career"
               />
               <DisplayFilter
-                style={{ paddingBottom: "16px" }}
+                style={{ paddingBottom: '16px' }}
                 selectedFilter={selectedFilter}
                 variant="h6"
               />
@@ -56,7 +56,7 @@ const CompareTile = ({
             <CompareTileItem listItems={listItems} />
           </>
         ) : (
-          <Typography variant="subtitle1" style={{ textAlign: "center" }}>
+          <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
             No NHL games played
           </Typography>
         )}
@@ -70,14 +70,14 @@ const createFilters = (compare, id) =>
     .filter(player => player.id === id)
     .map(({ stats: { 0: { splits } } }) =>
       splits
-        .filter(season => season.league.name === "NHL")
-        .map(season => season.season.slice(0, 4) + "-" + season.season.slice(4))
+        .filter(season => season.league.name === 'NHL')
+        .map(season => season.season.slice(0, 4) + '-' + season.season.slice(4))
     )
     .flat();
 
 const getSelectedSeason = (allSeasons, selectedFilter) =>
   allSeasons.find(
-    season => season.league.name === "NHL" && season.season === selectedFilter
+    season => season.league.name === 'NHL' && season.season === selectedFilter
   );
 
 const mapStateToProps = (state, ownProps) => {
@@ -92,13 +92,13 @@ const mapStateToProps = (state, ownProps) => {
   } = ownProps;
   const selectedFilter =
     state.filter[player.id] && state.filter[player.id].length !== 0
-      ? state.filter[player.id].replace("-", "")
-      : "NHL Career";
+      ? state.filter[player.id].replace('-', '')
+      : 'NHL Career';
   return {
     compare,
     selectedFilter:
-      selectedFilter !== "NHL Career"
-        ? selectedFilter.slice(0, 4) + "-" + selectedFilter.slice(4)
+      selectedFilter !== 'NHL Career'
+        ? selectedFilter.slice(0, 4) + '-' + selectedFilter.slice(4)
         : selectedFilter,
     filteredSeasons: selectedFilter
       ? getSelectedSeason(splits, selectedFilter)

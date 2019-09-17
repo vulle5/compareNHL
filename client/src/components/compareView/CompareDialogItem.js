@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import {
   ListItem,
   ListItemAvatar,
   Avatar,
   ListItemText,
   Divider
-} from "@material-ui/core";
+} from '@material-ui/core';
 
 const CompareDialogItem = ({ player, handleListItemClick }) => {
   return (
@@ -24,7 +24,7 @@ const CompareDialogItem = ({ player, handleListItemClick }) => {
             onError={e => {
               e.target.onerror = null;
               e.target.src =
-                "https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg";
+                'https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg';
             }}
           />
         </ListItemAvatar>

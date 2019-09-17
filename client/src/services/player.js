@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios from 'axios';
 
-const playerUrl = "/api/players/";
-const searchUrl = "/api/players/search/";
-const imageUrl = "/api/players/image/";
+const playerUrl = '/api/players/';
+const searchUrl = '/api/players/search/';
+const imageUrl = '/api/players/image/';
 
 const getPlayer = async (id, modURL) => {
   const response = await axios.get(`${playerUrl}${id}/${modURL}`);

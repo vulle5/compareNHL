@@ -1,6 +1,6 @@
-import React, { Fragment } from "react";
-import { connect } from "react-redux";
-import { get } from "lodash";
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import { get } from 'lodash';
 import {
   Table,
   TableBody,
@@ -8,18 +8,18 @@ import {
   TableHead,
   TableRow,
   Typography
-} from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
+} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 
-import { seasonTableStyles } from "../../styles/jss-styles";
-import SeasonTabs from "./SeasonTabs";
+import { seasonTableStyles } from '../../styles/jss-styles';
+import SeasonTabs from './SeasonTabs';
 
 const SeasonTable = props => {
   const { classes, width, player, isGoalie } = props;
   const renderContent = () => {
     // Check if player has NHL stats at all
-    if (get(player, "stats[1].splits[0].stat")) {
+    if (get(player, 'stats[1].splits[0].stat')) {
       const {
         player: {
           stats: {
@@ -37,36 +37,36 @@ const SeasonTable = props => {
           <TableHead>
             <TableRow>
               <TableCell align="center">
-                {isWidthUp("sm", width) ? "Games Played" : "GP"}
+                {isWidthUp('sm', width) ? 'Games Played' : 'GP'}
               </TableCell>
               <TableCell align="center">
-                {isGoalie ? "Wins" : "Points"}
+                {isGoalie ? 'Wins' : 'Points'}
               </TableCell>
               <TableCell align="center">
-                {isGoalie ? "Save%" : "Goals"}
+                {isGoalie ? 'Save%' : 'Goals'}
               </TableCell>
               <TableCell align="center">
-                {isGoalie ? "GAA" : "Assists"}
+                {isGoalie ? 'GAA' : 'Assists'}
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
               <TableCell align="center" className={classes.rowItem}>
-                {allTime.games || "0"}
+                {allTime.games || '0'}
               </TableCell>
               <TableCell align="center" className={classes.rowItem}>
-                {isGoalie ? allTime.wins : allTime.points || "0"}
-              </TableCell>
-              <TableCell align="center" className={classes.rowItem}>
-                {isGoalie
-                  ? get(allTime, "savePercentage", 0).toFixed(3)
-                  : allTime.goals || "0"}
+                {isGoalie ? allTime.wins : allTime.points || '0'}
               </TableCell>
               <TableCell align="center" className={classes.rowItem}>
                 {isGoalie
-                  ? get(allTime, "goalAgainstAverage", 0).toFixed(2)
-                  : allTime.assists || "0"}
+                  ? get(allTime, 'savePercentage', 0).toFixed(3)
+                  : allTime.goals || '0'}
+              </TableCell>
+              <TableCell align="center" className={classes.rowItem}>
+                {isGoalie
+                  ? get(allTime, 'goalAgainstAverage', 0).toFixed(2)
+                  : allTime.assists || '0'}
               </TableCell>
             </TableRow>
           </TableBody>
@@ -74,7 +74,7 @@ const SeasonTable = props => {
       );
     } else {
       return (
-        <Typography variant="body1" style={{ padding: "8px" }}>
+        <Typography variant="body1" style={{ padding: '8px' }}>
           {player.fullName} does not have any NHL stats
         </Typography>
       );
@@ -84,7 +84,7 @@ const SeasonTable = props => {
   return (
     <Fragment>
       <div className={classes.root}>
-        <Typography style={{ paddingTop: "20px" }} variant="h6" id="tableTitle">
+        <Typography style={{ paddingTop: '20px' }} variant="h6" id="tableTitle">
           NHL Career
         </Typography>
         {renderContent()}
@@ -100,7 +100,7 @@ const mapStateToProps = state => {
   } = state.player;
   return {
     player: state.player,
-    isGoalie: abbreviation === "G" && true
+    isGoalie: abbreviation === 'G' && true
   };
 };
 
