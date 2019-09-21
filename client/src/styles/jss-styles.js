@@ -122,7 +122,8 @@ export const searchResultsListStyles = theme => ({
 
 export const playerInfoStyles = () => ({
   wrapper: {
-    textAlign: isFirefox ? '-moz-center' : '-webkit-center',
+    maxWidth: '1000px',
+    margin: 'auto',
     paddingTop: '64px'
   }
 });
@@ -137,8 +138,7 @@ export const playerInfoHeader = theme => ({
       borderRadius: '0px'
     },
     margin: '12px',
-    maxWidth: '1000px',
-    textAlign: '-webkit-center'
+    textAlign: isFirefox ? '-moz-center' : '-webkit-center'
   },
   flagWrapper: {
     display: 'flex',

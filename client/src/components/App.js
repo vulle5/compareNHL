@@ -14,6 +14,7 @@ import history from '../history';
 const Home = lazy(() => import('./homeView/Home'));
 const PlayerInfo = lazy(() => import('./playerView/PlayerInfo'));
 const Compare = lazy(() => import('./compareView/Compare'));
+const TeamInfo = lazy(() => import('./TeamInfo'));
 
 const App = ({ setTheme, theme }) => {
   useEffect(() => {
@@ -36,6 +37,7 @@ const App = ({ setTheme, theme }) => {
           <Suspense fallback={<LinearProgressBar />}>
             <Switch>
               <Route exact path="/" component={Home} />
+              <Route path="/team/:id" component={TeamInfo} />
               <Route path="/player/:playerId" component={PlayerInfo} />
               <Route path="/compare/:playerId" component={Compare} />
             </Switch>
