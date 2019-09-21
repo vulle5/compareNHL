@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Card, CardContent, Avatar } from '@material-ui/core';
 
-const ScheduleDayItem = ({ home, away, scoreOrTime }) => {
+const ScheduleDayItem = ({ home, away, display }) => {
   return (
     <Card style={{ width: '288px', margin: '16px 16px 0px 0px' }}>
       <CardContent
@@ -22,7 +22,7 @@ const ScheduleDayItem = ({ home, away, scoreOrTime }) => {
             {home}
           </Typography>
         </div>
-        <Typography variant="h5">{scoreOrTime}</Typography>
+        <Typography variant="h5">{display}</Typography>
         <div>
           <Avatar
             style={{ width: '60px' }}

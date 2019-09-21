@@ -8,8 +8,8 @@ const ScheduleDayList = ({ title }) => {
     <div style={{ marginTop: '24px' }}>
       <Typography variant="h4">{title}</Typography>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        <ScheduleDayItem home="CAR" away="FLA" scoreOrTime="0-0" />
-        <ScheduleDayItem home="CHI" away="CAP" scoreOrTime="20:00" />
+        <ScheduleDayItem home="CAR" away="FLA" display="0 - 0" />
+        <ScheduleDayItem home="CHI" away="CAP" display="20:00" />
       </div>
     </div>
   );

@@ -1,16 +1,17 @@
 import React from 'react';
 
 import ScheduleDayList from './ScheduleDayList';
+import TeamList from './TeamList';
 
 const Home = () => {
   return (
     <div
       style={{
-        minHeight: ' calc(100vh - 64px)',
         margin: '32px 16px',
         paddingTop: '64px'
       }}
     >
+      <TeamList />
       <ScheduleDayList title="Today" />
       <ScheduleDayList title="Tomorrow" />
     </div>
