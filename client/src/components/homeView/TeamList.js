@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import teamService from '../../services/teams';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
-const TeamList = () => {
-  const [teams, setTeams] = useState([]);
+import { initializeTeams } from '../../reducers/teamReducer';
 
+const TeamList = ({ initializeTeams, teams }) => {
   useEffect(() => {
     (async () => {
-      const { teams } = await teamService.getTeams();
-      setTeams(teams);
+      initializeTeams();
     })();
-  }, [teams.length]);
+  }, [initializeTeams]);
+
+  console.log(teams);
 
   if (!teams.length) {
     return <div>...Loading</div>;
   }
-
-  console.log(teams);
 
   return (
     <div style={{ display: 'flex', overflowY: 'auto', userSelect: 'none' }}>
@@ -32,4 +31,14 @@ const TeamList = () => {
   );
 };
 
-export default TeamList;
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    teams: state.teams
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { initializeTeams }
+)(TeamList);
