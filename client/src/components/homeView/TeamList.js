@@ -10,8 +10,6 @@ const TeamList = ({ initializeTeams, teams }) => {
     })();
   }, [initializeTeams]);
 
-  console.log(teams);
-
   if (!teams.length) {
     return <div>...Loading</div>;
   }
