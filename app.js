@@ -5,11 +5,13 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const playerRoutes = require('./controllers/playerController');
+const teamRoutes = require('./controllers/teamController');
 
 app.use(compression());
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/api/players', playerRoutes);
+app.use('/api/teams', teamRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

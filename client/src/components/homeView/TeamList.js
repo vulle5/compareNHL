@@ -6,12 +6,10 @@ const TeamList = () => {
 
   useEffect(() => {
     (async () => {
-      if (!teams.length) {
-        const { teams } = await teamService.getTeams();
-        setTeams(teams);
-      }
+      const { teams } = await teamService.getTeams();
+      setTeams(teams);
     })();
-  }, [teams]);
+  }, [teams.length]);
 
   if (!teams.length) {
     return <div>...Loading</div>;

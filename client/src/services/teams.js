@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const URL = 'https://statsapi.web.nhl.com/api/v1/teams';
+const teamURL = '/api/teams';
 
 const getTeams = async () => {
-  const response = await axios.get(URL);
+  const response = await axios.get(teamURL);
   return response.data;
 };
 
