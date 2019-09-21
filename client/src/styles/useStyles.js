@@ -64,9 +64,14 @@ export const useCompareStyles = makeStyles(theme => ({
 }));
 
 export const useTeamListStyles = makeStyles(theme => ({
+  root: {
+    alignSelf: 'center'
+  },
   listLogo: {
     height: '40px',
-    '&:hover': { height: '60px' },
+    // Height is 58px, because anything above causes scrollbar
+    // to appear briefly on fullHd (width: 1920px)
+    '&:hover': { height: '58px' },
     transition: 'height .25s cubic-bezier(0.22, 0.61, 0.36, 1)'
   }
 }));

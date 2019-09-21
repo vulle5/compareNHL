@@ -30,7 +30,7 @@ const TeamList = ({ initializeTeams, teams }) => {
       }}
     >
       {teams.map(team => (
-        <div key={team.id} style={{ alignSelf: 'center' }}>
+        <div key={team.id} className={classes.root}>
           <Tooltip title={team.name} enterDelay={250}>
             <Link to={`/team/${team.id}`}>
               <img
