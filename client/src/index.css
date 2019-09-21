@@ -10,13 +10,13 @@ a {
 @media (min-width: 600px) {
   /* width */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
 
   /* Track */
   ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #dedede;
     border-radius: 4px;
   }
 

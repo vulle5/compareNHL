@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 
 import { initializeTeams } from '../../reducers/teamReducer';
 import { Link } from 'react-router-dom';
+import { Tooltip } from '@material-ui/core';
+
+import { useTeamListStyles } from '../../styles/useStyles';
 
 const TeamList = ({ initializeTeams, teams }) => {
+  const classes = useTeamListStyles();
+
   useEffect(() => {
     (async () => {
       initializeTeams();
@@ -16,15 +21,26 @@ const TeamList = ({ initializeTeams, teams }) => {
   }
 
   return (
-    <div style={{ display: 'flex', overflowY: 'auto', userSelect: 'none' }}>
+    <div
+      style={{
+        display: 'flex',
+        overflowY: 'auto',
+        userSelect: 'none',
+        height: '80px'
+      }}
+    >
       {teams.map(team => (
-        <Link to={`/team/${team.id}`} key={team.id}>
-          <img
-            alt="logo"
-            style={{ height: '40px', margin: '0px 4px 0px 4px' }}
-            src={`https://www-league.nhlstatic.com/images/logos/teams-current-circle/${team.id}.svg`}
-          />
-        </Link>
+        <div key={team.id} style={{ alignSelf: 'center' }}>
+          <Tooltip title={team.name}>
+            <Link to={`/team/${team.id}`}>
+              <img
+                alt="logo"
+                className={classes.listLogo}
+                src={`https://www-league.nhlstatic.com/images/logos/teams-current-circle/${team.id}.svg`}
+              />
+            </Link>
+          </Tooltip>
+        </div>
       ))}
     </div>
   );

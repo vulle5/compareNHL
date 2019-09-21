@@ -62,3 +62,11 @@ export const useCompareStyles = makeStyles(theme => ({
     justifyContent: 'center'
   }
 }));
+
+export const useTeamListStyles = makeStyles(theme => ({
+  listLogo: {
+    height: '40px',
+    '&:hover': { height: '60px' },
+    transition: 'height .25s cubic-bezier(0.22, 0.61, 0.36, 1)'
+  }
+}));

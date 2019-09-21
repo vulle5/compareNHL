@@ -25,3 +25,6 @@ export default Home;
 // https://statsapi.web.nhl.com/api/v1/schedule
 // ?startDate=2018-01-09 ?endDate=2018-01-12
 // ?expand=schedule.linescore Linescore for completed games
+
+// Current season: https://statsapi.web.nhl.com/api/v1/seasons/current
+// GameID starting with... 01: preseason, 02: regular, 03: playoff, 04: allStar
