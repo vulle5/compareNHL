@@ -7,11 +7,4 @@ const getTeams = async () => {
   return response.data;
 };
 
-const getLogo = async id => {
-  const response = await axios.get(
-    `https://www-league.nhlstatic.com/images/logos/teams-current-circle/${id}.svg`
-  );
-  return response.data;
-};
-
-export default { getTeams, getLogo };
+export default { getTeams };
