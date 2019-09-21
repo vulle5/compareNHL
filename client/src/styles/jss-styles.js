@@ -140,7 +140,7 @@ export const playerInfoHeader = theme => ({
     margin: '12px',
     textAlign: isFirefox ? '-moz-center' : '-webkit-center'
   },
-  flagWrapper: {
+  logoWrapper: {
     display: 'flex',
     justifyContent: 'center'
   },

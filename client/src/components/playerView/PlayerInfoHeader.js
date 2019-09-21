@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { Paper, Typography, CircularProgress } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { isEmpty } from 'lodash';
 
 import { playerInfoHeader } from '../../styles/jss-styles';
@@ -32,7 +33,7 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
       ) : (
         <div className={classes.loadingThumbnail} />
       )}
-      <div className={classes.flagWrapper}>
+      <div className={classes.logoWrapper}>
         <img
           src={`https://www.countryflags.io/${getCountryISO2(
             player.nationality
@@ -43,17 +44,22 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
           {`${player.fullName} #${player.primaryNumber}`}
         </Typography>
       </div>
-      <div className={classes.flagWrapper}>
-        {player.currentTeam.id !== 'N/A' && (
-          <img
-            height="35"
-            src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-dark/${player.currentTeam.id}.svg`}
-            alt="team"
-          />
-        )}
-        <Typography style={{ alignSelf: 'center' }} component="p">
-          {player.currentTeam.name}
-        </Typography>
+      <div style={{ display: 'inline-block' }}>
+        <Link
+          to={`/team/${player.currentTeam.id}`}
+          className={classes.logoWrapper}
+        >
+          {player.currentTeam.id !== 'N/A' && (
+            <img
+              height="35"
+              src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-dark/${player.currentTeam.id}.svg`}
+              alt="team"
+            />
+          )}
+          <Typography style={{ alignSelf: 'center' }} component="p">
+            {player.currentTeam.name}
+          </Typography>
+        </Link>
       </div>
       <ul className={classes.mainStats}>
         <li className={classes.mainStatsLi}>
