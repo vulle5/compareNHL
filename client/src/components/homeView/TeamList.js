@@ -11,9 +11,7 @@ const TeamList = ({ initializeTeams, teams }) => {
   const classes = useTeamListStyles();
 
   useEffect(() => {
-    (async () => {
-      initializeTeams();
-    })();
+    initializeTeams();
   }, [initializeTeams]);
 
   if (!teams.length) {
