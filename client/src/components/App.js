@@ -14,7 +14,7 @@ import history from '../history';
 const Home = lazy(() => import('./homeView/Home'));
 const PlayerInfo = lazy(() => import('./playerView/PlayerInfo'));
 const Compare = lazy(() => import('./compareView/Compare'));
-const TeamInfo = lazy(() => import('./TeamInfo'));
+const TeamInfo = lazy(() => import('./teamView/TeamInfo'));
 
 const App = ({ setTheme, theme }) => {
   useEffect(() => {

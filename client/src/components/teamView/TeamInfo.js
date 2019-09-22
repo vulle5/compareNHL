@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Typography, CircularProgress } from '@material-ui/core';
+import { Card, CircularProgress } from '@material-ui/core';
 
-import teamServices from '../services/teams';
+import teamServices from '../../services/teams';
+import TeamInfoHeader from './TeamInfoHeader';
 
 const TeamInfo = ({ match: { params } }) => {
   const [team, setTeam] = useState([]);
@@ -27,12 +28,7 @@ const TeamInfo = ({ match: { params } }) => {
       }}
     >
       <Card style={{ padding: '16px', margin: '12px', textAlign: 'center' }}>
-        <img
-          alt="logo"
-          style={{ height: '128px', margin: '0px 4px 0px 4px' }}
-          src={`https://www-league.nhlstatic.com/images/logos/teams-current-circle/${params.id}.svg`}
-        />
-        <Typography variant="h5">{team.name}</Typography>
+        <TeamInfoHeader team={team} params={params} />
       </Card>
     </div>
   );
