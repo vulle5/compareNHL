@@ -178,9 +178,11 @@ export const playerInfoHeader = theme => ({
 });
 
 export const seasonTableStyles = theme => ({
-  root: {
-    overflow: 'auto',
-    marginBottom: '8px'
+  wrapper: {
+    [theme.breakpoints.up('md')]: {
+      maxHeight: '600px',
+      overflow: 'auto'
+    }
   },
   table: {
     [theme.breakpoints.down('sm')]: {
@@ -188,11 +190,6 @@ export const seasonTableStyles = theme => ({
     },
     width: '75%',
     tableLayout: 'fixed'
-  },
-  headItem: {
-    position: 'sticky',
-    top: 0,
-    zIndex: 10
   }
 });
 

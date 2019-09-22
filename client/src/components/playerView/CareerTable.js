@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import withWidth from '@material-ui/core/withWidth';
 
 import { seasonTableStyles } from '../../styles/jss-styles';
 import StatTable from './StatTable';
@@ -15,8 +16,13 @@ const CareerTable = props => {
     isGoalie,
     currentFilter,
     filteredStats,
-    playerLeagues
+    playerLeagues,
+    width
   } = props;
+
+  useEffect(() => {
+    swipeReferences.current.updateHeight();
+  }, [width, swipeReferences]);
 
   return (
     <div className={classes.root}>
@@ -104,7 +110,9 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(withStyles(seasonTableStyles)(CareerTable));
+export default withWidth()(
+  connect(
+    mapStateToProps,
+    null
+  )(withStyles(seasonTableStyles)(CareerTable))
+);

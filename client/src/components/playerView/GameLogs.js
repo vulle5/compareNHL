@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { findLast, isEmpty, has } from 'lodash';
 import { Typography, Switch, FormControlLabel } from '@material-ui/core';
@@ -56,7 +56,7 @@ const GameLogs = ({
       <Typography style={{ paddingTop: '20px' }} variant="h6" id="tableTitle">
         Game Logs
       </Typography>
-      <Fragment>
+      <div>
         <CareerFilter
           filterKey="gameLogs"
           swipeReferences={swipeReferences}
@@ -72,7 +72,7 @@ const GameLogs = ({
           }
           label="Playoff"
         />
-      </Fragment>
+      </div>
       <DisplayFilter
         style={{ paddingTop: '16px' }}
         selectedFilter={

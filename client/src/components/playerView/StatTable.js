@@ -11,7 +11,7 @@ import { seasonTableStyles } from '../../styles/jss-styles';
 
 const generateTableHead = (headCells, classes) => {
   return headCells.map((cell, index) => (
-    <TableCell align="center" key={index} className={classes.headItem}>
+    <TableCell align="center" key={index}>
       {cell}
     </TableCell>
   ));
@@ -40,8 +40,8 @@ const generateTableBody = (bodyCells, tableCells, classes) => {
 
 const StatTable = ({ classes, headCells, bodyCells, tableCells }) => {
   return (
-    <div>
-      <Table className={classes.table}>
+    <div className={classes.wrapper}>
+      <Table stickyHeader className={classes.table}>
         <TableHead>
           <TableRow>{generateTableHead(headCells, classes)}</TableRow>
         </TableHead>
