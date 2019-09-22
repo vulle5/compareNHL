@@ -3,10 +3,16 @@ import { Typography } from '@material-ui/core';
 
 const TeamInfoHeader = ({ team, params }) => {
   return (
-    <div>
+    <div style={{ textAlign: 'center' }}>
       <img
         alt="logo"
-        style={{ height: '128px', margin: '0px 4px 0px 4px' }}
+        style={{
+          height: '200px',
+          width: '200px',
+          margin: '0px 4px',
+          borderRadius: '50%',
+          backgroundColor: '#ededed'
+        }}
         src={`https://www-league.nhlstatic.com/images/logos/teams-current-circle/${params.id}.svg`}
       />
       <Typography variant="h5" style={{ margin: '8px 0px 8px 0px' }}>

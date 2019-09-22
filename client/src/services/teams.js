@@ -8,7 +8,7 @@ const getTeams = async () => {
 };
 
 const getTeam = async (id, mod) => {
-  const response = await axios.get(`${teamURL}${id}`);
+  const response = await axios.get(`${teamURL}${id}/${mod}`);
   return response.data;
 };
 
