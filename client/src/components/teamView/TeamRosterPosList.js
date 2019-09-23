@@ -16,11 +16,11 @@ import {
 import SwapHoriz from '@material-ui/icons/SwapHoriz';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import { useTeamListStyles } from '../../styles/useStyles';
+import { useTeamStyles } from '../../styles/useStyles';
 import history from '../../history';
 
 const TeamRosterPosList = ({ players, title }) => {
-  const classes = useTeamListStyles();
+  const classes = useTeamStyles();
   const matches = useMediaQuery(theme => theme.breakpoints.up('sm'));
 
   function onCompareClick(event, id) {

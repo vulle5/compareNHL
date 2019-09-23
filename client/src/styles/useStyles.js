@@ -87,43 +87,44 @@ export const useHomeStyles = makeStyles(theme => ({
   }
 }));
 
-export const useTeamListStyles = makeStyles(
-  ({ palette, spacing, breakpoints }) => ({
-    teamListWrapper: {
-      alignSelf: 'center'
-    },
-    listLogo: {
-      height: '40px',
-      // Height is 58px, because anything above causes scrollbar
-      // to appear briefly on fullHd (width: 1920px)
-      '&:hover': { height: '58px' },
-      transition: 'height .25s cubic-bezier(0.22, 0.61, 0.36, 1)'
-    },
-    // Separate from teamList to teamView
-    root: {
-      maxWidth: '1000px',
-      margin: 'auto',
-      paddingTop: '64px',
-      [breakpoints.down('xs')]: {
-        paddingTop: '56px'
-      }
-    },
-    teamHeaderLogo: {
-      height: '200px',
-      width: '200px',
-      margin: '0px 4px',
-      borderRadius: '50%',
-      backgroundColor: palette.type === 'light' ? '#ededed' : '#424242'
-    },
-    rosterPosTitle: {
-      marginBottom: spacing(1)
-    },
-    rosterList: {
-      backgroundColor: palette.background.paper,
-      margin: spacing(3, 1)
-    },
-    paper: {
-      padding: spacing(1, 2)
+export const useTeamListStyles = makeStyles(() => ({
+  teamListWrapper: {
+    alignSelf: 'center'
+  },
+  listLogo: {
+    height: '40px',
+    // Height is 58px, because anything above causes scrollbar
+    // to appear briefly on fullHd (width: 1920px)
+    '&:hover': { height: '58px' },
+    transition: 'height .25s cubic-bezier(0.22, 0.61, 0.36, 1)'
+  }
+}));
+
+export const useTeamStyles = makeStyles(theme => ({
+  // Separate from teamList to teamView
+  root: {
+    maxWidth: '1000px',
+    margin: 'auto',
+    paddingTop: '64px',
+    [theme.breakpoints.down('xs')]: {
+      paddingTop: '56px'
     }
-  })
-);
+  },
+  teamHeaderLogo: {
+    height: '200px',
+    width: '200px',
+    margin: '0px 4px',
+    borderRadius: '50%',
+    backgroundColor: theme.palette.type === 'light' ? '#ededed' : '#424242'
+  },
+  rosterPosTitle: {
+    marginBottom: theme.spacing(1)
+  },
+  rosterList: {
+    backgroundColor: theme.palette.background.paper,
+    margin: theme.spacing(3, 1)
+  },
+  paper: {
+    padding: theme.spacing(1, 2)
+  }
+}));

@@ -4,11 +4,11 @@ import { Card, CircularProgress, Divider } from '@material-ui/core';
 import teamServices from '../../services/teams';
 import TeamInfoHeader from './TeamInfoHeader';
 import TeamRosterList from './TeamRosterList';
-import { useTeamListStyles } from '../../styles/useStyles';
+import { useTeamStyles } from '../../styles/useStyles';
 
 const TeamInfo = ({ match: { params } }) => {
   const [team, setTeam] = useState([]);
-  const classes = useTeamListStyles();
+  const classes = useTeamStyles();
 
   useEffect(() => {
     (async () => {

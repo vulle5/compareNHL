@@ -1,10 +1,10 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 
-import { useTeamListStyles } from '../../styles/useStyles';
+import { useTeamStyles } from '../../styles/useStyles';
 
 const TeamInfoHeader = ({ team, params }) => {
-  const classes = useTeamListStyles();
+  const classes = useTeamStyles();
 
   return (
     <div style={{ textAlign: 'center' }}>
