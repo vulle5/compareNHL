@@ -2,15 +2,13 @@ import React from 'react';
 
 import ScheduleDayList from './ScheduleDayList';
 import TeamList from './TeamList';
+import { useHomeStyles } from '../../styles/useStyles';
 
 const Home = () => {
+  const classes = useHomeStyles();
+
   return (
-    <div
-      style={{
-        margin: '32px 16px',
-        paddingTop: '64px'
-      }}
-    >
+    <div className={classes.root}>
       <TeamList />
       <ScheduleDayList title="Today" />
       <ScheduleDayList title="Tomorrow" />

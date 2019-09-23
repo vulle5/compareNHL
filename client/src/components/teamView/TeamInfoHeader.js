@@ -30,7 +30,7 @@ const TeamInfoHeader = ({ team, params }) => {
       >
         <div>
           <Typography style={{ fontWeight: 'bold' }} variant="subtitle1">
-            First Year
+            Established
           </Typography>
           <Typography>{team.firstYearOfPlay}</Typography>
         </div>

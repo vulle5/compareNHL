@@ -49,7 +49,7 @@ const SearchResultsList = ({
       <ListItem button alignItems="flex-start">
         <ListItemAvatar>
           <Avatar
-            alt="Player"
+            alt="Player logo"
             src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${
               player[0]
             }.jpg`}

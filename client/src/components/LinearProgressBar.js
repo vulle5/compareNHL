@@ -1,14 +1,14 @@
 import React from 'react';
-
 import { LinearProgress } from '@material-ui/core';
 
+import { useLinearProgressBarStyles } from '../styles/useStyles';
+
 const LinearProgressBar = () => {
+  const classes = useLinearProgressBarStyles();
+
   return (
-    <div style={{ position: 'absolute', width: '100%', paddingTop: '64px' }}>
-      <LinearProgress
-        color="secondary"
-        style={{ height: '2px' }}
-      />
+    <div className={classes.root}>
+      <LinearProgress color="secondary" style={{ height: '2px' }} />
     </div>
   );
 };

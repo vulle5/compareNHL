@@ -120,11 +120,14 @@ export const searchResultsListStyles = theme => ({
   }
 });
 
-export const playerInfoStyles = () => ({
+export const playerInfoStyles = theme => ({
   wrapper: {
     maxWidth: '1000px',
     margin: 'auto',
-    paddingTop: '64px'
+    paddingTop: '64px',
+    [theme.breakpoints.down('xs')]: {
+      paddingTop: '56px'
+    }
   }
 });
 

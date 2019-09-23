@@ -3,6 +3,9 @@ import { makeStyles } from '@material-ui/core';
 export const useCompareStyles = makeStyles(theme => ({
   divRoot: {
     padding: '64px 16px 16px 16px',
+    [theme.breakpoints.down('xs')]: {
+      padding: '56px 16px 16px 16px'
+    },
     display: 'flex',
     flexWrap: 'wrap'
   },
@@ -63,32 +66,64 @@ export const useCompareStyles = makeStyles(theme => ({
   }
 }));
 
-export const useTeamListStyles = makeStyles(({ palette, spacing }) => ({
+export const useLinearProgressBarStyles = makeStyles(theme => ({
   root: {
-    alignSelf: 'center'
-  },
-  listLogo: {
-    height: '40px',
-    // Height is 58px, because anything above causes scrollbar
-    // to appear briefly on fullHd (width: 1920px)
-    '&:hover': { height: '58px' },
-    transition: 'height .25s cubic-bezier(0.22, 0.61, 0.36, 1)'
-  },
-  teamHeaderLogo: {
-    height: '200px',
-    width: '200px',
-    margin: '0px 4px',
-    borderRadius: '50%',
-    backgroundColor: palette.type === 'light' ? '#ededed' : '#424242'
-  },
-  rosterPosTitle: {
-    marginBottom: spacing(1)
-  },
-  rosterList: {
-    backgroundColor: palette.background.paper,
-    margin: spacing(3, 1)
-  },
-  paper: {
-    padding: spacing(1, 2)
+    position: 'absolute',
+    width: '100%',
+    paddingTop: '64px',
+    [theme.breakpoints.down('xs')]: {
+      paddingTop: '56px'
+    }
   }
 }));
+
+export const useHomeStyles = makeStyles(theme => ({
+  root: {
+    margin: '32px 16px',
+    paddingTop: '64px',
+    [theme.breakpoints.down('xs')]: {
+      paddingTop: '56px'
+    }
+  }
+}));
+
+export const useTeamListStyles = makeStyles(
+  ({ palette, spacing, breakpoints }) => ({
+    teamListWrapper: {
+      alignSelf: 'center'
+    },
+    listLogo: {
+      height: '40px',
+      // Height is 58px, because anything above causes scrollbar
+      // to appear briefly on fullHd (width: 1920px)
+      '&:hover': { height: '58px' },
+      transition: 'height .25s cubic-bezier(0.22, 0.61, 0.36, 1)'
+    },
+    // Separate from teamList to teamView
+    root: {
+      maxWidth: '1000px',
+      margin: 'auto',
+      paddingTop: '64px',
+      [breakpoints.down('xs')]: {
+        paddingTop: '56px'
+      }
+    },
+    teamHeaderLogo: {
+      height: '200px',
+      width: '200px',
+      margin: '0px 4px',
+      borderRadius: '50%',
+      backgroundColor: palette.type === 'light' ? '#ededed' : '#424242'
+    },
+    rosterPosTitle: {
+      marginBottom: spacing(1)
+    },
+    rosterList: {
+      backgroundColor: palette.background.paper,
+      margin: spacing(3, 1)
+    },
+    paper: {
+      padding: spacing(1, 2)
+    }
+  })
+);
