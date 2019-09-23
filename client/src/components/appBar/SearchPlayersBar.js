@@ -16,6 +16,7 @@ import { searchPlayerBarStyles } from '../../styles/jss-styles';
 import playerService from '../../services/player';
 import SearchResultsList from './SearchResultsList';
 import { toggleDrawer } from '../../reducers/drawerReducer';
+import history from '../../history';
 
 const SearchPlayersBar = props => {
   const { classes, theme, toggleDrawer } = props;
@@ -68,6 +69,11 @@ const SearchPlayersBar = props => {
               className={classes.title}
               variant="h6"
               color="inherit"
+              onClick={() => {
+                if (history.location.pathname !== '/') {
+                  history.push('/');
+                }
+              }}
               noWrap
             >
               CompareNHL

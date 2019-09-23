@@ -26,7 +26,9 @@ export const searchPlayerBarStyles = theme => ({
   title: {
     display: 'none',
     [theme.breakpoints.up('sm')]: {
-      display: 'block'
+      display: 'block',
+      userSelect: 'none',
+      cursor: 'pointer'
     }
   },
   search: {
