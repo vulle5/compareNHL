@@ -63,7 +63,7 @@ export const useCompareStyles = makeStyles(theme => ({
   }
 }));
 
-export const useTeamListStyles = makeStyles(({ palette: { type } }) => ({
+export const useTeamListStyles = makeStyles(({ palette, spacing }) => ({
   root: {
     alignSelf: 'center'
   },
@@ -74,14 +74,21 @@ export const useTeamListStyles = makeStyles(({ palette: { type } }) => ({
     '&:hover': { height: '58px' },
     transition: 'height .25s cubic-bezier(0.22, 0.61, 0.36, 1)'
   },
-  teamHeaderLogo:
-    type === 'light'
-      ? {
-          height: '200px',
-          width: '200px',
-          margin: '0px 4px',
-          borderRadius: '50%',
-          backgroundColor: '#ededed'
-        }
-      : { height: '200px', width: '200px', margin: '0px 4px' }
+  teamHeaderLogo: {
+    height: '200px',
+    width: '200px',
+    margin: '0px 4px',
+    borderRadius: '50%',
+    backgroundColor: palette.type === 'light' ? '#ededed' : '#424242'
+  },
+  rosterPosTitle: {
+    marginBottom: spacing(1)
+  },
+  rosterList: {
+    backgroundColor: palette.background.paper,
+    margin: spacing(3, 1)
+  },
+  paper: {
+    padding: spacing(1, 2)
+  }
 }));

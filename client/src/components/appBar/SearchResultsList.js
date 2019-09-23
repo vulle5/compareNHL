@@ -20,6 +20,8 @@ import history from '../../history';
 
 import { searchResultsListStyles } from '../../styles/jss-styles';
 
+// TODO: Try ListItemLink to make clickable list items
+
 const SearchResultsList = ({
   classes,
   listStatus,
@@ -44,7 +46,7 @@ const SearchResultsList = ({
         handleListStatus(false);
       }}
     >
-      <ListItem alignItems="flex-start">
+      <ListItem button alignItems="flex-start">
         <ListItemAvatar>
           <Avatar
             alt="Player"

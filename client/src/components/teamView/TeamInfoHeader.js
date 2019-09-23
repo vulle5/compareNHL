@@ -25,7 +25,7 @@ const TeamInfoHeader = ({ team, params }) => {
           display: 'flex',
           justifyContent: 'space-evenly',
           maxWidth: '500px',
-          margin: 'auto'
+          margin: '8px auto'
         }}
       >
         <div>
