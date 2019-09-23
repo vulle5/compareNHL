@@ -36,6 +36,25 @@ const TeamRosterPosList = ({ players, title }) => {
     );
   }
 
+  function compareButton(player) {
+    return matches ? (
+      <Button
+        variant="outlined"
+        color="secondary"
+        onClick={event => onCompareClick(event, player.person.id)}
+      >
+        compare
+      </Button>
+    ) : (
+      <IconButton
+        style={{ padding: '12px 0px 12px 12px' }}
+        onClick={event => onCompareClick(event, player.person.id)}
+      >
+        <SwapHoriz />
+      </IconButton>
+    );
+  }
+
   return (
     <div className={classes.rosterList}>
       <Typography variant="h6" className={classes.rosterPosTitle}>
@@ -61,22 +80,7 @@ const TeamRosterPosList = ({ players, title }) => {
                 </ListItemAvatar>
                 <ListItemText>{`#${player.jerseyNumber} ${player.person.fullName}`}</ListItemText>
                 <ListItemSecondaryAction>
-                  {matches ? (
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      onClick={event => onCompareClick(event, player.person.id)}
-                    >
-                      compare
-                    </Button>
-                  ) : (
-                    <IconButton
-                      style={{ padding: '12px 0px 12px 12px' }}
-                      onClick={event => onCompareClick(event, player.person.id)}
-                    >
-                      <SwapHoriz />
-                    </IconButton>
-                  )}
+                  {compareButton(player)}
                 </ListItemSecondaryAction>
               </ListItemLink>
               <Divider />
