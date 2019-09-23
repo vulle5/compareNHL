@@ -1,18 +1,16 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 
+import { useTeamListStyles } from '../../styles/useStyles';
+
 const TeamInfoHeader = ({ team, params }) => {
+  const classes = useTeamListStyles();
+
   return (
     <div style={{ textAlign: 'center' }}>
       <img
         alt="logo"
-        style={{
-          height: '200px',
-          width: '200px',
-          margin: '0px 4px',
-          borderRadius: '50%',
-          backgroundColor: '#ededed'
-        }}
+        className={classes.teamHeaderLogo}
         src={`https://www-league.nhlstatic.com/images/logos/teams-current-circle/${params.id}.svg`}
       />
       <Typography variant="h5" style={{ margin: '8px 0px 8px 0px' }}>

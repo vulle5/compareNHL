@@ -63,7 +63,7 @@ export const useCompareStyles = makeStyles(theme => ({
   }
 }));
 
-export const useTeamListStyles = makeStyles(theme => ({
+export const useTeamListStyles = makeStyles(({ palette: { type } }) => ({
   root: {
     alignSelf: 'center'
   },
@@ -73,5 +73,15 @@ export const useTeamListStyles = makeStyles(theme => ({
     // to appear briefly on fullHd (width: 1920px)
     '&:hover': { height: '58px' },
     transition: 'height .25s cubic-bezier(0.22, 0.61, 0.36, 1)'
-  }
+  },
+  teamHeaderLogo:
+    type === 'light'
+      ? {
+          height: '200px',
+          width: '200px',
+          margin: '0px 4px',
+          borderRadius: '50%',
+          backgroundColor: '#ededed'
+        }
+      : { height: '200px', width: '200px', margin: '0px 4px' }
 }));

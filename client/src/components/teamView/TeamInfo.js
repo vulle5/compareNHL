@@ -18,7 +18,6 @@ const TeamInfo = ({ match: { params } }) => {
     })();
   }, [params.id]);
 
-  console.log(team);
   if (!team.id) {
     return <CircularProgress />;
   }
