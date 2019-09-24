@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useTheme } from '@material-ui/styles';
 import { Typography, Card, CardContent, Avatar } from '@material-ui/core';
 
-const ScheduleDayItem = ({ home, away, teams }) => {
+const ScheduleDayItem = ({ home, away, status, teams }) => {
   const {
     palette: { type }
   } = useTheme();
@@ -14,6 +14,15 @@ const ScheduleDayItem = ({ home, away, teams }) => {
         team => team.id === teamToSearch.team.id
       );
       return abbreviation;
+    }
+  }
+
+  function determineScore() {
+    console.log(status.detailedState);
+    if (status.detailedState === 'Final') {
+      return `${home.score} - ${away.score}`;
+    } else {
+      return 'Time';
     }
   }
 
@@ -32,6 +41,7 @@ const ScheduleDayItem = ({ home, away, teams }) => {
           <Avatar
             style={{
               width: '60px',
+              overflow: 'visible',
               backgroundColor:
                 (home.team.id === 14 || home.team.id === 10) && type === 'light'
                   ? 'lightgray'
@@ -43,11 +53,12 @@ const ScheduleDayItem = ({ home, away, teams }) => {
             {`@${findTeamAbbreviation(home)}`}
           </Typography>
         </div>
-        <Typography variant="h5">{`${home.score} - ${away.score}`}</Typography>
+        <Typography variant="h5">{determineScore()}</Typography>
         <div>
           <Avatar
             style={{
               width: '60px',
+              overflow: 'visible',
               backgroundColor:
                 (away.team.id === 14 || away.team.id === 10) && type === 'light'
                   ? 'lightgray'
