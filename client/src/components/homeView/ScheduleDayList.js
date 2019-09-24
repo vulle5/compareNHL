@@ -11,7 +11,7 @@ const ScheduleDayList = () => {
     (async () => {
       const { dates } = await scheduleServices.getGamesBetween(
         '2019-09-23',
-        '2019-09-27'
+        '2019-09-25'
       );
       setDates(dates);
       console.log(dates);
@@ -30,12 +30,11 @@ const ScheduleDayList = () => {
           <div
             style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '32px' }}
           >
-            {games.map(({ teams, gamePk }) => (
+            {games.map(({ teams: teamsPlaying, gamePk }) => (
               <ScheduleDayItem
                 key={gamePk}
-                home="CAR"
-                away="FLA"
-                display={`${teams.home.score} - ${teams.away.score}`}
+                home={teamsPlaying.home}
+                away={teamsPlaying.away}
               />
             ))}
           </div>
