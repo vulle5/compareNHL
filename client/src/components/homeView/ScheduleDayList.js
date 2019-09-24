@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Typography } from '@material-ui/core';
 import moment from 'moment';
+import 'moment-timezone';
 
 import ScheduleDayItem from './ScheduleDayItem';
 import scheduleServices from '../../services/schedule';
@@ -12,7 +13,8 @@ const ScheduleDayList = () => {
     (async () => {
       const { dates } = await scheduleServices.getGamesBetween(
         '2019-09-23',
-        '2019-09-25'
+        '2019-09-25',
+        moment.tz.guess()
       );
       setDates(dates);
       console.log(dates);
