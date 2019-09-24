@@ -73,12 +73,12 @@ playerRoutes.get('/image/:id', async (req, res) => {
     const { data } = await axios.get(
       `https://nhl.bamcontent.com/images/actionshots/${req.params.id}.jpg`,
       {
-        responseType: 'arraybuffer',
+        responseType: 'arraybuffer'
       },
     );
     res.writeHead(200, {
       'Content-Type': 'image/jpeg',
-      'Content-Length': data.length,
+      'Content-Length': data.length
     });
     res.end(data);
   } catch (e) {
@@ -86,7 +86,7 @@ playerRoutes.get('/image/:id', async (req, res) => {
       fs.readFile('./assets/notFound.png', (err, data) => {
         res.writeHead(200, {
           'Content-Type': 'image/jpeg',
-          'Content-Length': data.length,
+          'Content-Length': data.length
         });
         res.end(data);
       });
