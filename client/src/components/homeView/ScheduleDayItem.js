@@ -19,7 +19,7 @@ const ScheduleDayItem = ({ home, away, display }) => {
             src="https://www-league.nhlstatic.com/images/logos/teams-current-circle/12.svg"
           />
           <Typography style={{ textAlign: 'center' }} variant="subtitle1">
-            {home}
+            {`@${home}`}
           </Typography>
         </div>
         <Typography variant="h5">{display}</Typography>

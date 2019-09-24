@@ -3,9 +3,6 @@ const querystring = require('querystring');
 const axios = require('axios');
 
 scheduleRoutes.get('', async (req, res) => {
-  // Try to get users local timezone
-  // This is going to be hard on deployment on heroku
-  // Think about calendar view for client and how to represent data
   try {
     const { data } = await axios.get(
       `https://statsapi.web.nhl.com/api/v1/schedule/?${querystring.stringify(

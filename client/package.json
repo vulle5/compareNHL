@@ -1,6 +1,6 @@
 {
   "name": "react_nhl",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
@@ -12,6 +12,7 @@
     "lodash": "^4.17.14",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",
+    "moment-timezone": "^0.5.26",
     "qs": "^6.8.0",
     "react": "16.9.0",
     "react-dom": "16.9.0",
