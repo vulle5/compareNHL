@@ -1,24 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { useTheme } from '@material-ui/styles';
 import { Typography, Card, CardContent, Avatar } from '@material-ui/core';
 
+import defLogo from '../../assets/defLogo.svg';
+import teamServices from '../../services/teams';
+
 const ScheduleDayItem = ({ home, away, status, teams }) => {
+  const [homeAbb, setHomeAbb] = useState('');
+  const [awayAbb, setAwayAbb] = useState('');
   const {
     palette: { type }
   } = useTheme();
 
-  function findTeamAbbreviation(teamToSearch) {
-    if (teams.length) {
-      const { abbreviation } = teams.find(
-        team => team.id === teamToSearch.team.id
-      );
-      return abbreviation;
-    }
-  }
+  const findAbbreviation = useCallback(
+    async teamToSearch => {
+      if (teams.length) {
+        try {
+          const { abbreviation } = teams.find(
+            team => team.id === teamToSearch.team.id
+          );
+          return abbreviation;
+        } catch (error) {
+          const {
+            teams: {
+              0: { abbreviation }
+            }
+          } = await teamServices.getTeam(teamToSearch.team.id, '');
+          return abbreviation;
+        }
+      }
+    },
+    [teams]
+  );
+
+  useEffect(() => {
+    (async () => {
+      const homeTeam = await findAbbreviation(home);
+      const abbTeam = await findAbbreviation(away);
+      setHomeAbb(homeTeam);
+      setAwayAbb(abbTeam);
+    })();
+  }, [away, home, findAbbreviation]);
 
   function determineScore() {
-    console.log(status.detailedState);
     if (status.detailedState === 'Final') {
       return `${home.score} - ${away.score}`;
     } else {
@@ -48,9 +73,14 @@ const ScheduleDayItem = ({ home, away, status, teams }) => {
                   : null
             }}
             src={`https://www-league.nhlstatic.com/images/logos/teams-current-circle/${home.team.id}.svg`}
+            alt="Team"
+            onError={e => {
+              e.target.onerror = null;
+              e.target.src = defLogo;
+            }}
           />
           <Typography style={{ textAlign: 'center' }} variant="subtitle1">
-            {`@${findTeamAbbreviation(home)}`}
+            {`@${homeAbb}`}
           </Typography>
         </div>
         <Typography variant="h5">{determineScore()}</Typography>
@@ -65,9 +95,14 @@ const ScheduleDayItem = ({ home, away, status, teams }) => {
                   : null
             }}
             src={`https://www-league.nhlstatic.com/images/logos/teams-current-circle/${away.team.id}.svg`}
+            alt="Team"
+            onError={e => {
+              e.target.onerror = null;
+              e.target.src = defLogo;
+            }}
           />
           <Typography style={{ textAlign: 'center' }} variant="subtitle1">
-            {findTeamAbbreviation(away)}
+            {awayAbb}
           </Typography>
         </div>
       </CardContent>
