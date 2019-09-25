@@ -5,8 +5,9 @@ import { Typography, Card, CardContent, Avatar } from '@material-ui/core';
 
 import defLogo from '../../assets/defLogo.svg';
 import teamServices from '../../services/teams';
+import moment from 'moment';
 
-const ScheduleDayItem = ({ home, away, status, teams }) => {
+const ScheduleDayItem = ({ home, away, status, gameDate, teams }) => {
   const [homeAbb, setHomeAbb] = useState('');
   const [awayAbb, setAwayAbb] = useState('');
   const {
@@ -47,7 +48,7 @@ const ScheduleDayItem = ({ home, away, status, teams }) => {
     if (status.detailedState === 'Final') {
       return `${home.score} - ${away.score}`;
     } else {
-      return 'Time';
+      return moment(gameDate).format('hh:mm');
     }
   }
 

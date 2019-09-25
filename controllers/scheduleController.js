@@ -22,7 +22,7 @@ function gamesToClientTime(games, timezone, filterStart, filterEnd) {
     game.gameDate = moment
       .parseZone(game.gameDate)
       .tz(timezone)
-      .format('YYYY-MM-DDTHH:mm');
+      .format('YYYY-MM-DDTHH:mmZZ');
   });
   // Filter games that do not fit to api call
   return games.filter(
@@ -84,7 +84,6 @@ scheduleRoutes.get('', async (req, res) => {
       res.status(400).json({ message: 'Dates are too far apart (max 20)' });
     }
   } catch (error) {
-    console.log(error);
     res.status(400).json(error);
   }
 });

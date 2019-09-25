@@ -12,8 +12,12 @@ const ScheduleDayList = () => {
   useEffect(() => {
     (async () => {
       const { dates } = await scheduleServices.getGamesBetween(
-        '2019-09-23',
-        '2019-09-25',
+        moment()
+          .subtract(1, 'days')
+          .format('YYYY-MM-DD'),
+        moment()
+          .add(1, 'days')
+          .format('YYYY-MM-DD'),
         moment.tz.guess()
       );
       setDates(dates);
@@ -47,9 +51,10 @@ const ScheduleDayList = () => {
           <div
             style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '32px' }}
           >
-            {games.map(({ teams: teamsPlaying, gamePk, status }) => (
+            {games.map(({ teams: teamsPlaying, gamePk, status, gameDate }) => (
               <ScheduleDayItem
                 key={gamePk}
+                gameDate={gameDate}
                 home={teamsPlaying.home}
                 away={teamsPlaying.away}
                 status={status}
