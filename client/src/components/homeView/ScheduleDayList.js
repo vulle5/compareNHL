@@ -54,6 +54,7 @@ const ScheduleDayList = () => {
             {games.map(({ teams: teamsPlaying, gamePk, status, gameDate }) => (
               <ScheduleDayItem
                 key={gamePk}
+                gamePk={gamePk}
                 gameDate={gameDate}
                 home={teamsPlaying.home}
                 away={teamsPlaying.away}

@@ -78,7 +78,9 @@ const TeamRosterPosList = ({ players, title }) => {
                     />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText>{`#${player.jerseyNumber} ${player.person.fullName}`}</ListItemText>
+                <ListItemText>{`${
+                  player.jerseyNumber ? `#${player.jerseyNumber}` : ''
+                } ${player.person.fullName}`}</ListItemText>
                 <ListItemSecondaryAction>
                   {compareButton(player)}
                 </ListItemSecondaryAction>
