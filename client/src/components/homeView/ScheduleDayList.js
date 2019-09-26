@@ -52,16 +52,25 @@ const ScheduleDayList = () => {
           <div
             style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '32px' }}
           >
-            {games.map(({ teams: teamsPlaying, gamePk, status, gameDate }) => (
-              <ScheduleDayItem
-                key={gamePk}
-                gamePk={gamePk}
-                gameDate={gameDate}
-                home={teamsPlaying.home}
-                away={teamsPlaying.away}
-                status={status}
-              />
-            ))}
+            {games.map(
+              ({
+                teams: teamsPlaying,
+                gamePk,
+                status,
+                gameDate,
+                linescore
+              }) => (
+                <ScheduleDayItem
+                  key={gamePk}
+                  gamePk={gamePk}
+                  gameDate={gameDate}
+                  home={teamsPlaying.home}
+                  away={teamsPlaying.away}
+                  linescore={linescore}
+                  status={status}
+                />
+              )
+            )}
           </div>
         </div>
       ))}

@@ -7,7 +7,15 @@ import defLogo from '../../assets/defLogo.svg';
 import teamServices from '../../services/teams';
 import moment from 'moment';
 
-const ScheduleDayItem = ({ home, away, status, gameDate, gamePk, teams }) => {
+const ScheduleDayItem = ({
+  home,
+  away,
+  status,
+  gameDate,
+  gamePk,
+  linescore,
+  teams
+}) => {
   const [homeAbb, setHomeAbb] = useState('');
   const [awayAbb, setAwayAbb] = useState('');
   const {
@@ -68,6 +76,13 @@ const ScheduleDayItem = ({ home, away, status, gameDate, gamePk, teams }) => {
     }
   }
 
+  function determineGameState() {
+    if (!status.detailedState === 'Final') {
+      return linescore.currentPeriodOrdinal;
+    }
+    return 'Final';
+  }
+
   return (
     <Card style={{ width: '288px', margin: '16px 16px 0px 0px' }}>
       <CardContent>
@@ -75,7 +90,7 @@ const ScheduleDayItem = ({ home, away, status, gameDate, gamePk, teams }) => {
           <Typography variant="subtitle1">
             {determineGameType(gamePk.toString())}
           </Typography>
-          <Typography variant="subtitle1">{`${status.detailedState}`}</Typography>
+          <Typography variant="subtitle1">{determineGameState()}</Typography>
         </div>
         <div
           style={{
