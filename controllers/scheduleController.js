@@ -47,7 +47,9 @@ scheduleRoutes.get('', async (req, res) => {
       const { data: gamesToParse } = await axios.get(
         `https://statsapi.web.nhl.com/api/v1/schedule/?startDate=${newStartDate.format(
           'YYYY-MM-DD'
-        )}&endDate=${newEndDate.format('YYYY-MM-DD')}`
+        )}&endDate=${newEndDate.format('YYYY-MM-DD')}&${querystring.stringify({
+          expand: req.query.expand
+        }) || ''}`
       );
       // Take games from api data and flatten
       const gamesOnly = gamesToParse.dates

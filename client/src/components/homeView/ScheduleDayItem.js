@@ -75,7 +75,7 @@ const ScheduleDayItem = ({ home, away, status, gameDate, gamePk, teams }) => {
           <Typography variant="subtitle1">
             {determineGameType(gamePk.toString())}
           </Typography>
-          <Typography variant="subtitle1">{status.detailedState}</Typography>
+          <Typography variant="subtitle1">{`${status.detailedState}`}</Typography>
         </div>
         <div
           style={{

@@ -18,7 +18,8 @@ const ScheduleDayList = () => {
         moment()
           .add(1, 'days')
           .format('YYYY-MM-DD'),
-        moment.tz.guess()
+        moment.tz.guess(),
+        'expand=schedule.linescore'
       );
       setDates(dates);
       console.log(dates);
