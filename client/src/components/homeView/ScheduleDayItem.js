@@ -21,7 +21,6 @@ const ScheduleDayItem = ({
   const {
     palette: { type }
   } = useTheme();
-  console.log(teams);
 
   const findAbbreviation = useCallback(
     async teamToSearch => {
