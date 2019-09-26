@@ -21,22 +21,23 @@ const ScheduleDayItem = ({
   const {
     palette: { type }
   } = useTheme();
+  console.log(teams);
 
   const findAbbreviation = useCallback(
     async teamToSearch => {
       if (teams.length) {
         try {
-          const { abbreviation } = teams.find(
+          const { teamName } = teams.find(
             team => team.id === teamToSearch.team.id
           );
-          return abbreviation;
+          return teamName;
         } catch (error) {
           const {
             teams: {
-              0: { abbreviation }
+              0: { teamName }
             }
           } = await teamServices.getTeam(teamToSearch.team.id, '');
-          return abbreviation;
+          return teamName;
         }
       }
     },
@@ -77,8 +78,13 @@ const ScheduleDayItem = ({
   }
 
   function determineGameState() {
+    // Make this smarter by showing time remaining
+    // only when period is 1-4
     if (!status.detailedState === 'Final') {
       return linescore.currentPeriodOrdinal;
+    }
+    if (linescore.currentPeriod === 0) {
+      return status.detailedState;
     }
     return 'Final';
   }
@@ -96,21 +102,25 @@ const ScheduleDayItem = ({
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            height: '100px',
-            marginTop: '8px',
+            margin: '16px 0px 8px 0px',
             alignItems: 'center'
           }}
         >
           <div>
             <Avatar
               style={{
-                width: '60px',
+                width: '40px',
                 overflow: 'visible',
+                position: 'relative',
+                marginLeft: '4px',
                 backgroundColor:
                   (home.team.id === 14 || home.team.id === 10) &&
                   type === 'light'
                     ? 'lightgray'
                     : null
+              }}
+              imgProps={{
+                style: { position: 'absolute', width: '145%' }
               }}
               src={`https://www-league.nhlstatic.com/images/logos/teams-current-circle/${home.team.id}.svg`}
               alt="Team"
@@ -119,21 +129,23 @@ const ScheduleDayItem = ({
                 e.target.src = defLogo;
               }}
             />
-            <Typography style={{ textAlign: 'center' }} variant="subtitle1">
-              {`@${homeAbb}`}
-            </Typography>
           </div>
           <Typography variant="h5">{determineScore()}</Typography>
           <div>
             <Avatar
               style={{
-                width: '60px',
+                width: '40px',
+                position: 'relative',
+                marginRight: '4px',
                 overflow: 'visible',
                 backgroundColor:
                   (away.team.id === 14 || away.team.id === 10) &&
                   type === 'light'
                     ? 'lightgray'
                     : null
+              }}
+              imgProps={{
+                style: { position: 'absolute', width: '145%' }
               }}
               src={`https://www-league.nhlstatic.com/images/logos/teams-current-circle/${away.team.id}.svg`}
               alt="Team"
@@ -142,10 +154,15 @@ const ScheduleDayItem = ({
                 e.target.src = defLogo;
               }}
             />
-            <Typography style={{ textAlign: 'center' }} variant="subtitle1">
-              {awayAbb}
-            </Typography>
           </div>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography style={{ textAlign: 'center' }} variant="subtitle1">
+            {`@${homeAbb}`}
+          </Typography>
+          <Typography style={{ textAlign: 'center' }} variant="subtitle1">
+            {awayAbb}
+          </Typography>
         </div>
       </CardContent>
     </Card>
