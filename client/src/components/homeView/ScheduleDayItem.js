@@ -77,11 +77,12 @@ const ScheduleDayItem = ({
   }
 
   function determineGameState() {
-    // Make this smarter by showing time remaining
+    // TODO: Make this smarter by showing time remaining
     // only when period is 1-4
     if (!status.detailedState === 'Final') {
       return linescore.currentPeriodOrdinal;
     }
+    // Return detailedState if game has not started
     if (linescore.currentPeriod === 0) {
       return status.detailedState;
     }

@@ -46,8 +46,11 @@ const ScheduleDayList = () => {
     <div style={{ marginTop: '24px' }}>
       {dates.map(({ date, games }) => (
         <div key={date}>
-          <div>
+          <div style={{ display: 'flex' }}>
             <Typography variant="h4">{getTitle(date)}</Typography>
+            <div style={{ alignSelf: 'center', marginLeft: '16px' }}>
+              ({`GMT${moment(date).format('Z')}`})
+            </div>
           </div>
           <div
             style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '32px' }}
