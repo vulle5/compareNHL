@@ -1,11 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { useTheme } from '@material-ui/styles';
-import { Typography, Card, CardContent, Avatar } from '@material-ui/core';
+import {
+  Typography,
+  Card,
+  CardContent,
+  Avatar,
+  Divider
+} from '@material-ui/core';
 
 import defLogo from '../../assets/defLogo.svg';
 import teamServices from '../../services/teams';
 import moment from 'moment';
+import GameOverviewTable from './GameOverviewTable';
 
 const ScheduleDayItem = ({
   home,
@@ -106,7 +113,7 @@ const ScheduleDayItem = ({
   }
 
   return (
-    <Card style={{ width: '288px', margin: '16px 16px 0px 0px' }}>
+    <Card style={{ width: '350px', margin: '16px 16px 0px 0px' }}>
       <CardContent>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant="subtitle1">
@@ -181,6 +188,8 @@ const ScheduleDayItem = ({
           </Typography>
         </div>
         {determineLeagueScore()}
+        <Divider style={{ margin: '12px 0px' }} />
+        <GameOverviewTable />
       </CardContent>
     </Card>
   );
