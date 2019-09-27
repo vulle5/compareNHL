@@ -9,6 +9,7 @@
     "axios": "^0.19.0",
     "country-iso-3-to-2": "^1.0.1",
     "http-proxy-middleware": "^0.19.1",
+    "json2mq": "^0.2.0",
     "lodash": "^4.17.14",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",

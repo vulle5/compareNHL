@@ -6,9 +6,24 @@ import {
   TableBody,
   TableCell
 } from '@material-ui/core';
+import json2mq from 'json2mq';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const GameOverviewTable = () => {
-  function createData(team, first, second, third, overtime, shootout) {
+  const matches = useMediaQuery(
+    json2mq({
+      minWidth: 400
+    })
+  );
+
+  function createData(
+    team = 'DEF',
+    first = '-',
+    second = '-',
+    third = '-',
+    overtime = null,
+    shootout = null
+  ) {
     return { team, first, second, third, overtime, shootout };
   }
 
@@ -18,7 +33,7 @@ const GameOverviewTable = () => {
   ];
 
   return (
-    <div>
+    <div style={!matches ? { overflowX: 'scroll' } : { overflowX: 'hidden' }}>
       <Table size="small">
         <TableHead>
           <TableRow>

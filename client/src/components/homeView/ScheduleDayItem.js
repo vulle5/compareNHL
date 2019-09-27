@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
+import json2mq from 'json2mq';
 import { useTheme } from '@material-ui/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {
   Typography,
   Card,
@@ -28,6 +30,11 @@ const ScheduleDayItem = ({
   const {
     palette: { type }
   } = useTheme();
+  const matches = useMediaQuery(
+    json2mq({
+      minWidth: 768
+    })
+  );
 
   const findAbbreviation = useCallback(
     async teamToSearch => {
@@ -113,7 +120,13 @@ const ScheduleDayItem = ({
   }
 
   return (
-    <Card style={{ width: '350px', margin: '16px 16px 0px 0px' }}>
+    <Card
+      style={
+        matches
+          ? { width: '350px', margin: '16px 16px 0px 0px' }
+          : { width: '100%', marginTop: '16px' }
+      }
+    >
       <CardContent>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant="subtitle1">
