@@ -56,7 +56,7 @@ const ScheduleDayItem = ({
     if (status.detailedState === 'Final') {
       return `${home.score} - ${away.score}`;
     } else {
-      return moment(gameDate).format('hh:mm');
+      return moment(gameDate).format('HH:mm');
     }
   }
 
@@ -86,6 +86,22 @@ const ScheduleDayItem = ({
       return status.detailedState;
     }
     return 'Final';
+  }
+
+  function determineLeagueScore() {
+    if (status.detailedState === 'Final') {
+      return (
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div
+            style={{ fontSize: '12px' }}
+          >{`(${home.leagueRecord.wins}-${home.leagueRecord.losses}-${home.leagueRecord.ot})`}</div>
+          <div
+            style={{ fontSize: '12px' }}
+          >{`(${away.leagueRecord.wins}-${away.leagueRecord.losses}-${away.leagueRecord.ot})`}</div>
+        </div>
+      );
+    }
+    return null;
   }
 
   return (
@@ -163,6 +179,7 @@ const ScheduleDayItem = ({
             {awayAbb}
           </Typography>
         </div>
+        {determineLeagueScore()}
       </CardContent>
     </Card>
   );
