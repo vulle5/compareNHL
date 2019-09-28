@@ -69,8 +69,8 @@ const GameOverviewTable = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.team}>
+          {rows.map((row, index) => (
+            <TableRow key={index}>
               <TableCell component="th" scope="row">
                 {row.team}
               </TableCell>

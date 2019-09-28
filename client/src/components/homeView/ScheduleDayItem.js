@@ -4,21 +4,17 @@ import moment from 'moment';
 import json2mq from 'json2mq';
 import { useTheme } from '@material-ui/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import clsx from 'clsx';
 import {
   Typography,
   Card,
   CardContent,
   Avatar,
-  CardActions,
-  IconButton,
-  Collapse
+  Divider
 } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import defLogo from '../../assets/defLogo.svg';
 import teamServices from '../../services/teams';
-import { useScheduleDayItemStyles } from '../../styles/useStyles';
+// import { useScheduleDayItemStyles } from '../../styles/useStyles';
 import GameOverviewTable from './GameOverviewTable';
 
 const ScheduleDayItem = ({
@@ -34,7 +30,6 @@ const ScheduleDayItem = ({
   const [awayAbb, setAwayAbb] = useState('');
   const [homeTeam, setHomeTeam] = useState('');
   const [awayTeam, setAwayTeam] = useState('');
-  const [expanded, setExpanded] = useState(false);
 
   const {
     palette: { type }
@@ -44,11 +39,7 @@ const ScheduleDayItem = ({
       minWidth: 768
     })
   );
-  const classes = useScheduleDayItemStyles();
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  // const classes = useScheduleDayItemStyles();
 
   const findTeamName = useCallback(
     async teamToSearch => {
@@ -183,7 +174,19 @@ const ScheduleDayItem = ({
               }}
             />
           </div>
-          <Typography variant="h5">{determineScore()}</Typography>
+          <Typography
+            variant="h5"
+            style={
+              status.detailedState === 'Final'
+                ? {
+                    letterSpacing: '15px',
+                    marginRight: '-15px'
+                  }
+                : null
+            }
+          >
+            {determineScore()}
+          </Typography>
           <div>
             <Avatar
               style={{
@@ -220,29 +223,16 @@ const ScheduleDayItem = ({
         {determineLeagueScore()}
         {status.detailedState === 'Final' && (
           <>
-            <CardActions disableSpacing>
-              <IconButton
-                className={clsx(classes.expand, {
-                  [classes.expandOpen]: expanded
-                })}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
-                aria-label="show more"
-              >
-                <ExpandMoreIcon />
-              </IconButton>
-            </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-              <GameOverviewTable
-                homeAbb={homeAbb}
-                awayAbb={awayAbb}
-                first={linescore.periods[0]}
-                second={linescore.periods[1]}
-                third={linescore.periods[2]}
-                overtime={linescore.periods[3]}
-                shootout={linescore.shootoutInfo}
-              />
-            </Collapse>
+            <Divider style={{ margin: '12px 0px' }} />
+            <GameOverviewTable
+              homeAbb={homeAbb}
+              awayAbb={awayAbb}
+              first={linescore.periods[0]}
+              second={linescore.periods[1]}
+              third={linescore.periods[2]}
+              overtime={linescore.periods[3]}
+              shootout={linescore.shootoutInfo}
+            />
           </>
         )}
       </CardContent>
