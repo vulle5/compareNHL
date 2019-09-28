@@ -53,7 +53,12 @@ const ScheduleDayList = () => {
             </div>
           </div>
           <div
-            style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '32px' }}
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              marginBottom: '32px',
+              alignItems: 'flex-start'
+            }}
           >
             {games.map(
               ({

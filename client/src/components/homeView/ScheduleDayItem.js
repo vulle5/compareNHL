@@ -1,19 +1,24 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import json2mq from 'json2mq';
 import { useTheme } from '@material-ui/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import clsx from 'clsx';
 import {
   Typography,
   Card,
   CardContent,
   Avatar,
-  Divider
+  CardActions,
+  IconButton,
+  Collapse
 } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import defLogo from '../../assets/defLogo.svg';
 import teamServices from '../../services/teams';
-import moment from 'moment';
+import { useScheduleDayItemStyles } from '../../styles/useStyles';
 import GameOverviewTable from './GameOverviewTable';
 
 const ScheduleDayItem = ({
@@ -27,6 +32,8 @@ const ScheduleDayItem = ({
 }) => {
   const [homeAbb, setHomeAbb] = useState('');
   const [awayAbb, setAwayAbb] = useState('');
+  const [expanded, setExpanded] = useState(false);
+
   const {
     palette: { type }
   } = useTheme();
@@ -35,8 +42,13 @@ const ScheduleDayItem = ({
       minWidth: 768
     })
   );
+  const classes = useScheduleDayItemStyles();
 
-  const findAbbreviation = useCallback(
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const findTeamName = useCallback(
     async teamToSearch => {
       if (teams.length) {
         try {
@@ -59,12 +71,12 @@ const ScheduleDayItem = ({
 
   useEffect(() => {
     (async () => {
-      const homeTeam = await findAbbreviation(home);
-      const abbTeam = await findAbbreviation(away);
+      const homeTeam = await findTeamName(home);
+      const abbTeam = await findTeamName(away);
       setHomeAbb(homeTeam);
       setAwayAbb(abbTeam);
     })();
-  }, [away, home, findAbbreviation]);
+  }, [away, home, findTeamName]);
 
   function determineScore() {
     if (status.detailedState === 'Final') {
@@ -123,7 +135,7 @@ const ScheduleDayItem = ({
     <Card
       style={
         matches
-          ? { width: '350px', margin: '16px 16px 0px 0px', display: 'table' }
+          ? { width: '350px', margin: '16px 16px 0px 0px' }
           : { width: '100%', marginTop: '16px' }
       }
     >
@@ -203,8 +215,21 @@ const ScheduleDayItem = ({
         {determineLeagueScore()}
         {status.detailedState === 'Final' && (
           <>
-            <Divider style={{ margin: '12px 0px' }} />
-            <GameOverviewTable />
+            <CardActions disableSpacing>
+              <IconButton
+                className={clsx(classes.expand, {
+                  [classes.expandOpen]: expanded
+                })}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                aria-label="show more"
+              >
+                <ExpandMoreIcon />
+              </IconButton>
+            </CardActions>
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+              <GameOverviewTable />
+            </Collapse>
           </>
         )}
       </CardContent>

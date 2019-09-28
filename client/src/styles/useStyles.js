@@ -128,3 +128,16 @@ export const useTeamStyles = makeStyles(theme => ({
     padding: theme.spacing(1, 2)
   }
 }));
+
+export const useScheduleDayItemStyles = makeStyles(theme => ({
+  expand: {
+    transform: 'rotate(0deg)',
+    margin: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest
+    })
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)'
+  }
+}));
