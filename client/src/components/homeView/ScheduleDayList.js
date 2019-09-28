@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 import moment from 'moment';
 import 'moment-timezone';
 
@@ -9,23 +9,45 @@ import DatePicker from './DatePicker';
 
 const ScheduleDayList = () => {
   const [dates, setDates] = useState([]);
+  const [showYesterday, setShowYesterday] = useState(false);
+  const [today, setToday] = useState(moment());
+  const [yesterday, setYesterday] = useState(
+    moment()
+      .subtract(1, 'days')
+      .format('YYYY-MM-DD')
+  );
+  const [tomorrow, setTomorrow] = useState(
+    moment()
+      .add(1, 'days')
+      .format('YYYY-MM-DD')
+  );
 
   useEffect(() => {
     (async () => {
       const { dates } = await scheduleServices.getGamesBetween(
-        moment()
-          .subtract(1, 'days')
-          .format('YYYY-MM-DD'),
-        moment()
-          .add(1, 'days')
-          .format('YYYY-MM-DD'),
+        showYesterday ? today.format('YYYY-MM-DD') : yesterday,
+        tomorrow,
         moment.tz.guess(),
         'expand=schedule.linescore'
       );
       setDates(dates);
+      window.scrollTo(0, 0);
       console.log(dates);
     })();
-  }, []);
+  }, [showYesterday, today, tomorrow, yesterday]);
+
+  const handleDateChange = date => {
+    const yesterday = moment(date)
+      .subtract(1, 'days')
+      .format('YYYY-MM-DD');
+    const tomorrow = moment(date)
+      .add(1, 'days')
+      .format('YYYY-MM-DD');
+    setToday(date);
+    setYesterday(yesterday);
+    setTomorrow(tomorrow);
+    setShowYesterday(true);
+  };
 
   function getTitle(date) {
     const calendarDate = moment(date, 'YYYY-MM-DD').calendar(null, {
@@ -47,12 +69,27 @@ const ScheduleDayList = () => {
     <div style={{ marginTop: '24px' }}>
       {dates.map(({ date, games }, index) => (
         <div key={date}>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Typography variant="h4">{getTitle(date)}</Typography>
-            <div style={{ margin: '0px 32px 0px 16px' }}>
+          <div
+            style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}
+          >
+            <Typography variant="h4" style={{ marginRight: '16px' }}>
+              {getTitle(date)}
+            </Typography>
+            <div style={{ marginRight: '32px' }}>
               ({`GMT${moment(date).format('Z')}`})
             </div>
-            {index === 0 && <DatePicker />}
+            {index === 0 && (
+              <DatePicker date={today} handleDateChange={handleDateChange} />
+            )}
+            {showYesterday && index === 0 && (
+              <Button
+                color="primary"
+                onClick={() => setShowYesterday(false)}
+                style={{ marginLeft: 'auto', marginRight: '32px' }}
+              >
+                Show Yesterday
+              </Button>
+            )}
           </div>
           <div
             style={{
