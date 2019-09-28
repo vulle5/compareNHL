@@ -8,8 +8,17 @@ import {
 } from '@material-ui/core';
 import json2mq from 'json2mq';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { get } from 'lodash';
 
-const GameOverviewTable = () => {
+const GameOverviewTable = ({
+  homeAbb,
+  awayAbb,
+  first,
+  second,
+  third,
+  overtime,
+  shootout
+}) => {
   const matches = useMediaQuery(
     json2mq({
       minWidth: 400
@@ -28,8 +37,22 @@ const GameOverviewTable = () => {
   }
 
   const rows = [
-    createData('DET', 0, 1, 1, 0, 4),
-    createData('FLA', 1, 1, 0, 0, 3)
+    createData(
+      homeAbb,
+      get(first, 'home.goals', undefined),
+      get(second, 'home.goals', undefined),
+      get(third, 'home.goals', undefined),
+      get(overtime, 'home.goals', undefined),
+      get(shootout, 'home.scores', undefined)
+    ),
+    createData(
+      awayAbb,
+      get(first, 'away.goals', undefined),
+      get(second, 'away.goals', undefined),
+      get(third, 'away.goals', undefined),
+      get(overtime, 'away.goals', undefined),
+      get(shootout, 'away.scores', undefined)
+    )
   ];
 
   return (
@@ -41,8 +64,8 @@ const GameOverviewTable = () => {
             <TableCell>1</TableCell>
             <TableCell>2</TableCell>
             <TableCell>3</TableCell>
-            <TableCell>OT</TableCell>
-            <TableCell>SO</TableCell>
+            {overtime && <TableCell>OT</TableCell>}
+            {shootout.startTime && <TableCell>SO</TableCell>}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -54,14 +77,19 @@ const GameOverviewTable = () => {
               <TableCell>{row.first}</TableCell>
               <TableCell>{row.second}</TableCell>
               <TableCell>{row.third}</TableCell>
-              <TableCell>{row.overtime}</TableCell>
-              <TableCell>({row.shootout})</TableCell>
+              {overtime && <TableCell>{row.overtime}</TableCell>}
+              {shootout.startTime && <TableCell>({row.shootout})</TableCell>}
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </div>
   );
+};
+
+GameOverviewTable.defaultProps = {
+  homeAbb: 'DEF',
+  awayAbb: 'DEF'
 };
 
 export default GameOverviewTable;

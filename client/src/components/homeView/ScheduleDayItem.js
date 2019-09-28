@@ -32,6 +32,8 @@ const ScheduleDayItem = ({
 }) => {
   const [homeAbb, setHomeAbb] = useState('');
   const [awayAbb, setAwayAbb] = useState('');
+  const [homeTeam, setHomeTeam] = useState('');
+  const [awayTeam, setAwayTeam] = useState('');
   const [expanded, setExpanded] = useState(false);
 
   const {
@@ -52,29 +54,32 @@ const ScheduleDayItem = ({
     async teamToSearch => {
       if (teams.length) {
         try {
-          const { teamName } = teams.find(
+          const { teamName, abbreviation } = teams.find(
             team => team.id === teamToSearch.team.id
           );
-          return teamName;
+          return [teamName, abbreviation];
         } catch (error) {
           const {
             teams: {
               0: { teamName }
             }
           } = await teamServices.getTeam(teamToSearch.team.id, '');
-          return teamName;
+          return [teamName, 'DEF'];
         }
       }
+      return ['No Team', 'DEF'];
     },
     [teams]
   );
 
   useEffect(() => {
     (async () => {
-      const homeTeam = await findTeamName(home);
-      const abbTeam = await findTeamName(away);
-      setHomeAbb(homeTeam);
-      setAwayAbb(abbTeam);
+      const [homeTeamName, homeAbb] = await findTeamName(home);
+      const [awayTeamName, awayAbb] = await findTeamName(away);
+      setHomeTeam(homeTeamName);
+      setAwayTeam(awayTeamName);
+      setHomeAbb(homeAbb);
+      setAwayAbb(awayAbb);
     })();
   }, [away, home, findTeamName]);
 
@@ -206,10 +211,10 @@ const ScheduleDayItem = ({
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography style={{ textAlign: 'center' }} variant="subtitle1">
-            {`@${homeAbb}`}
+            {`@${homeTeam}`}
           </Typography>
           <Typography style={{ textAlign: 'center' }} variant="subtitle1">
-            {awayAbb}
+            {awayTeam}
           </Typography>
         </div>
         {determineLeagueScore()}
@@ -228,7 +233,15 @@ const ScheduleDayItem = ({
               </IconButton>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
-              <GameOverviewTable />
+              <GameOverviewTable
+                homeAbb={homeAbb}
+                awayAbb={awayAbb}
+                first={linescore.periods[0]}
+                second={linescore.periods[1]}
+                third={linescore.periods[2]}
+                overtime={linescore.periods[3]}
+                shootout={linescore.shootoutInfo}
+              />
             </Collapse>
           </>
         )}
