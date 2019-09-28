@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Button } from '@material-ui/core';
+import { Typography, Button, Card } from '@material-ui/core';
 import moment from 'moment';
 import 'moment-timezone';
 
@@ -61,13 +61,9 @@ const ScheduleDayList = () => {
     return calendarDate;
   }
 
-  if (!dates.length) {
-    return <div>...Loading</div>;
-  }
-
-  return (
-    <div style={{ marginTop: '24px' }}>
-      {dates.map(({ date, games }, index) => (
+  const generateDateView = (date, games, index) => {
+    if (games.length) {
+      return (
         <div key={date}>
           <div
             style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}
@@ -120,7 +116,50 @@ const ScheduleDayList = () => {
             )}
           </div>
         </div>
-      ))}
+      );
+    }
+    return (
+      <div key={date}>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            marginBottom: '16px'
+          }}
+        >
+          <Typography variant="h4" style={{ marginRight: '16px' }}>
+            {getTitle(date)}
+          </Typography>
+          <div style={{ marginRight: '32px' }}>
+            ({`GMT${moment(date).format('Z')}`})
+          </div>
+          {index === 0 && (
+            <DatePicker date={today} handleDateChange={handleDateChange} />
+          )}
+        </div>
+        <Card
+          style={{
+            marginBottom: '32px',
+            display: 'inline-block',
+            padding: '16px'
+          }}
+        >
+          <Typography>No games for this day</Typography>
+        </Card>
+      </div>
+    );
+  };
+
+  if (!dates.length) {
+    return <div>...Loading</div>;
+  }
+
+  return (
+    <div style={{ marginTop: '24px' }}>
+      {dates.map(({ date, games }, index) =>
+        generateDateView(date, games, index)
+      )}
     </div>
   );
 };

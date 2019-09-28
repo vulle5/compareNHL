@@ -115,12 +115,12 @@ const ScheduleDayItem = ({
     if (status.detailedState === 'Final') {
       return (
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div
-            style={{ fontSize: '12px' }}
-          >{`(${home.leagueRecord.wins}-${home.leagueRecord.losses}-${home.leagueRecord.ot})`}</div>
-          <div
-            style={{ fontSize: '12px' }}
-          >{`(${away.leagueRecord.wins}-${away.leagueRecord.losses}-${away.leagueRecord.ot})`}</div>
+          <div style={{ fontSize: '12px' }}>{`(${home.leagueRecord.wins ||
+            '0'}-${home.leagueRecord.losses || '0'}-${home.leagueRecord.ot ||
+            '0'})`}</div>
+          <div style={{ fontSize: '12px' }}>{`(${away.leagueRecord.wins ||
+            '0'}-${away.leagueRecord.losses || '0'}-${away.leagueRecord.ot ||
+            '0'})`}</div>
         </div>
       );
     }
