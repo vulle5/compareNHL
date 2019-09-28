@@ -123,7 +123,7 @@ const ScheduleDayItem = ({
     <Card
       style={
         matches
-          ? { width: '350px', margin: '16px 16px 0px 0px' }
+          ? { width: '350px', margin: '16px 16px 0px 0px', display: 'table' }
           : { width: '100%', marginTop: '16px' }
       }
     >
@@ -201,8 +201,12 @@ const ScheduleDayItem = ({
           </Typography>
         </div>
         {determineLeagueScore()}
-        <Divider style={{ margin: '12px 0px' }} />
-        <GameOverviewTable />
+        {status.detailedState === 'Final' && (
+          <>
+            <Divider style={{ margin: '12px 0px' }} />
+            <GameOverviewTable />
+          </>
+        )}
       </CardContent>
     </Card>
   );

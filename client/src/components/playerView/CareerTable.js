@@ -20,8 +20,6 @@ const CareerTable = props => {
     width
   } = props;
 
-  console.log(filteredStats);
-
   useEffect(() => {
     swipeReferences.current.updateHeight();
   }, [width, swipeReferences]);
