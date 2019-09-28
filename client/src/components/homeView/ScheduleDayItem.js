@@ -76,9 +76,19 @@ const ScheduleDayItem = ({
 
   function determineScore() {
     if (status.detailedState === 'Final') {
-      return `${home.score} - ${away.score}`;
+      return (
+        <>
+          <Typography variant="h5">{home.score}</Typography>
+          <Typography variant="h5" style={{ margin: '0px 32px' }}>
+            -
+          </Typography>
+          <Typography variant="h5">{away.score}</Typography>
+        </>
+      );
     } else {
-      return moment(gameDate).format('HH:mm');
+      return (
+        <Typography variant="h5">{moment(gameDate).format('HH:mm')}</Typography>
+      );
     }
   }
 
@@ -174,19 +184,7 @@ const ScheduleDayItem = ({
               }}
             />
           </div>
-          <Typography
-            variant="h5"
-            style={
-              status.detailedState === 'Final'
-                ? {
-                    letterSpacing: '15px',
-                    marginRight: '-15px'
-                  }
-                : null
-            }
-          >
-            {determineScore()}
-          </Typography>
+          <div style={{ display: 'flex' }}>{determineScore()}</div>
           <div>
             <Avatar
               style={{
