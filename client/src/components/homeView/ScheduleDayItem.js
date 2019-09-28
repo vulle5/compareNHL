@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import 'moment-duration-format';
 import json2mq from 'json2mq';
 import { useTheme } from '@material-ui/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -118,7 +119,19 @@ const ScheduleDayItem = ({
     // goaliePulled: for empty net stat
     // If game is in progress
     if (status.detailedState === 'In Progress') {
-      return `${linescore.currentPeriodOrdinal} · ${linescore.currentPeriodTimeRemaining}`;
+      const intermissionTime = moment.duration(
+        linescore.intermissionInfo.intermissionTimeRemaining,
+        'seconds'
+      );
+      return `${
+        linescore.intermissionInfo.inIntermission
+          ? 'Intermission'
+          : linescore.currentPeriodOrdinal
+      } · ${
+        linescore.intermissionInfo.inIntermission
+          ? intermissionTime.format('mm:ss')
+          : linescore.currentPeriodTimeRemaining
+      }`;
     }
     return status.detailedState;
   }

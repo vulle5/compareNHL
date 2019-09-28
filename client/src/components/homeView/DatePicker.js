@@ -1,6 +1,10 @@
 import React from 'react';
 import MomentUtils from '@date-io/moment';
 import moment from 'moment';
+// Uncomment for proper local for Finland
+// TODO: Need to figure out how to best get the local
+// remember to add locale={'fi'}
+// import 'moment/locale/fi';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
