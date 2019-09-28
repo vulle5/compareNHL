@@ -15,6 +15,7 @@ const DatePicker = ({ date, handleDateChange }) => {
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <KeyboardDatePicker
           disableToolbar={!matches}
+          autoOk={matches}
           margin="normal"
           variant={!matches ? 'dialog' : 'inline'}
           id="date-picker"

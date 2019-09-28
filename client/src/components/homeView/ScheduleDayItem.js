@@ -75,7 +75,10 @@ const ScheduleDayItem = ({
   }, [away, home, findTeamName]);
 
   function determineScore() {
-    if (status.detailedState === 'Final') {
+    if (
+      status.detailedState === 'Final' ||
+      status.detailedState === 'In Progress'
+    ) {
       return (
         <>
           <Typography variant="h5">{home.score}</Typography>
@@ -111,14 +114,13 @@ const ScheduleDayItem = ({
   function determineGameState() {
     // TODO: Make this smarter by showing time remaining
     // only when period is 1-4
-    if (!status.detailedState === 'Final') {
-      return linescore.currentPeriodOrdinal;
+    // powerPlay: for powerplay stats
+    // goaliePulled: for empty net stat
+    // If game is in progress
+    if (status.detailedState === 'In Progress') {
+      return `${linescore.currentPeriodOrdinal} · ${linescore.currentPeriodTimeRemaining}`;
     }
-    // Return detailedState if game has not started
-    if (linescore.currentPeriod === 0) {
-      return status.detailedState;
-    }
-    return 'Final';
+    return status.detailedState;
   }
 
   function determineLeagueScore() {
@@ -134,7 +136,7 @@ const ScheduleDayItem = ({
         </div>
       );
     }
-    return null;
+    return <div style={{ height: '17px' }}></div>;
   }
 
   return (
@@ -219,7 +221,8 @@ const ScheduleDayItem = ({
           </Typography>
         </div>
         {determineLeagueScore()}
-        {status.detailedState === 'Final' && (
+        {(status.detailedState === 'Final' ||
+          status.detailedState === 'In Progress') && (
           <>
             <Divider style={{ margin: '12px 0px' }} />
             <GameOverviewTable
