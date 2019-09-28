@@ -5,6 +5,7 @@ import 'moment-timezone';
 
 import ScheduleDayItem from './ScheduleDayItem';
 import scheduleServices from '../../services/schedule';
+import DatePicker from './DatePicker';
 
 const ScheduleDayList = () => {
   const [dates, setDates] = useState([]);
@@ -44,13 +45,14 @@ const ScheduleDayList = () => {
 
   return (
     <div style={{ marginTop: '24px' }}>
-      {dates.map(({ date, games }) => (
+      {dates.map(({ date, games }, index) => (
         <div key={date}>
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <Typography variant="h4">{getTitle(date)}</Typography>
-            <div style={{ alignSelf: 'center', marginLeft: '16px' }}>
+            <div style={{ margin: '0px 32px 0px 16px' }}>
               ({`GMT${moment(date).format('Z')}`})
             </div>
+            {index === 0 && <DatePicker />}
           </div>
           <div
             style={{
