@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Typography, Button, Card } from '@material-ui/core';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Typography, Card } from '@material-ui/core';
+import { useLocation, useHistory } from 'react-router-dom';
+import qs from 'qs';
 import moment from 'moment';
 import 'moment-timezone';
 
@@ -9,46 +11,58 @@ import scheduleServices from '../../services/schedule';
 import DatePicker from './DatePicker';
 
 const ScheduleDayList = () => {
+  const yesterday = moment()
+    .subtract(1, 'days')
+    .format('YYYY-MM-DD');
+  const tomorrow = moment()
+    .add(1, 'days')
+    .format('YYYY-MM-DD');
+
   const [dates, setDates] = useState([]);
-  const [showYesterday, setShowYesterday] = useState(false);
-  const [today, setToday] = useState(moment());
-  const [yesterday, setYesterday] = useState(
-    moment()
-      .subtract(1, 'days')
-      .format('YYYY-MM-DD')
-  );
-  const [tomorrow, setTomorrow] = useState(
-    moment()
-      .add(1, 'days')
-      .format('YYYY-MM-DD')
-  );
+  const [datePicker, setDatePicker] = useState(moment());
   const classes = useScheduleDayListStyles();
+  const location = useLocation();
+  const history = useHistory();
+
+  const getDates = useCallback(async (start, end, timezone, query) => {
+    const { dates } = await scheduleServices.getGamesBetween(
+      start,
+      end,
+      timezone,
+      query
+    );
+    return dates;
+  }, []);
 
   useEffect(() => {
     (async () => {
-      const { dates } = await scheduleServices.getGamesBetween(
-        showYesterday ? today.format('YYYY-MM-DD') : yesterday,
-        tomorrow,
+      window.scrollTo(0, 0);
+      const {
+        location: { search }
+      } = history;
+      const { date } = qs.parse(search.substring(1));
+      const dates = await getDates(
+        date ? date : yesterday,
+        date
+          ? moment(date)
+              .add(1, 'days')
+              .format('YYYY-MM-DD')
+          : tomorrow,
         moment.tz.guess(),
         'expand=schedule.linescore'
       );
+      setDatePicker(moment(date));
       setDates(dates);
-      window.scrollTo(0, 0);
       console.log(dates);
     })();
-  }, [showYesterday, today, tomorrow, yesterday]);
+  }, [getDates, tomorrow, yesterday, location, history]);
 
   const handleDateChange = date => {
-    const yesterday = moment(date)
-      .subtract(1, 'days')
-      .format('YYYY-MM-DD');
-    const tomorrow = moment(date)
-      .add(1, 'days')
-      .format('YYYY-MM-DD');
-    setToday(date);
-    setYesterday(yesterday);
-    setTomorrow(tomorrow);
-    setShowYesterday(true);
+    setDatePicker(date);
+    history.push({
+      pathname: history.location.pathname,
+      search: `?date=${moment(date).format('YYYY-MM-DD')}`
+    });
   };
 
   function getTitle(date) {
@@ -75,16 +89,10 @@ const ScheduleDayList = () => {
               ({`UTC${moment(date).format('Z')}`})
             </div>
             {index === 0 && (
-              <DatePicker date={today} handleDateChange={handleDateChange} />
-            )}
-            {showYesterday && index === 0 && (
-              <Button
-                color="primary"
-                onClick={() => setShowYesterday(false)}
-                style={{ marginLeft: 'auto', marginRight: '32px' }}
-              >
-                Show Yesterday
-              </Button>
+              <DatePicker
+                date={datePicker}
+                handleDateChange={handleDateChange}
+              />
             )}
           </div>
           <div className={classes.gameWrapper}>
@@ -121,7 +129,7 @@ const ScheduleDayList = () => {
             ({`UTC${moment(date).format('Z')}`})
           </div>
           {index === 0 && (
-            <DatePicker date={today} handleDateChange={handleDateChange} />
+            <DatePicker date={datePicker} handleDateChange={handleDateChange} />
           )}
         </div>
         <Card className={classes.emptyGameCard}>
