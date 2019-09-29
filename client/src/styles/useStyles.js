@@ -129,15 +129,50 @@ export const useTeamStyles = makeStyles(theme => ({
   }
 }));
 
-export const useScheduleDayItemStyles = makeStyles(theme => ({
-  expand: {
-    transform: 'rotate(0deg)',
-    margin: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest
-    })
+export const useScheduleDayListStyles = makeStyles(theme => ({
+  wrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'center'
   },
-  expandOpen: {
-    transform: 'rotate(180deg)'
+  gameWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    marginBottom: '32px',
+    alignItems: 'flex-start'
+  },
+  emptyGameWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    marginBottom: '16px'
+  },
+  emptyGameCard: {
+    marginBottom: '32px',
+    display: 'inline-block',
+    padding: '16px'
+  }
+}));
+
+export const useScheduleDayItemStyles = makeStyles(theme => ({
+  gameCard: {
+    width: '350px',
+    margin: '16px 16px 0px 0px',
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+      margin: '16px 0px 0px 0px'
+    }
+  },
+  scoreLogoWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    margin: '16px 0px 8px 0px',
+    alignItems: 'center'
+  },
+  teamLogo: {
+    width: '40px',
+    overflow: 'visible',
+    position: 'relative',
+    marginLeft: '4px'
   }
 }));

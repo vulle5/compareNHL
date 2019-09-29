@@ -2,9 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import 'moment-duration-format';
-import json2mq from 'json2mq';
 import { useTheme } from '@material-ui/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {
   Typography,
   Card,
@@ -15,7 +13,7 @@ import {
 
 import defLogo from '../../assets/defLogo.svg';
 import teamServices from '../../services/teams';
-// import { useScheduleDayItemStyles } from '../../styles/useStyles';
+import { useScheduleDayItemStyles } from '../../styles/useStyles';
 import GameOverviewTable from './GameOverviewTable';
 
 const ScheduleDayItem = ({
@@ -35,12 +33,7 @@ const ScheduleDayItem = ({
   const {
     palette: { type }
   } = useTheme();
-  const matches = useMediaQuery(
-    json2mq({
-      minWidth: 768
-    })
-  );
-  // const classes = useScheduleDayItemStyles();
+  const classes = useScheduleDayItemStyles();
 
   const findTeamName = useCallback(
     async teamToSearch => {
@@ -161,13 +154,7 @@ const ScheduleDayItem = ({
   }
 
   return (
-    <Card
-      style={
-        matches
-          ? { width: '350px', margin: '16px 16px 0px 0px' }
-          : { width: '100%', marginTop: '16px' }
-      }
-    >
+    <Card className={classes.gameCard}>
       <CardContent>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant="subtitle1">
@@ -175,21 +162,11 @@ const ScheduleDayItem = ({
           </Typography>
           <Typography variant="subtitle1">{determineGameState()}</Typography>
         </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            margin: '16px 0px 8px 0px',
-            alignItems: 'center'
-          }}
-        >
+        <div className={classes.scoreLogoWrapper}>
           <div>
             <Avatar
+              className={classes.teamLogo}
               style={{
-                width: '40px',
-                overflow: 'visible',
-                position: 'relative',
-                marginLeft: '4px',
                 backgroundColor:
                   (home.team.id === 14 || home.team.id === 10) &&
                   type === 'light'
@@ -210,11 +187,8 @@ const ScheduleDayItem = ({
           <div style={{ display: 'flex' }}>{determineScore()}</div>
           <div>
             <Avatar
+              className={classes.teamLogo}
               style={{
-                width: '40px',
-                position: 'relative',
-                marginRight: '4px',
-                overflow: 'visible',
                 backgroundColor:
                   (away.team.id === 14 || away.team.id === 10) &&
                   type === 'light'

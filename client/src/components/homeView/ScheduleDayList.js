@@ -3,6 +3,7 @@ import { Typography, Button, Card } from '@material-ui/core';
 import moment from 'moment';
 import 'moment-timezone';
 
+import { useScheduleDayListStyles } from '../../styles/useStyles';
 import ScheduleDayItem from './ScheduleDayItem';
 import scheduleServices from '../../services/schedule';
 import DatePicker from './DatePicker';
@@ -21,6 +22,7 @@ const ScheduleDayList = () => {
       .add(1, 'days')
       .format('YYYY-MM-DD')
   );
+  const classes = useScheduleDayListStyles();
 
   useEffect(() => {
     (async () => {
@@ -65,9 +67,7 @@ const ScheduleDayList = () => {
     if (games.length) {
       return (
         <div key={date}>
-          <div
-            style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}
-          >
+          <div className={classes.wrapper}>
             <Typography variant="h4" style={{ marginRight: '16px' }}>
               {getTitle(date)}
             </Typography>
@@ -87,14 +87,7 @@ const ScheduleDayList = () => {
               </Button>
             )}
           </div>
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              marginBottom: '32px',
-              alignItems: 'flex-start'
-            }}
-          >
+          <div className={classes.gameWrapper}>
             {games.map(
               ({
                 teams: teamsPlaying,
@@ -120,14 +113,7 @@ const ScheduleDayList = () => {
     }
     return (
       <div key={date}>
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            marginBottom: '16px'
-          }}
-        >
+        <div className={classes.emptyGameWrapper}>
           <Typography variant="h4" style={{ marginRight: '16px' }}>
             {getTitle(date)}
           </Typography>
@@ -138,13 +124,7 @@ const ScheduleDayList = () => {
             <DatePicker date={today} handleDateChange={handleDateChange} />
           )}
         </div>
-        <Card
-          style={{
-            marginBottom: '32px',
-            display: 'inline-block',
-            padding: '16px'
-          }}
-        >
+        <Card className={classes.emptyGameCard}>
           <Typography>No games for this day</Typography>
         </Card>
       </div>
