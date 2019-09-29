@@ -72,7 +72,7 @@ const ScheduleDayList = () => {
               {getTitle(date)}
             </Typography>
             <div style={{ marginRight: '32px' }}>
-              ({`GMT${moment(date).format('Z')}`})
+              ({`UTC${moment(date).format('Z')}`})
             </div>
             {index === 0 && (
               <DatePicker date={today} handleDateChange={handleDateChange} />
@@ -132,7 +132,7 @@ const ScheduleDayList = () => {
             {getTitle(date)}
           </Typography>
           <div style={{ marginRight: '32px' }}>
-            ({`GMT${moment(date).format('Z')}`})
+            ({`UTC${moment(date).format('Z')}`})
           </div>
           {index === 0 && (
             <DatePicker date={today} handleDateChange={handleDateChange} />

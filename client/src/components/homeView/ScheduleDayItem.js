@@ -133,6 +133,14 @@ const ScheduleDayItem = ({
           : linescore.currentPeriodTimeRemaining
       }`;
     }
+    // If game is finished
+    if (status.detailedState === 'Final') {
+      return `${status.detailedState}${
+        linescore.currentPeriodOrdinal !== '3rd'
+          ? ` · ${linescore.currentPeriodOrdinal}`
+          : ''
+      }`;
+    }
     return status.detailedState;
   }
 

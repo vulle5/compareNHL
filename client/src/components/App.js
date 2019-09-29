@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
-import Home from './homeView/Home';
 import SearchPlayersBar from './appBar/SearchPlayersBar';
 import ProgressBarGlobal from './ProgressBarGlobal';
 import LinearProgressBar from './LinearProgressBar';
@@ -12,6 +11,7 @@ import { setTheme } from '../reducers/themeReducer';
 import SideDrawer from './SideDrawer';
 import history from '../history';
 
+const Home = lazy(() => import('./homeView/Home'));
 const PlayerInfo = lazy(() => import('./playerView/PlayerInfo'));
 const Compare = lazy(() => import('./compareView/Compare'));
 const TeamInfo = lazy(() => import('./teamView/TeamInfo'));
