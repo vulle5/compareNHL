@@ -26,7 +26,7 @@ const GameOverviewTable = ({
   );
 
   function createData(
-    team = 'DEF',
+    team,
     first = '-',
     second = '-',
     third = '-',
@@ -38,7 +38,7 @@ const GameOverviewTable = ({
 
   const rows = [
     createData(
-      homeAbb,
+      homeAbb ? homeAbb : 'HOME',
       get(first, 'home.goals', undefined),
       get(second, 'home.goals', undefined),
       get(third, 'home.goals', undefined),
@@ -46,7 +46,7 @@ const GameOverviewTable = ({
       get(shootout, 'home.scores', undefined)
     ),
     createData(
-      awayAbb,
+      awayAbb ? awayAbb : 'AWAY',
       get(first, 'away.goals', undefined),
       get(second, 'away.goals', undefined),
       get(third, 'away.goals', undefined),

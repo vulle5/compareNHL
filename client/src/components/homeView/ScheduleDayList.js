@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { connect } from 'react-redux';
 import { Typography, Card } from '@material-ui/core';
 import { useLocation, useHistory } from 'react-router-dom';
 import qs from 'qs';
@@ -9,8 +10,9 @@ import { useScheduleDayListStyles } from '../../styles/useStyles';
 import ScheduleDayItem from './ScheduleDayItem';
 import scheduleServices from '../../services/schedule';
 import DatePicker from './DatePicker';
+import { toggleProgress } from '../../reducers/globalProgressReducer';
 
-const ScheduleDayList = () => {
+const ScheduleDayList = ({ toggleProgress }) => {
   const yesterday = moment()
     .subtract(1, 'days')
     .format('YYYY-MM-DD');
@@ -37,6 +39,7 @@ const ScheduleDayList = () => {
   useEffect(() => {
     (async () => {
       window.scrollTo(0, 0);
+      toggleProgress(true);
       const {
         location: { search }
       } = history;
@@ -51,11 +54,11 @@ const ScheduleDayList = () => {
         moment.tz.guess(),
         'expand=schedule.linescore'
       );
+      toggleProgress(false);
       setDatePicker(moment(date));
       setDates(dates);
-      console.log(dates);
     })();
-  }, [getDates, tomorrow, yesterday, location, history]);
+  }, [getDates, tomorrow, yesterday, location, history, toggleProgress]);
 
   const handleDateChange = date => {
     setDatePicker(date);
@@ -152,4 +155,7 @@ const ScheduleDayList = () => {
   );
 };
 
-export default ScheduleDayList;
+export default connect(
+  null,
+  { toggleProgress }
+)(ScheduleDayList);

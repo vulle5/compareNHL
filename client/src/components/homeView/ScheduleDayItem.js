@@ -49,10 +49,10 @@ const ScheduleDayItem = ({
               0: { teamName }
             }
           } = await teamServices.getTeam(teamToSearch.team.id, '');
-          return [teamName, 'DEF'];
+          return [teamName, null];
         }
       }
-      return ['No Team', 'DEF'];
+      return ['No Team', null];
     },
     [teams]
   );
