@@ -12,4 +12,5 @@ Deployed to [Heroku](https://nhl-compare.herokuapp.com/)
 
 ## FIXES
 
-- None currently
+- Compare URL query does not include chosen season
+- Compare, team view and choosing another season in game logs does not show any progress indicator

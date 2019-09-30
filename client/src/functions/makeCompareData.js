@@ -140,7 +140,7 @@ export const makeCompareData = regularSeasonStats => {
       other: [
         ['PIM', regularSeasonStats.pim],
         ['Hits', regularSeasonStats.hits || 'N/A'],
-        ['+/-', regularSeasonStats.plusMinus || 'N/A'],
+        ['+/-', `(${regularSeasonStats.plusMinus})` || 'N/A'],
         ['FO%', regularSeasonStats.faceOffPct || 'N/A']
       ]
     };
