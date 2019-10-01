@@ -10,7 +10,7 @@ import { ReactComponent as ListLogo } from '../../assets/listViewButton.svg';
 import scheduleServices from '../../services/schedule';
 import { toggleProgress } from '../../reducers/globalProgressReducer';
 import ScheduleCardView from './ScheduleCardView';
-import { display } from '@material-ui/system';
+import ScheduleListView from './ScheduleListView';
 
 const ScheduleDayList = ({ toggleProgress }) => {
   const yesterday = moment()
@@ -22,6 +22,7 @@ const ScheduleDayList = ({ toggleProgress }) => {
 
   const [dates, setDates] = useState([]);
   const [datePicker, setDatePicker] = useState(moment());
+  const [viewStyle, setViewStyle] = useState('card');
   const location = useLocation();
   const history = useHistory();
 
@@ -91,26 +92,38 @@ const ScheduleDayList = ({ toggleProgress }) => {
           height="35"
           width="35"
           style={{ marginRight: '8px', cursor: 'pointer' }}
-          onClick={() => console.log('card')}
+          onClick={() => setViewStyle('card')}
         />
         <ListLogo
           height="35"
           width="35"
           style={{ marginRight: '8px', cursor: 'pointer' }}
-          onClick={() => console.log('list')}
+          onClick={() => setViewStyle('list')}
         />
       </div>
-      {dates.map(({ date, games }, index) => (
-        <ScheduleCardView
-          key={date}
-          getTitle={getTitle}
-          datePicker={datePicker}
-          handleDateChange={handleDateChange}
-          date={date}
-          games={games}
-          index={index}
-        />
-      ))}
+      {dates.map(({ date, games }, index) =>
+        viewStyle === 'card' ? (
+          <ScheduleCardView
+            key={date}
+            getTitle={getTitle}
+            datePicker={datePicker}
+            handleDateChange={handleDateChange}
+            date={date}
+            games={games}
+            index={index}
+          />
+        ) : (
+          <ScheduleListView
+            key={date}
+            getTitle={getTitle}
+            datePicker={datePicker}
+            handleDateChange={handleDateChange}
+            date={date}
+            games={games}
+            index={index}
+          />
+        )
+      )}
     </div>
   );
 };
