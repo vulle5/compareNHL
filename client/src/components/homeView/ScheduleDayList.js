@@ -5,9 +5,12 @@ import qs from 'qs';
 import moment from 'moment';
 import 'moment-timezone';
 
+import { ReactComponent as CardLogo } from '../../assets/cardViewButton.svg';
+import { ReactComponent as ListLogo } from '../../assets/listViewButton.svg';
 import scheduleServices from '../../services/schedule';
 import { toggleProgress } from '../../reducers/globalProgressReducer';
 import ScheduleCardView from './ScheduleCardView';
+import { display } from '@material-ui/system';
 
 const ScheduleDayList = ({ toggleProgress }) => {
   const yesterday = moment()
@@ -82,6 +85,21 @@ const ScheduleDayList = ({ toggleProgress }) => {
 
   return (
     <div style={{ marginTop: '24px' }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ marginRight: '16px' }}>View</div>
+        <CardLogo
+          height="35"
+          width="35"
+          style={{ marginRight: '8px', cursor: 'pointer' }}
+          onClick={() => console.log('card')}
+        />
+        <ListLogo
+          height="35"
+          width="35"
+          style={{ marginRight: '8px', cursor: 'pointer' }}
+          onClick={() => console.log('list')}
+        />
+      </div>
       {dates.map(({ date, games }, index) => (
         <ScheduleCardView
           key={date}

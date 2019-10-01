@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Card } from '@material-ui/core';
 import moment from 'moment';
 
-import { useScheduleDayListStyles } from '../../styles/useStyles';
+import { useScheduleCardViewStyles } from '../../styles/useStyles';
 import ScheduleDayCardItem from './ScheduleDayCardItem';
 import DatePicker from './DatePicker';
 
@@ -14,7 +14,7 @@ const ScheduleCardView = ({
   games,
   index
 }) => {
-  const classes = useScheduleDayListStyles();
+  const classes = useScheduleCardViewStyles();
 
   const generateDateCardView = (date, games, index) => {
     if (games.length) {

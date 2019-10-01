@@ -129,7 +129,7 @@ export const useTeamStyles = makeStyles(theme => ({
   }
 }));
 
-export const useScheduleDayListStyles = makeStyles(theme => ({
+export const useScheduleCardViewStyles = makeStyles(theme => ({
   wrapper: {
     display: 'flex',
     flexWrap: 'wrap',
