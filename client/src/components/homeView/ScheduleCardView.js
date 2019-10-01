@@ -3,7 +3,7 @@ import { Typography, Card } from '@material-ui/core';
 import moment from 'moment';
 
 import { useScheduleDayListStyles } from '../../styles/useStyles';
-import ScheduleDayItem from './ScheduleDayItem';
+import ScheduleDayCardItem from './ScheduleDayCardItem';
 import DatePicker from './DatePicker';
 
 const ScheduleCardView = ({
@@ -43,7 +43,7 @@ const ScheduleCardView = ({
                 gameDate,
                 linescore
               }) => (
-                <ScheduleDayItem
+                <ScheduleDayCardItem
                   key={gamePk}
                   gamePk={gamePk}
                   gameDate={gameDate}

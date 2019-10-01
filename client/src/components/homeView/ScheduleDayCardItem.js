@@ -16,7 +16,7 @@ import teamServices from '../../services/teams';
 import { useScheduleDayItemStyles } from '../../styles/useStyles';
 import GameOverviewTable from './GameOverviewTable';
 
-const ScheduleDayItem = ({
+const ScheduleDayCardItem = ({
   home,
   away,
   status,
@@ -242,4 +242,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(ScheduleDayItem);
+export default connect(mapStateToProps)(ScheduleDayCardItem);
