@@ -1,16 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
-import { Typography, Card } from '@material-ui/core';
 import { useLocation, useHistory } from 'react-router-dom';
 import qs from 'qs';
 import moment from 'moment';
 import 'moment-timezone';
 
-import { useScheduleDayListStyles } from '../../styles/useStyles';
-import ScheduleDayItem from './ScheduleDayItem';
 import scheduleServices from '../../services/schedule';
-import DatePicker from './DatePicker';
 import { toggleProgress } from '../../reducers/globalProgressReducer';
+import ScheduleCardView from './ScheduleCardView';
 
 const ScheduleDayList = ({ toggleProgress }) => {
   const yesterday = moment()
@@ -22,7 +19,6 @@ const ScheduleDayList = ({ toggleProgress }) => {
 
   const [dates, setDates] = useState([]);
   const [datePicker, setDatePicker] = useState(moment());
-  const classes = useScheduleDayListStyles();
   const location = useLocation();
   const history = useHistory();
 
@@ -80,77 +76,23 @@ const ScheduleDayList = ({ toggleProgress }) => {
     return calendarDate;
   }
 
-  const generateDateView = (date, games, index) => {
-    if (games.length) {
-      return (
-        <div key={date}>
-          <div className={classes.wrapper}>
-            <Typography variant="h4" style={{ marginRight: '16px' }}>
-              {getTitle(date)}
-            </Typography>
-            <div style={{ marginRight: '32px' }}>
-              ({`UTC${moment(date).format('Z')}`})
-            </div>
-            {index === 0 && (
-              <DatePicker
-                date={datePicker}
-                handleDateChange={handleDateChange}
-              />
-            )}
-          </div>
-          <div className={classes.gameWrapper}>
-            {games.map(
-              ({
-                teams: teamsPlaying,
-                gamePk,
-                status,
-                gameDate,
-                linescore
-              }) => (
-                <ScheduleDayItem
-                  key={gamePk}
-                  gamePk={gamePk}
-                  gameDate={gameDate}
-                  home={teamsPlaying.home}
-                  away={teamsPlaying.away}
-                  linescore={linescore}
-                  status={status}
-                />
-              )
-            )}
-          </div>
-        </div>
-      );
-    }
-    return (
-      <div key={date}>
-        <div className={classes.emptyGameWrapper}>
-          <Typography variant="h4" style={{ marginRight: '16px' }}>
-            {getTitle(date)}
-          </Typography>
-          <div style={{ marginRight: '32px' }}>
-            ({`UTC${moment(date).format('Z')}`})
-          </div>
-          {index === 0 && (
-            <DatePicker date={datePicker} handleDateChange={handleDateChange} />
-          )}
-        </div>
-        <Card className={classes.emptyGameCard}>
-          <Typography>No games for this day</Typography>
-        </Card>
-      </div>
-    );
-  };
-
   if (!dates.length) {
     return <div>...Loading</div>;
   }
 
   return (
     <div style={{ marginTop: '24px' }}>
-      {dates.map(({ date, games }, index) =>
-        generateDateView(date, games, index)
-      )}
+      {dates.map(({ date, games }, index) => (
+        <ScheduleCardView
+          key={date}
+          getTitle={getTitle}
+          datePicker={datePicker}
+          handleDateChange={handleDateChange}
+          date={date}
+          games={games}
+          index={index}
+        />
+      ))}
     </div>
   );
 };
