@@ -35,10 +35,18 @@ const ScheduleView = ({ toggleProgress }) => {
     return dates;
   }, []);
 
+  const checkViewStyle = () => {
+    const viewType = localStorage.getItem('scheduleViewStyle');
+    if (viewType) {
+      setViewStyle(viewType);
+    }
+  };
+
   useEffect(() => {
     (async () => {
       window.scrollTo(0, 0);
       toggleProgress(true);
+      checkViewStyle();
       const {
         location: { search }
       } = history;
@@ -93,13 +101,19 @@ const ScheduleView = ({ toggleProgress }) => {
           height="35"
           width="35"
           style={{ marginRight: '8px', cursor: 'pointer' }}
-          onClick={() => setViewStyle('card')}
+          onClick={() => {
+            setViewStyle('card');
+            localStorage.setItem('scheduleViewStyle', 'card');
+          }}
         />
         <ListLogo
           height="35"
           width="35"
           style={{ marginRight: '8px', cursor: 'pointer' }}
-          onClick={() => setViewStyle('list')}
+          onClick={() => {
+            setViewStyle('list');
+            localStorage.setItem('scheduleViewStyle', 'list');
+          }}
         />
       </div>
       {dates.map(({ date, games }, index) => (
