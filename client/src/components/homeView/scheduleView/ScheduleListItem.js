@@ -1,12 +1,14 @@
 import React from 'react';
-import { Typography, Card, Paper, Divider } from '@material-ui/core';
+import { Typography, Paper, Divider, useMediaQuery } from '@material-ui/core';
 import moment from 'moment';
 
 import { useScheduleListItemStyles } from '../../../styles/useStyles';
 import DatePicker from '../DatePicker';
+import ScheduleListItemOverview from './ScheduleListItemOverview';
 
 const ScheduleListItem = ({ gamePk }) => {
   const classes = useScheduleListItemStyles();
+  const matches = useMediaQuery(theme => theme.breakpoints.up('sm'));
 
   // const generateDateListView = (date, games, index) => {
   //   if (games.length) {
@@ -95,13 +97,61 @@ const ScheduleListItem = ({ gamePk }) => {
       <Paper classes={{ root: classes.card }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Typography style={{ marginRight: '24px' }}>23:00</Typography>
-          <div>
-            <div>
+          <div style={{ width: '100%' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}
+            >
               <Typography>Washington Capitals</Typography>
+              <div
+                style={{
+                  display: 'flex',
+                  marginLeft: '64px',
+                  alignItems: 'center'
+                }}
+              >
+                <Typography
+                  style={{
+                    marginRight: '40px',
+                    fontSize: '1.25rem',
+                    fontWeight: 'bold'
+                  }}
+                >
+                  3
+                </Typography>
+                {matches && <ScheduleListItemOverview />}
+              </div>
             </div>
             <Divider style={{ margin: '8px 0px' }} />
-            <div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}
+            >
               <Typography>Carolina Hurricanes</Typography>
+              <div
+                style={{
+                  display: 'flex',
+                  marginLeft: '64px',
+                  alignItems: 'center'
+                }}
+              >
+                <Typography
+                  style={{
+                    marginRight: '40px',
+                    fontSize: '1.25rem',
+                    fontWeight: 'bold'
+                  }}
+                >
+                  2
+                </Typography>
+                {matches && <ScheduleListItemOverview />}
+              </div>
             </div>
           </div>
         </div>

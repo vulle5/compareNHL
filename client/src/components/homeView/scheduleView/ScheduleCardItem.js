@@ -14,7 +14,7 @@ import {
 import defLogo from '../../../assets/defLogo.svg';
 import teamServices from '../../../services/teams';
 import { useScheduleCardItemStyles } from '../../../styles/useStyles';
-import GameOverviewTable from './GameOverviewTable';
+import ScheduleCardItemOverview from './ScheduleCardItemOverview';
 
 const ScheduleCardItem = ({
   home,
@@ -219,7 +219,7 @@ const ScheduleCardItem = ({
           status.detailedState === 'In Progress') && (
           <>
             <Divider style={{ margin: '12px 0px' }} />
-            <GameOverviewTable
+            <ScheduleCardItemOverview
               homeAbb={homeAbb}
               awayAbb={awayAbb}
               first={linescore.periods[0]}

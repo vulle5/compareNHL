@@ -10,7 +10,7 @@ import json2mq from 'json2mq';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { get } from 'lodash';
 
-const GameOverviewTable = ({
+const ScheduleCardItemOverview = ({
   homeAbb,
   awayAbb,
   first,
@@ -87,9 +87,9 @@ const GameOverviewTable = ({
   );
 };
 
-GameOverviewTable.defaultProps = {
+ScheduleCardItemOverview.defaultProps = {
   homeAbb: 'DEF',
   awayAbb: 'DEF'
 };
 
-export default GameOverviewTable;
+export default ScheduleCardItemOverview;

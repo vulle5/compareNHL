@@ -156,7 +156,6 @@ export const useScheduleListStyles = makeStyles(theme => ({
 
 export const useScheduleListItemStyles = makeStyles(theme => ({
   listRoot: {
-    width: '100%',
     maxWidth: 600,
     marginTop: '16px'
   },
