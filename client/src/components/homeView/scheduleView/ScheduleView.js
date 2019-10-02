@@ -5,14 +5,13 @@ import qs from 'qs';
 import moment from 'moment';
 import 'moment-timezone';
 
-import { ReactComponent as CardLogo } from '../../assets/cardViewButton.svg';
-import { ReactComponent as ListLogo } from '../../assets/listViewButton.svg';
-import scheduleServices from '../../services/schedule';
-import { toggleProgress } from '../../reducers/globalProgressReducer';
-import ScheduleCardView from './ScheduleCardView';
-import ScheduleListView from './ScheduleListView';
+import { ReactComponent as CardLogo } from '../../../assets/cardViewButton.svg';
+import { ReactComponent as ListLogo } from '../../../assets/listViewButton.svg';
+import scheduleServices from '../../../services/schedule';
+import { toggleProgress } from '../../../reducers/globalProgressReducer';
+import ScheduleList from './ScheduleList';
 
-const ScheduleDayList = ({ toggleProgress }) => {
+const ScheduleView = ({ toggleProgress }) => {
   const yesterday = moment()
     .subtract(1, 'days')
     .format('YYYY-MM-DD');
@@ -22,7 +21,7 @@ const ScheduleDayList = ({ toggleProgress }) => {
 
   const [dates, setDates] = useState([]);
   const [datePicker, setDatePicker] = useState(moment());
-  const [viewStyle, setViewStyle] = useState('list');
+  const [viewStyle, setViewStyle] = useState('card');
   const location = useLocation();
   const history = useHistory();
 
@@ -101,29 +100,18 @@ const ScheduleDayList = ({ toggleProgress }) => {
           onClick={() => setViewStyle('list')}
         />
       </div>
-      {dates.map(({ date, games }, index) =>
-        viewStyle === 'card' ? (
-          <ScheduleCardView
-            key={date}
-            getTitle={getTitle}
-            datePicker={datePicker}
-            handleDateChange={handleDateChange}
-            date={date}
-            games={games}
-            index={index}
-          />
-        ) : (
-          <ScheduleListView
-            key={date}
-            getTitle={getTitle}
-            datePicker={datePicker}
-            handleDateChange={handleDateChange}
-            date={date}
-            games={games}
-            index={index}
-          />
-        )
-      )}
+      {dates.map(({ date, games }, index) => (
+        <ScheduleList
+          key={date}
+          getTitle={getTitle}
+          datePicker={datePicker}
+          handleDateChange={handleDateChange}
+          date={date}
+          games={games}
+          index={index}
+          viewStyle={viewStyle}
+        />
+      ))}
     </div>
   );
 };
@@ -131,4 +119,4 @@ const ScheduleDayList = ({ toggleProgress }) => {
 export default connect(
   null,
   { toggleProgress }
-)(ScheduleDayList);
+)(ScheduleView);

@@ -11,12 +11,12 @@ import {
   Divider
 } from '@material-ui/core';
 
-import defLogo from '../../assets/defLogo.svg';
-import teamServices from '../../services/teams';
-import { useScheduleDayItemStyles } from '../../styles/useStyles';
+import defLogo from '../../../assets/defLogo.svg';
+import teamServices from '../../../services/teams';
+import { useScheduleCardItemStyles } from '../../../styles/useStyles';
 import GameOverviewTable from './GameOverviewTable';
 
-const ScheduleDayCardItem = ({
+const ScheduleCardItem = ({
   home,
   away,
   status,
@@ -33,7 +33,7 @@ const ScheduleDayCardItem = ({
   const {
     palette: { type }
   } = useTheme();
-  const classes = useScheduleDayItemStyles();
+  const classes = useScheduleCardItemStyles();
 
   const findTeamName = useCallback(
     async teamToSearch => {
@@ -106,10 +106,9 @@ const ScheduleDayCardItem = ({
   }
 
   function determineGameState() {
-    // TODO: Make this smarter by showing time remaining
-    // only when period is 1-4
     // powerPlay: for powerplay stats
     // goaliePulled: for empty net stat
+
     // If game is in progress
     if (status.detailedState === 'In Progress') {
       const intermissionTime = moment.duration(
@@ -242,4 +241,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(ScheduleDayCardItem);
+export default connect(mapStateToProps)(ScheduleCardItem);

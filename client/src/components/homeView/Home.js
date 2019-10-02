@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ScheduleDayList from './ScheduleDayList';
+import ScheduleView from './scheduleView/ScheduleView';
 import TeamList from './TeamList';
 import { useHomeStyles } from '../../styles/useStyles';
 
@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div className={classes.root}>
       <TeamList />
-      <ScheduleDayList />
+      <ScheduleView />
     </div>
   );
 };

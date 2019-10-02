@@ -129,7 +129,7 @@ export const useTeamStyles = makeStyles(theme => ({
   }
 }));
 
-export const useScheduleCardViewStyles = makeStyles(theme => ({
+export const useScheduleListStyles = makeStyles(theme => ({
   wrapper: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -154,28 +154,18 @@ export const useScheduleCardViewStyles = makeStyles(theme => ({
   }
 }));
 
-export const useScheduleListViewStyles = makeStyles(theme => ({
+export const useScheduleListItemStyles = makeStyles(theme => ({
   listRoot: {
     width: '100%',
-    maxWidth: 600
+    maxWidth: 600,
+    marginTop: '16px'
   },
   card: {
-    padding: '16px'
-  },
-  emptyGameWrapper: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    marginBottom: '16px'
-  },
-  emptyGameCard: {
-    marginBottom: '32px',
-    display: 'inline-block',
     padding: '16px'
   }
 }));
 
-export const useScheduleDayItemStyles = makeStyles(theme => ({
+export const useScheduleCardItemStyles = makeStyles(theme => ({
   gameCard: {
     width: '350px',
     margin: '16px 16px 0px 0px',
