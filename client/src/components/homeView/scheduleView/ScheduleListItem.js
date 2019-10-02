@@ -1,156 +1,106 @@
 import React from 'react';
 import { Typography, Paper, Divider, useMediaQuery } from '@material-ui/core';
 import moment from 'moment';
+import { get } from 'lodash';
 
 import { useScheduleListItemStyles } from '../../../styles/useStyles';
-import DatePicker from '../DatePicker';
 import ScheduleListItemOverview from './ScheduleListItemOverview';
 
-const ScheduleListItem = ({ gamePk }) => {
+const ScheduleListItem = ({
+  gamePk,
+  status,
+  home,
+  away,
+  gameDate,
+  linescore
+}) => {
   const classes = useScheduleListItemStyles();
   const matches = useMediaQuery(theme => theme.breakpoints.up('sm'));
 
-  // const generateDateListView = (date, games, index) => {
-  //   if (games.length) {
-  //     return (
-  //       <div>
-  //         <div
-  //           style={{
-  //             marginBottom: '16px',
-  //             display: 'flex',
-  //             flexWrap: 'wrap',
-  //             alignItems: 'center'
-  //           }}
-  //         >
-  //           <Typography variant="h4" style={{ marginRight: '16px' }}>
-  //             {getTitle(date)}
-  //           </Typography>
-  //           <div style={{ marginRight: '32px' }}>
-  //             ({`UTC${moment(date).format('Z')}`})
-  //           </div>
-  //           {index === 0 && (
-  //             <DatePicker
-  //               date={datePicker}
-  //               handleDateChange={handleDateChange}
-  //             />
-  //           )}
-  //         </div>
-  //         <div style={{ marginBottom: '16px' }}>
-  //           <div className={classes.listRoot}>
-  //             {games.map(
-  //               ({
-  //                 teams: teamsPlaying,
-  //                 gamePk,
-  //                 status,
-  //                 gameDate,
-  //                 linescore
-  //               }) => (
-  //                 <Paper
-  //                   key={gamePk}
-  //                   classes={{ root: classes.card }}
-  //                   style={{ marginBottom: '8px' }}
-  //                 >
-  //                   <div style={{ display: 'flex', alignItems: 'center' }}>
-  //                     <Typography style={{ marginRight: '24px' }}>
-  //                       23:00
-  //                     </Typography>
-  //                     <div>
-  //                       <div>
-  //                         <Typography>Washington Capitals</Typography>
-  //                       </div>
-  //                       <Divider style={{ margin: '8px 0px' }} />
-  //                       <div>
-  //                         <Typography>Carolina Hurricanes</Typography>
-  //                       </div>
-  //                     </div>
-  //                   </div>
-  //                 </Paper>
-  //               )
-  //             )}
-  //           </div>
-  //         </div>
-  //       </div>
-  //     );
-  //   }
-  //   return (
-  //     <div>
-  //       <div className={classes.emptyGameWrapper}>
-  //         <Typography variant="h4" style={{ marginRight: '16px' }}>
-  //           {getTitle(date)}
-  //         </Typography>
-  //         <div style={{ marginRight: '32px' }}>
-  //           ({`UTC${moment(date).format('Z')}`})
-  //         </div>
-  //         {index === 0 && (
-  //           <DatePicker date={datePicker} handleDateChange={handleDateChange} />
-  //         )}
-  //       </div>
-  //       <Card className={classes.emptyGameCard}>
-  //         <Typography>No games for this day</Typography>
-  //       </Card>
-  //     </div>
-  //   );
-  // };
+  function determineScore(homeOrAway) {
+    if (
+      status.detailedState === 'Final' ||
+      status.detailedState === 'In Progress'
+    ) {
+      return (
+        <Typography
+          style={{
+            marginRight: '40px',
+            fontSize: '1.25rem',
+            fontWeight: 'bold'
+          }}
+        >
+          {homeOrAway.score}
+        </Typography>
+      );
+    } else {
+      return (
+        <Typography
+          style={{
+            marginRight: '40px',
+            fontSize: '1.25rem',
+            fontWeight: 'bold'
+          }}
+        >
+          -
+        </Typography>
+      );
+    }
+  }
 
   return (
     <div className={classes.listRoot}>
       <Paper classes={{ root: classes.card }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Typography style={{ marginRight: '24px' }}>23:00</Typography>
+          <Typography style={{ marginRight: '24px' }}>
+            {status.detailedState !== 'Scheduled'
+              ? status.detailedState
+              : moment(gameDate).format('HH:mm')}
+          </Typography>
           <div style={{ width: '100%' }}>
             <div
               style={{
                 display: 'flex',
-                justifyContent: 'space-between',
                 alignItems: 'center'
               }}
             >
-              <Typography>Washington Capitals</Typography>
-              <div
-                style={{
-                  display: 'flex',
-                  marginLeft: '64px',
-                  alignItems: 'center'
-                }}
-              >
-                <Typography
-                  style={{
-                    marginRight: '40px',
-                    fontSize: '1.25rem',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  3
-                </Typography>
-                {matches && <ScheduleListItemOverview />}
+              <Typography style={matches ? { width: '40%' } : null}>
+                {home.team.name}
+              </Typography>
+              <div className={classes.overViewWrapper}>
+                {determineScore(home)}
+                {matches && status.detailedState !== 'Scheduled' && (
+                  <ScheduleListItemOverview
+                    first={get(linescore, 'periods[0].home', null)}
+                    second={get(linescore, 'periods[1].home', null)}
+                    third={get(linescore, 'periods[2].home', null)}
+                    overtime={get(linescore, 'periods[3].home', null)}
+                    shootout={get(linescore, 'shootoutInfo.home', null)}
+                  />
+                )}
               </div>
             </div>
             <Divider style={{ margin: '8px 0px' }} />
             <div
               style={{
                 display: 'flex',
-                justifyContent: 'space-between',
                 alignItems: 'center'
               }}
             >
-              <Typography>Carolina Hurricanes</Typography>
-              <div
-                style={{
-                  display: 'flex',
-                  marginLeft: '64px',
-                  alignItems: 'center'
-                }}
-              >
-                <Typography
-                  style={{
-                    marginRight: '40px',
-                    fontSize: '1.25rem',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  2
-                </Typography>
-                {matches && <ScheduleListItemOverview />}
+              <Typography style={matches ? { width: '40%' } : null}>
+                {away.team.name}
+              </Typography>
+              <div className={classes.overViewWrapper}>
+                {determineScore(away)}
+                {matches && status.detailedState !== 'Scheduled' && (
+                  <ScheduleListItemOverview
+                    first={get(linescore, 'periods[0].away', null)}
+                    second={get(linescore, 'periods[1].away', null)}
+                    third={get(linescore, 'periods[2].away', null)}
+                    overtime={get(linescore, 'periods[3].away', null)}
+                    shootout={get(linescore, 'shootoutInfo.away', null)}
+                  />
+                )}
               </div>
             </div>
           </div>

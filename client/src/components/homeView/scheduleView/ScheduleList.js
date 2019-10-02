@@ -39,7 +39,17 @@ const ScheduleList = ({
           />
         );
       case 'list':
-        return <ScheduleListItem key={gamePk} gamePk={gamePk} />;
+        return (
+          <ScheduleListItem
+            key={gamePk}
+            gamePk={gamePk}
+            gameDate={gameDate}
+            home={teamsPlaying.home}
+            away={teamsPlaying.away}
+            linescore={linescore}
+            status={status}
+          />
+        );
       default:
         break;
     }

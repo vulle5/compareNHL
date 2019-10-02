@@ -161,6 +161,14 @@ export const useScheduleListItemStyles = makeStyles(theme => ({
   },
   card: {
     padding: '16px'
+  },
+  overViewWrapper: {
+    display: 'flex',
+    marginLeft: '64px',
+    alignItems: 'center',
+    [theme.breakpoints.down('xs')]: {
+      marginLeft: 'auto'
+    }
   }
 }));
 
