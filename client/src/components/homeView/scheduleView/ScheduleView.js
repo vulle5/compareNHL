@@ -21,7 +21,7 @@ const ScheduleView = ({ toggleProgress }) => {
 
   const [dates, setDates] = useState([]);
   const [datePicker, setDatePicker] = useState(moment());
-  const [viewStyle, setViewStyle] = useState('list');
+  const [viewStyle, setViewStyle] = useState('card');
   const location = useLocation();
   const history = useHistory();
 
@@ -43,19 +43,21 @@ const ScheduleView = ({ toggleProgress }) => {
         location: { search }
       } = history;
       const { date } = qs.parse(search.substring(1));
-      const dates = await getDates(
-        date ? date : yesterday,
-        date
-          ? moment(date)
-              .add(1, 'days')
-              .format('YYYY-MM-DD')
-          : tomorrow,
-        moment.tz.guess(),
-        'expand=schedule.linescore'
-      );
+      if (moment(date, 'YYYY-MM-DD').isValid()) {
+        const dates = await getDates(
+          date ? date : yesterday,
+          date
+            ? moment(date)
+                .add(1, 'days')
+                .format('YYYY-MM-DD')
+            : tomorrow,
+          moment.tz.guess(),
+          'expand=schedule.linescore'
+        );
+        setDatePicker(moment(date));
+        setDates(dates);
+      }
       toggleProgress(false);
-      setDatePicker(moment(date));
-      setDates(dates);
     })();
   }, [getDates, tomorrow, yesterday, location, history, toggleProgress]);
 

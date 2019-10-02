@@ -53,7 +53,7 @@ const ScheduleList = ({
       default:
         break;
     }
-    return;
+    return null;
   }
 
   const generateScheduleListView = (date, games, index) => {
