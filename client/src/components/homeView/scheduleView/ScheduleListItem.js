@@ -64,7 +64,13 @@ const ScheduleListItem = ({
                 alignItems: 'center'
               }}
             >
-              <Typography style={matches ? { width: '40%' } : null}>
+              <img
+                alt="Team logo"
+                height="20"
+                style={{ marginRight: '4px' }}
+                src={`https://www-league.nhlstatic.com/images/logos/teams-current-circle/${home.team.id}.svg`}
+              />
+              <Typography style={matches ? { width: '35%' } : null}>
                 {home.team.name}
               </Typography>
               <div className={classes.overViewWrapper}>
@@ -87,7 +93,13 @@ const ScheduleListItem = ({
                 alignItems: 'center'
               }}
             >
-              <Typography style={matches ? { width: '40%' } : null}>
+              <img
+                alt="Team logo"
+                height="20"
+                style={{ marginRight: '4px' }}
+                src={`https://www-league.nhlstatic.com/images/logos/teams-current-circle/${away.team.id}.svg`}
+              />
+              <Typography style={matches ? { width: '35%' } : null}>
                 {away.team.name}
               </Typography>
               <div className={classes.overViewWrapper}>
