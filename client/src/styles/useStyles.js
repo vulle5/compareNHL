@@ -154,6 +154,27 @@ export const useScheduleCardViewStyles = makeStyles(theme => ({
   }
 }));
 
+export const useScheduleListViewStyles = makeStyles(theme => ({
+  listRoot: {
+    width: '100%',
+    maxWidth: 600
+  },
+  card: {
+    padding: '16px'
+  },
+  emptyGameWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    marginBottom: '16px'
+  },
+  emptyGameCard: {
+    marginBottom: '32px',
+    display: 'inline-block',
+    padding: '16px'
+  }
+}));
+
 export const useScheduleDayItemStyles = makeStyles(theme => ({
   gameCard: {
     width: '350px',

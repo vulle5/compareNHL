@@ -1,8 +1,8 @@
 import React from 'react';
-import { Typography, Card } from '@material-ui/core';
+import { Typography, Card, Paper, Divider } from '@material-ui/core';
 import moment from 'moment';
 
-import { useScheduleCardViewStyles } from '../../styles/useStyles';
+import { useScheduleListViewStyles } from '../../styles/useStyles';
 import DatePicker from './DatePicker';
 
 const ScheduleListView = ({
@@ -13,13 +13,20 @@ const ScheduleListView = ({
   games,
   index
 }) => {
-  const classes = useScheduleCardViewStyles();
+  const classes = useScheduleListViewStyles();
 
-  const generateDateCardView = (date, games, index) => {
+  const generateDateListView = (date, games, index) => {
     if (games.length) {
       return (
         <div>
-          <div className={classes.wrapper}>
+          <div
+            style={{
+              marginBottom: '16px',
+              display: 'flex',
+              flexWrap: 'wrap',
+              alignItems: 'center'
+            }}
+          >
             <Typography variant="h4" style={{ marginRight: '16px' }}>
               {getTitle(date)}
             </Typography>
@@ -33,24 +40,45 @@ const ScheduleListView = ({
               />
             )}
           </div>
-          <div className={classes.gameWrapper}>
-            {games.map(
-              ({
-                teams: teamsPlaying,
-                gamePk,
-                status,
-                gameDate,
-                linescore
-              }) => (
-                <div key={gamePk}>Make new component here!</div>
-              )
-            )}
+          <div style={{ marginBottom: '16px' }}>
+            <div className={classes.listRoot}>
+              {games.map(
+                ({
+                  teams: teamsPlaying,
+                  gamePk,
+                  status,
+                  gameDate,
+                  linescore
+                }) => (
+                  <Paper
+                    key={gamePk}
+                    classes={{ root: classes.card }}
+                    style={{ marginBottom: '8px' }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <Typography style={{ marginRight: '24px' }}>
+                        23:00
+                      </Typography>
+                      <div>
+                        <div>
+                          <Typography>Washington Capitals</Typography>
+                        </div>
+                        <Divider style={{ margin: '8px 0px' }} />
+                        <div>
+                          <Typography>Carolina Hurricanes</Typography>
+                        </div>
+                      </div>
+                    </div>
+                  </Paper>
+                )
+              )}
+            </div>
           </div>
         </div>
       );
     }
     return (
-      <div key={date}>
+      <div>
         <div className={classes.emptyGameWrapper}>
           <Typography variant="h4" style={{ marginRight: '16px' }}>
             {getTitle(date)}
@@ -69,7 +97,7 @@ const ScheduleListView = ({
     );
   };
 
-  return <>{generateDateCardView(date, games, index)}</>;
+  return <>{generateDateListView(date, games, index)}</>;
 };
 
 export default ScheduleListView;

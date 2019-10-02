@@ -22,7 +22,7 @@ const ScheduleDayList = ({ toggleProgress }) => {
 
   const [dates, setDates] = useState([]);
   const [datePicker, setDatePicker] = useState(moment());
-  const [viewStyle, setViewStyle] = useState('card');
+  const [viewStyle, setViewStyle] = useState('list');
   const location = useLocation();
   const history = useHistory();
 
