@@ -10,7 +10,7 @@ const ProgressBarGlobal = ({ showProgress }) => {
     <div
       style={{
         top: matches ? '64px' : '56px',
-        position: 'absolute',
+        position: 'sticky',
         width: '100%'
       }}
     >

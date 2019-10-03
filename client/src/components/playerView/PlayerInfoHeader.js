@@ -34,12 +34,18 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
         <div className={classes.loadingThumbnail} />
       )}
       <div className={classes.logoWrapper}>
-        <img
-          src={`https://www.countryflags.io/${getCountryISO2(
+        <iframe
+          title="country flag"
+          width="48"
+          height="48"
+          aria-label="About company"
+          role="img"
+          frameBorder="0"
+          sandbox=""
+          src={`data:text/html,<style>body{background:url('${`https://www.countryflags.io/${getCountryISO2(
             player.nationality
-          )}/shiny/48.png`}
-          alt="flag"
-        />
+          )}/shiny/48.png`}') center/cover no-repeat;padding:0;margin:0;overflow:hidden}</style>`}
+        ></iframe>
         <Typography variant="h5" component="h3" className={classes.playerName}>
           {`${player.fullName} #${player.primaryNumber}`}
         </Typography>
