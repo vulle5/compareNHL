@@ -110,6 +110,13 @@ export const useTeamStyles = makeStyles(theme => ({
       paddingTop: '56px'
     }
   },
+  spinner: {
+    margin: 'auto 50%',
+    paddingTop: '78px',
+    [theme.breakpoints.down('xs')]: {
+      paddingTop: '70px'
+    }
+  },
   teamHeaderLogo: {
     height: '200px',
     width: '200px',

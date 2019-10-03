@@ -1,7 +1,9 @@
 import playerServices from '../services/player';
+import { toggleProgress } from '../reducers/globalProgressReducer';
 
 export const setRegularSeasons = (playerId, currentSeason) => {
   return async dispatch => {
+    dispatch(toggleProgress(true));
     const {
       stats: {
         0: { splits }
@@ -10,6 +12,7 @@ export const setRegularSeasons = (playerId, currentSeason) => {
       playerId,
       `logs?stats=gameLog&expand=stats.team&season=${currentSeason}`
     );
+    dispatch(toggleProgress(false));
     dispatch({
       type: 'SET_REG_LOGS',
       data: splits
@@ -36,12 +39,12 @@ export const setPlayoffSeasons = (playerId, currentSeason) => {
 
 const gameLogsReducer = (state = {}, action) => {
   switch (action.type) {
-  case 'SET_REG_LOGS':
-    return { ...state, regular: action.data };
-  case 'SET_PLAYOFF_LOGS':
-    return { ...state, playoff: action.data };
-  default:
-    return state;
+    case 'SET_REG_LOGS':
+      return { ...state, regular: action.data };
+    case 'SET_PLAYOFF_LOGS':
+      return { ...state, playoff: action.data };
+    default:
+      return state;
   }
 };
 

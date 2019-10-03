@@ -21,7 +21,11 @@ const TeamInfo = ({ match: { params } }) => {
   }, [params.id]);
 
   if (!team.id) {
-    return <CircularProgress />;
+    return (
+      <div className={classes.spinner}>
+        <CircularProgress />
+      </div>
+    );
   }
 
   return (
