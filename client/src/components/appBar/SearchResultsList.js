@@ -12,10 +12,10 @@ import {
   ListSubheader,
   LinearProgress,
   ListItemSecondaryAction,
-  Button
+  Button,
+  ClickAwayListener
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import OutsideClickHandler from 'react-outside-click-handler';
 import history from '../../history';
 
 import { searchResultsListStyles } from '../../styles/jss-styles';
@@ -83,8 +83,8 @@ const SearchResultsList = ({
   else content = true;
 
   return (
-    <OutsideClickHandler
-      onOutsideClick={() => !isInputFocused && handleListStatus(false)}
+    <ClickAwayListener
+      onClickAway={() => !isInputFocused && handleListStatus(false)}
     >
       <div
         className={classes.wrapper}
@@ -120,7 +120,7 @@ const SearchResultsList = ({
           </List>
         </Paper>
       </div>
-    </OutsideClickHandler>
+    </ClickAwayListener>
   );
 };
 
