@@ -9,7 +9,6 @@ import {
 } from '../../reducers/gameLogsReducer';
 import StatTable from './StatTable';
 import CareerFilter from '../CareerFilter';
-import DisplayFilter from '../DisplayFilter';
 
 const GameLogs = ({
   playerId,
@@ -61,6 +60,9 @@ const GameLogs = ({
           filterKey="gameLogs"
           swipeReferences={swipeReferences}
           filterNames={playerSeasons}
+          buttonTitle={
+            selectedFilter.slice(0, 4) + '-' + selectedFilter.slice(4)
+          }
         />
         <FormControlLabel
           control={
@@ -73,12 +75,6 @@ const GameLogs = ({
           label="Playoff"
         />
       </div>
-      <DisplayFilter
-        style={{ paddingTop: '16px' }}
-        selectedFilter={
-          selectedFilter.slice(0, 4) + '-' + selectedFilter.slice(4)
-        }
-      />
       <StatTable
         headCells={
           isGoalie

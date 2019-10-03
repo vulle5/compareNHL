@@ -7,7 +7,8 @@ import withWidth from '@material-ui/core/withWidth';
 import { seasonTableStyles } from '../../styles/jss-styles';
 import StatTable from './StatTable';
 import CareerFilter from '../CareerFilter';
-import DisplayFilter from '../DisplayFilter';
+// TODO: Replace menu filter text with single filter
+// TODO: Add scheduleView stuff to useStyles
 
 const CareerTable = props => {
   const {
@@ -33,9 +34,9 @@ const CareerTable = props => {
         filterNames={playerLeagues}
         filterKey={'careerTable'}
         swipeReferences={swipeReferences}
+        buttonTitle={currentFilter.length === 0 ? 'Show All' : currentFilter}
         eraseFilter="Show All"
       />
-      <DisplayFilter selectedFilter={currentFilter} />
       <StatTable
         headCells={
           isGoalie

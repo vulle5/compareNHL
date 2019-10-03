@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Menu, MenuItem, IconButton } from '@material-ui/core';
-import { FilterList } from '@material-ui/icons';
+import { Menu, MenuItem, Button } from '@material-ui/core';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { setFilter } from '../reducers/filterReducer';
@@ -9,6 +9,7 @@ import { setFilter } from '../reducers/filterReducer';
 const CareerFilter = ({
   filterNames,
   filterKey,
+  buttonTitle,
   swipeReferences,
   eraseFilter,
   setFilter
@@ -30,18 +31,23 @@ const CareerFilter = ({
   };
 
   return (
-    <div>
-      <IconButton
+    <div style={{ margin: '16px' }}>
+      <Button
         aria-owns={anchorEl && 'simple-menu'}
         aria-haspopup="true"
         title="Filter"
+        variant="outlined"
         onClick={handleClick}
       >
-        <FilterList />
-      </IconButton>
+        {buttonTitle}
+        <ArrowDropDownIcon style={{ marginLeft: '16px' }} />
+      </Button>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
+        getContentAnchorEl={null}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
@@ -69,7 +75,8 @@ const CareerFilter = ({
 CareerFilter.defaultProps = {
   filterNames: [],
   swipeReferences: { current: { updateHeight: () => {} } },
-  filterKey: ''
+  filterKey: '',
+  buttonTitle: 'Filter'
 };
 
 export default connect(

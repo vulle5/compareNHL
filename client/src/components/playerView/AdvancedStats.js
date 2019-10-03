@@ -5,7 +5,6 @@ import { Typography } from '@material-ui/core';
 
 import CareerFilter from '../CareerFilter';
 import AdvancedList from './AdvancedList';
-import DisplayFilter from '../DisplayFilter';
 
 const AdvancedStats = ({
   swipeReferences,
@@ -26,11 +25,7 @@ const AdvancedStats = ({
         swipeReferences={swipeReferences}
         filterKey="advancedStats"
         filterNames={playerSeasons}
-      />
-      <DisplayFilter
-        selectedFilter={
-          selectedFilter.slice(0, 4) + '-' + selectedFilter.slice(4)
-        }
+        buttonTitle={selectedFilter.slice(0, 4) + '-' + selectedFilter.slice(4)}
       />
       <AdvancedList seasons={filteredSeason} />
     </div>

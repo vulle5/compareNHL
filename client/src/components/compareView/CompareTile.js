@@ -8,7 +8,6 @@ import { useCompareStyles } from '../../styles/useStyles';
 import { makeCompareData } from '../../functions/makeCompareData';
 import CompareTileItem from './CompareTileItem';
 import CompareTileHeader from './CompareTileHeader';
-import DisplayFilter from '../DisplayFilter';
 import CareerFilter from '../CareerFilter';
 
 const CompareTile = ({
@@ -46,11 +45,7 @@ const CompareTile = ({
                 filterKey={player.id}
                 filterNames={playerSeasons}
                 eraseFilter="Career"
-              />
-              <DisplayFilter
-                style={{ paddingBottom: '16px' }}
-                selectedFilter={selectedFilter}
-                variant="h6"
+                buttonTitle={selectedFilter}
               />
             </div>
             <CompareTileItem listItems={listItems} />
