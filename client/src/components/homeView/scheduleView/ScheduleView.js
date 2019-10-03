@@ -51,7 +51,7 @@ const ScheduleView = ({ toggleProgress }) => {
         location: { search }
       } = history;
       const { date } = qs.parse(search.substring(1));
-      if (moment(date, 'YYYY-MM-DD').isValid()) {
+      if (!date || moment(date, 'YYYY-MM-DD').isValid()) {
         const dates = await getDates(
           date ? date : yesterday,
           date
@@ -70,11 +70,13 @@ const ScheduleView = ({ toggleProgress }) => {
   }, [getDates, tomorrow, yesterday, location, history, toggleProgress]);
 
   const handleDateChange = date => {
-    setDatePicker(date);
-    history.push({
-      pathname: history.location.pathname,
-      search: `?date=${moment(date).format('YYYY-MM-DD')}`
-    });
+    if (moment(date).isValid()) {
+      setDatePicker(date);
+      history.push({
+        pathname: history.location.pathname,
+        search: `?date=${moment(date).format('YYYY-MM-DD')}`
+      });
+    }
   };
 
   function getTitle(date) {
