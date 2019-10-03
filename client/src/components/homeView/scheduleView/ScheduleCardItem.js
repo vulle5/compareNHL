@@ -25,10 +25,10 @@ const ScheduleCardItem = ({
   linescore,
   teams
 }) => {
-  const [homeAbb, setHomeAbb] = useState('');
-  const [awayAbb, setAwayAbb] = useState('');
-  const [homeTeam, setHomeTeam] = useState('');
-  const [awayTeam, setAwayTeam] = useState('');
+  const [homeAbb, setHomeAbb] = useState('HOME');
+  const [awayAbb, setAwayAbb] = useState('AWAY');
+  const [homeTeam, setHomeTeam] = useState('Home');
+  const [awayTeam, setAwayTeam] = useState('Away');
 
   const {
     palette: { type }
