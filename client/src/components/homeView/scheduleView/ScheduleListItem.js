@@ -50,14 +50,23 @@ const ScheduleListItem = ({
     }
   }
 
+  function determineGameState() {
+    switch (status.detailedState) {
+      case 'Scheduled' || 'In Preview':
+        return moment(gameDate).format('HH:mm')
+      case 'In Progress':
+        return `${linescore.currentPeriodTimeRemaining} ${linescore.currentPeriodOrdinal}`
+      default:
+        return status.detailedState
+    }
+  }
+
   return (
     <div className={classes.listRoot}>
       <Paper classes={{ root: classes.card }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Typography style={{ marginRight: '24px' }}>
-            {status.detailedState !== 'Scheduled'
-              ? status.detailedState
-              : moment(gameDate).format('HH:mm')}
+          <Typography style={{ marginRight: '24px', width: '40px' }}>
+            {determineGameState()}
           </Typography>
           <div style={{ width: '100%' }}>
             <div
