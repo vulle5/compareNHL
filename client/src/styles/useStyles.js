@@ -140,7 +140,7 @@ export const useScheduleListStyles = makeStyles(theme => ({
   wrapper: {
     display: 'flex',
     flexWrap: 'wrap',
-    alignItems: 'center'
+    alignItems: 'flex-end'
   },
   gameWrapper: {
     display: 'flex',
@@ -201,3 +201,9 @@ export const useScheduleCardItemStyles = makeStyles(theme => ({
     marginLeft: '4px'
   }
 }));
+
+export const useDatePickerStyles = makeStyles({
+  root: {
+    marginBottom: '0px'
+  }
+});

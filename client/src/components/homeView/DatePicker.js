@@ -10,30 +10,35 @@ import {
   KeyboardDatePicker
 } from '@material-ui/pickers';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useDatePickerStyles } from '../../styles/useStyles';
 
 const DatePicker = ({ date, handleDateChange }) => {
   const matches = useMediaQuery(theme => theme.breakpoints.up('sm'));
+  const classes = useDatePickerStyles();
 
   return (
     <div>
-      <MuiPickersUtilsProvider utils={MomentUtils}>
-        <KeyboardDatePicker
-          disableToolbar={!matches}
-          autoOk={matches}
-          margin="normal"
-          variant={!matches ? 'dialog' : 'inline'}
-          id="date-picker"
-          label="Select date"
-          format="YYYY/MM/DD"
-          minDate={moment('1917-12-19')}
-          maxDate={moment().add(1, 'years')}
-          value={date}
-          onChange={date => handleDateChange(date)}
-          KeyboardButtonProps={{
-            'aria-label': 'change date'
-          }}
-        ></KeyboardDatePicker>
-      </MuiPickersUtilsProvider>
+      <div>
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <KeyboardDatePicker
+            className={classes.root}
+            disableToolbar={!matches}
+            autoOk={matches}
+            margin="normal"
+            variant={!matches ? 'dialog' : 'inline'}
+            id="date-picker"
+            label="Select date"
+            format="YYYY/MM/DD"
+            minDate={moment('1917-12-19')}
+            maxDate={moment().add(1, 'years')}
+            value={date}
+            onChange={date => handleDateChange(date)}
+            KeyboardButtonProps={{
+              'aria-label': 'change date'
+            }}
+          ></KeyboardDatePicker>
+        </MuiPickersUtilsProvider>
+      </div>
     </div>
   );
 };
