@@ -136,6 +136,16 @@ export const useTeamStyles = makeStyles(theme => ({
   }
 }));
 
+export const useScheduleViewStyles = makeStyles(theme => ({
+  viewLogo: {
+    marginRight: '8px',
+    cursor: 'pointer'
+  },
+  tooltipPlacementTop: {
+    margin: '0px'
+  }
+}));
+
 export const useScheduleListStyles = makeStyles(theme => ({
   wrapper: {
     display: 'flex',
@@ -171,7 +181,7 @@ export const useScheduleListItemStyles = makeStyles(theme => ({
   },
   overViewWrapper: {
     display: 'flex',
-    marginLeft: '64px',
+    marginLeft: '40px',
     alignItems: 'center',
     [theme.breakpoints.down('xs')]: {
       marginLeft: 'auto'

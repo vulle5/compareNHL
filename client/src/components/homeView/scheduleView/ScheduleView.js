@@ -10,6 +10,8 @@ import { ReactComponent as ListLogo } from '../../../assets/listViewButton.svg';
 import scheduleServices from '../../../services/schedule';
 import { toggleProgress } from '../../../reducers/globalProgressReducer';
 import ScheduleList from './ScheduleList';
+import { useScheduleViewStyles } from '../../../styles/useStyles';
+import { Tooltip } from '@material-ui/core';
 
 const ScheduleView = ({ toggleProgress }) => {
   const yesterday = moment()
@@ -22,6 +24,7 @@ const ScheduleView = ({ toggleProgress }) => {
   const [dates, setDates] = useState([]);
   const [datePicker, setDatePicker] = useState(moment());
   const [viewStyle, setViewStyle] = useState('card');
+  const { viewLogo, ...classes } = useScheduleViewStyles();
   const location = useLocation();
   const history = useHistory();
 
@@ -99,24 +102,28 @@ const ScheduleView = ({ toggleProgress }) => {
     <div style={{ marginTop: '24px' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <div style={{ marginRight: '16px' }}>View</div>
-        <CardLogo
-          height="35"
-          width="35"
-          style={{ marginRight: '8px', cursor: 'pointer' }}
-          onClick={() => {
-            setViewStyle('card');
-            localStorage.setItem('scheduleViewStyle', 'card');
-          }}
-        />
-        <ListLogo
-          height="35"
-          width="35"
-          style={{ marginRight: '8px', cursor: 'pointer' }}
-          onClick={() => {
-            setViewStyle('list');
-            localStorage.setItem('scheduleViewStyle', 'list');
-          }}
-        />
+        <Tooltip title="Card" placement="top" classes={classes}>
+          <CardLogo
+            height="35"
+            width="35"
+            className={viewLogo}
+            onClick={() => {
+              setViewStyle('card');
+              localStorage.setItem('scheduleViewStyle', 'card');
+            }}
+          />
+        </Tooltip>
+        <Tooltip title="List" placement="top" classes={classes}>
+          <ListLogo
+            height="35"
+            width="35"
+            className={viewLogo}
+            onClick={() => {
+              setViewStyle('list');
+              localStorage.setItem('scheduleViewStyle', 'list');
+            }}
+          />
+        </Tooltip>
       </div>
       {dates.map(({ date, games }, index) => (
         <ScheduleList
