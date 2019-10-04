@@ -7,8 +7,6 @@ import withWidth from '@material-ui/core/withWidth';
 import { seasonTableStyles } from '../../styles/jss-styles';
 import StatTable from './StatTable';
 import CareerFilter from '../CareerFilter';
-// TODO: Replace menu filter text with single filter
-// TODO: Add scheduleView stuff to useStyles
 
 const CareerTable = props => {
   const {

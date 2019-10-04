@@ -10,6 +10,7 @@ import LinearProgressBar from './LinearProgressBar';
 import { setTheme } from '../reducers/themeReducer';
 import SideDrawer from './SideDrawer';
 import history from '../history';
+import ErrorMessage from './ErrorMessage';
 
 const Home = lazy(() => import('./homeView/Home'));
 const PlayerInfo = lazy(() => import('./playerView/PlayerInfo'));
@@ -40,6 +41,7 @@ const App = ({ setTheme, theme }) => {
               <Route path="/team/:id" component={TeamInfo} />
               <Route path="/player/:playerId" component={PlayerInfo} />
               <Route path="/compare/:playerId" component={Compare} />
+              <Route component={ErrorMessage} />
             </Switch>
           </Suspense>
         </div>
