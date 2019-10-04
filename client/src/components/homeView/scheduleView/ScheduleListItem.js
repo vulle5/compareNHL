@@ -25,9 +25,10 @@ const ScheduleListItem = ({
       return (
         <Typography
           style={{
-            marginRight: '40px',
+            marginRight: matches ? '40px' : '16px',
             fontSize: '1.25rem',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            marginLeft: '24px'
           }}
         >
           {homeOrAway.score}
@@ -37,9 +38,10 @@ const ScheduleListItem = ({
       return (
         <Typography
           style={{
-            marginRight: '40px',
+            marginRight: matches ? '40px' : '16px',
             fontSize: '1.25rem',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            marginLeft: '24px'
           }}
         >
           -
