@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import SVG from 'react-inlinesvg';
 
 import { initializeTeams } from '../../reducers/teamReducer';
 import { Link } from 'react-router-dom';
@@ -31,10 +32,16 @@ const TeamList = ({ initializeTeams, teams }) => {
         <div key={team.id} className={classes.teamListWrapper}>
           <Tooltip title={team.name} enterDelay={250}>
             <Link to={`/team/${team.id}`}>
-              <img
+              <SVG
                 alt="logo"
+                title={`${team.name}`}
                 className={classes.listLogo}
-                src={`https://www-league.nhlstatic.com/images/logos/teams-current-circle/${team.id}.svg`}
+                preProcessor={code =>
+                  team.id === 14
+                    ? code.replace(/fill=".*?"/g, 'fill="#003D7C"')
+                    : code
+                }
+                src={`/api/teams/${team.id}/logo`}
               />
             </Link>
           </Tooltip>
