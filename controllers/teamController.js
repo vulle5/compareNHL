@@ -2,6 +2,13 @@ const teamRoutes = require('express').Router();
 const querystring = require('querystring');
 const axios = require('axios');
 
+function modifyResponseFill(req, data) {
+  if (req.params.id === '14') {
+    return data.replace(/fill=".*?"/g, 'fill="#003D7C"');
+  }
+  return data;
+}
+
 teamRoutes.get('', async (req, res) => {
   try {
     const { data } = await axios.get(
@@ -28,9 +35,10 @@ teamRoutes.get('/:id', async (req, res) => {
 
 teamRoutes.get('/:id/logo', async (req, res) => {
   try {
-    const { data } = await axios.get(
+    let { data } = await axios.get(
       `https://www-league.nhlstatic.com/images/logos/teams-current-circle/${req.params.id}.svg`
     );
+    data = modifyResponseFill(req, data);
     res.writeHead(200, {
       'Cache-Control': 'max-age=604800',
       'Content-Type': 'image/svg+xml'

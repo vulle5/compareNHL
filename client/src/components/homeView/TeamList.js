@@ -34,13 +34,7 @@ const TeamList = ({ initializeTeams, teams }) => {
             <Link to={`/team/${team.id}`}>
               <SVG
                 alt="logo"
-                title={`${team.name}`}
                 className={classes.listLogo}
-                preProcessor={code =>
-                  team.id === 14
-                    ? code.replace(/fill=".*?"/g, 'fill="#003D7C"')
-                    : code
-                }
                 src={`/api/teams/${team.id}/logo`}
               />
             </Link>
