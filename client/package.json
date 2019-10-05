@@ -20,7 +20,6 @@
     "qs": "^6.8.0",
     "react": "16.9.0",
     "react-dom": "16.9.0",
-    "react-inlinesvg": "^1.1.7",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.1.1",
     "react-scripts": "3.0.1",

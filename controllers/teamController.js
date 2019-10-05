@@ -6,6 +6,10 @@ function modifyResponseFill(req, data) {
   if (req.params.id === '14') {
     return data.replace(/fill=".*?"/g, 'fill="#003D7C"');
   }
+  if (req.params.id === '10') {
+    const newData = data.replace(/fill=".*?"/g, 'fill="#00205B"');
+    return newData.replace('<g fill="#00205B">', '<g fill="#FFF">');
+  }
   return data;
 }
 

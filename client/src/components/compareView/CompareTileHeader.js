@@ -26,7 +26,7 @@ const CompareTileHeader = ({ player }) => {
           </Typography>
         </Link>
       </div>
-      <div style={{ width: '50%', margin: 'auto' }}>
+      <div style={{ margin: 'auto' }}>
         <Link
           to={`/team/${player.currentTeam.id}`}
           className={classes.bannerWrapper}
@@ -34,7 +34,7 @@ const CompareTileHeader = ({ player }) => {
           {player.currentTeam.id !== 'N/A' && (
             <img
               height="35"
-              src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-dark/${player.currentTeam.id}.svg`}
+              src={`/api/teams/${player.currentTeam.id}/logo`}
               alt="team"
             />
           )}

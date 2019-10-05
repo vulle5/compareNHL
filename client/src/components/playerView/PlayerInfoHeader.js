@@ -58,7 +58,7 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
           {player.currentTeam.id !== 'N/A' && (
             <img
               height="35"
-              src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-dark/${player.currentTeam.id}.svg`}
+              src={`/api/teams/${player.currentTeam.id}/logo`}
               alt="team"
             />
           )}

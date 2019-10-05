@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import 'moment-duration-format';
-import { useTheme } from '@material-ui/styles';
 import {
   Typography,
   Card,
@@ -30,9 +29,6 @@ const ScheduleCardItem = ({
   const [homeTeam, setHomeTeam] = useState('Home');
   const [awayTeam, setAwayTeam] = useState('Away');
 
-  const {
-    palette: { type }
-  } = useTheme();
   const classes = useScheduleCardItemStyles();
 
   const findTeamName = useCallback(
@@ -165,17 +161,10 @@ const ScheduleCardItem = ({
           <div>
             <Avatar
               className={classes.teamLogo}
-              style={{
-                backgroundColor:
-                  (home.team.id === 14 || home.team.id === 10) &&
-                  type === 'light'
-                    ? 'lightgray'
-                    : null
-              }}
               imgProps={{
                 style: { position: 'absolute', width: '145%' }
               }}
-              src={`https://www-league.nhlstatic.com/images/logos/teams-current-circle/${home.team.id}.svg`}
+              src={`/api/teams/${home.team.id}/logo`}
               alt="Team"
               onError={e => {
                 e.target.onerror = null;
@@ -187,17 +176,10 @@ const ScheduleCardItem = ({
           <div>
             <Avatar
               className={classes.teamLogo}
-              style={{
-                backgroundColor:
-                  (away.team.id === 14 || away.team.id === 10) &&
-                  type === 'light'
-                    ? 'lightgray'
-                    : null
-              }}
               imgProps={{
                 style: { position: 'absolute', width: '145%' }
               }}
-              src={`https://www-league.nhlstatic.com/images/logos/teams-current-circle/${away.team.id}.svg`}
+              src={`/api/teams/${away.team.id}/logo`}
               alt="Team"
               onError={e => {
                 e.target.onerror = null;

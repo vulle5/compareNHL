@@ -53,11 +53,11 @@ const ScheduleListItem = ({
   function determineGameState() {
     switch (status.detailedState) {
       case 'Scheduled' || 'In Preview':
-        return moment(gameDate).format('HH:mm')
+        return moment(gameDate).format('HH:mm');
       case 'In Progress':
-        return `${linescore.currentPeriodTimeRemaining} ${linescore.currentPeriodOrdinal}`
+        return `${linescore.currentPeriodTimeRemaining} ${linescore.currentPeriodOrdinal}`;
       default:
-        return status.detailedState
+        return status.detailedState;
     }
   }
 
@@ -79,7 +79,7 @@ const ScheduleListItem = ({
                 alt="Team logo"
                 height="20"
                 style={{ marginRight: '4px' }}
-                src={`https://www-league.nhlstatic.com/images/logos/teams-current-circle/${home.team.id}.svg`}
+                src={`/api/teams/${home.team.id}/logo`}
               />
               <Typography style={matches ? { width: '35%' } : null}>
                 {home.team.name}
@@ -108,7 +108,7 @@ const ScheduleListItem = ({
                 alt="Team logo"
                 height="20"
                 style={{ marginRight: '4px' }}
-                src={`https://www-league.nhlstatic.com/images/logos/teams-current-circle/${away.team.id}.svg`}
+                src={`/api/teams/${away.team.id}/logo`}
               />
               <Typography style={matches ? { width: '35%' } : null}>
                 {away.team.name}

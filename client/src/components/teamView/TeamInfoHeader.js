@@ -11,7 +11,7 @@ const TeamInfoHeader = ({ team, params }) => {
       <img
         alt="logo"
         className={classes.teamHeaderLogo}
-        src={`https://www-league.nhlstatic.com/images/logos/teams-current-circle/${params.id}.svg`}
+        src={`/api/teams/${params.id}/logo`}
       />
       <Typography variant="h5" style={{ margin: '8px 0px 8px 0px' }}>
         {team.name}

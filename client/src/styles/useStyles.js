@@ -121,8 +121,7 @@ export const useTeamStyles = makeStyles(theme => ({
     height: '200px',
     width: '200px',
     margin: '0px 4px',
-    borderRadius: '50%',
-    backgroundColor: theme.palette.type === 'light' ? '#ededed' : '#424242'
+    borderRadius: '50%'
   },
   rosterPosTitle: {
     marginBottom: theme.spacing(1)

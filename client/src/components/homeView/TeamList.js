@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import SVG from 'react-inlinesvg';
 
 import { initializeTeams } from '../../reducers/teamReducer';
 import { Link } from 'react-router-dom';
@@ -32,7 +31,7 @@ const TeamList = ({ initializeTeams, teams }) => {
         <div key={team.id} className={classes.teamListWrapper}>
           <Tooltip title={team.name} enterDelay={250}>
             <Link to={`/team/${team.id}`}>
-              <SVG
+              <img
                 alt="logo"
                 className={classes.listLogo}
                 src={`/api/teams/${team.id}/logo`}
