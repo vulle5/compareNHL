@@ -12,6 +12,7 @@ import { toggleProgress } from '../../../reducers/globalProgressReducer';
 import ScheduleList from './ScheduleList';
 import { useScheduleViewStyles } from '../../../styles/useStyles';
 import { Tooltip } from '@material-ui/core';
+import { useTheme } from '@material-ui/styles';
 
 const ScheduleView = ({ toggleProgress }) => {
   const yesterday = moment()
@@ -25,6 +26,7 @@ const ScheduleView = ({ toggleProgress }) => {
   const [datePicker, setDatePicker] = useState(moment());
   const [viewStyle, setViewStyle] = useState('card');
   const { viewLogo, ...classes } = useScheduleViewStyles();
+  const theme = useTheme();
   const location = useLocation();
   const history = useHistory();
 
@@ -82,6 +84,20 @@ const ScheduleView = ({ toggleProgress }) => {
     }
   };
 
+  function handleViewStyleCard() {
+    if (viewStyle !== 'list') {
+      return theme.palette.type === 'light' ? 'black' : 'white';
+    }
+    return 'rgb(142,142,142)';
+  }
+
+  function handleViewStyleList() {
+    if (viewStyle !== 'card') {
+      return theme.palette.type === 'light' ? 'black' : 'white';
+    }
+    return 'rgb(142,142,142)';
+  }
+
   function getTitle(date) {
     const calendarDate = moment(date, 'YYYY-MM-DD').calendar(null, {
       sameDay: '[Today]',
@@ -106,6 +122,7 @@ const ScheduleView = ({ toggleProgress }) => {
           <CardLogo
             height="35"
             width="35"
+            fill={handleViewStyleCard()}
             className={viewLogo}
             onClick={() => {
               setViewStyle('card');
@@ -118,6 +135,7 @@ const ScheduleView = ({ toggleProgress }) => {
             height="35"
             width="35"
             className={viewLogo}
+            fill={handleViewStyleList()}
             onClick={() => {
               setViewStyle('list');
               localStorage.setItem('scheduleViewStyle', 'list');
