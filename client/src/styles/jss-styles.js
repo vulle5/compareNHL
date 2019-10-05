@@ -24,7 +24,6 @@ export const searchPlayerBarStyles = theme => ({
     marginRight: 20
   },
   title: {
-    display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
       userSelect: 'none',
@@ -40,6 +39,18 @@ export const searchPlayerBarStyles = theme => ({
     },
     marginLeft: 0,
     width: '100%',
+    [theme.breakpoints.down('xs')]: {
+      backgroundColor: fade(theme.palette.common.white, 0),
+      transition: theme.transitions.create('width'),
+      width: '60px',
+      '&:hover': {
+        backgroundColor: fade(theme.palette.common.white, 0)
+      },
+      '&:focus-within': {
+        width: '100%',
+        backgroundColor: fade(theme.palette.common.white, 0.25)
+      }
+    },
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(1),
       width: 'auto'

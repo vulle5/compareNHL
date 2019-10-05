@@ -8,6 +8,7 @@ import {
   Typography,
   InputBase
 } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -29,6 +30,7 @@ const SearchPlayersBar = props => {
   const [searchResults, setSearchResults] = useState([]);
   const [noPlayers, setNoPlayers] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const matches = useMediaQuery(theme => theme.breakpoints.down('xs'));
 
   const handleListStatus = bool => setListStatus(bool);
 
@@ -67,6 +69,7 @@ const SearchPlayersBar = props => {
             </IconButton>
             <Typography
               className={classes.title}
+              style={inputIsFocused && matches ? { display: 'none' } : null}
               variant="h6"
               color="inherit"
               onClick={() => {
@@ -84,7 +87,6 @@ const SearchPlayersBar = props => {
                 <SearchIcon />
               </div>
               <InputBase
-                autoFocus
                 autoComplete="off"
                 id="player-search"
                 placeholder="Search Players"
