@@ -94,7 +94,8 @@ const SearchPlayersBar = props => {
                 inputProps={{
                   'aria-label': 'Search players'
                 }}
-                onFocus={() => {
+                onFocus={e => {
+                  e.target.select();
                   handleListStatus(true);
                   setInputIsFocused(true);
                 }}
