@@ -44,7 +44,9 @@ teamRoutes.get('/:id/logo', async (req, res) => {
     );
     data = modifyResponseFill(req, data);
     res.writeHead(200, {
-      'Cache-Control': 'max-age=604800',
+      'Cache-Control': `public, max-age=${Math.floor(
+        Math.random() * (1209600 - 604800)
+      ) + 604800}`,
       'Content-Type': 'image/svg+xml'
     });
     res.end(data);
