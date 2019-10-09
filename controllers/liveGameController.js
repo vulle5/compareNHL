@@ -1,6 +1,16 @@
 const liveGameRoutes = require('express').Router();
 // const axios = require('axios');
 
+function sseSetup(res) {
+  // SSE Setup
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    Connection: 'keep-alive'
+  });
+  res.write('\n');
+}
+
 function sseDemo(req, res) {
   let messageId = 0;
 
@@ -18,14 +28,7 @@ function sseDemo(req, res) {
 }
 
 liveGameRoutes.get('', (req, res) => {
-  // SSE Setup
-  res.writeHead(200, {
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
-    Connection: 'keep-alive'
-  });
-  res.write('\n');
-
+  sseSetup(res);
   sseDemo(req, res);
 });
 
