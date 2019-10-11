@@ -16,6 +16,7 @@ const Home = lazy(() => import('./homeView/Home'));
 const PlayerInfo = lazy(() => import('./playerView/PlayerInfo'));
 const Compare = lazy(() => import('./compareView/Compare'));
 const TeamInfo = lazy(() => import('./teamView/TeamInfo'));
+const GameDetails = lazy(() => import('./gameDetailsView/GameDetails'));
 
 const App = ({ setTheme, theme }) => {
   useEffect(() => {
@@ -41,6 +42,7 @@ const App = ({ setTheme, theme }) => {
               <Route path="/team/:id" component={TeamInfo} />
               <Route path="/player/:playerId" component={PlayerInfo} />
               <Route path="/compare/:playerId" component={Compare} />
+              <Route path="/gameDetails/:gamePk" component={GameDetails} />
               <Route component={ErrorMessage} />
             </Switch>
           </Suspense>

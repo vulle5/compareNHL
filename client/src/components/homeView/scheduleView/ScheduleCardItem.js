@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import 'moment-duration-format';
@@ -150,69 +151,71 @@ const ScheduleCardItem = ({
 
   return (
     <Card className={classes.gameCard}>
-      <CardContent>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography variant="subtitle1">
-            {determineGameType(gamePk.toString())}
-          </Typography>
-          <Typography variant="subtitle1">{determineGameState()}</Typography>
-        </div>
-        <div className={classes.scoreLogoWrapper}>
-          <div>
-            <Avatar
-              className={classes.teamLogo}
-              imgProps={{
-                style: { position: 'absolute', width: '145%' }
-              }}
-              src={`/api/teams/${home.team.id}/logo`}
-              alt="Team"
-              onError={e => {
-                e.target.onerror = null;
-                e.target.src = defLogo;
-              }}
-            />
+      <Link to={`/gameDetails/${gamePk}`}>
+        <CardContent>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Typography variant="subtitle1">
+              {determineGameType(gamePk.toString())}
+            </Typography>
+            <Typography variant="subtitle1">{determineGameState()}</Typography>
           </div>
-          <div style={{ display: 'flex' }}>{determineScore()}</div>
-          <div>
-            <Avatar
-              className={classes.teamLogo}
-              imgProps={{
-                style: { position: 'absolute', width: '145%' }
-              }}
-              src={`/api/teams/${away.team.id}/logo`}
-              alt="Team"
-              onError={e => {
-                e.target.onerror = null;
-                e.target.src = defLogo;
-              }}
-            />
+          <div className={classes.scoreLogoWrapper}>
+            <div>
+              <Avatar
+                className={classes.teamLogo}
+                imgProps={{
+                  style: { position: 'absolute', width: '145%' }
+                }}
+                src={`/api/teams/${home.team.id}/logo`}
+                alt="Team"
+                onError={e => {
+                  e.target.onerror = null;
+                  e.target.src = defLogo;
+                }}
+              />
+            </div>
+            <div style={{ display: 'flex' }}>{determineScore()}</div>
+            <div>
+              <Avatar
+                className={classes.teamLogo}
+                imgProps={{
+                  style: { position: 'absolute', width: '145%' }
+                }}
+                src={`/api/teams/${away.team.id}/logo`}
+                alt="Team"
+                onError={e => {
+                  e.target.onerror = null;
+                  e.target.src = defLogo;
+                }}
+              />
+            </div>
           </div>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography style={{ textAlign: 'center' }} variant="subtitle1">
-            {`@${homeTeam}`}
-          </Typography>
-          <Typography style={{ textAlign: 'center' }} variant="subtitle1">
-            {awayTeam}
-          </Typography>
-        </div>
-        {determineLeagueScore()}
-        {(status.detailedState === 'Final' ||
-          status.detailedState === 'In Progress') && (
-          <>
-            <Divider style={{ margin: '12px 0px' }} />
-            <ScheduleCardItemOverview
-              homeAbb={homeAbb}
-              awayAbb={awayAbb}
-              first={linescore.periods[0]}
-              second={linescore.periods[1]}
-              third={linescore.periods[2]}
-              overtime={linescore.periods[3]}
-              shootout={linescore.shootoutInfo}
-            />
-          </>
-        )}
-      </CardContent>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Typography style={{ textAlign: 'center' }} variant="subtitle1">
+              {`@${homeTeam}`}
+            </Typography>
+            <Typography style={{ textAlign: 'center' }} variant="subtitle1">
+              {awayTeam}
+            </Typography>
+          </div>
+          {determineLeagueScore()}
+          {(status.detailedState === 'Final' ||
+            status.detailedState === 'In Progress') && (
+            <>
+              <Divider style={{ margin: '12px 0px' }} />
+              <ScheduleCardItemOverview
+                homeAbb={homeAbb}
+                awayAbb={awayAbb}
+                first={linescore.periods[0]}
+                second={linescore.periods[1]}
+                third={linescore.periods[2]}
+                overtime={linescore.periods[3]}
+                shootout={linescore.shootoutInfo}
+              />
+            </>
+          )}
+        </CardContent>
+      </Link>
     </Card>
   );
 };
