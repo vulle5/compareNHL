@@ -9,7 +9,7 @@ const ErrorMessage = () => {
       <img style={{ maxWidth: '100%' }} src={image} alt="Error" />
       <Typography style={{ padding: '16px', textAlign: 'center' }} variant="h5">
         There is nothing to see here search players from search bar at upper
-        right corner
+        right corner or click CompareNHL at upper left corner to go back Home
       </Typography>
     </div>
   );

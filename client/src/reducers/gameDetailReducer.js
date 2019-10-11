@@ -2,6 +2,10 @@ import axios from 'axios';
 
 export const initializeGame = gamePk => async dispatch => {
   try {
+    dispatch({
+      type: 'INIT_GAME',
+      data: null
+    });
     const { data } = await axios.get(
       `https://statsapi.web.nhl.com/api/v1/game/${gamePk}/feed/live`
     );
@@ -11,7 +15,7 @@ export const initializeGame = gamePk => async dispatch => {
     });
   } catch (error) {
     dispatch({
-      type: null,
+      type: 'ERROR',
       data: error.message
     });
   }

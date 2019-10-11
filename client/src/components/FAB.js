@@ -29,7 +29,7 @@ const FloatingActionButton = ({
 
       const scrolled = winScroll / height;
 
-      if (scrolled >= 0.98) {
+      if (scrolled >= 0.999) {
         setAtBottom(true);
       } else {
         setAtBottom(false);

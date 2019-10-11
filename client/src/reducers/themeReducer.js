@@ -10,10 +10,10 @@ export const setTheme = theme => {
 
 const themeReducer = (state = lightTheme, action) => {
   switch (action.type) {
-  case 'SET_THEME':
-    return action.data;
-  default:
-    return state;
+    case 'SET_THEME':
+      return action.data;
+    default:
+      return state;
   }
 };
 
