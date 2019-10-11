@@ -216,3 +216,21 @@ export const useDatePickerStyles = makeStyles({
     marginBottom: '0px'
   }
 });
+
+export const useGameDetailStyles = makeStyles({
+  root: { paddingTop: '64px', maxWidth: '1000px', margin: 'auto' }
+})
+
+export const useGameDetailHeaderStyles = makeStyles(theme => ({
+  root: {
+    margin: '16px',
+    padding: '16px',
+    [theme.breakpoints.down('sm')]: {
+      margin: '0px',
+      padding: '16px 8px'
+    }
+  },
+  headerWrapper: {
+
+  }
+}))

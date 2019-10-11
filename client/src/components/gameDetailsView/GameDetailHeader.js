@@ -2,8 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Paper, Typography, useMediaQuery } from '@material-ui/core';
 
+import { useGameDetailHeaderStyles } from '../../styles/useStyles'
+
 const GameDetailHeader = ({ gameDetail }) => {
   const matches = useMediaQuery(theme => theme.breakpoints.down('sm'));
+  const classes = useGameDetailHeaderStyles()
 
   const {
     gameData: { teams },
@@ -11,10 +14,7 @@ const GameDetailHeader = ({ gameDetail }) => {
   } = gameDetail;
   return (
     <Paper
-      style={{
-        margin: matches ? '0px' : '16px',
-        padding: matches ? '16px 8px' : '16px'
-      }}
+      className={classes.root}
     >
       <div
         style={{
