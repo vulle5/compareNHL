@@ -11,6 +11,7 @@ import themeReducer from './reducers/themeReducer';
 import drawerReducer from './reducers/drawerReducer';
 import globalProgressReducer from './reducers/globalProgressReducer';
 import teamReducer from './reducers/teamReducer';
+import gameDetailReducer from './reducers/gameDetailReducer';
 
 const reducer = combineReducers({
   player: playerReducer,
@@ -21,7 +22,8 @@ const reducer = combineReducers({
   theme: themeReducer,
   drawer: drawerReducer,
   globalProgress: globalProgressReducer,
-  teams: teamReducer
+  teams: teamReducer,
+  gameDetail: gameDetailReducer
 });
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
