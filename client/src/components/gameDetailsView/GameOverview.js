@@ -28,8 +28,12 @@ const GameOverview = ({ periods, scoreAndPenaltyPlays }) => {
     return `${get(player, 'player.fullName', 'No Name')} ${seasonTotal}`;
   }
 
-  function findAssistName(players) {
+  function findAssistName(players, result) {
     const player = players.filter(player => player.playerType === 'Assist');
+    if (result.event === 'Penalty') {
+      console.log(result);
+      return `${result.penaltyMinutes} min, ${result.secondaryType}`;
+    }
     if (player.length === 1) {
       return `${player[0].player.fullName} (${player[0].seasonTotal})`;
     }
@@ -43,17 +47,30 @@ const GameOverview = ({ periods, scoreAndPenaltyPlays }) => {
     <div>
       {periods.map(period => (
         <Paper key={period.num} className={classes.periodWrapper}>
-          {scoreAndPenaltyPlays.map(({ about, players }) =>
+          {scoreAndPenaltyPlays.map(({ about, players, result }) =>
             about.period === period.num ? (
-              <div key={about.eventIdx}>
+              <div key={about.eventIdx} style={{ display: 'flex' }}>
+                <div style={{ alignSelf: 'center', width: '60px' }}>
+                  <div>{about.periodTime}</div>
+                  <div>{result.event}</div>
+                </div>
                 <ListItem>
                   <ListItemAvatar>
-                    <Avatar style={{ margin: '10px' }}>A</Avatar>
+                    <Avatar
+                      alt="Player logo"
+                      style={{ height: '45px', width: '45px' }}
+                      src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${players[0].player.id}.jpg`}
+                      onError={e => {
+                        e.target.onerror = null;
+                        e.target.src =
+                          'https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg';
+                      }}
+                    />
                   </ListItemAvatar>
                   <ListItemText
                     primary={findPlayerName(players)}
-                    secondary={findAssistName(players)}
-                    style={{ paddingLeft: '8px' }}
+                    secondary={findAssistName(players, result)}
+                    style={{ padding: '0px 8px' }}
                   />
                 </ListItem>
               </div>
