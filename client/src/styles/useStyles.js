@@ -217,9 +217,16 @@ export const useDatePickerStyles = makeStyles({
   }
 });
 
-export const useGameDetailStyles = makeStyles({
-  root: { paddingTop: '64px', maxWidth: '1000px', margin: 'auto' }
-})
+export const useGameDetailStyles = makeStyles(theme => ({
+  root: {
+    maxWidth: '1000px',
+    margin: 'auto',
+    paddingTop: '64px',
+    [theme.breakpoints.down('xs')]: {
+      paddingTop: '56px'
+    }
+  }
+}));
 
 export const useGameDetailHeaderStyles = makeStyles(theme => ({
   root: {
@@ -231,6 +238,30 @@ export const useGameDetailHeaderStyles = makeStyles(theme => ({
     }
   },
   headerWrapper: {
-
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '0px 10%',
+    [theme.breakpoints.down('sm')]: {
+      padding: '0px'
+    }
+  },
+  logoContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    maxWidth: '250px'
+  },
+  teamLogo: {
+    height: 'auto',
+    width: '80%'
+  },
+  teamName: {
+    textAlign: 'center',
+    margin: '16px 0px'
+  },
+  gameScore: {
+    width: '100%',
+    margin: 'auto',
+    textAlign: 'center'
   }
-}))
+}));
