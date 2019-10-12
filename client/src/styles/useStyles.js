@@ -225,23 +225,25 @@ export const useGameDetailStyles = makeStyles(theme => ({
     [theme.breakpoints.down('xs')]: {
       paddingTop: '56px'
     }
-  }
-}));
-
-export const useGameDetailHeaderStyles = makeStyles(theme => ({
-  root: {
+  },
+  paper: {
     margin: '16px',
     padding: '16px',
     [theme.breakpoints.down('sm')]: {
       margin: '0px',
       padding: '16px 8px'
     }
-  },
+  }
+}));
+
+export const useGameDetailHeaderStyles = makeStyles(theme => ({
   headerWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     padding: '0px 10%',
+    marginBottom: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
+      marginBottom: theme.spacing(1),
       padding: '0px'
     }
   },
@@ -260,8 +262,9 @@ export const useGameDetailHeaderStyles = makeStyles(theme => ({
     margin: '16px 0px'
   },
   gameScore: {
-    width: '100%',
-    margin: 'auto',
-    textAlign: 'center'
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%'
   }
 }));

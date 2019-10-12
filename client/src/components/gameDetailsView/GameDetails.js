@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
+import { Paper } from '@material-ui/core';
 import { connect } from 'react-redux';
 
 import { initializeGame } from '../../reducers/gameDetailReducer';
-import { useGameDetailStyles } from '../../styles/useStyles'
+import { useGameDetailStyles } from '../../styles/useStyles';
 import ErrorMessage from '../ErrorMessage';
 import GameDetailHeader from './GameDetailHeader';
+import GameDetailTabs from './GameDetailTabs';
 
 const GameDetails = ({
   match: {
@@ -13,7 +15,7 @@ const GameDetails = ({
   gameDetail,
   initializeGame
 }) => {
-  const classes = useGameDetailStyles()
+  const classes = useGameDetailStyles();
 
   useEffect(() => {
     initializeGame(gamePk);
@@ -29,7 +31,10 @@ const GameDetails = ({
 
   return (
     <div className={classes.root}>
-      <GameDetailHeader />
+      <Paper className={classes.paper}>
+        <GameDetailHeader />
+        <GameDetailTabs />
+      </Paper>
     </div>
   );
 };
