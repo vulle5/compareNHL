@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  Paper,
   Avatar,
+  List,
   ListItem,
   ListItemAvatar,
-  ListItemText
+  ListItemText,
+  Typography
 } from '@material-ui/core';
 import { get } from 'lodash';
 
@@ -50,40 +51,65 @@ const GameOverview = ({ periods, scoreAndPenaltyPlays }) => {
     return '';
   }
 
+  function determinePeriodName(period) {
+    if (period.ordinalNum === 'OT') {
+      return 'Overtime';
+    }
+    return `${period.ordinalNum} period`;
+  }
+
   return (
     <div>
       {periods.map(period => (
-        <Paper key={period.num} className={classes.periodWrapper}>
-          {scoreAndPenaltyPlays.map(({ about, players, result }) =>
-            about.period === period.num ? (
-              <div key={about.eventIdx} style={{ display: 'flex' }}>
-                <div style={{ alignSelf: 'center', width: '60px' }}>
-                  <div>{about.periodTime}</div>
-                  <div>{result.event}</div>
-                </div>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar
-                      alt="Player logo"
-                      style={{ height: '45px', width: '45px' }}
-                      src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${players[0].player.id}.jpg`}
-                      onError={e => {
-                        e.target.onerror = null;
-                        e.target.src =
-                          'https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg';
-                      }}
+        <div key={period.num} className={classes.periodWrapper}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              marginBottom: '16px'
+            }}
+          >
+            <Typography variant="h6">{determinePeriodName(period)}</Typography>
+            <div style={{ display: 'flex' }}>
+              <Typography variant="h6">{period.home.goals}</Typography>
+              <Typography variant="h6" style={{ margin: '0px 12px' }}>
+                -
+              </Typography>
+              <Typography variant="h6">{period.away.goals}</Typography>
+            </div>
+          </div>
+          <List>
+            {scoreAndPenaltyPlays.map(({ about, players, result }) =>
+              about.period === period.num ? (
+                <div key={about.eventIdx} style={{ display: 'flex' }}>
+                  <div style={{ alignSelf: 'center', width: '60px' }}>
+                    <div>{about.periodTime}</div>
+                    <div>{result.event}</div>
+                  </div>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar
+                        alt="Player logo"
+                        style={{ height: '45px', width: '45px' }}
+                        src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${players[0].player.id}.jpg`}
+                        onError={e => {
+                          e.target.onerror = null;
+                          e.target.src =
+                            'https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg';
+                        }}
+                      />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={findPlayerName(players, result)}
+                      secondary={findAssistName(players, result)}
+                      style={{ padding: '0px 8px' }}
                     />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={findPlayerName(players, result)}
-                    secondary={findAssistName(players, result)}
-                    style={{ padding: '0px 8px' }}
-                  />
-                </ListItem>
-              </div>
-            ) : null
-          )}
-        </Paper>
+                  </ListItem>
+                </div>
+              ) : null
+            )}
+          </List>
+        </div>
       ))}
     </div>
   );

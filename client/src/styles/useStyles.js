@@ -269,9 +269,12 @@ export const useGameDetailHeaderStyles = makeStyles(theme => ({
   }
 }));
 
-export const useGameOverviewStyles = makeStyles({
+export const useGameOverviewStyles = makeStyles(theme => ({
   periodWrapper: {
     marginBottom: '16px',
-    padding: '16px'
+    padding: '16px',
+    border: 'solid 1px',
+    borderRadius: '4px',
+    borderColor: theme.palette.common
   }
-});
+}));
