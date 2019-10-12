@@ -276,5 +276,12 @@ export const useGameOverviewStyles = makeStyles(theme => ({
     border: 'solid 1px',
     borderRadius: '4px',
     borderColor: theme.palette.common
+  },
+  homePlays: {
+    display: 'flex'
+  },
+  awayPlays: {
+    display: 'flex',
+    flexDirection: 'row-reverse'
   }
 }));

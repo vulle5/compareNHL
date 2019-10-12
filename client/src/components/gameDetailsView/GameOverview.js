@@ -12,7 +12,12 @@ import { get } from 'lodash';
 
 import { useGameOverviewStyles } from '../../styles/useStyles';
 
-const GameOverview = ({ periods, scoreAndPenaltyPlays }) => {
+const GameOverview = ({
+  periods,
+  scoreAndPenaltyPlays,
+  homeTeam,
+  awayTeam
+}) => {
   const classes = useGameOverviewStyles();
   console.log(scoreAndPenaltyPlays);
 
@@ -79,15 +84,43 @@ const GameOverview = ({ periods, scoreAndPenaltyPlays }) => {
             </div>
           </div>
           <List>
-            {scoreAndPenaltyPlays.map(({ about, players, result }) =>
+            {scoreAndPenaltyPlays.map(({ about, players, result, team }) =>
               about.period === period.num ? (
-                <div key={about.eventIdx} style={{ display: 'flex' }}>
-                  <div style={{ alignSelf: 'center', width: '60px' }}>
+                <div
+                  key={about.eventIdx}
+                  style={{
+                    display: 'flex',
+                    flexDirection: team.id === awayTeam ? 'row-reverse' : 'row'
+                  }}
+                >
+                  <div
+                    style={{
+                      alignSelf: 'center',
+                      minWidth: '55px',
+                      textAlign: 'center'
+                    }}
+                  >
                     <div>{about.periodTime}</div>
                     <div>{result.event}</div>
                   </div>
-                  <ListItem>
-                    <ListItemAvatar>
+                  <ListItem
+                    style={{
+                      width: '100%',
+                      maxWidth: 360,
+                      display: 'flex',
+                      flexDirection:
+                        team.id === awayTeam ? 'row-reverse' : 'row'
+                    }}
+                  >
+                    <ListItemAvatar
+                      style={{
+                        minWidth: 0,
+                        margin:
+                          team.id === awayTeam
+                            ? '0px 0px 0px 8px'
+                            : '0px 8px 0px 0px'
+                      }}
+                    >
                       <Avatar
                         alt="Player logo"
                         style={{ height: '45px', width: '45px' }}
@@ -102,7 +135,10 @@ const GameOverview = ({ periods, scoreAndPenaltyPlays }) => {
                     <ListItemText
                       primary={findPlayerName(players, result)}
                       secondary={findAssistName(players, result)}
-                      style={{ padding: '0px 8px' }}
+                      style={{
+                        padding: '0px 8px',
+                        textAlign: team.id === awayTeam ? 'right' : 'left'
+                      }}
                     />
                   </ListItem>
                 </div>
@@ -135,11 +171,14 @@ const getScoringAndPenaltyPlays = ({
 const mapStateToProps = state => {
   console.log(state.gameDetail);
   const {
-    liveData: { linescore, plays }
+    liveData: { linescore, plays },
+    gameData: { teams }
   } = state.gameDetail;
   return {
     periods: linescore.periods || null,
-    scoreAndPenaltyPlays: getScoringAndPenaltyPlays(plays)
+    scoreAndPenaltyPlays: getScoringAndPenaltyPlays(plays),
+    homeTeam: teams.home.id,
+    awayTeam: teams.away.id
   };
 };
 
