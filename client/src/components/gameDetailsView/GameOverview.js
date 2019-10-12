@@ -19,19 +19,26 @@ const GameOverview = ({ periods, scoreAndPenaltyPlays }) => {
     return <div>No periods have been played</div>;
   }
 
-  function findPlayerName(players) {
+  function findPlayerName(players, result) {
     const player = players.find(
       ({ playerType }) => playerType === 'PenaltyOn' || playerType === 'Scorer'
     );
     const seasonTotal =
       get(player, 'seasonTotal', 0) !== 0 ? `(${player.seasonTotal})` : '';
-    return `${get(player, 'player.fullName', 'No Name')} ${seasonTotal}`;
+    const strength =
+      get(result, 'strength.code', 'EVEN') !== 'EVEN'
+        ? `(${result.strength.code})`
+        : '';
+    return `${get(
+      player,
+      'player.fullName',
+      'No Name'
+    )} ${seasonTotal} ${strength}`;
   }
 
   function findAssistName(players, result) {
     const player = players.filter(player => player.playerType === 'Assist');
     if (result.event === 'Penalty') {
-      console.log(result);
       return `${result.penaltyMinutes} min, ${result.secondaryType}`;
     }
     if (player.length === 1) {
@@ -68,7 +75,7 @@ const GameOverview = ({ periods, scoreAndPenaltyPlays }) => {
                     />
                   </ListItemAvatar>
                   <ListItemText
-                    primary={findPlayerName(players)}
+                    primary={findPlayerName(players, result)}
                     secondary={findAssistName(players, result)}
                     style={{ padding: '0px 8px' }}
                   />
