@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AppBar, Tabs, Tab, Typography, Box } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@material-ui/styles';
+import GameOverview from './GameOverview';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -61,7 +62,7 @@ const GameDetailTabs = () => {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          Item One
+          <GameOverview />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           Item Two

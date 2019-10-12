@@ -268,3 +268,10 @@ export const useGameDetailHeaderStyles = makeStyles(theme => ({
     width: '100%'
   }
 }));
+
+export const useGameOverviewStyles = makeStyles({
+  periodWrapper: {
+    marginBottom: '16px',
+    padding: '16px'
+  }
+});
