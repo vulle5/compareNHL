@@ -7,6 +7,7 @@ import {
   ListItemAvatar,
   ListItemText
 } from '@material-ui/core';
+import { get } from 'lodash';
 
 import { useGameOverviewStyles } from '../../styles/useStyles';
 
@@ -18,11 +19,31 @@ const GameOverview = ({ periods, scoreAndPenaltyPlays }) => {
     return <div>No periods have been played</div>;
   }
 
+  function findPlayerName(players) {
+    const player = players.find(
+      ({ playerType }) => playerType === 'PenaltyOn' || playerType === 'Scorer'
+    );
+    const seasonTotal =
+      get(player, 'seasonTotal', 0) !== 0 ? `(${player.seasonTotal})` : '';
+    return `${get(player, 'player.fullName', 'No Name')} ${seasonTotal}`;
+  }
+
+  function findAssistName(players) {
+    const player = players.filter(player => player.playerType === 'Assist');
+    if (player.length === 1) {
+      return `${player[0].player.fullName} (${player[0].seasonTotal})`;
+    }
+    if (player.length === 2) {
+      return `${player[0].player.fullName} (${player[0].seasonTotal}), ${player[1].player.fullName} (${player[1].seasonTotal})`;
+    }
+    return '';
+  }
+
   return (
     <div>
       {periods.map(period => (
         <Paper key={period.num} className={classes.periodWrapper}>
-          {scoreAndPenaltyPlays.map(({ about }) =>
+          {scoreAndPenaltyPlays.map(({ about, players }) =>
             about.period === period.num ? (
               <div key={about.eventIdx}>
                 <ListItem>
@@ -30,8 +51,8 @@ const GameOverview = ({ periods, scoreAndPenaltyPlays }) => {
                     <Avatar style={{ margin: '10px' }}>A</Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                    primary="Some Player"
-                    secondary="First Assist, Second Assist"
+                    primary={findPlayerName(players)}
+                    secondary={findAssistName(players)}
                     style={{ paddingLeft: '8px' }}
                   />
                 </ListItem>
@@ -49,12 +70,16 @@ const getScoringAndPenaltyPlays = ({
   penaltyPlays,
   allPlays
 }) => {
-  const scoreAndPenaltyPlays = [...scoringPlays, ...penaltyPlays].sort(
-    (a, b) => a - b
-  );
-  return scoreAndPenaltyPlays.map(playId =>
-    allPlays.find(({ about }) => about.eventIdx === playId)
-  );
+  try {
+    const scoreAndPenaltyPlays = [...scoringPlays, ...penaltyPlays].sort(
+      (a, b) => a - b
+    );
+    return scoreAndPenaltyPlays.map(playId =>
+      allPlays.find((_, index) => index === playId)
+    );
+  } catch (error) {
+    return [];
+  }
 };
 
 const mapStateToProps = state => {
