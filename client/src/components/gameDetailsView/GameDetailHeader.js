@@ -1,12 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Typography } from '@material-ui/core';
+import {
+  Typography,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText
+} from '@material-ui/core';
+import { PlayCircleFilledOutlined } from '@material-ui/icons';
 import moment from 'moment';
 
 import { useGameDetailHeaderStyles } from '../../styles/useStyles';
+import { toggleDialog } from '../../reducers/dialogReducer';
 
-const GameDetailHeader = ({ gameDetail, status }) => {
+const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
   const classes = useGameDetailHeaderStyles();
+
+  const handleClickOpen = () => {
+    toggleDialog(
+      true,
+      'http://md-akc.med.nhl.com/mp4/nhl/2019/10/13/c9494eae-c287-4c84-b396-4bf03f38976f/1570935465099/asset_1800k.mp4'
+    );
+  };
 
   function determineGameState() {
     // If game is in progress
@@ -34,50 +49,72 @@ const GameDetailHeader = ({ gameDetail, status }) => {
     liveData: { linescore }
   } = gameDetail;
   return (
-    <div className={classes.headerWrapper}>
-      <div className={classes.logoContainer}>
-        <img
-          className={classes.teamLogo}
-          src={`/api/teams/${teams.home.id}/logo`}
-          alt="Home team logo"
-        />
-        <Typography variant="h6" className={classes.teamName}>
-          {teams.home.name}
-        </Typography>
-      </div>
-      <div className={classes.gameScore}>
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            width: '100%',
-            justifyContent: 'center'
-          }}
-        >
-          <Typography variant="h3">{linescore.teams.home.goals}</Typography>
-          <Typography variant="h3" style={{ margin: '0px 15%' }}>
-            -
+    <>
+      <div className={classes.headerWrapper}>
+        <div className={classes.logoContainer}>
+          <img
+            className={classes.teamLogo}
+            src={`/api/teams/${teams.home.id}/logo`}
+            alt="Home team logo"
+          />
+          <Typography variant="h6" className={classes.teamName}>
+            {teams.home.name}
           </Typography>
-          <Typography variant="h3">{linescore.teams.away.goals}</Typography>
-          <Typography
-            variant="h6"
-            style={{ margin: '0px 100%', paddingTop: '8px' }}
+        </div>
+        <div className={classes.gameScore}>
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              width: '100%',
+              justifyContent: 'center'
+            }}
           >
-            {determineGameState()}
+            <Typography variant="h3">{linescore.teams.home.goals}</Typography>
+            <Typography variant="h3" style={{ margin: '0px 15%' }}>
+              -
+            </Typography>
+            <Typography variant="h3">{linescore.teams.away.goals}</Typography>
+            <Typography
+              variant="h6"
+              style={{ margin: '0px 100%', paddingTop: '8px' }}
+            >
+              {determineGameState()}
+            </Typography>
+          </div>
+        </div>
+        <div className={classes.logoContainer}>
+          <img
+            className={classes.teamLogo}
+            src={`/api/teams/${teams.away.id}/logo`}
+            alt="Away team logo"
+          />
+          <Typography variant="h6" className={classes.teamName}>
+            {teams.away.name}
           </Typography>
         </div>
       </div>
-      <div className={classes.logoContainer}>
-        <img
-          className={classes.teamLogo}
-          src={`/api/teams/${teams.away.id}/logo`}
-          alt="Away team logo"
-        />
-        <Typography variant="h6" className={classes.teamName}>
-          {teams.away.name}
-        </Typography>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginBottom: '16px'
+        }}
+      >
+        <ListItem
+          style={{ maxWidth: '233px' }}
+          button
+          onClick={handleClickOpen}
+        >
+          <ListItemAvatar>
+            <Avatar>
+              <PlayCircleFilledOutlined />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText>Watch Highlights</ListItemText>
+        </ListItem>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -88,4 +125,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(GameDetailHeader);
+export default connect(
+  mapStateToProps,
+  { toggleDialog }
+)(GameDetailHeader);

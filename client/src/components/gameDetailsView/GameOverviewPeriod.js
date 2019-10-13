@@ -14,6 +14,8 @@ import { useGameOverviewStyles } from '../../styles/useStyles';
 
 // TODO Maybe: Goalie changes
 // TODO: Add highlights and goal replays
+// TODO: Clickable players to go see more stats
+// TODO: Three stars
 // TODO: Put game fetching to node js with 10 second cache-control
 const GameOverviewPeriod = ({ period, scoreAndPenaltyPlays, awayTeam }) => {
   const classes = useGameOverviewStyles();

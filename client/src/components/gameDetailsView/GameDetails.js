@@ -7,6 +7,7 @@ import { useGameDetailStyles } from '../../styles/useStyles';
 import ErrorMessage from '../ErrorMessage';
 import GameDetailHeader from './GameDetailHeader';
 import GameDetailTabs from './GameDetailTabs';
+import GameDetailsDialog from './GameDetailsDialog';
 
 const GameDetails = ({
   match: {
@@ -31,6 +32,7 @@ const GameDetails = ({
 
   return (
     <div className={classes.root}>
+      <GameDetailsDialog />
       <Paper className={classes.paper}>
         <GameDetailHeader />
         <GameDetailTabs />
