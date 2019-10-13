@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
-import { AppBar, Tabs, Tab, Typography, Box } from '@material-ui/core';
+import {
+  AppBar,
+  Tabs,
+  Tab,
+  Typography,
+  Box,
+  useMediaQuery
+} from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@material-ui/styles';
 import GameOverview from './GameOverview';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+  const matches = useMediaQuery(theme => theme.breakpoints.down('xs'));
 
   return (
     <Typography
@@ -16,7 +24,9 @@ function TabPanel(props) {
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
-      <Box p={3}>{children}</Box>
+      <Box style={{ padding: matches ? '0px' : '24px' }} p={3}>
+        {children}
+      </Box>
     </Typography>
   );
 }
@@ -24,6 +34,7 @@ function TabPanel(props) {
 const GameDetailTabs = () => {
   const [value, setValue] = useState(0);
   const theme = useTheme();
+  const matches = useMediaQuery(theme => theme.breakpoints.down('xs'));
 
   function a11yProps(index) {
     return {
@@ -60,6 +71,7 @@ const GameDetailTabs = () => {
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
         onChangeIndex={handleChangeIndex}
+        style={{ paddingTop: matches ? '16px' : '0px' }}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
           <GameOverview />

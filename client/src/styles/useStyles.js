@@ -275,6 +275,15 @@ export const useGameOverviewStyles = makeStyles(theme => ({
     padding: '16px',
     border: 'solid 1px',
     borderRadius: '4px',
-    borderColor: theme.palette.common
+    borderColor: theme.palette.grey[600]
+  }
+}));
+
+export const useGameOverviewShootoutStyles = makeStyles(theme => ({
+  wrapper: {
+    border: 'solid 1px',
+    borderColor: theme.palette.grey[600],
+    borderRadius: '4px',
+    padding: '16px'
   }
 }));

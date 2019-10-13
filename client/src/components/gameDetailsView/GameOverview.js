@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import GameOverviewPeriod from './GameOverviewPeriod';
+import GameOverviewShootout from './GameOverviewShootout';
 
 const GameOverview = ({ periods }) => {
   if (!periods || !periods.length) {
@@ -12,12 +14,13 @@ const GameOverview = ({ periods }) => {
       {periods.map(period => (
         <GameOverviewPeriod key={period.num} period={period} />
       ))}
+      <GameOverviewShootout />
     </div>
   );
 };
 
 const mapStateToProps = state => {
-  console.log(state);
+  console.log(state.gameDetail);
   const {
     liveData: { linescore }
   } = state.gameDetail;

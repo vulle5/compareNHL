@@ -12,6 +12,9 @@ import { get } from 'lodash';
 
 import { useGameOverviewStyles } from '../../styles/useStyles';
 
+// TODO: Goalie changes
+// TODO: Time remaining period
+// TODO: Put game fetching to node js with 10 second cache-control
 const GameOverviewPeriod = ({ period, scoreAndPenaltyPlays, awayTeam }) => {
   const classes = useGameOverviewStyles();
 
