@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   Typography,
@@ -12,15 +12,29 @@ import moment from 'moment';
 
 import { useGameDetailHeaderStyles } from '../../styles/useStyles';
 import { toggleDialog } from '../../reducers/dialogReducer';
+import contentService from '../../services/content';
 
 const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
   const classes = useGameDetailHeaderStyles();
+  const [highlight, setHighlight] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { media } = await contentService.getContent(gameDetail.gamePk);
+        const { items } = media.epg.find(media => media.title === 'Recap');
+        const { playbacks } = items.find(item => item.type === 'video');
+        const { url } = playbacks.find(video => video.width === '960');
+        setHighlight(url);
+      } catch (error) {
+        setHighlight(null);
+      }
+    })();
+    return () => toggleDialog(false, null);
+  }, [gameDetail.gamePk, toggleDialog]);
 
   const handleClickOpen = () => {
-    toggleDialog(
-      true,
-      'http://md-akc.med.nhl.com/mp4/nhl/2019/10/13/c9494eae-c287-4c84-b396-4bf03f38976f/1570935465099/asset_1800k.mp4'
-    );
+    toggleDialog(true, highlight);
   };
 
   function determineGameState() {
@@ -94,26 +108,28 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
           </Typography>
         </div>
       </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          marginBottom: '16px'
-        }}
-      >
-        <ListItem
-          style={{ maxWidth: '233px' }}
-          button
-          onClick={handleClickOpen}
+      {highlight && (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginBottom: '16px'
+          }}
         >
-          <ListItemAvatar>
-            <Avatar>
-              <PlayCircleFilledOutlined />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText>Watch Highlights</ListItemText>
-        </ListItem>
-      </div>
+          <ListItem
+            style={{ maxWidth: '233px' }}
+            button
+            onClick={handleClickOpen}
+          >
+            <ListItemAvatar>
+              <Avatar>
+                <PlayCircleFilledOutlined />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText>Watch Highlights</ListItemText>
+          </ListItem>
+        </div>
+      )}
     </>
   );
 };

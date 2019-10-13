@@ -14,8 +14,8 @@ const GameDetailsDialog = ({ open, src, toggleDialog }) => {
       <DialogTitle id="dialog-title">Highlights</DialogTitle>
       <DialogContent>
         <video width="100%" controls autoPlay style={{ outline: 'none' }}>
-          <source src={src} type="video/mp4" />
-          Your browser does not support the video tag.
+          {src ? <source src={src} type="video/mp4" /> : null}
+          Your browser does not support the video tag or video does not exist.
         </video>
       </DialogContent>
     </Dialog>

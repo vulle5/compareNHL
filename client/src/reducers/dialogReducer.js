@@ -4,7 +4,7 @@ export const toggleDialog = (bool, src) => {
     data: { bool, src }
   };
 };
-const dialogReducer = (state = { status: false, src: '' }, action) => {
+const dialogReducer = (state = { status: false, src: null }, action) => {
   switch (action.type) {
     case 'TOGGLE':
       return { status: action.data.bool, src: action.data.src };
