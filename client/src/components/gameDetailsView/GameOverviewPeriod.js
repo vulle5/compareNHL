@@ -12,8 +12,8 @@ import { get } from 'lodash';
 
 import { useGameOverviewStyles } from '../../styles/useStyles';
 
-// TODO: Goalie changes
-// TODO: Time remaining period
+// TODO Maybe: Goalie changes
+// TODO: Add highlights and goal replays
 // TODO: Put game fetching to node js with 10 second cache-control
 const GameOverviewPeriod = ({ period, scoreAndPenaltyPlays, awayTeam }) => {
   const classes = useGameOverviewStyles();
@@ -38,7 +38,7 @@ const GameOverviewPeriod = ({ period, scoreAndPenaltyPlays, awayTeam }) => {
   function findAssistName(players, result) {
     const player = players.filter(player => player.playerType === 'Assist');
     if (result.event === 'Penalty') {
-      return `${result.penaltyMinutes} min, ${result.secondaryType}`;
+      return `${result.penaltyMinutes} min - ${result.secondaryType}`;
     }
     if (player.length === 1) {
       return `${player[0].player.fullName} (${player[0].seasonTotal})`;
