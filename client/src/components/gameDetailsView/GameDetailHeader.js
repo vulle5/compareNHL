@@ -51,7 +51,8 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
     toggleDialog(true, highlight, 'Highlights');
   };
 
-  function determineGameState() {
+  function determineGameState(linescore) {
+    console.log(linescore)
     // If game is in progress
     if (status.detailedState === 'In Progress') {
       const intermissionTime = moment.duration(
@@ -64,7 +65,8 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
           : linescore.currentPeriodOrdinal
       } ${
         linescore.intermissionInfo.inIntermission
-          ? intermissionTime.format('mm:ss')
+        // TODO: Missing seconds format
+          ? linescore.intermissionInfo.intermissionTimeRemaining
           : linescore.currentPeriodTimeRemaining
       }`;
     }
@@ -140,7 +142,7 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
                     : 'normal'
               }}
             >
-              {determineGameState()}
+              {determineGameState(linescore)}
             </Typography>
           </div>
         </div>
