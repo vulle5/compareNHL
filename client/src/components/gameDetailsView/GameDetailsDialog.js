@@ -10,7 +10,12 @@ const GameDetailsDialog = ({ open, src, toggleDialog }) => {
   };
 
   return (
-    <Dialog open={open} onClose={handleClose} aria-labelledby="dialog-title">
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      maxWidth="md"
+      aria-labelledby="dialog-title"
+    >
       <DialogTitle id="dialog-title">Highlights</DialogTitle>
       <DialogContent>
         <video width="100%" controls autoPlay style={{ outline: 'none' }}>

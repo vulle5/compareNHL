@@ -13,27 +13,38 @@ import moment from 'moment';
 import { useGameDetailHeaderStyles } from '../../styles/useStyles';
 import { toggleDialog } from '../../reducers/dialogReducer';
 import contentService from '../../services/content';
+import axios from 'axios';
 
 const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
   const classes = useGameDetailHeaderStyles();
   const [highlight, setHighlight] = useState(null);
 
-  const fetchHighlight = useCallback(async () => {
-    const { media } = await contentService.getContent(gameDetail.gamePk);
-    const { items } = media.epg.find(media => media.title === 'Recap');
-    const { playbacks } = items.find(item => item.type === 'video');
-    const { url } = playbacks.find(video => video.width === '960');
-    return url;
-  }, [gameDetail.gamePk]);
+  const fetchHighlight = useCallback(
+    async source => {
+      const { media } = await contentService.getContent(
+        gameDetail.gamePk,
+        source
+      );
+      const { items } = media.epg.find(media => media.title === 'Recap');
+      const { playbacks } = items.find(item => item.type === 'video');
+      const { url } = playbacks.find(video => video.width === '960');
+      return url;
+    },
+    [gameDetail.gamePk]
+  );
 
   useEffect(() => {
-    try {
-      const highUrl = fetchHighlight();
-      setHighlight(highUrl);
-    } catch (error) {
-      setHighlight(null);
-    }
-    return () => toggleDialog(false, null);
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
+
+    fetchHighlight(source)
+      .then(highUrl => setHighlight(highUrl))
+      .catch(error => setHighlight(null));
+
+    return () => {
+      source.cancel();
+      toggleDialog(false, null);
+    };
   }, [fetchHighlight, toggleDialog]);
 
   const handleClickOpen = () => {
