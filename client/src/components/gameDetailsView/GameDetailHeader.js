@@ -131,7 +131,7 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
           }}
         >
           <ListItem
-            style={{ maxWidth: '233px' }}
+            style={{ maxWidth: '225px' }}
             button
             onClick={handleClickOpen}
           >

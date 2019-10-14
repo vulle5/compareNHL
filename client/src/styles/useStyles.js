@@ -254,8 +254,8 @@ export const useGameDetailHeaderStyles = makeStyles(theme => ({
     maxWidth: '250px'
   },
   teamLogo: {
-    height: 'auto',
-    width: '80%'
+    width: '80%',
+    height: '50%'
   },
   teamName: {
     textAlign: 'center',
