@@ -68,8 +68,34 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
           : linescore.currentPeriodTimeRemaining
       }`;
     }
+    if (status.detailedState === 'Scheduled') {
+      return moment(gameDetail.gameData.datetime.dateTime).format('MMM Do');
+    }
     // If game is finished
     return status.detailedState;
+  }
+
+  function determineScore() {
+    if (
+      status.detailedState === 'Final' ||
+      status.detailedState === 'In Progress'
+    ) {
+      return (
+        <>
+          <Typography variant="h3">{linescore.teams.home.goals}</Typography>
+          <Typography variant="h3" style={{ margin: '0px 15%' }}>
+            -
+          </Typography>
+          <Typography variant="h3">{linescore.teams.away.goals}</Typography>
+        </>
+      );
+    } else {
+      return (
+        <Typography variant="h3">
+          {moment(gameDetail.gameData.datetime.dateTime).format('HH:mm')}
+        </Typography>
+      );
+    }
   }
 
   const {
@@ -98,17 +124,15 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
               justifyContent: 'center'
             }}
           >
-            <Typography variant="h3">{linescore.teams.home.goals}</Typography>
-            <Typography variant="h3" style={{ margin: '0px 15%' }}>
-              -
-            </Typography>
-            <Typography variant="h3">{linescore.teams.away.goals}</Typography>
+            {determineScore()}
             <Typography
               variant="h6"
               style={{
                 margin: '0px 100%',
                 paddingTop: '8px',
-                textAlign: 'center'
+                textAlign: 'center',
+                whiteSpace:
+                  status.detailedState === 'Scheduled' ? 'nowrap' : 'normal'
               }}
             >
               {determineGameState()}
