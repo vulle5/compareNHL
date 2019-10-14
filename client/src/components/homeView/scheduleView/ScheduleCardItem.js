@@ -68,7 +68,9 @@ const ScheduleCardItem = ({
   function determineScore() {
     if (
       status.detailedState === 'Final' ||
-      status.detailedState === 'In Progress'
+      status.detailedState === 'In Progress' ||
+      status.detailedState === 'In Progress - Critical' ||
+      status.detailedState === 'Game Over'
     ) {
       return (
         <>
@@ -107,7 +109,10 @@ const ScheduleCardItem = ({
     // goaliePulled: for empty net stat
 
     // If game is in progress
-    if (status.detailedState === 'In Progress') {
+    if (
+      status.detailedState === 'In Progress' ||
+      status.detailedState === 'In Progress - Critical'
+    ) {
       const intermissionTime = moment.duration(
         linescore.intermissionInfo.intermissionTimeRemaining,
         'seconds'
@@ -134,7 +139,10 @@ const ScheduleCardItem = ({
   }
 
   function determineLeagueScore() {
-    if (status.detailedState === 'Final') {
+    if (
+      status.detailedState === 'Final' ||
+      status.detailedState === 'Game Over'
+    ) {
       return (
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ fontSize: '12px' }}>{`(${home.leagueRecord.wins ||
@@ -200,7 +208,9 @@ const ScheduleCardItem = ({
           </div>
           {determineLeagueScore()}
           {(status.detailedState === 'Final' ||
-            status.detailedState === 'In Progress') && (
+            status.detailedState === 'In Progress' ||
+            status.detailedState === 'In Progress - Critical' ||
+            status.detailedState === 'Game Over') && (
             <>
               <Divider style={{ margin: '12px 0px' }} />
               <ScheduleCardItemOverview

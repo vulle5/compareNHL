@@ -78,7 +78,9 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
   function determineScore() {
     if (
       status.detailedState === 'Final' ||
-      status.detailedState === 'In Progress'
+      status.detailedState === 'In Progress' ||
+      status.detailedState === 'In Progress - Critical' ||
+      status.detailedState === 'Game Over'
     ) {
       return (
         <>
@@ -132,7 +134,10 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
                 paddingTop: '8px',
                 textAlign: 'center',
                 whiteSpace:
-                  status.detailedState === 'Scheduled' ? 'nowrap' : 'normal'
+                  status.detailedState === 'Scheduled' ||
+                  status.detailedState === 'Game Over'
+                    ? 'nowrap'
+                    : 'normal'
               }}
             >
               {determineGameState()}

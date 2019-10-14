@@ -21,7 +21,9 @@ const ScheduleListItem = ({
   function determineScore(homeOrAway) {
     if (
       status.detailedState === 'Final' ||
-      status.detailedState === 'In Progress'
+      status.detailedState === 'In Progress' ||
+      status.detailedState === 'In Progress - Critical' ||
+      status.detailedState === 'Game Over'
     ) {
       return (
         <Typography
@@ -56,6 +58,8 @@ const ScheduleListItem = ({
       case 'Scheduled' || 'In Preview':
         return moment(gameDate).format('HH:mm');
       case 'In Progress':
+        return `${linescore.currentPeriodTimeRemaining} ${linescore.currentPeriodOrdinal}`;
+      case 'In Progress - Critical':
         return `${linescore.currentPeriodTimeRemaining} ${linescore.currentPeriodOrdinal}`;
       default:
         return status.detailedState;
