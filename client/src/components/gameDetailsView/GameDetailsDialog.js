@@ -4,9 +4,9 @@ import { Dialog, DialogTitle, DialogContent } from '@material-ui/core';
 
 import { toggleDialog } from '../../reducers/dialogReducer';
 
-const GameDetailsDialog = ({ open, src, toggleDialog }) => {
+const GameDetailsDialog = ({ open, src, title, toggleDialog }) => {
   const handleClose = () => {
-    toggleDialog(false, '');
+    toggleDialog(false, '', '');
   };
 
   return (
@@ -16,7 +16,7 @@ const GameDetailsDialog = ({ open, src, toggleDialog }) => {
       maxWidth="md"
       aria-labelledby="dialog-title"
     >
-      <DialogTitle id="dialog-title">Highlights</DialogTitle>
+      <DialogTitle id="dialog-title">{title}</DialogTitle>
       <DialogContent>
         <video width="100%" controls autoPlay style={{ outline: 'none' }}>
           {src ? <source src={src} type="video/mp4" /> : null}
@@ -29,8 +29,9 @@ const GameDetailsDialog = ({ open, src, toggleDialog }) => {
 
 const mapStateToProps = state => {
   return {
-    open: state.dialogDetail.status,
-    src: state.dialogDetail.src
+    open: state.dialogDetail.bool,
+    src: state.dialogDetail.src,
+    title: state.dialogDetail.title
   };
 };
 

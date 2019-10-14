@@ -9,11 +9,11 @@ import {
 } from '@material-ui/core';
 import { PlayCircleFilledOutlined } from '@material-ui/icons';
 import moment from 'moment';
+import axios from 'axios';
 
 import { useGameDetailHeaderStyles } from '../../styles/useStyles';
 import { toggleDialog } from '../../reducers/dialogReducer';
 import contentService from '../../services/content';
-import axios from 'axios';
 
 const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
   const classes = useGameDetailHeaderStyles();
@@ -43,12 +43,12 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
 
     return () => {
       source.cancel();
-      toggleDialog(false, null);
+      toggleDialog(false, null, '');
     };
   }, [fetchHighlight, toggleDialog]);
 
   const handleClickOpen = () => {
-    toggleDialog(true, highlight);
+    toggleDialog(true, highlight, 'Highlights');
   };
 
   function determineGameState() {
@@ -105,7 +105,11 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
             <Typography variant="h3">{linescore.teams.away.goals}</Typography>
             <Typography
               variant="h6"
-              style={{ margin: '0px 100%', paddingTop: '8px' }}
+              style={{
+                margin: '0px 100%',
+                paddingTop: '8px',
+                textAlign: 'center'
+              }}
             >
               {determineGameState()}
             </Typography>

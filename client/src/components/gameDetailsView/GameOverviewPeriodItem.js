@@ -9,9 +9,19 @@ import {
   IconButton
 } from '@material-ui/core';
 import { PlayCircleFilledOutlined } from '@material-ui/icons';
+import { toggleDialog } from '../../reducers/dialogReducer';
 import { get } from 'lodash';
 
-const GameOverviewPeriodItem = ({ about, players, result, team, awayTeam }) => {
+const GameOverviewPeriodItem = ({
+  about,
+  players,
+  result,
+  team,
+  awayTeam,
+  toggleDialog,
+  highlightUrl,
+  highlightDescription
+}) => {
   function findPlayerName(players, result) {
     const player = players.find(
       ({ playerType }) => playerType === 'PenaltyOn' || playerType === 'Scorer'
@@ -94,30 +104,63 @@ const GameOverviewPeriodItem = ({ about, players, result, team, awayTeam }) => {
             textAlign: team.id === awayTeam ? 'right' : 'left'
           }}
         />
-        <ListItemSecondaryAction
-          style={{
-            right: team.id === awayTeam ? 'calc(100% - 16px)' : '16px'
-          }}
-        >
-          <IconButton
-            edge={team.id === awayTeam ? 'start' : 'end'}
-            aria-label="watch goal"
+        {highlightUrl && (
+          <ListItemSecondaryAction
+            style={{
+              right: team.id === awayTeam ? 'calc(100% - 16px)' : '16px'
+            }}
           >
-            <PlayCircleFilledOutlined />
-          </IconButton>
-        </ListItemSecondaryAction>
+            <IconButton
+              edge={team.id === awayTeam ? 'start' : 'end'}
+              aria-label="watch goal"
+              onClick={() =>
+                toggleDialog(true, highlightUrl, highlightDescription)
+              }
+            >
+              <PlayCircleFilledOutlined />
+            </IconButton>
+          </ListItemSecondaryAction>
+        )}
       </ListItem>
     </div>
   );
 };
 
-const mapStateToProps = state => {
+const findGoalHighlight = (highlights, eventId) => {
+  if (!highlights.length || eventId === undefined) {
+    return { url: null, description: null };
+  }
+
+  const highlight = highlights.find(highlight =>
+    highlight.keywords.some(
+      keyword =>
+        keyword.type === 'statsEventId' && keyword.value === eventId.toString()
+    )
+  );
+  if (highlight) {
+    const { url } = highlight.playbacks.find(video => video.width === '960');
+    return { url: url, description: highlight.blurb };
+  }
+
+  return { url: null, description: null };
+};
+
+const mapStateToProps = (state, ownProps) => {
   const {
     gameData: { teams }
   } = state.gameDetail;
+  const { url, description } = findGoalHighlight(
+    state.gameHighlights,
+    ownProps.about.eventId
+  );
   return {
-    awayTeam: teams.away.id
+    awayTeam: teams.away.id,
+    highlightUrl: url,
+    highlightDescription: description
   };
 };
 
-export default connect(mapStateToProps)(GameOverviewPeriodItem);
+export default connect(
+  mapStateToProps,
+  { toggleDialog }
+)(GameOverviewPeriodItem);

@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import GameOverviewPeriod from './GameOverviewPeriod';
 import GameOverviewShootout from './GameOverviewShootout';
+import { fetchGameHighlights } from '../../reducers/gameHighlightReducer';
 
-const GameOverview = ({ periods }) => {
+const GameOverview = ({ periods, gamePk, fetchGameHighlights }) => {
+  useEffect(() => {
+    fetchGameHighlights(gamePk);
+  }, [fetchGameHighlights, gamePk]);
+
   if (!periods || !periods.length) {
     return <div>No periods have been played</div>;
   }
@@ -20,13 +25,17 @@ const GameOverview = ({ periods }) => {
 };
 
 const mapStateToProps = state => {
-  console.log(state.gameDetail);
   const {
-    liveData: { linescore }
+    liveData: { linescore },
+    gamePk
   } = state.gameDetail;
   return {
-    periods: linescore.periods
+    periods: linescore.periods,
+    gamePk
   };
 };
 
-export default connect(mapStateToProps)(GameOverview);
+export default connect(
+  mapStateToProps,
+  { fetchGameHighlights }
+)(GameOverview);
