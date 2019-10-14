@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import {
   Typography,
@@ -18,20 +18,23 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
   const classes = useGameDetailHeaderStyles();
   const [highlight, setHighlight] = useState(null);
 
+  const fetchHighlight = useCallback(async () => {
+    const { media } = await contentService.getContent(gameDetail.gamePk);
+    const { items } = media.epg.find(media => media.title === 'Recap');
+    const { playbacks } = items.find(item => item.type === 'video');
+    const { url } = playbacks.find(video => video.width === '960');
+    return url;
+  }, [gameDetail.gamePk]);
+
   useEffect(() => {
-    (async () => {
-      try {
-        const { media } = await contentService.getContent(gameDetail.gamePk);
-        const { items } = media.epg.find(media => media.title === 'Recap');
-        const { playbacks } = items.find(item => item.type === 'video');
-        const { url } = playbacks.find(video => video.width === '960');
-        setHighlight(url);
-      } catch (error) {
-        setHighlight(null);
-      }
-    })();
+    try {
+      const highUrl = fetchHighlight();
+      setHighlight(highUrl);
+    } catch (error) {
+      setHighlight(null);
+    }
     return () => toggleDialog(false, null);
-  }, [gameDetail.gamePk, toggleDialog]);
+  }, [fetchHighlight, toggleDialog]);
 
   const handleClickOpen = () => {
     toggleDialog(true, highlight);
