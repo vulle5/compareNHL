@@ -25,7 +25,8 @@ const DatePicker = ({ date, handleDateChange }) => {
             disableToolbar={!matches}
             autoOk={matches}
             margin="normal"
-            variant={!matches ? 'dialog' : 'inline'}
+            okLabel={matches ? '' : 'OK'}
+            cancelLabel={matches ? '' : 'Cancel'}
             id="date-picker"
             label="Select date"
             format="YYYY/MM/DD"
