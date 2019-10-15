@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import { PlayCircleFilledOutlined } from '@material-ui/icons';
 import moment from 'moment';
+import 'moment-duration-format';
 import axios from 'axios';
 
 import { useGameDetailHeaderStyles } from '../../styles/useStyles';
@@ -52,7 +53,6 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
   };
 
   function determineGameState(linescore) {
-    console.log(linescore)
     // If game is in progress
     if (status.detailedState === 'In Progress') {
       const intermissionTime = moment.duration(
@@ -65,8 +65,7 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
           : linescore.currentPeriodOrdinal
       } ${
         linescore.intermissionInfo.inIntermission
-        // TODO: Missing seconds format
-          ? linescore.intermissionInfo.intermissionTimeRemaining
+          ? intermissionTime.format('mm:ss')
           : linescore.currentPeriodTimeRemaining
       }`;
     }
