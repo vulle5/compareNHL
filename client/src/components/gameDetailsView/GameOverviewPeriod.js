@@ -9,6 +9,7 @@ import GameOverviewPeriodItem from './GameOverviewPeriodItem';
 // TODO Maybe: Shootout goals
 // TODO: Three stars
 // TODO: Put game fetching to node js with 10 second cache-control
+// TODO: Fix play goal highlight button in mobile
 const GameOverviewPeriod = ({ period, scoreAndPenaltyPlays }) => {
   const classes = useGameOverviewStyles();
 

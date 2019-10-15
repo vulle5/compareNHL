@@ -1,13 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-  Typography,
-  ListItem,
-  ListItemAvatar,
-  Avatar,
-  ListItemText
-} from '@material-ui/core';
-import { PlayCircleFilledOutlined } from '@material-ui/icons';
+import { Typography, Divider } from '@material-ui/core';
 import moment from 'moment';
 import 'moment-duration-format';
 import axios from 'axios';
@@ -15,6 +9,8 @@ import axios from 'axios';
 import { useGameDetailHeaderStyles } from '../../styles/useStyles';
 import { toggleDialog } from '../../reducers/dialogReducer';
 import contentService from '../../services/content';
+import HighlightsButton from './HighlightsButton';
+import ThreeStars from './ThreeStars';
 
 const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
   const classes = useGameDetailHeaderStyles();
@@ -109,14 +105,16 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
     <>
       <div className={classes.headerWrapper}>
         <div className={classes.logoContainer}>
-          <img
-            className={classes.teamLogo}
-            src={`/api/teams/${teams.home.id}/logo`}
-            alt="Home team logo"
-          />
-          <Typography variant="h6" className={classes.teamName}>
-            {teams.home.name}
-          </Typography>
+          <Link to={`/team/${teams.home.id}`} style={{ textAlign: 'center' }}>
+            <img
+              className={classes.teamLogo}
+              src={`/api/teams/${teams.home.id}/logo`}
+              alt="Home team logo"
+            />
+            <Typography variant="h6" className={classes.teamName}>
+              {teams.home.name}
+            </Typography>
+          </Link>
         </div>
         <div className={classes.gameScore}>
           <div
@@ -146,38 +144,31 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
           </div>
         </div>
         <div className={classes.logoContainer}>
-          <img
-            className={classes.teamLogo}
-            src={`/api/teams/${teams.away.id}/logo`}
-            alt="Away team logo"
-          />
-          <Typography variant="h6" className={classes.teamName}>
-            {teams.away.name}
-          </Typography>
+          <Link to={`/team/${teams.away.id}`} style={{ textAlign: 'center' }}>
+            <img
+              className={classes.teamLogo}
+              src={`/api/teams/${teams.away.id}/logo`}
+              alt="Away team logo"
+            />
+            <Typography variant="h6" className={classes.teamName}>
+              {teams.away.name}
+            </Typography>
+          </Link>
         </div>
       </div>
-      {highlight && (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginBottom: '16px'
-          }}
-        >
-          <ListItem
-            style={{ maxWidth: '225px' }}
-            button
-            onClick={handleClickOpen}
-          >
-            <ListItemAvatar>
-              <Avatar>
-                <PlayCircleFilledOutlined />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText>Watch Highlights</ListItemText>
-          </ListItem>
-        </div>
-      )}
+      <Divider style={{ margin: '16px' }} />
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          marginBottom: '16px'
+        }}
+      >
+        {highlight && <HighlightsButton handleClickOpen={handleClickOpen} />}
+        <ThreeStars />
+      </div>
     </>
   );
 };
