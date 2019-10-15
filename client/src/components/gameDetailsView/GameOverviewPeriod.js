@@ -6,7 +6,7 @@ import { useGameOverviewStyles } from '../../styles/useStyles';
 import GameOverviewPeriodItem from './GameOverviewPeriodItem';
 
 // TODO Maybe: Goalie changes
-// TODO: Goal was empty net
+// TODO Maybe: Shootout goals
 // TODO: Clickable players to go see more stats
 // TODO: Three stars
 // TODO: Put game fetching to node js with 10 second cache-control

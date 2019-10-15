@@ -32,11 +32,12 @@ const GameOverviewPeriodItem = ({
       get(result, 'strength.code', 'EVEN') !== 'EVEN'
         ? `(${result.strength.code})`
         : '';
+    const emptyNet = get(result, 'emptyNet', '');
     return `${get(
       player,
       'player.fullName',
       'No Name'
-    )} ${seasonTotal} ${strength}`;
+    )} ${seasonTotal} ${strength} ${emptyNet ? '(EN)' : ''}`;
   }
 
   function findAssistName(players, result) {
