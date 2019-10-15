@@ -287,3 +287,12 @@ export const useGameOverviewShootoutStyles = makeStyles(theme => ({
     padding: '16px'
   }
 }));
+
+export const useGameOverviewPeriodItemStyles = makeStyles(theme => ({
+  primaryText: {
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
+  }
+}));

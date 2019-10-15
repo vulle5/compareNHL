@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   Avatar,
   ListItem,
@@ -11,6 +12,7 @@ import {
 import { PlayCircleFilledOutlined } from '@material-ui/icons';
 import { toggleDialog } from '../../reducers/dialogReducer';
 import { get } from 'lodash';
+import { useGameOverviewPeriodItemStyles } from '../../styles/useStyles';
 
 const GameOverviewPeriodItem = ({
   about,
@@ -22,6 +24,8 @@ const GameOverviewPeriodItem = ({
   highlightUrl,
   highlightDescription
 }) => {
+  const classes = useGameOverviewPeriodItemStyles();
+
   function findPlayerName(players, result) {
     const player = players.find(
       ({ playerType }) => playerType === 'PenaltyOn' || playerType === 'Scorer'
@@ -33,11 +37,18 @@ const GameOverviewPeriodItem = ({
         ? `(${result.strength.code})`
         : '';
     const emptyNet = get(result, 'emptyNet', '');
-    return `${get(
-      player,
-      'player.fullName',
-      'No Name'
-    )} ${seasonTotal} ${strength} ${emptyNet ? '(EN)' : ''}`;
+    return (
+      <div>
+        <Link
+          to={`/player/${player.player.id}`}
+          className={classes.primaryText}
+        >
+          {`${get(player, 'player.fullName', 'No Name')}`}
+        </Link>
+        {` ${seasonTotal} ${strength}
+          ${emptyNet ? '(EN)' : ''}`}
+      </div>
+    );
   }
 
   function findAssistName(players, result) {
@@ -86,16 +97,18 @@ const GameOverviewPeriodItem = ({
             margin: team.id === awayTeam ? '0px 0px 0px 8px' : '0px 8px 0px 0px'
           }}
         >
-          <Avatar
-            alt="Player logo"
-            style={{ height: '45px', width: '45px' }}
-            src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${players[0].player.id}.jpg`}
-            onError={e => {
-              e.target.onerror = null;
-              e.target.src =
-                'https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg';
-            }}
-          />
+          <Link to={`/player/${players[0].player.id}`}>
+            <Avatar
+              alt="Player logo"
+              style={{ height: '45px', width: '45px' }}
+              src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${players[0].player.id}.jpg`}
+              onError={e => {
+                e.target.onerror = null;
+                e.target.src =
+                  'https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg';
+              }}
+            />
+          </Link>
         </ListItemAvatar>
         <ListItemText
           primary={findPlayerName(players, result)}
