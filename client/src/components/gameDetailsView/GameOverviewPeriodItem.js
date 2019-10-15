@@ -7,7 +7,8 @@ import {
   ListItemAvatar,
   ListItemText,
   ListItemSecondaryAction,
-  IconButton
+  IconButton,
+  Typography
 } from '@material-ui/core';
 import { PlayCircleFilledOutlined } from '@material-ui/icons';
 import { toggleDialog } from '../../reducers/dialogReducer';
@@ -57,10 +58,36 @@ const GameOverviewPeriodItem = ({
       return `${result.penaltyMinutes} min - ${result.secondaryType}`;
     }
     if (player.length === 1) {
-      return `${player[0].player.fullName} (${player[0].seasonTotal})`;
+      return (
+        <Typography
+          component={'span'}
+          variant="body2"
+          className={classes.secondaryText}
+        >
+          <Link to={`/player/${player[0].player.id}`}>
+            {`${player[0].player.fullName}`}
+          </Link>
+          {` (${player[0].seasonTotal})`}
+        </Typography>
+      );
     }
     if (player.length === 2) {
-      return `${player[0].player.fullName} (${player[0].seasonTotal}), ${player[1].player.fullName} (${player[1].seasonTotal})`;
+      return (
+        <Typography
+          component={'span'}
+          variant="body2"
+          className={classes.secondaryText}
+        >
+          <Link to={`/player/${player[0].player.id}`}>
+            {player[0].player.fullName}
+          </Link>
+          {` (${player[0].seasonTotal}), `}{' '}
+          <Link to={`/player/${player[1].player.id}`}>
+            {player[1].player.fullName}
+          </Link>{' '}
+          {` (${player[1].seasonTotal})`}
+        </Typography>
+      );
     }
     return '';
   }

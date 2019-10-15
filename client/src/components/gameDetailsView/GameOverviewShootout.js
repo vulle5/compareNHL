@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   List,
   ListItem,
@@ -49,25 +50,33 @@ const GameOverviewShootout = ({ plays, awayTeam }) => {
                       : '0px 8px 0px 0px'
                 }}
               >
-                <Avatar
-                  alt="Player logo"
-                  style={{ height: '45px', width: '45px' }}
-                  src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${play.players[0].player.id}.jpg`}
-                  onError={e => {
-                    e.target.onerror = null;
-                    e.target.src =
-                      'https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg';
-                  }}
-                />
+                <Link to={`/player/${play.players[0].player.id}`}>
+                  <Avatar
+                    alt="Player logo"
+                    style={{ height: '45px', width: '45px' }}
+                    src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${play.players[0].player.id}.jpg`}
+                    onError={e => {
+                      e.target.onerror = null;
+                      e.target.src =
+                        'https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg';
+                    }}
+                  />
+                </Link>
               </ListItemAvatar>
               <ListItemText
                 style={{
                   padding: '0px 8px',
                   textAlign: play.team.id === awayTeam ? 'right' : 'left'
                 }}
-                primary={`${play.players[0].player.fullName}${
-                  play.result.event === 'Goal' ? ' (GOAL)' : ''
-                }`}
+                primary={
+                  <>
+                    <Link
+                      to={`/player/${play.players[0].player.id}`}
+                      className={classes.primaryText}
+                    >{`${play.players[0].player.fullName}`}</Link>
+                    {`${play.result.event === 'Goal' ? ' (GOAL)' : ''}`}
+                  </>
+                }
                 secondary={play.result.description}
               />
             </ListItem>

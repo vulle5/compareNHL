@@ -280,6 +280,12 @@ export const useGameOverviewStyles = makeStyles(theme => ({
 }));
 
 export const useGameOverviewShootoutStyles = makeStyles(theme => ({
+  primaryText: {
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
+  },
   wrapper: {
     border: 'solid 1px',
     borderColor: theme.palette.grey[600],
@@ -292,6 +298,13 @@ export const useGameOverviewPeriodItemStyles = makeStyles(theme => ({
   primaryText: {
     textDecoration: 'none',
     '&:hover': {
+      textDecoration: 'underline'
+    }
+  },
+  secondaryText: {
+    textDecoration: 'none',
+    color: theme.palette.text.secondary,
+    '& a:hover': {
       textDecoration: 'underline'
     }
   }
