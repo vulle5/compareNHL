@@ -1,3 +1,11 @@
+/*
+  There is currently a problem inside React-Router which causes 
+  url to be pushed to history even if it is same url as before
+  (ie. click same player from search multiple times) there is currently
+  workaround for it put it will be fixed for react-router v5.2
+  More Info: https://github.com/ReactTraining/react-router/issues/6885
+  and https://github.com/ReactTraining/react-router/issues/5362
+*/
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -40,6 +48,12 @@ const SearchResultsList = ({
     <Link
       key={player[0]}
       to={`/player/${player[0]}`}
+      replace={
+        /* TODO remove this prop when react-router v5.2 and/or issue #5362 is fixed */
+        history.location.pathname.replace(/\/player\//, '') === player[0]
+          ? true
+          : false
+      }
       onClick={() => {
         handleListStatus(false);
       }}
