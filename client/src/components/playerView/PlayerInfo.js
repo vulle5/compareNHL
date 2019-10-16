@@ -16,14 +16,12 @@ const PlayerInfo = props => {
     match: {
       params: { playerId }
     },
-    initializePlayer,
-    initializePlayerImage
+    initializePlayer
   } = props;
 
   useEffect(() => {
     initializePlayer(playerId);
-    initializePlayerImage(playerId);
-  }, [initializePlayer, initializePlayerImage, playerId]);
+  }, [initializePlayer, playerId]);
 
   return (
     <div className={classes.wrapper}>
@@ -39,13 +37,23 @@ const PlayerInfo = props => {
   );
 };
 
+function doPlayerInit(value) {
+  return (dispatch, getState) => {
+    let {
+      player: { id }
+    } = getState();
+
+    if (id !== parseInt(value)) {
+      dispatch(initializePlayer(value));
+      dispatch(initializePlayerImage(value));
+    }
+  };
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     initializePlayer: value => {
-      dispatch(initializePlayer(value));
-    },
-    initializePlayerImage: value => {
-      dispatch(initializePlayerImage(value));
+      dispatch(doPlayerInit(value));
     }
   };
 };

@@ -17,7 +17,7 @@ const GameLogs = ({
   playerSeasons,
   playoffGames,
   regularGames,
-  setPlayoffSeasons,
+  setSeasonLogs,
   setRegularSeasons,
   selectedFilter
 }) => {
@@ -25,9 +25,8 @@ const GameLogs = ({
   const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
-    setPlayoffSeasons(playerId, selectedFilter);
-    setRegularSeasons(playerId, selectedFilter);
-  }, [playerId, selectedFilter, setPlayoffSeasons, setRegularSeasons]);
+    setSeasonLogs(playerId, selectedFilter);
+  }, [playerId, selectedFilter, setSeasonLogs]);
 
   useEffect(() => {
     if (playoffGames.length === 0) {
@@ -166,10 +165,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setPlayoffSeasons: (playerId, season) => {
+    setSeasonLogs: (playerId, season) => {
       dispatch(setPlayoffSeasons(playerId, season));
-    },
-    setRegularSeasons: (playerId, season) => {
       dispatch(setRegularSeasons(playerId, season));
     }
   };
