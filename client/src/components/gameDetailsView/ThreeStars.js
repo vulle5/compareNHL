@@ -65,11 +65,7 @@ const ThreeStars = ({
       return (
         <TableBody>
           <TableRow>
-            <TableCell align="center">
-              {goalieStats.shortHandedShotsAgainst +
-                goalieStats.evenShotsAgainst +
-                goalieStats.powerPlayShotsAgainst}
-            </TableCell>
+            <TableCell align="center">{goalieStats.shots}</TableCell>
             <TableCell align="center">{goalieStats.saves}</TableCell>
             <TableCell align="center">
               {goalieStats.savePercentage.toFixed(1)}

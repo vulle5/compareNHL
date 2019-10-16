@@ -168,7 +168,7 @@ const GameOverviewPeriodItem = ({
 };
 
 const findGoalHighlight = (highlights, eventId) => {
-  if (!highlights.length || eventId === undefined) {
+  if (!highlights || eventId === undefined) {
     return { url: null, description: null };
   }
 
@@ -191,7 +191,7 @@ const mapStateToProps = (state, ownProps) => {
     gameData: { teams }
   } = state.gameDetail;
   const { url, description } = findGoalHighlight(
-    state.gameHighlights,
+    state.gameHighlights.goalHighlights,
     ownProps.about.eventId
   );
   return {

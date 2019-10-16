@@ -1,48 +1,31 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Typography, Divider } from '@material-ui/core';
+import { Typography, Divider, CircularProgress } from '@material-ui/core';
 import moment from 'moment';
 import 'moment-duration-format';
-import axios from 'axios';
 
 import { useGameDetailHeaderStyles } from '../../styles/useStyles';
 import { toggleDialog } from '../../reducers/dialogReducer';
-import contentService from '../../services/content';
 import HighlightsButton from './HighlightsButton';
 import ThreeStars from './ThreeStars';
 
-const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
+const GameDetailHeader = ({
+  gameDetail,
+  status,
+  toggleDialog,
+  recap,
+  highlightIsFetching
+}) => {
   const classes = useGameDetailHeaderStyles();
   const [highlight, setHighlight] = useState(null);
 
-  const fetchHighlight = useCallback(
-    async source => {
-      const { media } = await contentService.getContent(
-        gameDetail.gamePk,
-        source
-      );
-      const { items } = media.epg.find(media => media.title === 'Recap');
-      const { playbacks } = items.find(item => item.type === 'video');
-      const { url } = playbacks.find(video => video.width === '960');
-      return url;
-    },
-    [gameDetail.gamePk]
-  );
-
   useEffect(() => {
-    const CancelToken = axios.CancelToken;
-    const source = CancelToken.source();
-
-    fetchHighlight(source)
-      .then(highUrl => setHighlight(highUrl))
-      .catch(error => setHighlight(null));
-
+    setHighlight(recap);
     return () => {
-      source.cancel();
       toggleDialog(false, null, '');
     };
-  }, [fetchHighlight, toggleDialog]);
+  }, [recap, toggleDialog]);
 
   const handleClickOpen = () => {
     toggleDialog(true, highlight, 'Highlights');
@@ -94,6 +77,18 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
           {moment(gameDetail.gameData.datetime.dateTime).format('HH:mm')}
         </Typography>
       );
+    }
+  }
+
+  function determineHighlight() {
+    if (highlight && !highlightIsFetching) {
+      return <HighlightsButton handleClickOpen={handleClickOpen} />;
+    }
+    if (!highlight && highlightIsFetching) {
+      return <CircularProgress />;
+    }
+    if (!highlight && !highlightIsFetching) {
+      return null;
     }
   }
 
@@ -166,7 +161,7 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
           marginBottom: '16px'
         }}
       >
-        {highlight && <HighlightsButton handleClickOpen={handleClickOpen} />}
+        {determineHighlight()}
         <ThreeStars />
       </div>
     </>
@@ -176,7 +171,9 @@ const GameDetailHeader = ({ gameDetail, status, toggleDialog }) => {
 const mapStateToProps = state => {
   return {
     gameDetail: state.gameDetail,
-    status: state.gameDetail.gameData.status
+    status: state.gameDetail.gameData.status,
+    recap: state.gameHighlights.recap,
+    highlightIsFetching: state.gameHighlights.fetching
   };
 };
 

@@ -98,13 +98,20 @@ const mapStateToProps = state => {
     liveData: { plays },
     gameData: { teams }
   } = state.gameDetail;
-  return {
-    plays: getShootOutPlays(
-      plays.playsByPeriod[plays.playsByPeriod.length - 1],
-      plays.allPlays
-    ),
-    awayTeam: teams.away.id
-  };
+  if (plays.allPlays.length) {
+    return {
+      plays: getShootOutPlays(
+        plays.playsByPeriod[plays.playsByPeriod.length - 1],
+        plays.allPlays
+      ),
+      awayTeam: teams.away.id
+    };
+  } else {
+    return {
+      plays: [],
+      awayTeam: null
+    };
+  }
 };
 
 export default connect(mapStateToProps)(GameOverviewShootout);
