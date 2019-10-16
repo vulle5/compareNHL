@@ -18,7 +18,6 @@ const GameLogs = ({
   playoffGames,
   regularGames,
   setSeasonLogs,
-  setRegularSeasons,
   selectedFilter
 }) => {
   const [playoffSelected, setPlayoffSelected] = useState(false);
