@@ -91,7 +91,9 @@ const filterSeasons = (player, filter) => {
         isGoalie === 'G' ? season.stat.wins : season.stat.points,
         isGoalie === 'G' ? season.stat.losses : season.stat.goals,
         isGoalie === 'G'
-          ? season.stat.goalAgainstAverage.toFixed(2)
+          ? typeof season.stat.goalAgainstAverage === 'number'
+            ? season.stat.goalAgainstAverage.toFixed(2)
+            : ''
           : season.stat.assists
       )
     )

@@ -30,7 +30,7 @@ const DatePicker = ({ date, handleDateChange }) => {
             id="date-picker"
             label="Select date"
             format="YYYY/MM/DD"
-            minDate={moment('1917-12-19')}
+            minDate={moment('1917-12-20')}
             maxDate={moment().add(1, 'years')}
             value={date}
             onChange={date => handleDateChange(date)}

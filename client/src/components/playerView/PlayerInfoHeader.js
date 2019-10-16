@@ -40,6 +40,7 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
           height="48"
           aria-label={`Country flag of ${player.nationality}`}
           type="image/png"
+          typemustmatch=""
           data={`https://www.countryflags.io/${getCountryISO2(
             player.nationality
           )}/shiny/48.png`}

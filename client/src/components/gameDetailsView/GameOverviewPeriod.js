@@ -5,9 +5,16 @@ import { List, Typography } from '@material-ui/core';
 import { useGameOverviewStyles } from '../../styles/useStyles';
 import GameOverviewPeriodItem from './GameOverviewPeriodItem';
 
-// TODO Maybe: Goalie changes
+// TODO Maybe: Goalie changes.
+/* 
+  1: Check from boxscore goalies if team has more than 1 goalie if not do not check that team
+  2: Search for first shot to the net for both away and home to find out the starting goalie (compare to #1 goalie array)
+  3: Search next shot where goalie is different than before (compare to #1 goalie array)
+  4: Check last stoppage of play from new goalie and check period of time
+  5: Check from #5 stoppage last shot before that stoppage to check what goalie was on goal before
+  6: Put the info to object 
+*/
 // TODO Maybe: Shootout goals
-// TODO: Three stars
 // TODO: Put game fetching to node js with 10 second cache-control
 // TODO: Fix play goal highlight button in mobile
 const GameOverviewPeriod = ({ period, scoreAndPenaltyPlays }) => {

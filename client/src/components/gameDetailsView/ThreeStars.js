@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import {
   Typography,
   List,
@@ -13,88 +15,134 @@ import {
   TableRow
 } from '@material-ui/core';
 
-const ThreeStars = () => {
+const ThreeStars = ({
+  stars: { firstStar, secondStar, thirdStar },
+  stars,
+  homeTeam,
+  awayTeam
+}) => {
+  if (!homeTeam.players || !awayTeam.players || !stars.firstStar) {
+    return null;
+  }
+
+  const starPlayers = [firstStar, secondStar, thirdStar];
+  const allPlayers = [
+    ...Object.keys(homeTeam.players).map(i => homeTeam.players[i]),
+    ...Object.keys(awayTeam.players).map(i => awayTeam.players[i])
+  ];
+
+  function generateTableHead(playerId) {
+    const player = allPlayers.find(player => player.person.id === playerId);
+    if (player.position.abbreviation === 'G') {
+      return (
+        <TableHead>
+          <TableRow>
+            <TableCell align="center">SA</TableCell>
+            <TableCell align="center">S</TableCell>
+            <TableCell align="center">S%</TableCell>
+          </TableRow>
+        </TableHead>
+      );
+    } else {
+      return (
+        <TableHead>
+          <TableRow>
+            <TableCell align="center">G</TableCell>
+            <TableCell align="center">A</TableCell>
+            <TableCell align="center">TOI</TableCell>
+          </TableRow>
+        </TableHead>
+      );
+    }
+  }
+
+  function generateTableBody(playerId) {
+    const player = allPlayers.find(player => player.person.id === playerId);
+    if (player.position.abbreviation === 'G') {
+      const {
+        stats: { goalieStats }
+      } = player;
+      return (
+        <TableBody>
+          <TableRow>
+            <TableCell align="center">
+              {goalieStats.shortHandedShotsAgainst +
+                goalieStats.evenShotsAgainst +
+                goalieStats.powerPlayShotsAgainst}
+            </TableCell>
+            <TableCell align="center">{goalieStats.saves}</TableCell>
+            <TableCell align="center">
+              {goalieStats.savePercentage.toFixed(1)}
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      );
+    } else {
+      const {
+        stats: { skaterStats }
+      } = player;
+      return (
+        <TableBody>
+          <TableRow>
+            <TableCell align="center">{skaterStats.goals}</TableCell>
+            <TableCell align="center">{skaterStats.assists}</TableCell>
+            <TableCell align="center">{skaterStats.timeOnIce}</TableCell>
+          </TableRow>
+        </TableBody>
+      );
+    }
+  }
+
   return (
     <div style={{ display: 'inline-block' }}>
       <Typography variant="h6" style={{ textAlign: 'center' }}>
         Three Stars
       </Typography>
       <List style={{ maxWidth: '350px' }} dense>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>A</Avatar>
-          </ListItemAvatar>
-          <ListItemText style={{ marginRight: '50px' }}>
-            Tuukka Rask
-          </ListItemText>
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">S</TableCell>
-                <TableCell align="center">S%</TableCell>
-                <TableCell align="center">GAA</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell align="center">2</TableCell>
-                <TableCell align="center">1</TableCell>
-                <TableCell align="center">17:35</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </ListItem>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>A</Avatar>
-          </ListItemAvatar>
-          <ListItemText style={{ marginRight: '50px' }}>
-            Aleksander Barkov
-          </ListItemText>
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">G</TableCell>
-                <TableCell align="center">A</TableCell>
-                <TableCell align="center">TOI</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell align="center">2</TableCell>
-                <TableCell align="center">1</TableCell>
-                <TableCell align="center">17:35</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </ListItem>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>A</Avatar>
-          </ListItemAvatar>
-          <ListItemText style={{ marginRight: '50px' }}>
-            Jakob Forsbacka Karlsson
-          </ListItemText>
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">G</TableCell>
-                <TableCell align="center">A</TableCell>
-                <TableCell align="center">TOI</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell align="center">2</TableCell>
-                <TableCell align="center">1</TableCell>
-                <TableCell align="center">17:35</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </ListItem>
+        {starPlayers.map(player => (
+          <ListItem key={player.id}>
+            <ListItemAvatar>
+              <Link to={`/player/${player.id}`}>
+                <Avatar
+                  alt="Player logo"
+                  style={{ height: '45px', width: '45px' }}
+                  src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${player.id}.jpg`}
+                  onError={e => {
+                    e.target.onerror = null;
+                    e.target.src =
+                      'https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg';
+                  }}
+                />
+              </Link>
+            </ListItemAvatar>
+            <ListItemText style={{ marginRight: '50px' }}>
+              {player.fullName}
+            </ListItemText>
+            <Table size="small">
+              {generateTableHead(player.id)}
+              {generateTableBody(player.id)}
+            </Table>
+          </ListItem>
+        ))}
       </List>
     </div>
   );
 };
 
-export default ThreeStars;
+const mapStateToProps = state => {
+  const {
+    liveData: {
+      decisions,
+      boxscore: {
+        teams: { home, away }
+      }
+    }
+  } = state.gameDetail;
+  return {
+    stars: decisions,
+    homeTeam: home,
+    awayTeam: away
+  };
+};
+
+export default connect(mapStateToProps)(ThreeStars);
