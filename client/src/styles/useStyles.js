@@ -311,7 +311,7 @@ export const useGameOverviewPeriodItemStyles = makeStyles(theme => ({
   gameTimeText: {
     fontWeight: 600,
     border: 'solid 1px',
-    borderRadius: '8px',
+    borderRadius: '4px',
     letterSpacing: '1.5px'
   },
   penaltyText: {
