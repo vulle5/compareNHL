@@ -14,6 +14,7 @@ import {
   TableCell,
   TableRow
 } from '@material-ui/core';
+import { useThreeStarsStyles } from '../../styles/useStyles';
 
 const ThreeStars = ({
   stars: { firstStar, secondStar, thirdStar },
@@ -21,6 +22,8 @@ const ThreeStars = ({
   homeTeam,
   awayTeam
 }) => {
+  const classes = useThreeStarsStyles();
+
   if (!homeTeam.players || !awayTeam.players || !stars.firstStar) {
     return null;
   }
@@ -94,7 +97,7 @@ const ThreeStars = ({
       <Typography variant="h6" style={{ textAlign: 'center' }}>
         Three Stars
       </Typography>
-      <List style={{ maxWidth: '350px' }} dense>
+      <List style={{ maxWidth: '320px' }} dense>
         {starPlayers.map(player => (
           <ListItem key={player.id}>
             <ListItemAvatar>
@@ -111,9 +114,11 @@ const ThreeStars = ({
                 />
               </Link>
             </ListItemAvatar>
-            <ListItemText style={{ marginRight: '50px' }}>
-              {player.fullName}
-            </ListItemText>
+            <Link to={`/player/${player.id}`}>
+              <ListItemText className={classes.primaryText}>
+                {player.fullName}
+              </ListItemText>
+            </Link>
             <Table size="small">
               {generateTableHead(player.id)}
               {generateTableBody(player.id)}

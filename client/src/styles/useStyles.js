@@ -309,3 +309,13 @@ export const useGameOverviewPeriodItemStyles = makeStyles(theme => ({
     }
   }
 }));
+
+export const useThreeStarsStyles = makeStyles(theme => ({
+  primaryText: {
+    minWidth: '75px',
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
+  }
+}));
