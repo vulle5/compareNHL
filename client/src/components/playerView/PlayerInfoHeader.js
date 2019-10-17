@@ -62,7 +62,7 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
             />
           )}
           <Typography style={{ alignSelf: 'center' }} component="p">
-            {player.currentTeam.name}
+            {player.active ? player.currentTeam.name : 'Not Active'}
           </Typography>
         </Link>
       </div>

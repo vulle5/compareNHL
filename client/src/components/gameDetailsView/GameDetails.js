@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Paper } from '@material-ui/core';
+import { Paper, CircularProgress, useMediaQuery } from '@material-ui/core';
 import { connect } from 'react-redux';
 
 import { initializeGame } from '../../reducers/gameDetailReducer';
@@ -17,13 +17,20 @@ const GameDetails = ({
   initializeGame
 }) => {
   const classes = useGameDetailStyles();
+  const matches = useMediaQuery(theme => theme.breakpoints.up('xs'));
 
   useEffect(() => {
     initializeGame(gamePk);
   }, [gamePk, initializeGame]);
 
   if (!gameDetail) {
-    return <div style={{ paddingTop: '64px' }}>...Loading</div>;
+    return (
+      <div
+        style={{ paddingTop: matches ? '64px' : '56px', textAlign: 'center' }}
+      >
+        <CircularProgress style={{ marginTop: '16px' }} />
+      </div>
+    );
   }
 
   if (gameDetail.errorMessage) {

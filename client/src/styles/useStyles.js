@@ -309,7 +309,7 @@ export const useGameOverviewPeriodItemStyles = makeStyles(theme => ({
     }
   },
   gameTimeText: {
-    fontWeight: 600,
+    fontWeight: 'bold',
     border: 'solid 1px',
     borderRadius: '4px',
     letterSpacing: '1.5px'
@@ -323,7 +323,8 @@ export const useGameOverviewPeriodItemStyles = makeStyles(theme => ({
     borderRadius: '4px',
     backgroundColor: 'yellow',
     color: 'black',
-    border: 'solid 1px'
+    border: 'solid 1px',
+    fontWeight: 'bold'
   },
   majorPenalty: {
     fontSize: '17px',
@@ -331,7 +332,8 @@ export const useGameOverviewPeriodItemStyles = makeStyles(theme => ({
     borderRadius: '4px',
     backgroundColor: 'orange',
     color: 'black',
-    border: 'solid 1px'
+    border: 'solid 1px',
+    fontWeight: 'bold'
   },
   gameMisconduct: {
     fontSize: '17px',
@@ -339,7 +341,8 @@ export const useGameOverviewPeriodItemStyles = makeStyles(theme => ({
     borderRadius: '4px',
     backgroundColor: '#ff4646',
     color: 'black',
-    border: 'solid 1px'
+    border: 'solid 1px',
+    fontWeight: 'bold'
   }
 }));
 
