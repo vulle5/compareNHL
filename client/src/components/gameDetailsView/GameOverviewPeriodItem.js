@@ -115,7 +115,8 @@ const GameOverviewPeriodItem = ({
           maxWidth: '360px',
           display: 'flex',
           flexDirection: team.id === awayTeam ? 'row-reverse' : 'row',
-          paddingRight: team.id === awayTeam ? '16px' : '48px'
+          paddingRight: team.id === awayTeam ? '16px' : '48px',
+          paddingLeft: team.id === awayTeam ? '48px' : '16px'
         }}
       >
         <ListItemAvatar
@@ -148,7 +149,8 @@ const GameOverviewPeriodItem = ({
         {highlightUrl && (
           <ListItemSecondaryAction
             style={{
-              right: team.id === awayTeam ? 'calc(100% - 16px)' : '16px'
+              right: team.id === awayTeam ? 'auto' : '16px',
+              left: team.id === awayTeam ? '16px' : 'auto'
             }}
           >
             <IconButton
