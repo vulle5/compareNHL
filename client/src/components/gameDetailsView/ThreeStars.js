@@ -119,10 +119,12 @@ const ThreeStars = ({
                 {player.fullName}
               </ListItemText>
             </Link>
-            <Table size="small">
-              {generateTableHead(player.id)}
-              {generateTableBody(player.id)}
-            </Table>
+            <div style={{ maxWidth: '320px' }}>
+              <Table size="small">
+                {generateTableHead(player.id)}
+                {generateTableBody(player.id)}
+              </Table>
+            </div>
           </ListItem>
         ))}
       </List>

@@ -151,7 +151,7 @@ const GameDetailHeader = ({
           </Link>
         </div>
       </div>
-      <Divider style={{ margin: '16px' }} />
+      <Divider style={{ margin: '32px 16px 16px 16px' }} />
       <div
         style={{
           display: 'flex',
