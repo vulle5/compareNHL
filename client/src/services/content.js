@@ -1,9 +1,7 @@
 import axios from 'axios';
 
 const getContent = async gamePk => {
-  const response = await axios.get(
-    `http://statsapi.web.nhl.com/api/v1/game/${gamePk}/content`
-  );
+  const response = await axios.get(`/api/game/${gamePk}/content`);
   return response.data;
 };
 

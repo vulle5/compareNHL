@@ -6,9 +6,7 @@ export const initializeGame = gamePk => async dispatch => {
       type: 'INIT_GAME',
       data: null
     });
-    const { data } = await axios.get(
-      `https://statsapi.web.nhl.com/api/v1/game/${gamePk}/feed/live`
-    );
+    const { data } = await axios.get(`/api/game/${gamePk}`);
     dispatch({
       type: 'INIT_GAME',
       data: data
