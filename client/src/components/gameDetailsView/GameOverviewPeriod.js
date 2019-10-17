@@ -15,7 +15,7 @@ import GameOverviewPeriodItem from './GameOverviewPeriodItem';
   6: Put the info to object 
 */
 // TODO Maybe: Shootout goals
-// TODO: Fix play goal highlight button in mobile and color penalties and goals
+
 const GameOverviewPeriod = ({ period, scoreAndPenaltyPlays }) => {
   const classes = useGameOverviewStyles();
 

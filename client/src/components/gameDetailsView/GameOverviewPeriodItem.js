@@ -52,10 +52,35 @@ const GameOverviewPeriodItem = ({
     );
   }
 
+  function determinePenaltyColor(result) {
+    if (result.penaltySeverity === 'Minor') {
+      return classes.minorPenalty;
+    }
+    if (
+      result.penaltySeverity === 'Major' ||
+      result.penaltySeverity === 'Misconduct'
+    ) {
+      return classes.majorPenalty;
+    }
+    if (result.penaltySeverity === 'Game Misconduct') {
+      return classes.gameMisconduct;
+    }
+    return classes.minorPenalty;
+  }
+
   function findAssistName(players, result) {
     const player = players.filter(player => player.playerType === 'Assist');
     if (result.event === 'Penalty') {
-      return `${result.penaltyMinutes} min - ${result.secondaryType}`;
+      return (
+        <Typography component={'span'} variant="body2">
+          <span className={determinePenaltyColor(result)}>
+            {result.penaltyMinutes}
+          </span>
+          <span
+            className={classes.penaltyText}
+          >{` - ${result.secondaryType}`}</span>
+        </Typography>
+      );
     }
     if (player.length === 1) {
       return (
@@ -106,7 +131,7 @@ const GameOverviewPeriodItem = ({
           textAlign: 'center'
         }}
       >
-        <div>{about.periodTime}</div>
+        <div className={classes.gameTimeText}>{about.periodTime}</div>
         <div>{result.event}</div>
       </div>
       <ListItem

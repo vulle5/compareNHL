@@ -307,6 +307,39 @@ export const useGameOverviewPeriodItemStyles = makeStyles(theme => ({
     '& a:hover': {
       textDecoration: 'underline'
     }
+  },
+  gameTimeText: {
+    fontWeight: 600,
+    border: 'solid 1px',
+    borderRadius: '8px',
+    letterSpacing: '1.5px'
+  },
+  penaltyText: {
+    color: theme.palette.text.secondary
+  },
+  minorPenalty: {
+    fontSize: '17px',
+    padding: '2px',
+    borderRadius: '4px',
+    backgroundColor: 'yellow',
+    color: 'black',
+    border: 'solid 1px'
+  },
+  majorPenalty: {
+    fontSize: '17px',
+    padding: '2px',
+    borderRadius: '4px',
+    backgroundColor: 'orange',
+    color: 'black',
+    border: 'solid 1px'
+  },
+  gameMisconduct: {
+    fontSize: '17px',
+    padding: '2px',
+    borderRadius: '4px',
+    backgroundColor: '#ff4646',
+    color: 'black',
+    border: 'solid 1px'
   }
 }));
 
