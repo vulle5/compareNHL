@@ -18,6 +18,7 @@ import GameOverviewPeriodItem from './GameOverviewPeriodItem';
 
 const GameOverviewPeriod = ({ period, scoreAndPenaltyPlays }) => {
   const classes = useGameOverviewStyles();
+  console.log(scoreAndPenaltyPlays);
 
   function determinePeriodName(period) {
     if (period.ordinalNum === 'OT') {

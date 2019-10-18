@@ -76,9 +76,11 @@ const GameOverviewPeriodItem = ({
           <span className={determinePenaltyColor(result)}>
             {result.penaltyMinutes}
           </span>
-          <span
-            className={classes.penaltyText}
-          >{` - ${result.secondaryType}`}</span>
+          <span className={classes.penaltyText}>{` - ${
+            result.secondaryType.includes('Missing key')
+              ? result.description
+              : result.secondaryType
+          }`}</span>
         </Typography>
       );
     }
