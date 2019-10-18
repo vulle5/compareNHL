@@ -1,38 +1,13 @@
 import React, { useState } from 'react';
-import {
-  AppBar,
-  Tabs,
-  Tab,
-  Typography,
-  Box,
-  useMediaQuery
-} from '@material-ui/core';
+import { AppBar, Tabs, Tab, useMediaQuery } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@material-ui/styles';
 import GameOverview from './GameOverview';
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-  const matches = useMediaQuery(theme => theme.breakpoints.down('xs'));
-
-  return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      <Box style={{ padding: matches ? '0px' : '24px' }} p={3}>
-        {children}
-      </Box>
-    </Typography>
-  );
-}
+import Rosters from './Rosters';
+import TabPanel from '../TabPanel';
 
 const GameDetailTabs = () => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(2);
   const theme = useTheme();
   const matches = useMediaQuery(theme => theme.breakpoints.down('xs'));
 
@@ -60,10 +35,10 @@ const GameDetailTabs = () => {
           indicatorColor="primary"
           textColor="primary"
           variant="fullWidth"
-          aria-label="full width tabs example"
+          aria-label="full width tabs"
         >
           <Tab label="Game Overview" {...a11yProps(0)}></Tab>
-          <Tab label="Statistics" {...a11yProps(1)}></Tab>s
+          <Tab label="Statistics" {...a11yProps(1)}></Tab>
           <Tab label="Rosters" {...a11yProps(2)}></Tab>
         </Tabs>
       </AppBar>
@@ -72,6 +47,7 @@ const GameDetailTabs = () => {
         index={value}
         onChangeIndex={handleChangeIndex}
         style={{ paddingTop: matches ? '16px' : '0px' }}
+        disabled={value === 2 ? true : false}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
           <GameOverview />
@@ -80,7 +56,7 @@ const GameDetailTabs = () => {
           Item Two
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          Item Three
+          <Rosters />
         </TabPanel>
       </SwipeableViews>
     </div>
