@@ -38,7 +38,7 @@ const GameDetailTabs = () => {
           aria-label="full width tabs"
         >
           <Tab label="Game Overview" {...a11yProps(0)}></Tab>
-          <Tab label="Statistics" {...a11yProps(1)}></Tab>
+          {/*<Tab disabled label="Statistics" {...a11yProps(1)}></Tab>*/}
           <Tab label="Rosters" {...a11yProps(2)}></Tab>
         </Tabs>
       </AppBar>
@@ -52,10 +52,10 @@ const GameDetailTabs = () => {
         <TabPanel value={value} index={0} dir={theme.direction}>
           <GameOverview />
         </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
+        {/* {<TabPanel value={value} index={1} dir={theme.direction}>
           Item Two
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
+        </TabPanel>} */}
+        <TabPanel value={value} index={1} dir={theme.direction}>
           <Rosters />
         </TabPanel>
       </SwipeableViews>

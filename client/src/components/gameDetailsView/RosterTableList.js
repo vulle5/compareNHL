@@ -10,6 +10,22 @@ const RosterTableList = ({ players, teamName }) => {
   const defense = players.filter(({ position }) => position.code === 'D');
   const goalies = players.filter(({ position }) => position.code === 'G');
 
+  if (!players.length) {
+    return (
+      <div>
+        <Typography
+          variant="h4"
+          style={{ textAlign: 'center', marginBottom: '24px' }}
+        >
+          {teamName}
+        </Typography>
+        <Typography style={{ textAlign: 'center' }}>
+          No rosters have been announced
+        </Typography>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Typography
