@@ -7,7 +7,7 @@ import Rosters from './Rosters';
 import TabPanel from '../TabPanel';
 
 const GameDetailTabs = () => {
-  const [value, setValue] = useState(2);
+  const [value, setValue] = useState(0);
   const theme = useTheme();
   const matches = useMediaQuery(theme => theme.breakpoints.down('xs'));
 
