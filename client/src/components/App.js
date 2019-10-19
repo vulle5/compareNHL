@@ -2,7 +2,7 @@ import React, { useEffect, Suspense, lazy } from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { ThemeProvider } from '@material-ui/core/styles';
 
 import SearchPlayersBar from './appBar/SearchPlayersBar';
 import ProgressBarGlobal from './ProgressBarGlobal';
@@ -29,7 +29,7 @@ const App = ({ setTheme, theme }) => {
   }, [setTheme]);
 
   return (
-    <MuiThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router history={history}>
         <SearchPlayersBar />
@@ -46,7 +46,7 @@ const App = ({ setTheme, theme }) => {
           </Switch>
         </Suspense>
       </Router>
-    </MuiThemeProvider>
+    </ThemeProvider>
   );
 };
 
