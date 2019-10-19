@@ -32,21 +32,19 @@ const App = ({ setTheme, theme }) => {
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <Router history={history}>
-        <div style={{ width: '100%' }}>
-          <SearchPlayersBar />
-          <ProgressBarGlobal />
-          <SideDrawer />
-          <Suspense fallback={<LinearProgressBar />}>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/team/:id" component={TeamInfo} />
-              <Route path="/player/:playerId" component={PlayerInfo} />
-              <Route path="/compare/:playerId" component={Compare} />
-              <Route path="/gameDetails/:gamePk" component={GameDetails} />
-              <Route component={ErrorMessage} />
-            </Switch>
-          </Suspense>
-        </div>
+        <SearchPlayersBar />
+        <ProgressBarGlobal />
+        <SideDrawer />
+        <Suspense fallback={<LinearProgressBar />}>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/team/:id" component={TeamInfo} />
+            <Route path="/player/:playerId" component={PlayerInfo} />
+            <Route path="/compare/:playerId" component={Compare} />
+            <Route path="/gameDetails/:gamePk" component={GameDetails} />
+            <Route component={ErrorMessage} />
+          </Switch>
+        </Suspense>
       </Router>
     </MuiThemeProvider>
   );
