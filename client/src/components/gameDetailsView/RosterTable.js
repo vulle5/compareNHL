@@ -47,7 +47,7 @@ const RosterTable = ({ players, tableTitle, isGoalie }) => {
     );
   }
 
-  function generateTableBody(playerId) {
+  function generateTableBody(playerId, isGoalie) {
     const player = players.find(player => player.person.id === playerId);
     const getAvatar = () => (
       <Avatar
@@ -62,36 +62,9 @@ const RosterTable = ({ players, tableTitle, isGoalie }) => {
       />
     );
 
-    if (player.position.abbreviation === 'G') {
+    if (isGoalie) {
       const {
         stats: { goalieStats }
-      } = player;
-      return (
-        <TableBody key={player.person.id}>
-          <TableRow>
-            <TableCell style={{ width: '45px' }}>
-              <Link to={`/player/${player.person.id}`}>{getAvatar()}</Link>
-            </TableCell>
-            <TableCell align="left">{`#${player.jerseyNumber} ${player.person.fullName}`}</TableCell>
-            <TableCell align="right">{goalieStats.shots}</TableCell>
-            <TableCell align="right">{goalieStats.saves}</TableCell>
-            <TableCell align="right">
-              {parseFloat(goalieStats.savePercentage || 0).toFixed(1)}
-            </TableCell>
-            <TableCell align="right">
-              {goalieStats.powerPlayShotsAgainst}
-            </TableCell>
-            <TableCell align="right">
-              {parseFloat(goalieStats.powerPlaySavePercentage || 0).toFixed(1)}
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      );
-    } else {
-    }
-    try {
-      const {
-        stats: { skaterStats }
       } = player;
       return (
         <TableBody key={player.person.id}>
@@ -107,18 +80,52 @@ const RosterTable = ({ players, tableTitle, isGoalie }) => {
                 >{`#${player.jerseyNumber} ${player.person.fullName}`}</Link>
               }
             </TableCell>
+            <TableCell align="right">{goalieStats.shots}</TableCell>
+            <TableCell align="right">{goalieStats.saves}</TableCell>
             <TableCell align="right">
-              {skaterStats.goals + skaterStats.assists}
+              {parseFloat(goalieStats.savePercentage || 0).toFixed(1)}
             </TableCell>
-            <TableCell align="right">{skaterStats.goals}</TableCell>
-            <TableCell align="right">{skaterStats.assists}</TableCell>
-            <TableCell align="right">{skaterStats.shots}</TableCell>
-            <TableCell align="right">{skaterStats.timeOnIce}</TableCell>
+            <TableCell align="right">
+              {goalieStats.powerPlayShotsAgainst}
+            </TableCell>
+            <TableCell align="right">
+              {parseFloat(goalieStats.powerPlaySavePercentage || 0).toFixed(1)}
+            </TableCell>
           </TableRow>
         </TableBody>
       );
-    } catch (error) {
-      return null;
+    } else {
+      try {
+        const {
+          stats: { skaterStats }
+        } = player;
+        return (
+          <TableBody key={player.person.id}>
+            <TableRow>
+              <TableCell style={{ width: '45px' }}>
+                <Link to={`/player/${player.person.id}`}>{getAvatar()}</Link>
+              </TableCell>
+              <TableCell align="left">
+                {
+                  <Link
+                    to={`/player/${player.person.id}`}
+                    className={classes.primaryText}
+                  >{`#${player.jerseyNumber} ${player.person.fullName}`}</Link>
+                }
+              </TableCell>
+              <TableCell align="right">
+                {skaterStats.goals + skaterStats.assists}
+              </TableCell>
+              <TableCell align="right">{skaterStats.goals}</TableCell>
+              <TableCell align="right">{skaterStats.assists}</TableCell>
+              <TableCell align="right">{skaterStats.shots}</TableCell>
+              <TableCell align="right">{skaterStats.timeOnIce}</TableCell>
+            </TableRow>
+          </TableBody>
+        );
+      } catch (error) {
+        return null;
+      }
     }
   }
 
@@ -132,7 +139,7 @@ const RosterTable = ({ players, tableTitle, isGoalie }) => {
       </Typography>
       <Table size="small" style={{ marginBottom: '24px' }}>
         {generateTableHead(isGoalie)}
-        {players.map(player => generateTableBody(player.person.id))}
+        {players.map(player => generateTableBody(player.person.id, isGoalie))}
       </Table>
     </div>
   );
