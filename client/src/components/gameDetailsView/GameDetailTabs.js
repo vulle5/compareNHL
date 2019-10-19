@@ -47,7 +47,7 @@ const GameDetailTabs = () => {
         index={value}
         onChangeIndex={handleChangeIndex}
         style={{ paddingTop: matches ? '16px' : '0px' }}
-        disabled={value === 2 ? true : false}
+        disabled={value === 1 ? true : false}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
           <GameOverview />
