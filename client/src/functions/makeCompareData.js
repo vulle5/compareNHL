@@ -30,19 +30,29 @@ export const makeCompareData = regularSeasonStats => {
         ['GP', regularSeasonStats.games],
         ['W', regularSeasonStats.wins],
         ['L', regularSeasonStats.losses],
-        ['GAA', get(regularSeasonStats, 'goalAgainstAverage', 0).toFixed(2)]
+        [
+          'GAA',
+          parseFloat(get(regularSeasonStats, 'goalAgainstAverage', 0)).toFixed(
+            2
+          )
+        ]
       ],
       saves: [
         ['SA', regularSeasonStats.shotsAgainst || 'N/A'],
         ['Saves', regularSeasonStats.saves || 'N/A'],
-        ['SV%', get(regularSeasonStats, 'savePercentage', 0).toFixed(2)]
+        [
+          'SV%',
+          parseFloat(get(regularSeasonStats, 'savePercentage', 0)).toFixed(2)
+        ]
       ],
       evenStrength: [
         ['Saves', regularSeasonStats.evenSaves || 'N/A'],
         ['Shots', regularSeasonStats.evenShots || 'N/A'],
         [
           'SV%',
-          get(regularSeasonStats, 'evenStrengthSavePercentage', 0).toFixed(2)
+          parseFloat(
+            get(regularSeasonStats, 'evenStrengthSavePercentage', 0)
+          ).toFixed(2)
         ]
       ],
       powerPlay: [
@@ -50,7 +60,9 @@ export const makeCompareData = regularSeasonStats => {
         ['Shots', regularSeasonStats.powerPlayShots || 'N/A'],
         [
           'SV%',
-          get(regularSeasonStats, 'powerPlaySavePercentage', 0).toFixed(2)
+          parseFloat(
+            get(regularSeasonStats, 'powerPlaySavePercentage', 0)
+          ).toFixed(2)
         ]
       ],
       shortHanded: [
@@ -58,7 +70,9 @@ export const makeCompareData = regularSeasonStats => {
         ['Shots', regularSeasonStats.shortHandedShots || 'N/A'],
         [
           'SV%',
-          get(regularSeasonStats, 'shortHandedSavePercentage', 0).toFixed(2)
+          parseFloat(
+            get(regularSeasonStats, 'shortHandedSavePercentage', 0)
+          ).toFixed(2)
         ]
       ],
       other: [

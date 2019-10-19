@@ -5,7 +5,7 @@ import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@material-ui/styles';
 
 import TabPanel from '../TabPanel';
-import RosterTeamList from './RosterTeamList';
+import RosterTableList from './RosterTableList';
 
 const Rosters = ({ teams: { home, away } }) => {
   const [value, setValue] = useState(0);
@@ -20,8 +20,6 @@ const Rosters = ({ teams: { home, away } }) => {
     setValue(index);
   };
 
-  // console.log(home);
-  // console.log(away);
   const homePlayers = [...Object.keys(home.players).map(i => home.players[i])];
   const awayPlayers = [...Object.keys(away.players).map(i => away.players[i])];
   return (
@@ -51,40 +49,10 @@ const Rosters = ({ teams: { home, away } }) => {
         disabled
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <RosterTeamList
-            players={home.players}
-            forwards={homePlayers.filter(
-              ({ position }) =>
-                position.code === 'L' ||
-                position.code === 'C' ||
-                position.code === 'R'
-            )}
-            defense={homePlayers.filter(
-              ({ position }) => position.code === 'D'
-            )}
-            goalies={homePlayers.filter(
-              ({ position }) => position.code === 'G'
-            )}
-            teamName={home.team.name}
-          />
+          <RosterTableList players={homePlayers} teamName={home.team.name} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <RosterTeamList
-            players={away.players}
-            forwards={awayPlayers.filter(
-              ({ position }) =>
-                position.code === 'L' ||
-                position.code === 'C' ||
-                position.code === 'R'
-            )}
-            defense={awayPlayers.filter(
-              ({ position }) => position.code === 'D'
-            )}
-            goalies={awayPlayers.filter(
-              ({ position }) => position.code === 'G'
-            )}
-            teamName={away.team.name}
-          />
+          <RosterTableList players={awayPlayers} teamName={away.team.name} />
         </TabPanel>
       </SwipeableViews>
     </div>

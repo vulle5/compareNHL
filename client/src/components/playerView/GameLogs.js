@@ -109,7 +109,7 @@ const filterLogs = (isGoalie, games) => {
           : season.opponent.abbreviation.replace(/^/, '@'),
         season.stat.shotsAgainst,
         season.stat.saves,
-        season.stat.savePercentage.toFixed(3),
+        parseFloat(season.stat.savePercentage).toFixed(3),
         season.stat.timeOnIce
       )
     );

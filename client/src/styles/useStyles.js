@@ -355,3 +355,12 @@ export const useThreeStarsStyles = makeStyles(theme => ({
     }
   }
 }));
+
+export const useRosterTableStyles = makeStyles(theme => ({
+  primaryText: {
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
+  }
+}));

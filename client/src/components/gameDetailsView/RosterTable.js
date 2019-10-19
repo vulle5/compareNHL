@@ -10,10 +10,11 @@ import {
   TableRow,
   useMediaQuery
 } from '@material-ui/core';
+import { useRosterTableStyles } from '../../styles/useStyles';
 
-const RosterTeamList = ({ players, teamName, forwards, defense, goalies }) => {
-  const allPlayers = [...Object.keys(players).map(i => players[i])];
+const RosterTable = ({ players, tableTitle, isGoalie }) => {
   const matches = useMediaQuery(theme => theme.breakpoints.up('sm'));
+  const classes = useRosterTableStyles();
 
   function generateTableHead(isGoalie) {
     if (isGoalie) {
@@ -47,7 +48,7 @@ const RosterTeamList = ({ players, teamName, forwards, defense, goalies }) => {
   }
 
   function generateTableBody(playerId) {
-    const player = allPlayers.find(player => player.person.id === playerId);
+    const player = players.find(player => player.person.id === playerId);
     const getAvatar = () => (
       <Avatar
         alt="Player logo"
@@ -75,13 +76,13 @@ const RosterTeamList = ({ players, teamName, forwards, defense, goalies }) => {
             <TableCell align="right">{goalieStats.shots}</TableCell>
             <TableCell align="right">{goalieStats.saves}</TableCell>
             <TableCell align="right">
-              {goalieStats.savePercentage.toFixed(1)}
+              {parseFloat(goalieStats.savePercentage || 0).toFixed(1)}
             </TableCell>
             <TableCell align="right">
               {goalieStats.powerPlayShotsAgainst}
             </TableCell>
             <TableCell align="right">
-              {goalieStats.powerPlaySavePercentage.toFixed(1)}
+              {parseFloat(goalieStats.powerPlaySavePercentage || 0).toFixed(1)}
             </TableCell>
           </TableRow>
         </TableBody>
@@ -98,7 +99,14 @@ const RosterTeamList = ({ players, teamName, forwards, defense, goalies }) => {
             <TableCell style={{ width: '45px' }}>
               <Link to={`/player/${player.person.id}`}>{getAvatar()}</Link>
             </TableCell>
-            <TableCell align="left">{`#${player.jerseyNumber} ${player.person.fullName}`}</TableCell>
+            <TableCell align="left">
+              {
+                <Link
+                  to={`/player/${player.person.id}`}
+                  className={classes.primaryText}
+                >{`#${player.jerseyNumber} ${player.person.fullName}`}</Link>
+              }
+            </TableCell>
             <TableCell align="right">
               {skaterStats.goals + skaterStats.assists}
             </TableCell>
@@ -117,43 +125,17 @@ const RosterTeamList = ({ players, teamName, forwards, defense, goalies }) => {
   return (
     <div>
       <Typography
-        variant="h4"
-        style={{ textAlign: 'center', marginBottom: '24px' }}
-      >
-        {teamName}
-      </Typography>
-      <Typography
         variant="h5"
         style={{ paddingLeft: '8px', marginBottom: '8px' }}
       >
-        Forwards
+        {tableTitle}
       </Typography>
       <Table size="small" style={{ marginBottom: '24px' }}>
-        {generateTableHead()}
-        {forwards.map(player => generateTableBody(player.person.id))}
-      </Table>
-      <Typography
-        variant="h5"
-        style={{ paddingLeft: '8px', marginBottom: '8px' }}
-      >
-        Defense
-      </Typography>
-      <Table size="small" style={{ marginBottom: '24px' }}>
-        {generateTableHead()}
-        {defense.map(player => generateTableBody(player.person.id))}
-      </Table>
-      <Typography
-        variant="h5"
-        style={{ paddingLeft: '8px', marginBottom: '8px' }}
-      >
-        Goalies
-      </Typography>
-      <Table size="small">
-        {generateTableHead(true)}
-        {goalies.map(player => generateTableBody(player.person.id))}
+        {generateTableHead(isGoalie)}
+        {players.map(player => generateTableBody(player.person.id))}
       </Table>
     </div>
   );
 };
 
-export default RosterTeamList;
+export default RosterTable;
