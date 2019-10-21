@@ -213,7 +213,7 @@ export const useScheduleCardItemStyles = makeStyles(theme => ({
 
 export const useDatePickerStyles = makeStyles({
   root: {
-    marginBottom: '0px'
+    '&&': { marginBottom: '0px' }
   }
 });
 
