@@ -3,6 +3,7 @@ import { Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
+import { StylesProvider } from '@material-ui/core/styles';
 
 import SearchPlayersBar from './appBar/SearchPlayersBar';
 import ProgressBarGlobal from './ProgressBarGlobal';
@@ -29,24 +30,26 @@ const App = ({ setTheme, theme }) => {
   }, [setTheme]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Router history={history}>
-        <SearchPlayersBar />
-        <ProgressBarGlobal />
-        <SideDrawer />
-        <Suspense fallback={<LinearProgressBar />}>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/team/:id" component={TeamInfo} />
-            <Route path="/player/:playerId" component={PlayerInfo} />
-            <Route path="/compare/:playerId" component={Compare} />
-            <Route path="/gameDetails/:gamePk" component={GameDetails} />
-            <Route component={ErrorMessage} />
-          </Switch>
-        </Suspense>
-      </Router>
-    </ThemeProvider>
+    <StylesProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Router history={history}>
+          <SearchPlayersBar />
+          <ProgressBarGlobal />
+          <SideDrawer />
+          <Suspense fallback={<LinearProgressBar />}>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/team/:id" component={TeamInfo} />
+              <Route path="/player/:playerId" component={PlayerInfo} />
+              <Route path="/compare/:playerId" component={Compare} />
+              <Route path="/gameDetails/:gamePk" component={GameDetails} />
+              <Route component={ErrorMessage} />
+            </Switch>
+          </Suspense>
+        </Router>
+      </ThemeProvider>
+    </StylesProvider>
   );
 };
 
