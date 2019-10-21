@@ -39,7 +39,7 @@ scheduleRoutes.get('', async (req, res) => {
       // Check that dates are not too far apart to avoid excessively large api calls
       moment(req.query.endDate).diff(moment(req.query.startDate), 'days') <= 20
     ) {
-      // Get yesterdays and tomorrows games
+      // Get games from api based on given dates
       const [newStartDate, newEndDate] = parseEndDateAndStartDate(
         req.query.startDate,
         req.query.endDate
@@ -52,9 +52,7 @@ scheduleRoutes.get('', async (req, res) => {
         }) || ''}`
       );
       // Take games from api data and flatten
-      const gamesOnly = gamesToParse.dates
-        .map((date) => date.games)
-        .reduce((acc, val) => acc.concat(val), []);
+      const gamesOnly = gamesToParse.dates.flatMap((date) => date.games);
       // Convert the games to clients timezone
       const { timezone } = querystring.parse(querystring.stringify(req.query));
       const convertedGames = gamesToClientTime(

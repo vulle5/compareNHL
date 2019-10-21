@@ -141,7 +141,7 @@ export const useScheduleViewStyles = makeStyles(theme => ({
     cursor: 'pointer'
   },
   tooltipPlacementTop: {
-    margin: '0px'
+    '&&': { margin: '0px' }
   }
 }));
 

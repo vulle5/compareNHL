@@ -15,11 +15,9 @@ import { Tooltip } from '@material-ui/core';
 import { useTheme } from '@material-ui/styles';
 
 const ScheduleView = ({ toggleProgress }) => {
-  const yesterday = moment()
-    .subtract(1, 'days')
-    .format('YYYY-MM-DD');
-  const tomorrow = moment()
-    .add(1, 'days')
+  const startDate = moment().format('YYYY-MM-DD');
+  const endDate = moment()
+    .add(2, 'days')
     .format('YYYY-MM-DD');
 
   const [dates, setDates] = useState([]);
@@ -58,12 +56,12 @@ const ScheduleView = ({ toggleProgress }) => {
       const { date } = qs.parse(search.substring(1));
       if (!date || moment(date, 'YYYY-MM-DD').isValid()) {
         const dates = await getDates(
-          date ? date : yesterday,
+          date ? date : startDate,
           date
             ? moment(date)
-                .add(1, 'days')
+                .add(2, 'days')
                 .format('YYYY-MM-DD')
-            : tomorrow,
+            : endDate,
           moment.tz.guess(),
           'expand=schedule.linescore'
         );
@@ -72,7 +70,7 @@ const ScheduleView = ({ toggleProgress }) => {
       }
       toggleProgress(false);
     })();
-  }, [getDates, tomorrow, yesterday, location, history, toggleProgress]);
+  }, [getDates, endDate, location, history, toggleProgress, startDate]);
 
   const handleDateChange = date => {
     if (moment(date).isValid()) {
