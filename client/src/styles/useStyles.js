@@ -149,7 +149,10 @@ export const useScheduleListStyles = makeStyles(theme => ({
   wrapper: {
     display: 'flex',
     flexWrap: 'wrap',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    [theme.breakpoints.down('xs')]: {
+      marginTop: '16px'
+    }
   },
   gameWrapper: {
     display: 'flex',

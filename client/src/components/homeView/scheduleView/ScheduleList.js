@@ -1,5 +1,7 @@
 import React from 'react';
-import { Typography, Card } from '@material-ui/core';
+import { Typography, Card, IconButton, useMediaQuery } from '@material-ui/core';
+import BackArrow from '@material-ui/icons/ArrowBack';
+import ForwardArrow from '@material-ui/icons/ArrowForward';
 import moment from 'moment';
 
 import { useScheduleListStyles } from '../../../styles/useStyles';
@@ -17,6 +19,7 @@ const ScheduleList = ({
   viewStyle
 }) => {
   const classes = useScheduleListStyles();
+  const matches = useMediaQuery('(min-width:680px)');
 
   function generateScheduleItem(
     gamePk,
@@ -56,6 +59,48 @@ const ScheduleList = ({
     return null;
   }
 
+  const generateDateButtons = () => {
+    if (matches) {
+      return (
+        <>
+          <IconButton
+            style={{ margin: '0px 8px' }}
+            onClick={() => handleDateChange(moment(date).subtract(1, 'days'))}
+          >
+            <BackArrow />
+          </IconButton>
+          <DatePicker date={datePicker} handleDateChange={handleDateChange} />
+          <IconButton
+            style={{ margin: '0px 8px' }}
+            onClick={() => handleDateChange(moment(date).add(1, 'days'))}
+          >
+            <ForwardArrow />
+          </IconButton>
+        </>
+      );
+    } else {
+      return (
+        <div style={{ display: 'flex' }}>
+          <DatePicker date={datePicker} handleDateChange={handleDateChange} />
+          <div style={{ alignSelf: 'center', textAlign: 'center' }}>
+            <IconButton
+              style={{ marginRight: '4px' }}
+              onClick={() => handleDateChange(moment(date).subtract(1, 'days'))}
+            >
+              <BackArrow />
+            </IconButton>
+            <IconButton
+              style={{ marginLeft: '4px' }}
+              onClick={() => handleDateChange(moment(date).add(1, 'days'))}
+            >
+              <ForwardArrow />
+            </IconButton>
+          </div>
+        </div>
+      );
+    }
+  };
+
   const generateScheduleListView = (date, games, index) => {
     if (games.length) {
       return (
@@ -67,12 +112,7 @@ const ScheduleList = ({
             <div style={{ marginRight: '32px' }}>
               ({`UTC${moment(date).format('Z')}`})
             </div>
-            {index === 0 && (
-              <DatePicker
-                date={datePicker}
-                handleDateChange={handleDateChange}
-              />
-            )}
+            {index === 0 && generateDateButtons()}
           </div>
           <div
             className={classes.gameWrapper}
@@ -93,7 +133,7 @@ const ScheduleList = ({
       );
     }
     return (
-      <div key={date}>
+      <div>
         <div className={classes.emptyGameWrapper}>
           <Typography variant="h4" style={{ marginRight: '16px' }}>
             {getTitle(date)}
