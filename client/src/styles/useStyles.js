@@ -104,10 +104,12 @@ export const useTeamListStyles = makeStyles(() => ({
   },
   listLogo: {
     height: '40px',
-    // Height is 53px, because anything above causes scrollbar
-    // to appear briefly on fullHd (width: 1920px)
-    '&:hover': { height: '53px' },
-    transition: 'height .25s cubic-bezier(0.22, 0.61, 0.36, 1)'
+    '&:hover': {
+      '-webkit-transform': 'scale(1.25)',
+      '-ms-transform': 'scale(1.25)',
+      transform: 'scale(1.25)'
+    },
+    transition: 'transform .25s cubic-bezier(0.22, 0.61, 0.36, 1)'
   }
 }));
 
