@@ -7,10 +7,10 @@ export const useCompareStyles = makeStyles(theme => ({
       padding: '56px 16px 16px 16px'
     },
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    alignItems: 'flex-start'
   },
   tileRoot: {
-    display: 'inline-block',
     margin: '16px 16px 0px 0px',
     width: '100%',
     maxWidth: '425px',
@@ -19,8 +19,19 @@ export const useCompareStyles = makeStyles(theme => ({
     }
   },
   tileWrapper: {
-    padding: theme.spacing(2),
-    minHeight: '780px'
+    padding: theme.spacing(2)
+  },
+  tileExpandButton: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    transition: 'transform .25s cubic-bezier(0.22, 0.61, 0.36, 1)'
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+    transition: 'transform .25s cubic-bezier(0.22, 0.61, 0.36, 1)'
   },
   tileCloseButtonWrapper: {
     position: 'relative'
