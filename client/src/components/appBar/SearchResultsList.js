@@ -78,7 +78,7 @@ const SearchResultsList = ({
         />
         <ListItemSecondaryAction>
           <Button
-            variant="outlined"
+            variant="contained"
             color="secondary"
             onClick={event => onCompareClick(event, player[0])}
           >

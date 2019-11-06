@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
+import CompareIcon from '@material-ui/icons/CompareArrows';
 import { playerInfoStyles } from '../../styles/jss-styles';
 
 import { initializePlayer } from '../../reducers/playerReducer';
@@ -32,6 +33,7 @@ const PlayerInfo = props => {
         to={`/compare/${playerId}`}
         title="Compare"
         isLink
+        Icon={CompareIcon}
       />
     </div>
   );

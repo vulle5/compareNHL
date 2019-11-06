@@ -39,7 +39,7 @@ const TeamRosterPosList = ({ players, title }) => {
   function compareButton(player) {
     return matches ? (
       <Button
-        variant="outlined"
+        variant="contained"
         color="secondary"
         onClick={event => onCompareClick(event, player.person.id)}
       >
