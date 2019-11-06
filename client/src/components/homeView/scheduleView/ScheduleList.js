@@ -1,7 +1,6 @@
 import React from 'react';
-import { Typography, Card, IconButton, useMediaQuery } from '@material-ui/core';
+import { Typography, Card, IconButton } from '@material-ui/core';
 import BackArrow from '@material-ui/icons/ArrowBack';
-import ForwardArrow from '@material-ui/icons/ArrowForward';
 import moment from 'moment';
 
 import { useScheduleListStyles } from '../../../styles/useStyles';
@@ -19,7 +18,6 @@ const ScheduleList = ({
   viewStyle
 }) => {
   const classes = useScheduleListStyles();
-  const matches = useMediaQuery('(min-width:680px)');
 
   function generateScheduleItem(
     gamePk,
@@ -60,45 +58,17 @@ const ScheduleList = ({
   }
 
   const generateDateButtons = () => {
-    if (matches) {
-      return (
-        <>
-          <IconButton
-            style={{ margin: '0px 8px' }}
-            onClick={() => handleDateChange(moment(date).subtract(1, 'days'))}
-          >
-            <BackArrow />
-          </IconButton>
-          <DatePicker date={datePicker} handleDateChange={handleDateChange} />
-          <IconButton
-            style={{ margin: '0px 8px' }}
-            onClick={() => handleDateChange(moment(date).add(1, 'days'))}
-          >
-            <ForwardArrow />
-          </IconButton>
-        </>
-      );
-    } else {
-      return (
-        <div style={{ display: 'flex' }}>
-          <DatePicker date={datePicker} handleDateChange={handleDateChange} />
-          <div style={{ alignSelf: 'center', textAlign: 'center' }}>
-            <IconButton
-              style={{ marginRight: '4px' }}
-              onClick={() => handleDateChange(moment(date).subtract(1, 'days'))}
-            >
-              <BackArrow />
-            </IconButton>
-            <IconButton
-              style={{ marginLeft: '4px' }}
-              onClick={() => handleDateChange(moment(date).add(1, 'days'))}
-            >
-              <ForwardArrow />
-            </IconButton>
-          </div>
-        </div>
-      );
-    }
+    return (
+      <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+        <IconButton
+          style={{ marginRight: '12px' }}
+          onClick={() => handleDateChange(moment(date).subtract(1, 'days'))}
+        >
+          <BackArrow />
+        </IconButton>
+        <DatePicker date={datePicker} handleDateChange={handleDateChange} />
+      </div>
+    );
   };
 
   const generateScheduleListView = (date, games, index) => {
@@ -106,10 +76,10 @@ const ScheduleList = ({
       return (
         <div>
           <div className={classes.wrapper}>
-            <Typography variant="h4" style={{ marginRight: '16px' }}>
+            <Typography variant="h3" style={{ marginRight: '16px' }}>
               {getTitle(date)}
             </Typography>
-            <div style={{ marginRight: '32px' }}>
+            <div style={{ marginRight: '24px' }}>
               ({`UTC${moment(date).format('Z')}`})
             </div>
             {index === 0 && generateDateButtons()}
@@ -135,10 +105,10 @@ const ScheduleList = ({
     return (
       <div>
         <div className={classes.emptyGameWrapper}>
-          <Typography variant="h4" style={{ marginRight: '16px' }}>
+          <Typography variant="h3" style={{ marginRight: '16px' }}>
             {getTitle(date)}
           </Typography>
-          <div style={{ marginRight: '32px' }}>
+          <div style={{ marginRight: '24px' }}>
             ({`UTC${moment(date).format('Z')}`})
           </div>
           {index === 0 && (

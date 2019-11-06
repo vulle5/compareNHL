@@ -11,7 +11,7 @@ import scheduleServices from '../../../services/schedule';
 import { toggleProgress } from '../../../reducers/globalProgressReducer';
 import ScheduleList from './ScheduleList';
 import { useScheduleViewStyles } from '../../../styles/useStyles';
-import { Tooltip } from '@material-ui/core';
+import { Tooltip, Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/styles';
 
 const ScheduleView = ({ toggleProgress }) => {
@@ -115,7 +115,7 @@ const ScheduleView = ({ toggleProgress }) => {
   return (
     <div style={{ marginTop: '24px' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <div style={{ marginRight: '16px' }}>View</div>
+        <Typography style={{ marginRight: '16px' }}>View</Typography>
         <Tooltip title="Card" placement="top" classes={classes}>
           <CardLogo
             height="35"
