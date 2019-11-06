@@ -114,7 +114,9 @@ const ScheduleView = ({ toggleProgress }) => {
 
   return (
     <div style={{ marginTop: '24px' }}>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div
+        style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}
+      >
         <Typography style={{ marginRight: '16px' }}>View</Typography>
         <Tooltip title="Card" placement="top" classes={classes}>
           <CardLogo

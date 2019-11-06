@@ -8,7 +8,8 @@ import {
   Card,
   CardContent,
   Avatar,
-  Divider
+  Divider,
+  useMediaQuery
 } from '@material-ui/core';
 
 import defLogo from '../../../assets/defLogo.svg';
@@ -29,7 +30,7 @@ const ScheduleCardItem = ({
   const [awayAbb, setAwayAbb] = useState('AWAY');
   const [homeTeam, setHomeTeam] = useState('Home');
   const [awayTeam, setAwayTeam] = useState('Away');
-
+  const matches = useMediaQuery('(min-width:600px)');
   const classes = useScheduleCardItemStyles();
 
   const findTeamName = useCallback(
@@ -74,16 +75,21 @@ const ScheduleCardItem = ({
     ) {
       return (
         <>
-          <Typography variant="h5">{home.score}</Typography>
-          <Typography variant="h5" style={{ margin: '0px 32px' }}>
+          <Typography variant={matches ? 'h5' : 'h4'}>{home.score}</Typography>
+          <Typography
+            variant={matches ? 'h5' : 'h4'}
+            style={{ margin: '0px 32px' }}
+          >
             -
           </Typography>
-          <Typography variant="h5">{away.score}</Typography>
+          <Typography variant={matches ? 'h5' : 'h4'}>{away.score}</Typography>
         </>
       );
     } else {
       return (
-        <Typography variant="h5">{moment(gameDate).format('HH:mm')}</Typography>
+        <Typography variant={matches ? 'h5' : 'h4'}>
+          {moment(gameDate).format('HH:mm')}
+        </Typography>
       );
     }
   }
