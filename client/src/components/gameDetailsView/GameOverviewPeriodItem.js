@@ -208,10 +208,15 @@ const findGoalHighlight = (highlights, eventId) => {
     )
   );
   if (highlight) {
-    const { url } = highlight.playbacks.find(video => video.width === '960');
-    return { url: url, description: highlight.blurb };
+    try {
+      const { url } = highlight.playbacks.find(video =>
+        video.name.includes('FLASH_1800K')
+      );
+      return { url: url, description: highlight.blurb };
+    } catch (error) {
+      return { url: null, description: null };
+    }
   }
-
   return { url: null, description: null };
 };
 
