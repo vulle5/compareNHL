@@ -5,7 +5,7 @@ const fetchHighlights = async gamePk => {
     const { highlights, media } = await contentService.getContent(gamePk);
     const { items } = media.epg.find(media => media.title === 'Recap');
     const { playbacks } = items.find(item => item.type === 'video');
-    const { url } = playbacks.find(video => video.width === '960');
+    const { url } = playbacks.find(video => video.name.includes('FLASH_1800K'));
     return {
       recap: url,
       goalHighlights: highlights.scoreboard.items,
