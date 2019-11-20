@@ -85,7 +85,19 @@ const GameDetailHeader = ({
       return <HighlightsButton handleClickOpen={handleClickOpen} />;
     }
     if (!highlight && highlightIsFetching) {
-      return <CircularProgress />;
+      return (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '225px',
+            height: '72px'
+          }}
+        >
+          <CircularProgress />
+        </div>
+      );
     }
     if (!highlight && !highlightIsFetching) {
       return null;
@@ -177,7 +189,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { toggleDialog }
-)(GameDetailHeader);
+export default connect(mapStateToProps, { toggleDialog })(GameDetailHeader);
