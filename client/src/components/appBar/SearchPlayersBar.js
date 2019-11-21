@@ -19,6 +19,7 @@ import SearchResultsList from './SearchResultsList';
 import { toggleDrawer } from '../../reducers/drawerReducer';
 import history from '../../history';
 
+// TODO: refactor this to smaller components
 const SearchPlayersBar = props => {
   const { classes, theme, toggleDrawer } = props;
   const [term, setTerm] = useState('');
@@ -129,7 +130,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { toggleDrawer }
-)(withStyles(searchPlayerBarStyles)(SearchPlayersBar));
+export default connect(mapStateToProps, { toggleDrawer })(
+  withStyles(searchPlayerBarStyles)(SearchPlayersBar)
+);

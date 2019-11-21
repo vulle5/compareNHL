@@ -36,8 +36,7 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
       <div className={classes.logoWrapper}>
         <object
           title={`Flag of ${player.nationality}`}
-          width="48"
-          height="48"
+          style={{ maxWidth: '48px', maxHeight: '48px' }}
           aria-label={`Country flag of ${player.nationality}`}
           type="image/png"
           typemustmatch=""
