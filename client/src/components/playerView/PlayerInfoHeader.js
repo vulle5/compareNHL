@@ -7,7 +7,6 @@ import { isEmpty } from 'lodash';
 
 import { playerInfoHeader } from '../../styles/jss-styles';
 import getCountryISO2 from '../../functions/iso3toIso2';
-import ErrorMessage from '../ErrorMessage';
 
 const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
   if (isEmpty(player)) {
@@ -16,10 +15,6 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
         <CircularProgress />
       </div>
     );
-  }
-
-  if (player.errorMessage) {
-    return <ErrorMessage />;
   }
 
   return (

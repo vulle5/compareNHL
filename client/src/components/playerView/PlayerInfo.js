@@ -9,6 +9,7 @@ import { initializePlayerImage } from '../../reducers/playerImageReducer';
 import PlayerInfoHeader from './PlayerInfoHeader';
 import SeasonTable from './SeasonTable';
 import FloatingActionButton from '../FAB';
+import ErrorMessage from '../ErrorMessage';
 
 const PlayerInfo = props => {
   // Get Player id from the React Router props and styles
@@ -17,12 +18,17 @@ const PlayerInfo = props => {
     match: {
       params: { playerId }
     },
-    initializePlayer
+    initializePlayer,
+    player
   } = props;
 
   useEffect(() => {
     initializePlayer(playerId);
   }, [initializePlayer, playerId]);
+
+  if (player.errorMessage) {
+    return <ErrorMessage />;
+  }
 
   return (
     <div className={classes.wrapper}>
@@ -52,6 +58,12 @@ function doPlayerInit(value) {
   };
 }
 
+const mapStateToProps = state => {
+  return {
+    player: state.player
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     initializePlayer: value => {
@@ -61,6 +73,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(withStyles(playerInfoStyles)(PlayerInfo));
