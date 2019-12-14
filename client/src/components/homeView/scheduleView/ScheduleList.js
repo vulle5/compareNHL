@@ -19,6 +19,7 @@ const ScheduleList = ({
 }) => {
   const classes = useScheduleListStyles();
 
+  // TODO: Memoize renders
   function generateScheduleItem(
     gamePk,
     gameDate,

@@ -23,7 +23,7 @@ import SearchResultListItem from './SearchResultListItem';
 const SearchResultsList = ({
   classes,
   listStatus,
-  handleListStatus,
+  setListStatus,
   isInputFocused,
   nonDebouncedTerm,
   searchResults,
@@ -38,7 +38,7 @@ const SearchResultsList = ({
 
   return (
     <ClickAwayListener
-      onClickAway={() => !isInputFocused && handleListStatus(false)}
+      onClickAway={() => !isInputFocused && setListStatus(false)}
     >
       <div
         className={classes.wrapper}
@@ -69,7 +69,7 @@ const SearchResultsList = ({
                 <SearchResultListItem
                   key={player[0]}
                   player={player}
-                  handleListStatus={handleListStatus}
+                  handleListStatus={setListStatus}
                   noDivider={i === firstEightPlayers.length - 1}
                 />
               ))
