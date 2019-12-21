@@ -178,7 +178,11 @@ const ScheduleCardItem = ({
               <Avatar
                 className={classes.teamLogo}
                 imgProps={{
-                  style: { position: 'absolute', width: '145%' }
+                  style: {
+                    position: 'absolute',
+                    width: '145%',
+                    backgroundColor: ' rgba(0, 0, 0, 0)'
+                  }
                 }}
                 src={`/api/teams/${home.team.id}/logo`}
                 alt="Team"
@@ -193,7 +197,11 @@ const ScheduleCardItem = ({
               <Avatar
                 className={classes.teamLogo}
                 imgProps={{
-                  style: { position: 'absolute', width: '145%' }
+                  style: {
+                    position: 'absolute',
+                    width: '145%',
+                    backgroundColor: ' rgba(0, 0, 0, 0)'
+                  }
                 }}
                 src={`/api/teams/${away.team.id}/logo`}
                 alt="Team"

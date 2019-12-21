@@ -40,6 +40,7 @@ const SideDrawer = ({ drawer, toggleDrawer, theme, setTheme }) => {
     setAnchorEl(null);
   };
 
+  // If you add more settings here separate settings items into own reusable component
   return (
     <div>
       <Drawer open={drawer} onClose={event => toggleDrawer(event)}>
