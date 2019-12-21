@@ -11,6 +11,7 @@ import { setTheme } from '../reducers/themeReducer';
 import SideDrawer from './SideDrawer';
 import history from '../history';
 import ErrorMessage from './ErrorMessage';
+import { useMediaQuery } from '@material-ui/core';
 
 const Home = lazy(() => import('./homeView/Home'));
 const PlayerInfo = lazy(() => import('./playerView/PlayerInfo'));
@@ -19,14 +20,15 @@ const TeamInfo = lazy(() => import('./teamView/TeamInfo'));
 const GameDetails = lazy(() => import('./gameDetailsView/GameDetails'));
 
 const App = ({ setTheme, theme }) => {
+  const matches = useMediaQuery('(prefers-color-scheme: dark)');
   useEffect(() => {
-    const theme = localStorage.getItem('theme');
-    if (theme) {
-      setTheme(theme);
+    const themeName = localStorage.getItem('theme');
+    if (themeName === 'auto' || !themeName) {
+      setTheme('auto', matches);
     } else {
-      setTheme('light');
+      setTheme(themeName, matches);
     }
-  }, [setTheme]);
+  }, [setTheme, matches]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -56,7 +58,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { setTheme }
-)(App);
+export default connect(mapStateToProps, { setTheme })(App);

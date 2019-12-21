@@ -7,8 +7,11 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Switch,
-  ListSubheader
+  Menu,
+  MenuItem,
+  useMediaQuery,
+  ListSubheader,
+  Button
 } from '@material-ui/core/';
 import InvertColors from '@material-ui/icons/InvertColors';
 import { toggleDrawer } from '../reducers/drawerReducer';
@@ -25,6 +28,17 @@ const useStyles = makeStyles({
 
 const SideDrawer = ({ drawer, toggleDrawer, theme, setTheme }) => {
   const classes = useStyles();
+  const matches = useMediaQuery('(prefers-color-scheme: dark)');
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = theme => {
+    theme === 'auto' ? setTheme('auto', matches) : setTheme(theme, matches);
+    setAnchorEl(null);
+  };
 
   return (
     <div>
@@ -35,13 +49,25 @@ const SideDrawer = ({ drawer, toggleDrawer, theme, setTheme }) => {
               <ListItemIcon>
                 <InvertColors />
               </ListItemIcon>
-              <ListItemText primary={'Dark mode'} />
-              <Switch
-                checked={theme === 'dark'}
-                onChange={() =>
-                  theme === 'dark' ? setTheme('light') : setTheme('dark')
-                }
-              />
+              <ListItemText primary={'Theme'} />
+              <Button
+                aria-controls="theme-menu"
+                aria-haspopup="true"
+                onClick={handleClick}
+              >
+                {theme}
+              </Button>
+              <Menu
+                id="theme-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={() => handleClose('auto')}>Auto</MenuItem>
+                <MenuItem onClick={() => handleClose('light')}>Light</MenuItem>
+                <MenuItem onClick={() => handleClose('dark')}>Dark</MenuItem>
+              </Menu>
             </ListItem>
           </List>
         </div>
@@ -53,11 +79,8 @@ const SideDrawer = ({ drawer, toggleDrawer, theme, setTheme }) => {
 const mapStateToProps = state => {
   return {
     drawer: state.drawer,
-    theme: state.theme.palette.type
+    theme: state.theme.themeType
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { toggleDrawer, setTheme }
-)(SideDrawer);
+export default connect(mapStateToProps, { toggleDrawer, setTheme })(SideDrawer);
