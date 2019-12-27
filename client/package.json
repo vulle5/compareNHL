@@ -29,6 +29,9 @@
     "smoothscroll-polyfill": "^0.4.4",
     "use-debounce": "2.1.0"
   },
+  "devDependencies": {
+    "redux-devtools-extension": "2.13.8"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
