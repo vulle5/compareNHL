@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import 'moment-duration-format';
@@ -7,7 +8,8 @@ import {
   Card,
   CardContent,
   Avatar,
-  Divider
+  Divider,
+  useMediaQuery
 } from '@material-ui/core';
 
 import defLogo from '../../../assets/defLogo.svg';
@@ -28,7 +30,7 @@ const ScheduleCardItem = ({
   const [awayAbb, setAwayAbb] = useState('AWAY');
   const [homeTeam, setHomeTeam] = useState('Home');
   const [awayTeam, setAwayTeam] = useState('Away');
-
+  const matches = useMediaQuery('(min-width:600px)');
   const classes = useScheduleCardItemStyles();
 
   const findTeamName = useCallback(
@@ -67,20 +69,27 @@ const ScheduleCardItem = ({
   function determineScore() {
     if (
       status.detailedState === 'Final' ||
-      status.detailedState === 'In Progress'
+      status.detailedState === 'In Progress' ||
+      status.detailedState === 'In Progress - Critical' ||
+      status.detailedState === 'Game Over'
     ) {
       return (
         <>
-          <Typography variant="h5">{home.score}</Typography>
-          <Typography variant="h5" style={{ margin: '0px 32px' }}>
+          <Typography variant={matches ? 'h5' : 'h4'}>{home.score}</Typography>
+          <Typography
+            variant={matches ? 'h5' : 'h4'}
+            style={{ margin: '0px 32px' }}
+          >
             -
           </Typography>
-          <Typography variant="h5">{away.score}</Typography>
+          <Typography variant={matches ? 'h5' : 'h4'}>{away.score}</Typography>
         </>
       );
     } else {
       return (
-        <Typography variant="h5">{moment(gameDate).format('HH:mm')}</Typography>
+        <Typography variant={matches ? 'h5' : 'h4'}>
+          {moment(gameDate).format('HH:mm')}
+        </Typography>
       );
     }
   }
@@ -106,7 +115,10 @@ const ScheduleCardItem = ({
     // goaliePulled: for empty net stat
 
     // If game is in progress
-    if (status.detailedState === 'In Progress') {
+    if (
+      status.detailedState === 'In Progress' ||
+      status.detailedState === 'In Progress - Critical'
+    ) {
       const intermissionTime = moment.duration(
         linescore.intermissionInfo.intermissionTimeRemaining,
         'seconds'
@@ -133,7 +145,10 @@ const ScheduleCardItem = ({
   }
 
   function determineLeagueScore() {
-    if (status.detailedState === 'Final') {
+    if (
+      status.detailedState === 'Final' ||
+      status.detailedState === 'Game Over'
+    ) {
       return (
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ fontSize: '12px' }}>{`(${home.leagueRecord.wins ||
@@ -150,69 +165,81 @@ const ScheduleCardItem = ({
 
   return (
     <Card className={classes.gameCard}>
-      <CardContent>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography variant="subtitle1">
-            {determineGameType(gamePk.toString())}
-          </Typography>
-          <Typography variant="subtitle1">{determineGameState()}</Typography>
-        </div>
-        <div className={classes.scoreLogoWrapper}>
-          <div>
-            <Avatar
-              className={classes.teamLogo}
-              imgProps={{
-                style: { position: 'absolute', width: '145%' }
-              }}
-              src={`/api/teams/${home.team.id}/logo`}
-              alt="Team"
-              onError={e => {
-                e.target.onerror = null;
-                e.target.src = defLogo;
-              }}
-            />
+      <Link to={`/gameDetails/${gamePk}`}>
+        <CardContent>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Typography variant="subtitle1">
+              {determineGameType(gamePk.toString())}
+            </Typography>
+            <Typography variant="subtitle1">{determineGameState()}</Typography>
           </div>
-          <div style={{ display: 'flex' }}>{determineScore()}</div>
-          <div>
-            <Avatar
-              className={classes.teamLogo}
-              imgProps={{
-                style: { position: 'absolute', width: '145%' }
-              }}
-              src={`/api/teams/${away.team.id}/logo`}
-              alt="Team"
-              onError={e => {
-                e.target.onerror = null;
-                e.target.src = defLogo;
-              }}
-            />
+          <div className={classes.scoreLogoWrapper}>
+            <div>
+              <Avatar
+                className={classes.teamLogo}
+                imgProps={{
+                  style: {
+                    position: 'absolute',
+                    width: '145%',
+                    backgroundColor: ' rgba(0, 0, 0, 0)'
+                  }
+                }}
+                src={`/api/teams/${home.team.id}/logo`}
+                alt="Team"
+                onError={e => {
+                  e.target.onerror = null;
+                  e.target.src = defLogo;
+                }}
+              />
+            </div>
+            <div style={{ display: 'flex' }}>{determineScore()}</div>
+            <div>
+              <Avatar
+                className={classes.teamLogo}
+                imgProps={{
+                  style: {
+                    position: 'absolute',
+                    width: '145%',
+                    backgroundColor: ' rgba(0, 0, 0, 0)'
+                  }
+                }}
+                src={`/api/teams/${away.team.id}/logo`}
+                alt="Team"
+                onError={e => {
+                  e.target.onerror = null;
+                  e.target.src = defLogo;
+                }}
+              />
+            </div>
           </div>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography style={{ textAlign: 'center' }} variant="subtitle1">
-            {`@${homeTeam}`}
-          </Typography>
-          <Typography style={{ textAlign: 'center' }} variant="subtitle1">
-            {awayTeam}
-          </Typography>
-        </div>
-        {determineLeagueScore()}
-        {(status.detailedState === 'Final' ||
-          status.detailedState === 'In Progress') && (
-          <>
-            <Divider style={{ margin: '12px 0px' }} />
-            <ScheduleCardItemOverview
-              homeAbb={homeAbb}
-              awayAbb={awayAbb}
-              first={linescore.periods[0]}
-              second={linescore.periods[1]}
-              third={linescore.periods[2]}
-              overtime={linescore.periods[3]}
-              shootout={linescore.shootoutInfo}
-            />
-          </>
-        )}
-      </CardContent>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Typography style={{ textAlign: 'center' }} variant="subtitle1">
+              {`@${homeTeam}`}
+            </Typography>
+            <Typography style={{ textAlign: 'center' }} variant="subtitle1">
+              {awayTeam}
+            </Typography>
+          </div>
+          {determineLeagueScore()}
+          {(status.detailedState === 'Final' ||
+            status.detailedState === 'In Progress' ||
+            status.detailedState === 'In Progress - Critical' ||
+            status.detailedState === 'Game Over') && (
+            <>
+              <Divider style={{ margin: '12px 0px' }} />
+              <ScheduleCardItemOverview
+                homeAbb={homeAbb}
+                awayAbb={awayAbb}
+                first={linescore.periods[0]}
+                second={linescore.periods[1]}
+                third={linescore.periods[2]}
+                overtime={linescore.periods[3]}
+                shootout={linescore.shootoutInfo}
+              />
+            </>
+          )}
+        </CardContent>
+      </Link>
     </Card>
   );
 };

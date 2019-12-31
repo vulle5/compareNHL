@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 export const useCompareStyles = makeStyles(theme => ({
   divRoot: {
@@ -7,10 +7,10 @@ export const useCompareStyles = makeStyles(theme => ({
       padding: '56px 16px 16px 16px'
     },
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    alignItems: 'flex-start'
   },
   tileRoot: {
-    display: 'inline-block',
     margin: '16px 16px 0px 0px',
     width: '100%',
     maxWidth: '425px',
@@ -19,8 +19,19 @@ export const useCompareStyles = makeStyles(theme => ({
     }
   },
   tileWrapper: {
-    padding: theme.spacing(2),
-    minHeight: '780px'
+    padding: theme.spacing(2)
+  },
+  tileExpandButton: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    transition: 'transform .25s cubic-bezier(0.22, 0.61, 0.36, 1)'
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+    transition: 'transform .25s cubic-bezier(0.22, 0.61, 0.36, 1)'
   },
   tileCloseButtonWrapper: {
     position: 'relative'
@@ -93,10 +104,12 @@ export const useTeamListStyles = makeStyles(() => ({
   },
   listLogo: {
     height: '40px',
-    // Height is 53px, because anything above causes scrollbar
-    // to appear briefly on fullHd (width: 1920px)
-    '&:hover': { height: '53px' },
-    transition: 'height .25s cubic-bezier(0.22, 0.61, 0.36, 1)'
+    '&:hover': {
+      '-webkit-transform': 'scale(1.25)',
+      '-ms-transform': 'scale(1.25)',
+      transform: 'scale(1.25)'
+    },
+    transition: 'transform .25s cubic-bezier(0.22, 0.61, 0.36, 1)'
   }
 }));
 
@@ -141,7 +154,7 @@ export const useScheduleViewStyles = makeStyles(theme => ({
     cursor: 'pointer'
   },
   tooltipPlacementTop: {
-    margin: '0px'
+    '&&': { margin: '0px' }
   }
 }));
 
@@ -149,7 +162,10 @@ export const useScheduleListStyles = makeStyles(theme => ({
   wrapper: {
     display: 'flex',
     flexWrap: 'wrap',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    [theme.breakpoints.down('xs')]: {
+      marginTop: '16px'
+    }
   },
   gameWrapper: {
     display: 'flex',
@@ -213,6 +229,154 @@ export const useScheduleCardItemStyles = makeStyles(theme => ({
 
 export const useDatePickerStyles = makeStyles({
   root: {
-    marginBottom: '0px'
+    '&&': { marginBottom: '0px' }
   }
 });
+
+export const useGameDetailStyles = makeStyles(theme => ({
+  root: {
+    maxWidth: '1000px',
+    margin: 'auto',
+    paddingTop: '64px',
+    [theme.breakpoints.down('xs')]: {
+      paddingTop: '56px'
+    }
+  },
+  paper: {
+    margin: '16px',
+    padding: '16px',
+    [theme.breakpoints.down('sm')]: {
+      margin: '0px',
+      padding: '16px 8px'
+    }
+  }
+}));
+
+export const useGameDetailHeaderStyles = makeStyles(theme => ({
+  headerWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '0px 10%',
+    marginBottom: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: theme.spacing(1),
+      padding: '0px'
+    }
+  },
+  logoContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    maxWidth: '250px'
+  },
+  teamLogo: {
+    width: '80%',
+    height: '50%'
+  },
+  teamName: {
+    textAlign: 'center',
+    margin: '16px 0px'
+  },
+  gameScore: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%'
+  }
+}));
+
+export const useGameOverviewStyles = makeStyles(theme => ({
+  periodWrapper: {
+    marginBottom: '16px',
+    padding: '16px',
+    border: 'solid 1px',
+    borderRadius: '4px',
+    borderColor: theme.palette.grey[600]
+  }
+}));
+
+export const useGameOverviewShootoutStyles = makeStyles(theme => ({
+  primaryText: {
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
+  },
+  wrapper: {
+    border: 'solid 1px',
+    borderColor: theme.palette.grey[600],
+    borderRadius: '4px',
+    padding: '16px'
+  }
+}));
+
+export const useGameOverviewPeriodItemStyles = makeStyles(theme => ({
+  primaryText: {
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
+  },
+  secondaryText: {
+    textDecoration: 'none',
+    color: theme.palette.text.secondary,
+    '& a:hover': {
+      textDecoration: 'underline'
+    }
+  },
+  gameTimeText: {
+    fontWeight: 'bold',
+    border: 'solid 1px',
+    borderRadius: '4px',
+    letterSpacing: '1.5px'
+  },
+  penaltyText: {
+    color: theme.palette.text.secondary
+  },
+  minorPenalty: {
+    fontSize: '17px',
+    padding: '2px',
+    borderRadius: '4px',
+    backgroundColor: 'yellow',
+    color: 'black',
+    border: 'solid 1px',
+    fontWeight: 'bold'
+  },
+  majorPenalty: {
+    fontSize: '17px',
+    padding: '2px',
+    borderRadius: '4px',
+    backgroundColor: 'orange',
+    color: 'black',
+    border: 'solid 1px',
+    fontWeight: 'bold'
+  },
+  gameMisconduct: {
+    fontSize: '17px',
+    padding: '2px',
+    borderRadius: '4px',
+    backgroundColor: '#ff4646',
+    color: 'black',
+    border: 'solid 1px',
+    fontWeight: 'bold'
+  }
+}));
+
+export const useThreeStarsStyles = makeStyles(theme => ({
+  primaryText: {
+    minWidth: '75px',
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
+  }
+}));
+
+export const useRosterTableStyles = makeStyles(theme => ({
+  primaryText: {
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
+  }
+}));

@@ -79,7 +79,4 @@ CareerFilter.defaultProps = {
   buttonTitle: 'Filter'
 };
 
-export default connect(
-  null,
-  { setFilter }
-)(CareerFilter);
+export default connect(null, { setFilter })(CareerFilter);

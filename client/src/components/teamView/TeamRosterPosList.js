@@ -13,7 +13,7 @@ import {
   Button,
   IconButton
 } from '@material-ui/core';
-import SwapHoriz from '@material-ui/icons/SwapHoriz';
+import CompareArrows from '@material-ui/icons/CompareArrows';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { useTeamStyles } from '../../styles/useStyles';
@@ -39,7 +39,7 @@ const TeamRosterPosList = ({ players, title }) => {
   function compareButton(player) {
     return matches ? (
       <Button
-        variant="outlined"
+        variant="contained"
         color="secondary"
         onClick={event => onCompareClick(event, player.person.id)}
       >
@@ -50,7 +50,7 @@ const TeamRosterPosList = ({ players, title }) => {
         style={{ padding: '12px 0px 12px 12px' }}
         onClick={event => onCompareClick(event, player.person.id)}
       >
-        <SwapHoriz />
+        <CompareArrows />
       </IconButton>
     );
   }

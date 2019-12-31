@@ -7,7 +7,6 @@ import { isEmpty } from 'lodash';
 
 import { playerInfoHeader } from '../../styles/jss-styles';
 import getCountryISO2 from '../../functions/iso3toIso2';
-import ErrorMessage from '../ErrorMessage';
 
 const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
   if (isEmpty(player)) {
@@ -16,10 +15,6 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
         <CircularProgress />
       </div>
     );
-  }
-
-  if (player.errorMessage) {
-    return <ErrorMessage />;
   }
 
   return (
@@ -34,18 +29,16 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
         <div className={classes.loadingThumbnail} />
       )}
       <div className={classes.logoWrapper}>
-        <iframe
-          title="country flag"
-          width="48"
-          height="48"
-          aria-label="About company"
-          role="img"
-          frameBorder="0"
-          sandbox=""
-          src={`data:text/html,<style>body{background:url('${`https://www.countryflags.io/${getCountryISO2(
+        <object
+          title={`Flag of ${player.nationality}`}
+          style={{ maxWidth: '48px', maxHeight: '48px' }}
+          aria-label={`Country flag of ${player.nationality}`}
+          type="image/png"
+          typemustmatch=""
+          data={`https://www.countryflags.io/${getCountryISO2(
             player.nationality
-          )}/shiny/48.png`}') center/cover no-repeat;padding:0;margin:0;overflow:hidden}</style>`}
-        ></iframe>
+          )}/shiny/48.png`}
+        ></object>
         <Typography variant="h5" component="h3" className={classes.playerName}>
           {`${player.fullName} #${player.primaryNumber}`}
         </Typography>
@@ -63,7 +56,7 @@ const PlayerInfoHeader = ({ classes, player, playerImage, children }) => {
             />
           )}
           <Typography style={{ alignSelf: 'center' }} component="p">
-            {player.currentTeam.name}
+            {player.active ? player.currentTeam.name : 'Not Active'}
           </Typography>
         </Link>
       </div>

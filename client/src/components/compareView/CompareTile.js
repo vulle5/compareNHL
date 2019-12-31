@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Paper, IconButton, Typography } from '@material-ui/core';
+import {
+  Paper,
+  IconButton,
+  Typography,
+  Collapse,
+  useMediaQuery
+} from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { removeCompare } from '../../reducers/compareReducer';
 import { useCompareStyles } from '../../styles/useStyles';
@@ -19,10 +26,24 @@ const CompareTile = ({
   filteredSeasons,
   selectedFilter
 }) => {
+  const [checked, setChecked] = useState(true);
   const listItems = filteredSeasons
     ? makeCompareData(filteredSeasons.stat)
     : makeCompareData(compareCareerRegular);
   const classes = useCompareStyles();
+  const matches = useMediaQuery(theme => theme.breakpoints.down('sm'));
+
+  useEffect(() => {
+    if (matches) {
+      setChecked(false);
+    } else {
+      setChecked(true);
+    }
+  }, [matches]);
+
+  const handleChange = () => {
+    setChecked(prev => !prev);
+  };
 
   return (
     <Paper className={classes.tileRoot}>
@@ -48,7 +69,17 @@ const CompareTile = ({
                 buttonTitle={selectedFilter}
               />
             </div>
-            <CompareTileItem listItems={listItems} />
+            <div className={classes.tileExpandButton}>
+              <IconButton
+                onClick={handleChange}
+                className={checked ? classes.expandOpen : classes.expand}
+              >
+                <ExpandMoreIcon />
+              </IconButton>
+            </div>
+            <Collapse in={checked} collapsedHeight="75px">
+              <CompareTileItem listItems={listItems} />
+            </Collapse>
           </>
         ) : (
           <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
@@ -68,7 +99,7 @@ const createFilters = (compare, id) =>
         .filter(season => season.league.name === 'NHL')
         .map(season => season.season.slice(0, 4) + '-' + season.season.slice(4))
     )
-    .flat();
+    .reduce((acc, val) => acc.concat(val), []);
 
 const getSelectedSeason = (allSeasons, selectedFilter) =>
   allSeasons.find(

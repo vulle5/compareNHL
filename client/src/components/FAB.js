@@ -14,6 +14,7 @@ const FloatingActionButton = ({
   onClick,
   to,
   title,
+  Icon,
   isLink
 }) => {
   const [atBottom, setAtBottom] = useState(false);
@@ -29,7 +30,7 @@ const FloatingActionButton = ({
 
       const scrolled = winScroll / height;
 
-      if (scrolled >= 0.98) {
+      if (scrolled >= 0.999) {
         setAtBottom(true);
       } else {
         setAtBottom(false);
@@ -57,9 +58,15 @@ const FloatingActionButton = ({
           to={to}
           onClick={onClick && isLink === undefined ? onClick : null}
         >
-          <AddIcon
-            className={isWidthUp('sm', width) ? classes.extendedIcon : null}
-          />
+          {Icon ? (
+            <Icon
+              className={isWidthUp('sm', width) ? classes.extendedIcon : null}
+            />
+          ) : (
+            <AddIcon
+              className={isWidthUp('sm', width) ? classes.extendedIcon : null}
+            />
+          )}
           {isWidthUp('sm', width) ? title : null}
         </Fab>
       </Zoom>

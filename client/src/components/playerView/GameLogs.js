@@ -17,17 +17,15 @@ const GameLogs = ({
   playerSeasons,
   playoffGames,
   regularGames,
-  setPlayoffSeasons,
-  setRegularSeasons,
+  setSeasonLogs,
   selectedFilter
 }) => {
   const [playoffSelected, setPlayoffSelected] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
-    setPlayoffSeasons(playerId, selectedFilter);
-    setRegularSeasons(playerId, selectedFilter);
-  }, [playerId, selectedFilter, setPlayoffSeasons, setRegularSeasons]);
+    setSeasonLogs(playerId, selectedFilter);
+  }, [playerId, selectedFilter, setSeasonLogs]);
 
   useEffect(() => {
     if (playoffGames.length === 0) {
@@ -111,7 +109,7 @@ const filterLogs = (isGoalie, games) => {
           : season.opponent.abbreviation.replace(/^/, '@'),
         season.stat.shotsAgainst,
         season.stat.saves,
-        season.stat.savePercentage.toFixed(3),
+        parseFloat(season.stat.savePercentage).toFixed(3),
         season.stat.timeOnIce
       )
     );
@@ -166,10 +164,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setPlayoffSeasons: (playerId, season) => {
+    setSeasonLogs: (playerId, season) => {
       dispatch(setPlayoffSeasons(playerId, season));
-    },
-    setRegularSeasons: (playerId, season) => {
       dispatch(setRegularSeasons(playerId, season));
     }
   };

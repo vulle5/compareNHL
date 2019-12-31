@@ -8,6 +8,7 @@ const playerRoutes = require('./controllers/playerController');
 const teamRoutes = require('./controllers/teamController');
 const scheduleRoutes = require('./controllers/scheduleController');
 const liveGameRoutes = require('./controllers/liveGameController');
+const gameRoutes = require('./controllers/gameController');
 
 app.use(compression());
 app.use(cors());
@@ -16,6 +17,7 @@ app.use('/api/players', playerRoutes);
 app.use('/api/teams', teamRoutes);
 app.use('/api/schedule', scheduleRoutes);
 app.use('/api/live', liveGameRoutes);
+app.use('/api/game', gameRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

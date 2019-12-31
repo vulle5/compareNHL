@@ -1,5 +1,6 @@
 import React from 'react';
-import { Typography, Card } from '@material-ui/core';
+import { Typography, Card, IconButton } from '@material-ui/core';
+import BackArrow from '@material-ui/icons/ArrowBack';
 import moment from 'moment';
 
 import { useScheduleListStyles } from '../../../styles/useStyles';
@@ -18,6 +19,7 @@ const ScheduleList = ({
 }) => {
   const classes = useScheduleListStyles();
 
+  // TODO: Memoize renders
   function generateScheduleItem(
     gamePk,
     gameDate,
@@ -56,23 +58,32 @@ const ScheduleList = ({
     return null;
   }
 
+  const generateDateButtons = () => {
+    return (
+      <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+        <IconButton
+          style={{ marginRight: '12px' }}
+          onClick={() => handleDateChange(moment(date).subtract(1, 'days'))}
+        >
+          <BackArrow />
+        </IconButton>
+        <DatePicker date={datePicker} handleDateChange={handleDateChange} />
+      </div>
+    );
+  };
+
   const generateScheduleListView = (date, games, index) => {
     if (games.length) {
       return (
         <div>
           <div className={classes.wrapper}>
-            <Typography variant="h4" style={{ marginRight: '16px' }}>
+            <Typography variant="h3" style={{ marginRight: '16px' }}>
               {getTitle(date)}
             </Typography>
-            <div style={{ marginRight: '32px' }}>
+            <div style={{ marginRight: '24px' }}>
               ({`UTC${moment(date).format('Z')}`})
             </div>
-            {index === 0 && (
-              <DatePicker
-                date={datePicker}
-                handleDateChange={handleDateChange}
-              />
-            )}
+            {index === 0 && generateDateButtons()}
           </div>
           <div
             className={classes.gameWrapper}
@@ -93,12 +104,12 @@ const ScheduleList = ({
       );
     }
     return (
-      <div key={date}>
+      <div>
         <div className={classes.emptyGameWrapper}>
-          <Typography variant="h4" style={{ marginRight: '16px' }}>
+          <Typography variant="h3" style={{ marginRight: '16px' }}>
             {getTitle(date)}
           </Typography>
-          <div style={{ marginRight: '32px' }}>
+          <div style={{ marginRight: '24px' }}>
             ({`UTC${moment(date).format('Z')}`})
           </div>
           {index === 0 && (

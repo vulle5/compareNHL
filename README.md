@@ -7,7 +7,7 @@ Deployed to [Heroku](https://nhl-compare.herokuapp.com/)
 - Standings of current season
 - :heavy_check_mark: List view version of schedule
 - Live updates to schedule without refresh
-- Detailed view for each played game
+- :heavy_check_mark: Detailed view for each played game
 - More detailed view of each team
 
 ## FIXES
