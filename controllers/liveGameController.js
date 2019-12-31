@@ -1,6 +1,7 @@
 const liveGameRoutes = require('express').Router();
-// const axios = require('axios');
+const axios = require('axios');
 
+// TODO: Make support for specific game
 function sseSetup(res) {
   // SSE Setup
   res.writeHead(200, {
@@ -11,16 +12,34 @@ function sseSetup(res) {
   res.write('\n');
 }
 
-function sseDemo(req, res) {
+async function getLiveData() {
+  try {
+    // TODO: Add this to proxy for deployment
+    const { data } = await axios.get(
+      'http://localhost:5000/api/schedule?timezone=Europe/Helsinki'
+    );
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
+
+async function sseSendEvent(req, res) {
   let messageId = 0;
 
-  const intervalId = setInterval(() => {
+  async function createEvent() {
+    const data = await getLiveData();
     res.write(`id: ${messageId}\n`);
-    res.write('event: date\n');
-    res.write(`data: ${new Date()}\n\n`);
+    res.write('event: liveSchedule\n');
+    res.write(`data: ${JSON.stringify(data)}\n\n`);
     messageId += 1;
     res.flush();
-  }, 1000);
+  }
+
+  await createEvent();
+  const intervalId = await setInterval(async () => {
+    await createEvent();
+  }, 10000);
 
   req.on('close', () => {
     clearInterval(intervalId);
@@ -29,7 +48,7 @@ function sseDemo(req, res) {
 
 liveGameRoutes.get('', (req, res) => {
   sseSetup(res);
-  sseDemo(req, res);
+  sseSendEvent(req, res);
 });
 
 module.exports = liveGameRoutes;

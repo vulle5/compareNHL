@@ -1,15 +1,15 @@
 import React from 'react';
 import useEventSource from '../../functions/useEventSource';
 
-// Testing SSE not very good for time keeping though
 const TestSSE = () => {
-  const e = useEventSource('/api/live');
+  const e = useEventSource('/api/live', 'liveSchedule');
+  if (e) console.log(JSON.parse(e.data));
 
   if (!e) {
     return '...Loading';
   }
 
-  return <div>{e.data}</div>;
+  return <div>success</div>;
 };
 
 export default TestSSE;

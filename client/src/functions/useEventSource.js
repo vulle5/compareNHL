@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const useEventSource = src => {
+const useEventSource = (src, type) => {
   const [event, setEvent] = useState(null);
 
   const onEvent = useCallback(e => {
@@ -9,11 +9,11 @@ const useEventSource = src => {
 
   useEffect(() => {
     const sseSource = new EventSource(src);
-    sseSource.addEventListener('date', e => onEvent(e));
+    sseSource.addEventListener(type, e => onEvent(e));
     return function closeConnection() {
       sseSource.close();
     };
-  }, [onEvent, src]);
+  }, [onEvent, src, type]);
 
   return event;
 };
