@@ -15,6 +15,7 @@ function sseSetup(res) {
 async function getLiveData() {
   try {
     // TODO: Add this to proxy for deployment
+    // TODO: Add support for timezones
     const { data } = await axios.get(
       'http://localhost:5000/api/schedule?timezone=Europe/Helsinki'
     );
