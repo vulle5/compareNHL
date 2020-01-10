@@ -35,7 +35,9 @@ const SideDrawer = ({ drawer, toggleDrawer, theme, setTheme }) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = theme => {
+  const handleOnClose = () => setAnchorEl(null);
+
+  const handleOnClick = theme => {
     theme === 'auto' ? setTheme('auto', matches) : setTheme(theme, matches);
     setAnchorEl(null);
   };
@@ -63,11 +65,13 @@ const SideDrawer = ({ drawer, toggleDrawer, theme, setTheme }) => {
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
-                onClose={handleClose}
+                onClose={handleOnClose}
               >
-                <MenuItem onClick={() => handleClose('auto')}>Auto</MenuItem>
-                <MenuItem onClick={() => handleClose('light')}>Light</MenuItem>
-                <MenuItem onClick={() => handleClose('dark')}>Dark</MenuItem>
+                <MenuItem onClick={() => handleOnClick('auto')}>Auto</MenuItem>
+                <MenuItem onClick={() => handleOnClick('light')}>
+                  Light
+                </MenuItem>
+                <MenuItem onClick={() => handleOnClick('dark')}>Dark</MenuItem>
               </Menu>
             </ListItem>
           </List>
