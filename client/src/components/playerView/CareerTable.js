@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import withWidth from '@material-ui/core/withWidth';
 
 import { seasonTableStyles } from '../../styles/jss-styles';
 import StatTable from './StatTable';
@@ -15,13 +14,8 @@ const CareerTable = props => {
     isGoalie,
     currentFilter,
     filteredStats,
-    playerLeagues,
-    width
+    playerLeagues
   } = props;
-
-  useEffect(() => {
-    swipeReferences.current.updateHeight();
-  }, [width, swipeReferences]);
 
   return (
     <div className={classes.root}>
@@ -79,25 +73,27 @@ const filterSeasons = (player, filter) => {
     primaryPosition: { abbreviation: isGoalie }
   } = player;
 
-  return splits
-    .map(season =>
-      createData(
-        season.league.name,
-        season.league.name === 'NHL'
-          ? season.team.abbreviation
-          : season.team.name,
-        season.season.slice(0, 4) + '-' + season.season.slice(4),
-        season.stat.games,
-        isGoalie === 'G' ? season.stat.wins : season.stat.points,
-        isGoalie === 'G' ? season.stat.losses : season.stat.goals,
-        isGoalie === 'G'
-          ? typeof season.stat.goalAgainstAverage === 'number'
-            ? parseFloat(season.stat.goalAgainstAverage).toFixed(2)
-            : ''
-          : season.stat.assists
+  return [
+    ...splits
+      .map(season =>
+        createData(
+          season.league.name,
+          season.league.name === 'NHL'
+            ? season.team.abbreviation
+            : season.team.name,
+          season.season.slice(0, 4) + '-' + season.season.slice(4),
+          season.stat.games,
+          isGoalie === 'G' ? season.stat.wins : season.stat.points,
+          isGoalie === 'G' ? season.stat.losses : season.stat.goals,
+          isGoalie === 'G'
+            ? typeof season.stat.goalAgainstAverage === 'number'
+              ? parseFloat(season.stat.goalAgainstAverage).toFixed(2)
+              : ''
+            : season.stat.assists
+        )
       )
-    )
-    .filter(season => (filter.length !== 0 ? season.name === filter : true));
+      .filter(season => (filter.length !== 0 ? season.name === filter : true))
+  ].reverse();
 };
 
 const mapStateToProps = state => {
@@ -111,9 +107,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default withWidth()(
-  connect(
-    mapStateToProps,
-    null
-  )(withStyles(seasonTableStyles)(CareerTable))
-);
+export default connect(
+  mapStateToProps,
+  null
+)(withStyles(seasonTableStyles)(CareerTable));

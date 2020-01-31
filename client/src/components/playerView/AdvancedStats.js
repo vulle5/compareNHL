@@ -41,9 +41,12 @@ const createFilters = allSeasons => [
 ];
 
 const getSelectedSeason = (allSeasons, selectedFilter) =>
-  find(allSeasons.filter(season => season.league.name === 'NHL'), {
-    season: selectedFilter
-  });
+  find(
+    allSeasons.filter(season => season.league.name === 'NHL'),
+    {
+      season: selectedFilter
+    }
+  );
 
 const getLastSeason = allSeasons =>
   get(
@@ -71,7 +74,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(AdvancedStats);
+export default connect(mapStateToProps, null)(AdvancedStats);
