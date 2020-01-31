@@ -33,7 +33,7 @@ const SeasonTabs = props => {
 
   useEffect(() => {
     swipeableRef.current.updateHeight();
-  });
+  }, []);
 
   useEffect(() => {
     if (player.id !== prevPlayerId) {
