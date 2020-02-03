@@ -112,9 +112,7 @@ const ScheduleList = ({
           <div style={{ marginRight: '24px' }}>
             ({`UTC${moment(date).format('Z')}`})
           </div>
-          {index === 0 && (
-            <DatePicker date={datePicker} handleDateChange={handleDateChange} />
-          )}
+          {index === 0 && generateDateButtons()}
         </div>
         <Card className={classes.emptyGameCard}>
           <Typography>No games for this day</Typography>
