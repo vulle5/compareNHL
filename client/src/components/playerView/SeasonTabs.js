@@ -36,7 +36,6 @@ const SeasonTabs = props => {
   }, []);
 
   useEffect(() => {
-    console.log('Hello');
     if (player.id !== prevPlayerId) {
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }
@@ -53,7 +52,6 @@ const SeasonTabs = props => {
 
   const handleTransitionChange = () => {
     if (player.id === prevPlayerId) {
-      console.log('bad');
       window.scrollTo({
         top: appBarRef.current.offsetTop - 64,
         left: 0,
