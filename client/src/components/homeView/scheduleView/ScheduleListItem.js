@@ -61,6 +61,12 @@ const ScheduleListItem = ({
         return `${linescore.currentPeriodTimeRemaining} ${linescore.currentPeriodOrdinal}`;
       case 'In Progress - Critical':
         return `${linescore.currentPeriodTimeRemaining} ${linescore.currentPeriodOrdinal}`;
+      case 'Final':
+        return `${status.detailedState}${
+          linescore.currentPeriodOrdinal !== '3rd'
+            ? ` ${linescore.currentPeriodOrdinal}`
+            : ''
+        }`;
       default:
         return status.detailedState;
     }

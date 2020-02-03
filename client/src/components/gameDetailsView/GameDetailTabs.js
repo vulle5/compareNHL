@@ -35,11 +35,10 @@ const GameDetailTabs = () => {
           indicatorColor="primary"
           textColor="primary"
           variant="fullWidth"
-          aria-label="full width tabs"
+          aria-label="Tabs"
         >
           <Tab label="Game Overview" {...a11yProps(0)}></Tab>
-          {/*<Tab disabled label="Statistics" {...a11yProps(1)}></Tab>*/}
-          <Tab label="Rosters" {...a11yProps(2)}></Tab>
+          <Tab label="Rosters" {...a11yProps(1)}></Tab>
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -47,14 +46,11 @@ const GameDetailTabs = () => {
         index={value}
         onChangeIndex={handleChangeIndex}
         style={{ paddingTop: matches ? '16px' : '0px' }}
-        disabled={value === 1 ? true : false}
+        disabled
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
           <GameOverview />
         </TabPanel>
-        {/* {<TabPanel value={value} index={1} dir={theme.direction}>
-          Item Two
-        </TabPanel>} */}
         <TabPanel value={value} index={1} dir={theme.direction}>
           <Rosters />
         </TabPanel>

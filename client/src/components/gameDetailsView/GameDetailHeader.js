@@ -173,8 +173,12 @@ const GameDetailHeader = ({
           marginBottom: '16px'
         }}
       >
-        {determineHighlight()}
-        <ThreeStars />
+        {status.detailedState === 'Final' && (
+          <>
+            {determineHighlight()}
+            <ThreeStars />
+          </>
+        )}
       </div>
     </>
   );

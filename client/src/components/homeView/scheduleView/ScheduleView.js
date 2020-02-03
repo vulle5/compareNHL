@@ -47,7 +47,6 @@ const ScheduleView = ({ toggleProgress }) => {
 
   useEffect(() => {
     (async () => {
-      window.scrollTo(0, 0);
       toggleProgress(true);
       checkViewStyle();
       const {
@@ -74,6 +73,7 @@ const ScheduleView = ({ toggleProgress }) => {
 
   const handleDateChange = date => {
     if (moment(date).isValid()) {
+      window.scrollTo(0, 0);
       setDatePicker(date);
       history.push({
         pathname: history.location.pathname,
@@ -159,7 +159,4 @@ const ScheduleView = ({ toggleProgress }) => {
   );
 };
 
-export default connect(
-  null,
-  { toggleProgress }
-)(ScheduleView);
+export default connect(null, { toggleProgress })(ScheduleView);

@@ -1,6 +1,6 @@
 {
   "name": "react_nhl",
-  "version": "1.2.1",
+  "version": "1.2.3",
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
@@ -18,16 +18,19 @@
     "moment-duration-format": "^2.3.2",
     "moment-timezone": "^0.5.26",
     "qs": "^6.8.0",
-    "react": "16.9.0",
-    "react-dom": "16.9.0",
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.1.1",
-    "react-scripts": "3.0.1",
-    "react-swipeable-views": "^0.13.3",
+    "react-scripts": "3.3.1",
+    "react-swipeable-views": "0.13.3",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "smoothscroll-polyfill": "^0.4.4",
     "use-debounce": "2.1.0"
+  },
+  "devDependencies": {
+    "redux-devtools-extension": "2.13.8"
   },
   "scripts": {
     "start": "react-scripts start",

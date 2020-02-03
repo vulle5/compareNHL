@@ -1,7 +1,8 @@
 const express = require('express');
-const compression = require('compression');
+const helmet = require('helmet');
 
 const app = express();
+const compression = require('compression');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const playerRoutes = require('./controllers/playerController');
@@ -10,6 +11,7 @@ const scheduleRoutes = require('./controllers/scheduleController');
 const liveGameRoutes = require('./controllers/liveGameController');
 const gameRoutes = require('./controllers/gameController');
 
+app.use(helmet());
 app.use(compression());
 app.use(cors());
 app.use(bodyParser.json());
