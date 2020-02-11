@@ -8,7 +8,6 @@ import {
 } from '@material-ui/core';
 import json2mq from 'json2mq';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { get } from 'lodash';
 
 const ScheduleCardItemOverview = ({
   homeAbb,
@@ -38,20 +37,20 @@ const ScheduleCardItemOverview = ({
 
   const rows = [
     createData(
-      homeAbb ? homeAbb : 'HOME',
-      get(first, 'home.goals', undefined),
-      get(second, 'home.goals', undefined),
-      get(third, 'home.goals', undefined),
-      get(overtime, 'home.goals', undefined),
-      get(shootout, 'home.scores', undefined)
+      homeAbb ?? 'HOME',
+      first?.home?.goals ?? '',
+      second?.home?.goals ?? '',
+      third?.home?.goals ?? '',
+      overtime?.home?.goals ?? '',
+      shootout?.home?.scores ?? ''
     ),
     createData(
-      awayAbb ? awayAbb : 'AWAY',
-      get(first, 'away.goals', undefined),
-      get(second, 'away.goals', undefined),
-      get(third, 'away.goals', undefined),
-      get(overtime, 'away.goals', undefined),
-      get(shootout, 'away.scores', undefined)
+      awayAbb ?? 'AWAY',
+      first?.away?.goals ?? '',
+      second?.away?.goals ?? '',
+      third?.away?.goals ?? '',
+      overtime?.away?.goals ?? '',
+      shootout?.away?.scores ?? ''
     )
   ];
 
