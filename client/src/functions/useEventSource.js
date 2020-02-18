@@ -1,19 +1,27 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
-const useEventSource = (src, type) => {
+const useEventSource = (
+  src,
+  type,
+  { onMessage = null, onError = null, onOpen = null } = {}
+) => {
   const [event, setEvent] = useState(null);
+  const eventSource = useRef(new EventSource(src));
+  eventSource.current.onmessage = onMessage;
+  eventSource.current.onerror = onError;
+  eventSource.current.onopen = onOpen;
 
   const onEvent = useCallback(e => {
     setEvent(e);
   }, []);
 
   useEffect(() => {
-    const sseSource = new EventSource(src);
-    sseSource.addEventListener(type, e => onEvent(e));
+    const eventRef = eventSource.current;
+    eventRef.addEventListener(type ?? 'message', e => onEvent(e));
     return function closeConnection() {
-      sseSource.close();
+      eventRef.close();
     };
-  }, [onEvent, src, type]);
+  }, [onEvent, type]);
 
   return event;
 };
