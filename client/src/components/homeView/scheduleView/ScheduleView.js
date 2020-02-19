@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import qs from 'qs';
 import moment from 'moment';
@@ -7,19 +6,13 @@ import 'moment-timezone';
 
 import { ReactComponent as CardLogo } from '../../../assets/cardViewButton.svg';
 import { ReactComponent as ListLogo } from '../../../assets/listViewButton.svg';
-import scheduleServices from '../../../services/schedule';
-import { toggleProgress } from '../../../reducers/globalProgressReducer';
 import ScheduleList from './ScheduleList';
 import { useScheduleViewStyles } from '../../../styles/useStyles';
 import { Tooltip, Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/styles';
+import useEventSource from '../../../functions/useEventSource';
 
-const ScheduleView = ({ toggleProgress }) => {
-  const startDate = moment().format('YYYY-MM-DD');
-  const endDate = moment()
-    .add(2, 'days')
-    .format('YYYY-MM-DD');
-
+const ScheduleView = () => {
   const [dates, setDates] = useState([]);
   const [datePicker, setDatePicker] = useState(moment());
   const [viewStyle, setViewStyle] = useState('card');
@@ -27,16 +20,18 @@ const ScheduleView = ({ toggleProgress }) => {
   const theme = useTheme();
   const location = useLocation();
   const history = useHistory();
-
-  const getDates = useCallback(async (start, end, timezone, query) => {
-    const { dates } = await scheduleServices.getGamesBetween(
-      start,
-      end,
-      timezone,
-      query
-    );
-    return dates;
-  }, []);
+  const {
+    location: { search }
+  } = history;
+  const { date } = qs.parse(search.substring(1));
+  const startDate = date ?? moment().format('YYYY-MM-DD');
+  const endDate = moment(date)
+    .add(2, 'days')
+    .format('YYYY-MM-DD');
+  const event = useEventSource(
+    `/api/live?startDate=${startDate}&endDate=${endDate}&timezone=${moment.tz.guess()}&expand=schedule.linescore`,
+    'liveSchedule'
+  );
 
   const checkViewStyle = () => {
     const viewType = localStorage.getItem('scheduleViewStyle');
@@ -46,30 +41,13 @@ const ScheduleView = ({ toggleProgress }) => {
   };
 
   useEffect(() => {
-    (async () => {
-      toggleProgress(true);
-      checkViewStyle();
-      const {
-        location: { search }
-      } = history;
-      const { date } = qs.parse(search.substring(1));
-      if (!date || moment(date, 'YYYY-MM-DD').isValid()) {
-        const dates = await getDates(
-          date ? date : startDate,
-          date
-            ? moment(date)
-                .add(2, 'days')
-                .format('YYYY-MM-DD')
-            : endDate,
-          moment.tz.guess(),
-          'expand=schedule.linescore'
-        );
-        setDatePicker(moment(date));
-        setDates(dates);
-      }
-      toggleProgress(false);
-    })();
-  }, [getDates, endDate, location, history, toggleProgress, startDate]);
+    checkViewStyle();
+    setDatePicker(moment(date));
+    if (event) {
+      const data = JSON.parse(event.data)
+      setDates(data.dates);
+    }
+  }, [date, location, event]);
 
   const handleDateChange = date => {
     if (moment(date).isValid()) {
@@ -108,7 +86,7 @@ const ScheduleView = ({ toggleProgress }) => {
     return calendarDate;
   }
 
-  if (!dates.length) {
+  if (!event) {
     return <div>...Loading</div>;
   }
 
@@ -159,4 +137,4 @@ const ScheduleView = ({ toggleProgress }) => {
   );
 };
 
-export default connect(null, { toggleProgress })(ScheduleView);
+export default ScheduleView;
