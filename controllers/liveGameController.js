@@ -1,7 +1,13 @@
 const liveGameRoutes = require('express').Router();
+const querystring = require('querystring');
 const axios = require('axios');
+const moment = require('moment');
+const {
+  gamesToClientTime
+} = require('../utils/game');
 
 // TODO: Make support for specific game
+// TODO: This controller makes game and schedule controllers obsolete
 function sseSetup(res) {
   // SSE Setup
   res.writeHead(200, {
@@ -12,24 +18,41 @@ function sseSetup(res) {
   res.write('\n');
 }
 
-async function getLiveData() {
+async function getLiveSchedule(req) {
   try {
-    // TODO: Add this to proxy for deployment
-    // TODO: Add support for timezones
-    const { data } = await axios.get(
-      'http://localhost:5000/api/schedule?timezone=Europe/Helsinki'
+    // Get games from api based on given dates
+    const [newStartDate, newEndDate] = [
+      moment.parseZone(req.query.startDate).subtract(1, 'days'),
+      moment.parseZone(req.query.endDate).add(1, 'days')
+    ];
+    const { data: gamesToParse } = await axios.get(
+      `https://statsapi.web.nhl.com/api/v1/schedule/?startDate=${newStartDate.format(
+        'YYYY-MM-DD'
+      )}&endDate=${newEndDate.format('YYYY-MM-DD')}&${querystring.stringify({
+        expand: req.query.expand
+      }) || ''}`
     );
-    return data;
+    // Take games from api data and flatten
+    const gamesOnly = gamesToParse.dates.flatMap((date) => date.games);
+    // Convert the games to clients timezone
+    const { timezone } = querystring.parse(querystring.stringify(req.query));
+    const convertedGames = gamesToClientTime(
+      gamesOnly,
+      timezone,
+      newStartDate,
+      newEndDate
+    );
+    return convertedGames;
   } catch (error) {
     return error;
   }
 }
 
-async function sseSendEvent(req, res) {
+async function sseSendSchedule(req, res) {
   let messageId = 0;
 
   async function createEvent() {
-    const data = await getLiveData();
+    const data = await getLiveSchedule(req);
     res.write(`id: ${messageId}\n`);
     res.write('event: liveSchedule\n');
     res.write(`data: ${JSON.stringify(data)}\n\n`);
@@ -40,7 +63,7 @@ async function sseSendEvent(req, res) {
   await createEvent();
   const intervalId = await setInterval(async () => {
     await createEvent();
-  }, 10000);
+  }, 20000);
 
   req.on('close', () => {
     clearInterval(intervalId);
@@ -49,7 +72,7 @@ async function sseSendEvent(req, res) {
 
 liveGameRoutes.get('', (req, res) => {
   sseSetup(res);
-  sseSendEvent(req, res);
+  sseSendSchedule(req, res);
 });
 
 module.exports = liveGameRoutes;
