@@ -224,6 +224,14 @@ export const useScheduleCardItemStyles = makeStyles(theme => ({
     overflow: 'visible',
     position: 'relative',
     marginLeft: '4px'
+  },
+  liveBanner: {
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    borderRadius: 8,
+    backgroundColor: '#d00000',
+    width: '50px'
   }
 }));
 

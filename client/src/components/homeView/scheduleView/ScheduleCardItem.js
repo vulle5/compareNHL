@@ -33,6 +33,10 @@ const ScheduleCardItem = ({
   const matches = useMediaQuery('(min-width:600px)');
   const classes = useScheduleCardItemStyles();
 
+  // Constants
+  const gameLive = status.detailedState === 'In Progress' ||
+  status.detailedState === 'In Progress - Critical';
+
   const findTeamName = useCallback(
     async teamToSearch => {
       if (teams.length) {
@@ -115,10 +119,7 @@ const ScheduleCardItem = ({
     // goaliePulled: for empty net stat
 
     // If game is in progress
-    if (
-      status.detailedState === 'In Progress' ||
-      status.detailedState === 'In Progress - Critical'
-    ) {
+    if (gameLive) {
       const intermissionTime = moment.duration(
         linescore.intermissionInfo.intermissionTimeRemaining,
         'seconds'
@@ -168,10 +169,12 @@ const ScheduleCardItem = ({
       <Link to={`/gameDetails/${gamePk}`}>
         <CardContent>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography variant="subtitle1">
-              {determineGameType(gamePk.toString())}
-            </Typography>
-            <Typography variant="subtitle1">{determineGameState()}</Typography>
+            {<div className={gameLive ? classes.liveBanner : null}>
+              <Typography style={{ fontWeight: 'inherit' }} variant="subtitle1">
+                {gameLive ? 'LIVE' :determineGameType(gamePk.toString())}
+              </Typography>
+            </div>}
+            <Typography  variant="subtitle1">{determineGameState()}</Typography>
           </div>
           <div className={classes.scoreLogoWrapper}>
             <div>
