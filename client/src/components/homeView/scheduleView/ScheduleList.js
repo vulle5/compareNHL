@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Typography, Card, IconButton } from '@material-ui/core';
 import BackArrow from '@material-ui/icons/ArrowBack';
 import moment from 'moment';
@@ -18,45 +18,6 @@ const ScheduleList = ({
   viewStyle
 }) => {
   const classes = useScheduleListStyles();
-
-  // TODO: Memoize renders
-  function generateScheduleItem(
-    gamePk,
-    gameDate,
-    teamsPlaying,
-    linescore,
-    status
-  ) {
-    switch (viewStyle) {
-      case 'card':
-        return (
-          <ScheduleCardItem
-            key={gamePk}
-            gamePk={gamePk}
-            gameDate={gameDate}
-            home={teamsPlaying.home}
-            away={teamsPlaying.away}
-            linescore={linescore}
-            status={status}
-          />
-        );
-      case 'list':
-        return (
-          <ScheduleListItem
-            key={gamePk}
-            gamePk={gamePk}
-            gameDate={gameDate}
-            home={teamsPlaying.home}
-            away={teamsPlaying.away}
-            linescore={linescore}
-            status={status}
-          />
-        );
-      default:
-        break;
-    }
-    return null;
-  }
 
   const generateDateButtons = () => {
     return (
@@ -91,13 +52,28 @@ const ScheduleList = ({
           >
             {games.map(
               ({ teams: teamsPlaying, gamePk, status, gameDate, linescore }) =>
-                generateScheduleItem(
-                  gamePk,
-                  gameDate,
-                  teamsPlaying,
-                  linescore,
-                  status
-                )
+              <Fragment key={gamePk}>
+                <div style={{ display: viewStyle === 'card' ? 'block' : 'none' }}>
+                  <ScheduleCardItem
+                    gamePk={gamePk}
+                    gameDate={gameDate}
+                    home={teamsPlaying.home}
+                    away={teamsPlaying.away}
+                    linescore={linescore}
+                    status={status}
+                  />
+                </div>
+                <div style={{ display: viewStyle === 'list' ? 'block' : 'none' }}>
+                  <ScheduleListItem
+                    gamePk={gamePk}
+                    gameDate={gameDate}
+                    home={teamsPlaying.home}
+                    away={teamsPlaying.away}
+                    linescore={linescore}
+                    status={status}
+                  />
+                </div>
+              </Fragment>
             )}
           </div>
         </div>
