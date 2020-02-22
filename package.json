@@ -12,7 +12,6 @@
     "watch": "nodemon index.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run watch\" \"npm run client\"",
-    "heroku-prebuild": "npm install --only=dev --prefix client",
     "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
   },
   "author": "",
