@@ -79,9 +79,10 @@ const getScoringAndPenaltyPlays = ({
 };
 
 const mapStateToProps = state => {
+  const gamePk = state.gameDetail.selected;
   const {
     liveData: { plays }
-  } = state.gameDetail;
+  } = state.gameDetail.games[gamePk];
   return {
     scoreAndPenaltyPlays: getScoringAndPenaltyPlays(plays)
   };

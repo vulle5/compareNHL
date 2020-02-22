@@ -221,9 +221,10 @@ const findGoalHighlight = (highlights, eventId) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
+  const gamePk = state.gameDetail.selected;
   const {
     gameData: { teams }
-  } = state.gameDetail;
+  } = state.gameDetail.games[gamePk];
   const { url, description } = findGoalHighlight(
     state.gameHighlights.goalHighlights,
     ownProps.about.eventId

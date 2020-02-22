@@ -2,28 +2,50 @@ import React, { useEffect } from 'react';
 import { Paper, CircularProgress, useMediaQuery } from '@material-ui/core';
 import { connect } from 'react-redux';
 
-import { initializeGame } from '../../reducers/gameDetailReducer';
+import {
+  updateGame,
+  setErrorMessage,
+  setSelected
+} from '../../reducers/gameDetailReducer';
 import { useGameDetailStyles } from '../../styles/useStyles';
 import ErrorMessage from '../ErrorMessage';
 import GameDetailHeader from './GameDetailHeader';
 import GameDetailTabs from './GameDetailTabs';
 import GameDetailsDialog from './GameDetailsDialog';
+import useEventSource from '../../functions/useEventSource';
 
 const GameDetails = ({
   match: {
     params: { gamePk }
   },
-  gameDetail,
-  initializeGame
+  loading,
+  updateGame,
+  gameObj,
+  setErrorMessage,
+  setSelected
 }) => {
   const classes = useGameDetailStyles();
   const matches = useMediaQuery(theme => theme.breakpoints.up('xs'));
+  const [event, eventSource] = useEventSource(
+    `/api/live/${gamePk}`,
+    'liveGame',
+    { onError: () => setErrorMessage() }
+  );
+
+  useEffect(() => window.scrollTo(0, 0), []);
 
   useEffect(() => {
-    initializeGame(gamePk);
-  }, [gamePk, initializeGame]);
+    setSelected(gamePk);
+    if (event) {
+      const data = JSON.parse(event.data);
+      updateGame(data);
+      if (data.gameData.status.detailedState === 'Final') {
+        eventSource.close();
+      }
+    }
+  }, [event, eventSource, gamePk, setSelected, updateGame]);
 
-  if (!gameDetail) {
+  if (loading) {
     return (
       <div
         style={{ paddingTop: matches ? '64px' : '56px', textAlign: 'center' }}
@@ -33,7 +55,7 @@ const GameDetails = ({
     );
   }
 
-  if (gameDetail.errorMessage) {
+  if (gameObj.errorMessage) {
     return <ErrorMessage />;
   }
 
@@ -48,13 +70,21 @@ const GameDetails = ({
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const {
+    match: {
+      params: { gamePk }
+    }
+  } = ownProps;
+  const gameDetail = state?.gameDetail?.games?.[gamePk];
   return {
-    gameDetail: state.gameDetail
+    gameObj: state.gameDetail,
+    loading: gameDetail?.gamePk !== state.gameDetail.selected
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { initializeGame }
-)(GameDetails);
+export default connect(mapStateToProps, {
+  updateGame,
+  setErrorMessage,
+  setSelected
+})(GameDetails);

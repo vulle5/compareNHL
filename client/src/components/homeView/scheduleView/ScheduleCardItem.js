@@ -161,7 +161,7 @@ const ScheduleCardItem = ({
         </div>
       );
     }
-    return null;
+  return <div style={{ height: '17px' }} />;
   }
 
   return (

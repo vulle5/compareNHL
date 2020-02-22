@@ -1,28 +1,36 @@
-import axios from 'axios';
-
-export const initializeGame = gamePk => async dispatch => {
-  try {
+export const setSelected = gamePk => (dispatch, getState) => {
+  const selected = getState().gameDetail?.games?.[gamePk];
+  if (selected) {
     dispatch({
-      type: 'INIT_GAME',
-      data: null
-    });
-    const { data } = await axios.get(`/api/game/${gamePk}`);
-    dispatch({
-      type: 'INIT_GAME',
-      data: data
-    });
-  } catch (error) {
-    dispatch({
-      type: 'ERROR',
-      data: error.message
+      type: 'SET_GAME',
+      data: selected.gamePk
     });
   }
 };
 
-const gameDetailReducer = (state = null, action) => {
+export const updateGame = data => {
+  return {
+    type: 'UPDATE_GAME',
+    data
+  };
+};
+
+export const setErrorMessage = () => {
+  return {
+    type: 'ERROR',
+    data: true
+  };
+};
+
+const gameDetailReducer = (state = { selected: null, games: null }, action) => {
   switch (action.type) {
-    case 'INIT_GAME':
-      return action.data;
+    case 'SET_GAME':
+      return { ...state, selected: action.data };
+    case 'UPDATE_GAME':
+      return {
+        selected: action.data.gamePk,
+        games: { ...state.games, [action.data.gamePk]: action.data }
+      };
     case 'ERROR':
       return { errorMessage: action.data };
     default:

@@ -25,10 +25,10 @@ const GameOverview = ({ periods, gamePk, fetchGameHighlights }) => {
 };
 
 const mapStateToProps = state => {
+  const gamePk = state.gameDetail.selected;
   const {
-    liveData: { linescore },
-    gamePk
-  } = state.gameDetail;
+    liveData: { linescore }
+  } = state.gameDetail.games[gamePk];
   return {
     periods: linescore.periods,
     gamePk

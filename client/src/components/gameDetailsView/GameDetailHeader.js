@@ -33,7 +33,10 @@ const GameDetailHeader = ({
 
   function determineGameState(linescore) {
     // If game is in progress
-    if (status.detailedState === 'In Progress') {
+    if (
+      status.detailedState === 'In Progress' ||
+      status.detailedState === 'In Progress - Critical'
+    ) {
       const intermissionTime = moment.duration(
         linescore.intermissionInfo.intermissionTimeRemaining,
         'seconds'
@@ -129,7 +132,8 @@ const GameDetailHeader = ({
               display: 'flex',
               flexWrap: 'wrap',
               width: '100%',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              height: '100px'
             }}
           >
             {determineScore()}
@@ -148,6 +152,10 @@ const GameDetailHeader = ({
             >
               {determineGameState(linescore)}
             </Typography>
+            {(status.detailedState === 'In Progress' ||
+              status.detailedState === 'In Progress - Critical') && (
+              <Typography className={classes.liveBanner}>LIVE</Typography>
+            )}
           </div>
         </div>
         <div className={classes.logoContainer}>
@@ -185,9 +193,11 @@ const GameDetailHeader = ({
 };
 
 const mapStateToProps = state => {
+  const gamePk = state.gameDetail.selected;
+  const gameDetail = state.gameDetail.games[gamePk];
   return {
-    gameDetail: state.gameDetail,
-    status: state.gameDetail.gameData.status,
+    gameDetail,
+    status: gameDetail.gameData.status,
     recap: state.gameHighlights.recap,
     highlightIsFetching: state.gameHighlights.fetching
   };

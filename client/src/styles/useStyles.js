@@ -290,6 +290,15 @@ export const useGameDetailHeaderStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%'
+  },
+  liveBanner: {
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    borderRadius: 8,
+    backgroundColor: '#d00000',
+    width: '50px',
+    marginTop: 8
   }
 }));
 

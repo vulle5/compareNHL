@@ -133,6 +133,7 @@ const ThreeStars = ({
 };
 
 const mapStateToProps = state => {
+  const gamePk = state.gameDetail.selected;
   const {
     liveData: {
       decisions,
@@ -140,7 +141,7 @@ const mapStateToProps = state => {
         teams: { home, away }
       }
     }
-  } = state.gameDetail;
+  } = state.gameDetail.games[gamePk];
   return {
     stars: decisions,
     homeTeam: home,

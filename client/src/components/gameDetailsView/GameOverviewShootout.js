@@ -94,10 +94,11 @@ const getShootOutPlays = (shootoutIds, allPlays) => {
 };
 
 const mapStateToProps = state => {
+  const gamePk = state.gameDetail.selected;
   const {
     liveData: { plays },
     gameData: { teams }
-  } = state.gameDetail;
+  } = state.gameDetail.games[gamePk];
   if (plays.allPlays.length) {
     return {
       plays: getShootOutPlays(

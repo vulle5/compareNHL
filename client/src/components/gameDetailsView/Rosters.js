@@ -59,13 +59,13 @@ const Rosters = ({ teams: { home, away } }) => {
   );
 };
 
-const mapStateToProps = ({
-  gameDetail: {
+const mapStateToProps = state => {
+  const gamePk = state.gameDetail.selected;
+  const {
     liveData: {
       boxscore: { teams }
     }
-  }
-}) => {
+  } = state.gameDetail.games[gamePk];
   return {
     teams
   };
