@@ -12,6 +12,7 @@
     "watch": "nodemon index.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run watch\" \"npm run client\"",
+    "heroku-prebuild": "npm install --only=dev --prefix client",
     "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
   },
   "author": "",
@@ -21,7 +22,6 @@
     "eslint": "^6.4.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "morgan": "^1.9.1",
     "nodemon": "^1.19.1"
   },
   "dependencies": {
@@ -33,6 +33,7 @@
     "express": "^4.17.1",
     "helmet": "^3.21.2",
     "moment": "^2.24.0",
-    "moment-timezone": "^0.5.26"
+    "moment-timezone": "^0.5.26",
+    "morgan": "^1.9.1"
   }
 }
