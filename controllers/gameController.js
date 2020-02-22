@@ -1,7 +1,7 @@
 const gameRoutes = require('express').Router();
 const axios = require('axios');
 
-gameRoutes.get('/:id/', async (req, res) => {
+gameRoutes.get('/:id/', async (req, res, next) => {
   try {
     const { data } = await axios.get(
       `https://statsapi.web.nhl.com/api/v1/game/${req.params.id}/feed/live`
@@ -14,18 +14,18 @@ gameRoutes.get('/:id/', async (req, res) => {
     }
     res.status(200).json(data);
   } catch (error) {
-    res.status(400).json(error);
+    next(error);
   }
 });
 
-gameRoutes.get('/:id/content', async (req, res) => {
+gameRoutes.get('/:id/content', async (req, res, next) => {
   try {
     const { data } = await axios.get(
       `http://statsapi.web.nhl.com/api/v1/game/${req.params.id}/content`
     );
     res.status(200).json(data);
   } catch (error) {
-    res.status(400).json(error);
+    next(error);
   }
 });
 

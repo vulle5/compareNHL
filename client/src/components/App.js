@@ -43,7 +43,7 @@ const App = ({ setTheme, theme }) => {
             <Route path="/team/:id" component={TeamInfo} />
             <Route path="/player/:playerId" component={PlayerInfo} />
             <Route path="/compare/:playerId" component={Compare} />
-            <Route path="/gameDetails/:gamePk" component={GameDetails} />
+            <Route path="/game/:gamePk" component={GameDetails} />
             <Route component={ErrorMessage} />
           </Switch>
         </Suspense>

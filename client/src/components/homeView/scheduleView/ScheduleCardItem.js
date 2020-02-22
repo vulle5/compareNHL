@@ -166,7 +166,7 @@ const ScheduleCardItem = ({
 
   return (
     <Card className={classes.gameCard}>
-      <Link to={`/gameDetails/${gamePk}`}>
+      <Link to={`/game/${gamePk}`}>
         <CardContent>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             {<div className={gameLive ? classes.liveBanner : null}>

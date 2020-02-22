@@ -15,7 +15,7 @@ import useEventSource from '../../../functions/useEventSource';
 import { updateSchedule } from '../../../reducers/scheduleReducer';
 import { toggleProgress } from '../../../reducers/globalProgressReducer';
 
-const ScheduleView = ({schedule, updateSchedule, toggleProgress}) => {
+const ScheduleView = ({ schedule, updateSchedule, toggleProgress }) => {
   const [datePicker, setDatePicker] = useState(moment());
   const [viewStyle, setViewStyle] = useState('card');
   const { viewLogo, ...classes } = useScheduleViewStyles();

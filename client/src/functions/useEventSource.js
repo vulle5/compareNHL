@@ -17,7 +17,7 @@ const useEventSource = (
   useEffect(() => {
     eventSourceRef.current = new EventSource(src);
     setEventSource(eventSourceRef.current)
-  }, [src])
+  }, [src]);
 
   // Assign handlers
   useEffect(() => {

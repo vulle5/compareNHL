@@ -74,7 +74,7 @@ const ScheduleListItem = ({
 
   return (
     <div className={classes.listRoot}>
-      <Link to={`/gameDetails/${gamePk}`}>
+      <Link to={`/game/${gamePk}`}>
         <Paper classes={{ root: classes.card }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Typography style={{ marginRight: '24px', width: '40px' }}>

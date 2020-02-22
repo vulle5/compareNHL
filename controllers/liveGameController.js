@@ -6,8 +6,6 @@ const {
   gamesToClientTime
 } = require('../utils/game');
 
-// TODO: Make support for specific game
-// TODO: This controller makes game and schedule controllers obsolete
 function sseSetup(res) {
   // SSE Setup
   res.writeHead(200, {
@@ -48,11 +46,22 @@ async function getLiveSchedule(req) {
   }
 }
 
-async function sseSendSchedule(req, res) {
+async function getLiveGame(req) {
+  try {
+    const { data } = await axios.get(
+      `https://statsapi.web.nhl.com/api/v1/game/${req.params.id}/feed/live`
+    );
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
+
+async function sseSendSchedule(req, res, callback) {
   let messageId = 0;
 
   async function createEvent() {
-    const data = await getLiveSchedule(req);
+    const data = await callback();
     res.write(`id: ${messageId}\n`);
     res.write('event: liveSchedule\n');
     res.write(`data: ${JSON.stringify(data)}\n\n`);
@@ -72,7 +81,12 @@ async function sseSendSchedule(req, res) {
 
 liveGameRoutes.get('', (req, res) => {
   sseSetup(res);
-  sseSendSchedule(req, res);
+  sseSendSchedule(req, res, () => getLiveSchedule(req));
+});
+
+liveGameRoutes.get('/:id', (req, res) => {
+  sseSetup(res);
+  sseSendSchedule(req, res, () => getLiveGame(req));
 });
 
 module.exports = liveGameRoutes;
