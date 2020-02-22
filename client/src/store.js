@@ -14,6 +14,7 @@ import teamReducer from './reducers/teamReducer';
 import gameDetailReducer from './reducers/gameDetailReducer';
 import dialogReducer from './reducers/dialogReducer';
 import gameHighlightReducer from './reducers/gameHighlightReducer';
+import scheduleReducer from './reducers/scheduleReducer';
 
 const reducer = combineReducers({
   player: playerReducer,
@@ -27,7 +28,8 @@ const reducer = combineReducers({
   teams: teamReducer,
   gameDetail: gameDetailReducer,
   dialogDetail: dialogReducer,
-  gameHighlights: gameHighlightReducer
+  gameHighlights: gameHighlightReducer,
+  schedule: scheduleReducer
 });
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));

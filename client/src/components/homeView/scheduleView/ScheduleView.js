@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 import qs from 'qs';
 import moment from 'moment';
@@ -11,9 +12,10 @@ import { useScheduleViewStyles } from '../../../styles/useStyles';
 import { Tooltip, Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/styles';
 import useEventSource from '../../../functions/useEventSource';
+import { updateSchedule } from '../../../reducers/scheduleReducer';
+import { toggleProgress } from '../../../reducers/globalProgressReducer';
 
-const ScheduleView = () => {
-  const [dates, setDates] = useState([]);
+const ScheduleView = ({schedule, updateSchedule, toggleProgress}) => {
   const [datePicker, setDatePicker] = useState(moment());
   const [viewStyle, setViewStyle] = useState('card');
   const { viewLogo, ...classes } = useScheduleViewStyles();
@@ -28,7 +30,7 @@ const ScheduleView = () => {
   const endDate = moment(date)
     .add(2, 'days')
     .format('YYYY-MM-DD');
-  const event = useEventSource(
+  const [event, eventSource] = useEventSource(
     `/api/live?startDate=${startDate}&endDate=${endDate}&timezone=${moment.tz.guess()}&expand=schedule.linescore`,
     'liveSchedule'
   );
@@ -41,13 +43,16 @@ const ScheduleView = () => {
   };
 
   useEffect(() => {
+    eventSource?.readyState === 0
+      ? toggleProgress(true)
+      : toggleProgress(false);
     checkViewStyle();
     setDatePicker(moment(date));
     if (event) {
       const data = JSON.parse(event.data)
-      setDates(data.dates);
+      updateSchedule(data.dates);
     }
-  }, [date, location, event]);
+  }, [date, location, event, updateSchedule, eventSource, toggleProgress]);
 
   const handleDateChange = date => {
     if (moment(date).isValid()) {
@@ -86,7 +91,7 @@ const ScheduleView = () => {
     return calendarDate;
   }
 
-  if (!event) {
+  if (!schedule.length) {
     return <div>...Loading</div>;
   }
 
@@ -121,7 +126,7 @@ const ScheduleView = () => {
           />
         </Tooltip>
       </div>
-      {dates.map(({ date, games }, index) => (
+      {schedule.map(({ date, games }, index) => (
         <ScheduleList
           key={date}
           getTitle={getTitle}
@@ -137,4 +142,10 @@ const ScheduleView = () => {
   );
 };
 
-export default ScheduleView;
+const mapStateToProps = state => {
+  return {
+    schedule: state.schedule
+  }
+}
+
+export default connect(mapStateToProps, { updateSchedule, toggleProgress })(ScheduleView);
