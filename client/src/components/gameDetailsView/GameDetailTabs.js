@@ -37,8 +37,8 @@ const GameDetailTabs = () => {
           variant="fullWidth"
           aria-label="Tabs"
         >
-          <Tab label="Game Overview" {...a11yProps(0)}></Tab>
-          <Tab label="Rosters" {...a11yProps(1)}></Tab>
+          <Tab label="Game Overview" {...a11yProps(0)} />
+          <Tab label="Rosters" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <SwipeableViews

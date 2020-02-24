@@ -192,7 +192,8 @@ export const useScheduleListItemStyles = makeStyles(theme => ({
     marginTop: '16px'
   },
   card: {
-    padding: '16px'
+    padding: '16px',
+    position: 'relative'
   },
   overViewWrapper: {
     display: 'flex',
@@ -201,6 +202,15 @@ export const useScheduleListItemStyles = makeStyles(theme => ({
     [theme.breakpoints.down('xs')]: {
       marginLeft: 'auto'
     }
+  },
+  liveDot: {
+    height: 20,
+    width: 40,
+    borderRadius: 8,
+    backgroundColor: 'red',
+    position: 'absolute',
+    top: 8,
+    right: 8
   }
 }));
 

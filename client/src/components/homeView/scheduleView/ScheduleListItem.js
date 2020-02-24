@@ -72,10 +72,23 @@ const ScheduleListItem = ({
     }
   }
 
+  const LiveDot = () => (
+    <div className={classes.liveDot}>
+      <div style={{ position: 'relative', textAlign: 'center' }}>
+        <div style={{ fontWeight: 'bold' }}>LIVE</div>
+      </div>
+    </div>
+  );
+
   return (
     <div className={classes.listRoot}>
       <Link to={`/game/${gamePk}`}>
         <Paper classes={{ root: classes.card }}>
+          {
+            (status.detailedState === 'In Progress' ||
+            status.detailedState === 'In Progress - Critical') &&
+            <LiveDot />
+          }
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Typography style={{ marginRight: '24px', width: '40px' }}>
               {determineGameState()}
