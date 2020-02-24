@@ -15,13 +15,6 @@ export const updateGame = data => {
   };
 };
 
-export const setErrorMessage = () => {
-  return {
-    type: 'ERROR',
-    data: true
-  };
-};
-
 const gameDetailReducer = (state = { selected: null, games: null }, action) => {
   switch (action.type) {
     case 'SET_GAME':
@@ -31,8 +24,6 @@ const gameDetailReducer = (state = { selected: null, games: null }, action) => {
         selected: action.data.gamePk,
         games: { ...state.games, [action.data.gamePk]: action.data }
       };
-    case 'ERROR':
-      return { errorMessage: action.data };
     default:
       return state;
   }

@@ -146,6 +146,6 @@ const mapStateToProps = state => {
   return {
     schedule: state.schedule
   }
-}
+};
 
 export default connect(mapStateToProps, { updateSchedule, toggleProgress })(ScheduleView);

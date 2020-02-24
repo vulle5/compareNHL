@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import {
   updateGame,
-  setErrorMessage,
   setSelected
 } from '../../reducers/gameDetailReducer';
 import { useGameDetailStyles } from '../../styles/useStyles';
@@ -21,15 +20,13 @@ const GameDetails = ({
   loading,
   updateGame,
   gameObj,
-  setErrorMessage,
   setSelected
 }) => {
   const classes = useGameDetailStyles();
   const matches = useMediaQuery(theme => theme.breakpoints.up('xs'));
   const [event, eventSource] = useEventSource(
     `/api/live/${gamePk}`,
-    'liveGame',
-    { onError: () => setErrorMessage() }
+    'liveGame'
   );
 
   useEffect(() => window.scrollTo(0, 0), []);
@@ -85,6 +82,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(mapStateToProps, {
   updateGame,
-  setErrorMessage,
   setSelected
 })(GameDetails);
