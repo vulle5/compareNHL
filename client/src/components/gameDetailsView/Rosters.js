@@ -20,8 +20,8 @@ const Rosters = ({ teams: { home, away } }) => {
     setValue(index);
   };
 
-  const homePlayers = [...Object.keys(home.players).map(i => home.players[i])];
   const awayPlayers = [...Object.keys(away.players).map(i => away.players[i])];
+  const homePlayers = [...Object.keys(home.players).map(i => home.players[i])];
   return (
     <div>
       <AppBar
@@ -35,10 +35,10 @@ const Rosters = ({ teams: { home, away } }) => {
           indicatorColor="primary"
           textColor="primary"
           variant="fullWidth"
-          aria-label="full width tabs"
+          aria-label="Rosters"
         >
-          <Tab label={home.team.name}></Tab>
           <Tab label={away.team.name}></Tab>
+          <Tab label={home.team.name}></Tab>
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -49,10 +49,10 @@ const Rosters = ({ teams: { home, away } }) => {
         disabled
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <RosterTableList players={homePlayers} teamName={home.team.name} />
+          <RosterTableList players={awayPlayers} teamName={away.team.name} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <RosterTableList players={awayPlayers} teamName={away.team.name} />
+          <RosterTableList players={homePlayers} teamName={home.team.name} />
         </TabPanel>
       </SwipeableViews>
     </div>

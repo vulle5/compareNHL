@@ -67,11 +67,11 @@ const GameDetailHeader = ({
     ) {
       return (
         <>
-          <Typography variant="h3">{linescore.teams.home.goals}</Typography>
+          <Typography variant="h3">{linescore.teams.away.goals}</Typography>
           <Typography variant="h3" style={{ margin: '0px 15%' }}>
             -
           </Typography>
-          <Typography variant="h3">{linescore.teams.away.goals}</Typography>
+          <Typography variant="h3">{linescore.teams.home.goals}</Typography>
         </>
       );
     } else {
@@ -115,14 +115,14 @@ const GameDetailHeader = ({
     <>
       <div className={classes.headerWrapper}>
         <div className={classes.logoContainer}>
-          <Link to={`/team/${teams.home.id}`} style={{ textAlign: 'center' }}>
+          <Link to={`/team/${teams.away.id}`} style={{ textAlign: 'center' }}>
             <img
               className={classes.teamLogo}
-              src={`/api/teams/${teams.home.id}/logo`}
-              alt="Home team logo"
+              src={`/api/teams/${teams.away.id}/logo`}
+              alt="Away team logo"
             />
             <Typography variant="h6" className={classes.teamName}>
-              {teams.home.name}
+              {teams.away.name}
             </Typography>
           </Link>
         </div>
@@ -159,14 +159,14 @@ const GameDetailHeader = ({
           </div>
         </div>
         <div className={classes.logoContainer}>
-          <Link to={`/team/${teams.away.id}`} style={{ textAlign: 'center' }}>
+          <Link to={`/team/${teams.home.id}`} style={{ textAlign: 'center' }}>
             <img
               className={classes.teamLogo}
-              src={`/api/teams/${teams.away.id}/logo`}
-              alt="Away team logo"
+              src={`/api/teams/${teams.home.id}/logo`}
+              alt="Home team logo"
             />
             <Typography variant="h6" className={classes.teamName}>
-              {teams.away.name}
+              {teams.home.name}
             </Typography>
           </Link>
         </div>

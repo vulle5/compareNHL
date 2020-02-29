@@ -37,11 +37,11 @@ const GameOverviewPeriod = ({ period, scoreAndPenaltyPlays }) => {
       >
         <Typography variant="h6">{determinePeriodName(period)}</Typography>
         <div style={{ display: 'flex' }}>
-          <Typography variant="h6">{period.home.goals}</Typography>
+          <Typography variant="h6">{period.away.goals}</Typography>
           <Typography variant="h6" style={{ margin: '0px 12px' }}>
             -
           </Typography>
-          <Typography variant="h6">{period.away.goals}</Typography>
+          <Typography variant="h6">{period.home.goals}</Typography>
         </div>
       </div>
       <List>

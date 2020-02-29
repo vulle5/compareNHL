@@ -20,7 +20,7 @@ const GameOverviewPeriodItem = ({
   players,
   result,
   team,
-  awayTeam,
+  homeTeam,
   toggleDialog,
   highlightUrl,
   highlightDescription
@@ -123,7 +123,7 @@ const GameOverviewPeriodItem = ({
     <div
       style={{
         display: 'flex',
-        flexDirection: team.id === awayTeam ? 'row-reverse' : 'row'
+        flexDirection: team.id === homeTeam ? 'row-reverse' : 'row'
       }}
     >
       <div
@@ -141,15 +141,15 @@ const GameOverviewPeriodItem = ({
           width: '100%',
           maxWidth: '360px',
           display: 'flex',
-          flexDirection: team.id === awayTeam ? 'row-reverse' : 'row',
-          paddingRight: team.id === awayTeam ? '16px' : '48px',
-          paddingLeft: team.id === awayTeam ? '48px' : '16px'
+          flexDirection: team.id === homeTeam ? 'row-reverse' : 'row',
+          paddingRight: team.id === homeTeam ? '16px' : '48px',
+          paddingLeft: team.id === homeTeam ? '48px' : '16px'
         }}
       >
         <ListItemAvatar
           style={{
             minWidth: 0,
-            margin: team.id === awayTeam ? '0px 0px 0px 8px' : '0px 8px 0px 0px'
+            margin: team.id === homeTeam ? '0px 0px 0px 8px' : '0px 8px 0px 0px'
           }}
         >
           <Link to={`/player/${players[0].player.id}`}>
@@ -170,18 +170,18 @@ const GameOverviewPeriodItem = ({
           secondary={findAssistName(players, result)}
           style={{
             padding: '0px 8px',
-            textAlign: team.id === awayTeam ? 'right' : 'left'
+            textAlign: team.id === homeTeam ? 'right' : 'left'
           }}
         />
         {highlightUrl && (
           <ListItemSecondaryAction
             style={{
-              right: team.id === awayTeam ? 'auto' : '16px',
-              left: team.id === awayTeam ? '16px' : 'auto'
+              right: team.id === homeTeam ? 'auto' : '16px',
+              left: team.id === homeTeam ? '16px' : 'auto'
             }}
           >
             <IconButton
-              edge={team.id === awayTeam ? 'start' : 'end'}
+              edge={team.id === homeTeam ? 'start' : 'end'}
               aria-label="watch goal"
               onClick={() =>
                 toggleDialog(true, highlightUrl, highlightDescription)
@@ -230,7 +230,7 @@ const mapStateToProps = (state, ownProps) => {
     ownProps.about.eventId
   );
   return {
-    awayTeam: teams.away.id,
+    homeTeam: teams.home.id,
     highlightUrl: url,
     highlightDescription: description
   };
