@@ -85,8 +85,7 @@ const ScheduleListItem = ({
       <Link to={`/game/${gamePk}`}>
         <Paper classes={{ root: classes.card }}>
           {
-            (status.detailedState === 'In Progress' ||
-            status.detailedState === 'In Progress - Critical') &&
+            (status.detailedState === 'Final') &&
             <LiveDot />
           }
           <div style={{ display: 'flex', alignItems: 'center' }}>

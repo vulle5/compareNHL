@@ -10,8 +10,8 @@ import json2mq from 'json2mq';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const ScheduleCardItemOverview = ({
-  homeAbb,
   awayAbb,
+  homeAbb,
   first,
   second,
   third,
@@ -37,20 +37,20 @@ const ScheduleCardItemOverview = ({
 
   const rows = [
     createData(
-      homeAbb ?? 'HOME',
-      first?.home?.goals ?? '',
-      second?.home?.goals ?? '',
-      third?.home?.goals ?? '',
-      overtime?.home?.goals ?? '',
-      shootout?.home?.scores ?? ''
-    ),
-    createData(
       awayAbb ?? 'AWAY',
       first?.away?.goals ?? '',
       second?.away?.goals ?? '',
       third?.away?.goals ?? '',
       overtime?.away?.goals ?? '',
       shootout?.away?.scores ?? ''
+    ),
+    createData(
+      homeAbb ?? 'HOME',
+      first?.home?.goals ?? '',
+      second?.home?.goals ?? '',
+      third?.home?.goals ?? '',
+      overtime?.home?.goals ?? '',
+      shootout?.home?.scores ?? ''
     )
   ];
 
@@ -87,8 +87,8 @@ const ScheduleCardItemOverview = ({
 };
 
 ScheduleCardItemOverview.defaultProps = {
-  homeAbb: 'DEF',
-  awayAbb: 'DEF'
+  awayAbb: 'DEF',
+  homeAbb: 'DEF'
 };
 
 export default ScheduleCardItemOverview;

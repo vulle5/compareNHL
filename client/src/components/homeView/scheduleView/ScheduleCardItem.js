@@ -79,14 +79,14 @@ const ScheduleCardItem = ({
     ) {
       return (
         <>
-          <Typography variant={matches ? 'h5' : 'h4'}>{home.score}</Typography>
+          <Typography variant={matches ? 'h5' : 'h4'}>{away.score}</Typography>
           <Typography
             variant={matches ? 'h5' : 'h4'}
             style={{ margin: '0px 32px' }}
           >
             -
           </Typography>
-          <Typography variant={matches ? 'h5' : 'h4'}>{away.score}</Typography>
+          <Typography variant={matches ? 'h5' : 'h4'}>{home.score}</Typography>
         </>
       );
     } else {
@@ -152,11 +152,11 @@ const ScheduleCardItem = ({
     ) {
       return (
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={{ fontSize: '12px' }}>{`(${home.leagueRecord.wins ||
-            '0'}-${home.leagueRecord.losses || '0'}-${home.leagueRecord.ot ||
-            '0'})`}</div>
           <div style={{ fontSize: '12px' }}>{`(${away.leagueRecord.wins ||
             '0'}-${away.leagueRecord.losses || '0'}-${away.leagueRecord.ot ||
+            '0'})`}</div>
+          <div style={{ fontSize: '12px' }}>{`(${home.leagueRecord.wins ||
+            '0'}-${home.leagueRecord.losses || '0'}-${home.leagueRecord.ot ||
             '0'})`}</div>
         </div>
       );
@@ -187,7 +187,7 @@ const ScheduleCardItem = ({
                     backgroundColor: ' rgba(0, 0, 0, 0)'
                   }
                 }}
-                src={`/api/teams/${home.team.id}/logo`}
+                src={`/api/teams/${away.team.id}/logo`}
                 alt="Team"
                 onError={e => {
                   e.target.onerror = null;
@@ -206,7 +206,7 @@ const ScheduleCardItem = ({
                     backgroundColor: ' rgba(0, 0, 0, 0)'
                   }
                 }}
-                src={`/api/teams/${away.team.id}/logo`}
+                src={`/api/teams/${home.team.id}/logo`}
                 alt="Team"
                 onError={e => {
                   e.target.onerror = null;
@@ -217,10 +217,10 @@ const ScheduleCardItem = ({
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography style={{ textAlign: 'center' }} variant="subtitle1">
-              {`@${homeTeam}`}
+              {awayTeam}
             </Typography>
             <Typography style={{ textAlign: 'center' }} variant="subtitle1">
-              {awayTeam}
+              {`@${homeTeam}`}
             </Typography>
           </div>
           {determineLeagueScore()}

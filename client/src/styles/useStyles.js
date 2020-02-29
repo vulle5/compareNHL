@@ -171,7 +171,10 @@ export const useScheduleListStyles = makeStyles(theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     marginBottom: '32px',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    [theme.breakpoints.down('xs')]: {
+      justifyContent: 'center'
+    }
   },
   emptyGameWrapper: {
     display: 'flex',
@@ -210,7 +213,7 @@ export const useScheduleListItemStyles = makeStyles(theme => ({
     backgroundColor: 'red',
     position: 'absolute',
     top: 8,
-    right: 8
+    left: 8
   }
 }));
 
@@ -219,7 +222,6 @@ export const useScheduleCardItemStyles = makeStyles(theme => ({
     width: '350px',
     margin: '16px 16px 0px 0px',
     [theme.breakpoints.down('xs')]: {
-      width: '100%',
       margin: '16px 0px 0px 0px'
     }
   },
