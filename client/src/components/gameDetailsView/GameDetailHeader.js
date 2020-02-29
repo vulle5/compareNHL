@@ -138,11 +138,12 @@ const GameDetailHeader = ({
           >
             {determineScore()}
             <Typography
-              variant="h6"
+              variant="h5"
               style={{
                 margin: '0px 100%',
                 paddingTop: '8px',
                 textAlign: 'center',
+                fontWeight: 'bold',
                 whiteSpace:
                   status.detailedState === 'Scheduled' ||
                   status.detailedState === 'Game Over'
@@ -155,6 +156,14 @@ const GameDetailHeader = ({
             {(status.detailedState === 'In Progress' ||
               status.detailedState === 'In Progress - Critical') && (
               <Typography className={classes.liveBanner}>LIVE</Typography>
+            )}
+            {(status.detailedState === 'Final' ||
+              status.detailedState === 'Game Over') && (
+              <Typography variant="subtitle2">
+                {moment(gameDetail.gameData.datetime.dateTime).format(
+                  'MMM Do HH:mm'
+                )}
+              </Typography>
             )}
           </div>
         </div>
