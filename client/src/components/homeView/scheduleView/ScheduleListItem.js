@@ -10,8 +10,8 @@ import ScheduleListItemOverview from './ScheduleListItemOverview';
 const ScheduleListItem = ({
   gamePk,
   status,
-  home,
   away,
+  home,
   gameDate,
   linescore
 }) => {
@@ -104,20 +104,20 @@ const ScheduleListItem = ({
                   alt="Team logo"
                   height="20"
                   style={{ marginRight: '4px' }}
-                  src={`/api/teams/${home.team.id}/logo`}
+                  src={`/api/teams/${away.team.id}/logo`}
                 />
                 <Typography style={matches ? { width: '35%' } : null}>
-                  {home.team.name}
+                  {away.team.name}
                 </Typography>
                 <div className={classes.overViewWrapper}>
-                  {determineScore(home)}
+                  {determineScore(away)}
                   {matches && status.detailedState !== 'Scheduled' && (
                     <ScheduleListItemOverview
-                      first={get(linescore, 'periods[0].home', null)}
-                      second={get(linescore, 'periods[1].home', null)}
-                      third={get(linescore, 'periods[2].home', null)}
-                      overtime={get(linescore, 'periods[3].home', null)}
-                      shootout={get(linescore, 'shootoutInfo.home', null)}
+                      first={get(linescore, 'periods[0].away', null)}
+                      second={get(linescore, 'periods[1].away', null)}
+                      third={get(linescore, 'periods[2].away', null)}
+                      overtime={get(linescore, 'periods[3].away', null)}
+                      shootout={get(linescore, 'shootoutInfo.away', null)}
                     />
                   )}
                 </div>
@@ -133,20 +133,20 @@ const ScheduleListItem = ({
                   alt="Team logo"
                   height="20"
                   style={{ marginRight: '4px' }}
-                  src={`/api/teams/${away.team.id}/logo`}
+                  src={`/api/teams/${home.team.id}/logo`}
                 />
                 <Typography style={matches ? { width: '35%' } : null}>
-                  {away.team.name}
+                  {home.team.name}
                 </Typography>
                 <div className={classes.overViewWrapper}>
-                  {determineScore(away)}
+                  {determineScore(home)}
                   {matches && status.detailedState !== 'Scheduled' && (
                     <ScheduleListItemOverview
-                      first={get(linescore, 'periods[0].away', null)}
-                      second={get(linescore, 'periods[1].away', null)}
-                      third={get(linescore, 'periods[2].away', null)}
-                      overtime={get(linescore, 'periods[3].away', null)}
-                      shootout={get(linescore, 'shootoutInfo.away', null)}
+                      first={get(linescore, 'periods[0].home', null)}
+                      second={get(linescore, 'periods[1].home', null)}
+                      third={get(linescore, 'periods[2].home', null)}
+                      overtime={get(linescore, 'periods[3].home', null)}
+                      shootout={get(linescore, 'shootoutInfo.home', null)}
                     />
                   )}
                 </div>
