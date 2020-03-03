@@ -14,6 +14,7 @@ import { PlayCircleFilledOutlined } from '@material-ui/icons';
 import { toggleDialog } from '../../reducers/dialogReducer';
 import { get } from 'lodash';
 import { useGameOverviewPeriodItemStyles } from '../../styles/useStyles';
+import HoverPopper from './HoverPopper';
 
 const GameOverviewPeriodItem = ({
   about,
@@ -38,18 +39,8 @@ const GameOverviewPeriodItem = ({
         ? `(${result.strength.code})`
         : '';
     const emptyNet = get(result, 'emptyNet', '');
-    return (
-      <div>
-        <Link
-          to={`/player/${player.player.id}`}
-          className={classes.primaryText}
-        >
-          {`${get(player, 'player.fullName', 'No Name')}`}
-        </Link>
-        {` ${seasonTotal} ${strength}
-          ${emptyNet ? '(EN)' : ''}`}
-      </div>
-    );
+    const playerText = `${player?.player?.fullName ?? 'No name'} ${seasonTotal} ${strength} ${emptyNet ? '(EN)' : ''}`;
+    return <HoverPopper text={playerText} textClass={classes.primaryText} />
   }
 
   function determinePenaltyColor(result) {
@@ -84,7 +75,7 @@ const GameOverviewPeriodItem = ({
         </Typography>
       );
     }
-    if (player.length === 1) {
+    if (player.length) {
       return (
         <Typography
           component={'span'}
@@ -94,29 +85,18 @@ const GameOverviewPeriodItem = ({
           <Link to={`/player/${player[0].player.id}`}>
             {`${player[0].player.fullName}`}
           </Link>
-          {` (${player[0].seasonTotal})`}
+          {` (${player[0].seasonTotal})`}{' '}
+          {player[1] &&
+            <>
+              <Link to={`/player/${player[1].player.id}`}>
+              {player[1].player.fullName}
+              </Link>{' '}
+              {` (${player[1].seasonTotal})`}
+            </>
+          }
         </Typography>
       );
     }
-    if (player.length === 2) {
-      return (
-        <Typography
-          component={'span'}
-          variant="body2"
-          className={classes.secondaryText}
-        >
-          <Link to={`/player/${player[0].player.id}`}>
-            {player[0].player.fullName}
-          </Link>
-          {` (${player[0].seasonTotal}), `}{' '}
-          <Link to={`/player/${player[1].player.id}`}>
-            {player[1].player.fullName}
-          </Link>{' '}
-          {` (${player[1].seasonTotal})`}
-        </Typography>
-      );
-    }
-    return '';
   }
 
   return (
