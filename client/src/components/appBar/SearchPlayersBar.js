@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useDebounce } from 'use-debounce';
-import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Typography, ButtonGroup, Button } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -69,6 +69,10 @@ const SearchPlayersBar = props => {
           >
             CompareNHL
           </Typography>
+          <ButtonGroup style={{ margin: '0px 32px' }}>
+            <Button onClick={() => history.replace('/')}>Schedule</Button>
+            <Button onClick={() => history.replace('/standings')}>Standings</Button>
+          </ButtonGroup>
           <div className={classes.grow} />
           <SearchPlayersInput
             setListStatus={setListStatus}

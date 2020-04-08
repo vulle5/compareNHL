@@ -12,6 +12,7 @@ import SideDrawer from './SideDrawer';
 import history from '../history';
 import ErrorMessage from './ErrorMessage';
 import { useMediaQuery } from '@material-ui/core';
+import Standings from './standingsView/Standings';
 
 const Home = lazy(() => import('./homeView/Home'));
 const PlayerInfo = lazy(() => import('./playerView/PlayerInfo'));
@@ -44,6 +45,7 @@ const App = ({ setTheme, theme }) => {
             <Route path="/player/:playerId" component={PlayerInfo} />
             <Route path="/compare/:playerId" component={Compare} />
             <Route path="/game/:gamePk" component={GameDetails} />
+            <Route path="/standings" component={Standings} />
             <Route component={ErrorMessage} />
           </Switch>
         </Suspense>

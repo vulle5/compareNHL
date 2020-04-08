@@ -5,12 +5,8 @@ import qs from 'qs';
 import moment from 'moment';
 import 'moment-timezone';
 
-import { ReactComponent as CardLogo } from '../../../assets/cardViewButton.svg';
-import { ReactComponent as ListLogo } from '../../../assets/listViewButton.svg';
 import ScheduleList from './ScheduleList';
-import { useScheduleViewStyles } from '../../../styles/useStyles';
-import { Tooltip, Typography } from '@material-ui/core';
-import { useTheme } from '@material-ui/styles';
+import ToolBar from '../Toolbar';
 import useEventSource from '../../../functions/useEventSource';
 import { updateSchedule } from '../../../reducers/scheduleReducer';
 import { toggleProgress } from '../../../reducers/globalProgressReducer';
@@ -18,8 +14,6 @@ import { toggleProgress } from '../../../reducers/globalProgressReducer';
 const ScheduleView = ({ schedule, updateSchedule, toggleProgress }) => {
   const [datePicker, setDatePicker] = useState(moment());
   const [viewStyle, setViewStyle] = useState('card');
-  const { viewLogo, ...classes } = useScheduleViewStyles();
-  const theme = useTheme();
   const location = useLocation();
   const history = useHistory();
   const {
@@ -65,20 +59,6 @@ const ScheduleView = ({ schedule, updateSchedule, toggleProgress }) => {
     }
   };
 
-  function handleViewStyleCard() {
-    if (viewStyle !== 'list') {
-      return theme.palette.type === 'light' ? 'black' : 'white';
-    }
-    return 'rgb(142,142,142)';
-  }
-
-  function handleViewStyleList() {
-    if (viewStyle !== 'card') {
-      return theme.palette.type === 'light' ? 'black' : 'white';
-    }
-    return 'rgb(142,142,142)';
-  }
-
   function getTitle(date) {
     const calendarDate = moment(date, 'YYYY-MM-DD').calendar(null, {
       sameDay: '[Today]',
@@ -97,35 +77,7 @@ const ScheduleView = ({ schedule, updateSchedule, toggleProgress }) => {
 
   return (
     <div style={{ marginTop: '24px' }}>
-      <div
-        style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}
-      >
-        <Typography style={{ marginRight: '16px' }}>View</Typography>
-        <Tooltip title="Card" placement="top" classes={classes}>
-          <CardLogo
-            height="35"
-            width="35"
-            fill={handleViewStyleCard()}
-            className={viewLogo}
-            onClick={() => {
-              setViewStyle('card');
-              localStorage.setItem('scheduleViewStyle', 'card');
-            }}
-          />
-        </Tooltip>
-        <Tooltip title="List" placement="top" classes={classes}>
-          <ListLogo
-            height="35"
-            width="35"
-            className={viewLogo}
-            fill={handleViewStyleList()}
-            onClick={() => {
-              setViewStyle('list');
-              localStorage.setItem('scheduleViewStyle', 'list');
-            }}
-          />
-        </Tooltip>
-      </div>
+      <ToolBar viewStyle={viewStyle} setViewStyle={setViewStyle} />
       {schedule.map(({ date, games }, index) => (
         <ScheduleList
           key={date}

@@ -1,5 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles';
 
+export const useContainerStyles = makeStyles(theme => ({
+  root: {
+    margin: '16px',
+    paddingTop: '64px',
+    [theme.breakpoints.down('xs')]: {
+      paddingTop: '56px'
+    }
+  }
+}));
+
 export const useCompareStyles = makeStyles(theme => ({
   divRoot: {
     padding: '64px 16px 16px 16px',
@@ -148,7 +158,7 @@ export const useTeamStyles = makeStyles(theme => ({
   }
 }));
 
-export const useScheduleViewStyles = makeStyles(theme => ({
+export const useToolbarStyles = makeStyles(theme => ({
   viewLogo: {
     marginRight: '8px',
     cursor: 'pointer'
