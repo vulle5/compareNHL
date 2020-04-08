@@ -8,11 +8,14 @@ const cors = require('cors');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const morgan = require('morgan');
 const errorHandler = require('./middleware/errorHandler');
+
+// Controllers
 const playerRoutes = require('./controllers/playerController');
 const teamRoutes = require('./controllers/teamController');
 const scheduleRoutes = require('./controllers/scheduleController');
 const liveGameRoutes = require('./controllers/liveGameController');
 const gameRoutes = require('./controllers/gameController');
+const standingRoutes = require('./controllers/standingsController');
 
 app.use(helmet());
 app.use(compression());
@@ -24,6 +27,7 @@ app.use('/api/teams', teamRoutes);
 app.use('/api/schedule', scheduleRoutes);
 app.use('/api/live', liveGameRoutes);
 app.use('/api/game', gameRoutes);
+app.use('/api/standings', standingRoutes);
 
 app.use(errorHandler);
 
