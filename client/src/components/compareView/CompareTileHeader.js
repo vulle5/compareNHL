@@ -1,8 +1,9 @@
 import React from 'react';
-import { Typography, Avatar } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 import { useCompareStyles } from '../../styles/useStyles';
+import PlayerAvatar from '../PlayerAvatar';
 
 const CompareTileHeader = ({ player }) => {
   const classes = useCompareStyles();
@@ -10,9 +11,8 @@ const CompareTileHeader = ({ player }) => {
   return (
     <div>
       <Link to={`/player/${player.id}`}>
-        <Avatar
-          alt="Player"
-          src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${player.id}.jpg`}
+        <PlayerAvatar
+          playerId={player.id}
           className={classes.tileAvatar}
         />
       </Link>

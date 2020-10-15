@@ -1,6 +1,6 @@
 {
   "name": "react_nhl",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
@@ -10,7 +10,7 @@
     "@material-ui/pickers": "^3.2.6",
     "axios": "^0.19.0",
     "country-iso-3-to-2": "^1.0.1",
-    "http-proxy-middleware": "^0.19.1",
+    "http-proxy-middleware": "^0.21.0",
     "husky": "^3.0.7",
     "json2mq": "^0.2.0",
     "lodash": "^4.17.19",

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
-  Avatar,
   ListItem,
   ListItemAvatar,
   ListItemText,
@@ -14,6 +13,7 @@ import { PlayCircleFilledOutlined } from '@material-ui/icons';
 import { toggleDialog } from '../../reducers/dialogReducer';
 import { get } from 'lodash';
 import { useGameOverviewPeriodItemStyles } from '../../styles/useStyles';
+import PlayerAvatar from '../PlayerAvatar';
 
 const GameOverviewPeriodItem = ({
   about,
@@ -153,15 +153,9 @@ const GameOverviewPeriodItem = ({
           }}
         >
           <Link to={`/player/${players[0].player.id}`}>
-            <Avatar
-              alt="Player logo"
-              style={{ height: '45px', width: '45px' }}
-              src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${players[0].player.id}.jpg`}
-              onError={e => {
-                e.target.onerror = null;
-                e.target.src =
-                  'https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg';
-              }}
+            <PlayerAvatar
+              styles={{ height: '45px', width: '45px' }}
+              playerId={players[0].player.id}
             />
           </Link>
         </ListItemAvatar>

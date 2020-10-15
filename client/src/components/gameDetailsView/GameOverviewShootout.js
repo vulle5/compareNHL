@@ -5,12 +5,12 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  Avatar,
   ListItemText,
   Typography
 } from '@material-ui/core';
 
 import { useGameOverviewShootoutStyles } from '../../styles/useStyles';
+import PlayerAvatar from '../PlayerAvatar';
 
 const GameOverviewShootout = ({ plays, awayTeam }) => {
   const classes = useGameOverviewShootoutStyles();
@@ -51,15 +51,9 @@ const GameOverviewShootout = ({ plays, awayTeam }) => {
                 }}
               >
                 <Link to={`/player/${play.players[0].player.id}`}>
-                  <Avatar
-                    alt="Player logo"
-                    style={{ height: '45px', width: '45px' }}
-                    src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${play.players[0].player.id}.jpg`}
-                    onError={e => {
-                      e.target.onerror = null;
-                      e.target.src =
-                        'https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg';
-                    }}
+                  <PlayerAvatar
+                    styles={{ height: '45px', width: '45px' }}
+                    playerId={play.players[0].player.id}
                   />
                 </Link>
               </ListItemAvatar>

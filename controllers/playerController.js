@@ -71,7 +71,7 @@ playerRoutes.get('/search/:term', async (req, res) => {
 playerRoutes.get('/image/:id', async (req, res) => {
   try {
     const { data } = await axios.get(
-      `https://nhl.bamcontent.com/images/actionshots/${req.params.id}.jpg`,
+      `https://cms.nhl.bamgrid.com/images/actionshots/${req.params.id}.jpg`,
       {
         responseType: 'arraybuffer'
       },

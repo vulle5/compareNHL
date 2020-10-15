@@ -18,6 +18,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { useTeamStyles } from '../../styles/useStyles';
 import history from '../../history';
+import PlayerAvatar from '../PlayerAvatar';
 
 const TeamRosterPosList = ({ players, title }) => {
   const classes = useTeamStyles();
@@ -67,15 +68,7 @@ const TeamRosterPosList = ({ players, title }) => {
               <ListItemLink to={`/player/${player.person.id}`}>
                 <ListItemAvatar>
                   <Avatar>
-                    <Avatar
-                      alt="Player logo"
-                      src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${player.person.id}.jpg`}
-                      onError={e => {
-                        e.target.onerror = null;
-                        e.target.src =
-                          'https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg';
-                      }}
-                    />
+                    <PlayerAvatar playerId={player.person.id} />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText>{`${

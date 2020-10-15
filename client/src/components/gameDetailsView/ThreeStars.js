@@ -7,7 +7,6 @@ import {
   ListItem,
   ListItemText,
   ListItemAvatar,
-  Avatar,
   Table,
   TableHead,
   TableBody,
@@ -15,6 +14,7 @@ import {
   TableRow
 } from '@material-ui/core';
 import { useThreeStarsStyles } from '../../styles/useStyles';
+import PlayerAvatar from '../PlayerAvatar';
 
 const ThreeStars = ({
   stars: { firstStar, secondStar, thirdStar },
@@ -102,15 +102,9 @@ const ThreeStars = ({
           <ListItem key={player.id}>
             <ListItemAvatar>
               <Link to={`/player/${player.id}`}>
-                <Avatar
-                  alt="Player logo"
-                  style={{ height: '45px', width: '45px' }}
-                  src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${player.id}.jpg`}
-                  onError={e => {
-                    e.target.onerror = null;
-                    e.target.src =
-                      'https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg';
-                  }}
+                <PlayerAvatar
+                  styles={{ height: '45px', width: '45px' }}
+                  playerId={player.id}
                 />
               </Link>
             </ListItemAvatar>

@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {
   Typography,
-  Avatar,
   Table,
   TableHead,
   TableBody,
@@ -11,6 +10,7 @@ import {
   useMediaQuery
 } from '@material-ui/core';
 import { useRosterTableStyles } from '../../styles/useStyles';
+import PlayerAvatar from '../PlayerAvatar';
 
 const RosterTable = ({ players, tableTitle, isGoalie }) => {
   const matches = useMediaQuery(theme => theme.breakpoints.up('sm'));
@@ -50,15 +50,9 @@ const RosterTable = ({ players, tableTitle, isGoalie }) => {
   function generateTableBody(playerId, isGoalie) {
     const player = players.find(player => player.person.id === playerId);
     const getAvatar = () => (
-      <Avatar
-        alt="Player logo"
-        style={{ height: '45px', width: '45px' }}
-        src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${player.person.id}.jpg`}
-        onError={e => {
-          e.target.onerror = null;
-          e.target.src =
-            'https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg';
-        }}
+      <PlayerAvatar
+        styles={{ height: '45px', width: '45px' }}
+        playerId={player.person.id}
       />
     );
 

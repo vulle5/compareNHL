@@ -4,12 +4,12 @@ import {
   ListItem,
   ListItemText,
   ListItemAvatar,
-  Avatar,
   Divider,
   ListItemSecondaryAction,
   Button
 } from '@material-ui/core';
 import history from '../../history';
+import PlayerAvatar from '../PlayerAvatar';
 
 const SearchResultListItem = ({ player, handleListStatus, noDivider }) => {
   const onCompareClick = (event, id) => {
@@ -33,15 +33,7 @@ const SearchResultListItem = ({ player, handleListStatus, noDivider }) => {
     >
       <ListItem button alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar
-            alt="Player logo"
-            src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${player[0]}.jpg`}
-            onError={e => {
-              e.target.onerror = null;
-              e.target.src =
-                'https://nhl.bamcontent.com/images/headshots/current/168x168/skater.jpg';
-            }}
-          />
+          <PlayerAvatar playerId={player[0]}/>
         </ListItemAvatar>
         <ListItemText
           primary={`${player[2]} ${player[1]}`}
