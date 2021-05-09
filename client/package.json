@@ -13,7 +13,7 @@
     "http-proxy-middleware": "^0.21.0",
     "husky": "^3.0.7",
     "json2mq": "^0.2.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",
     "moment-timezone": "^0.5.26",
